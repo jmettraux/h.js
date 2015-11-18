@@ -26,41 +26,34 @@ var H = (function() {
 
   this.VERSION = '1.0.0';
 
-  var toEltRefine = function(start, elt_or_sel) {
+  var toEltRefine = function(start, sel) {
 
-    if ( ! elt_or_sel) { elt_or_sel = start; start = document; }
+    if ( ! sel) { sel = start; start = document; }
 
     if ( ! start) { start = document; }
     if ((typeof start) === 'string') start = document.querySelector(start);
 
-    return [ start, elt_or_sel ];
+    return [ start, sel ];
   };
 
-  var toElt = function(start, elt_or_sel) {
+  var toElt = function(start, sel) {
 
-    var se = toEltRefine(start, elt_or_sel); var sta = se[0], sel = se[1];
+    var se = toEltRefine(start, sel); var sta = se[0], sel = se[1];
 
     return ((typeof sel) === 'string') ?  sta.querySelector(sel) : sel;
   };
 
-  var toElts = function(start, elt_or_sel) {
+  var toElts = function(start, sel) {
 
-    var se = toEltRefine(start, elt_or_sel); var sta = se[0], sel = se[1];
+    var se = toEltRefine(start, sel); var sta = se[0], sel = se[1];
     var es = (typeof sel) === 'string' ?  sta.querySelectorAll(sel) : [ sel ];
     var r = []; for (var i = 0, l = es.length; i < l; i++) { r.push(es[i]); };
 
     return r;
   };
 
-  this.elt = function(start, elt_or_selector) {
-
-    return toElt(start, elt_or_selector);
-  };
-
-  this.elts = function(start, selector) {
-
-    return toElts(start, selector);
-  }
+  this.elt = function(start, selector) { return toElt(start, selector); };
+  this.elts = function(start, selector) { return toElts(start, selector); };
 
   this.forEach = function(start, selector, func) {
 
@@ -72,9 +65,9 @@ var H = (function() {
     return r;
   };
 
-  this.dim = function(start, elt_or_selector) {
+  this.dim = function(start, selector) {
 
-    var e = toElt(start, elt_or_selector);
+    var e = toElt(start, selector);
 
     if ( ! e) return null;
 

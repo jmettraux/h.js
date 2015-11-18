@@ -42,14 +42,12 @@ var H = (function() {
     if ( ! elt_or_selector) { elt_or_selector = start; start = document; }
     if ( ! start) { start = document; }
 
-    var r =
+    var es =
       (typeof elt_or_selector) === 'string' ?
       start.querySelectorAll(elt_or_selector) :
       [ elt_or_selector ];
 
-    if ( ! r.forEach) {
-      r.forEach = function(func) { [].forEach.call(this, func); };
-    }
+    var r = []; for (var i = 0, l = es.length; i < l; i++) { r.push(es[i]); };
 
     return r;
   };

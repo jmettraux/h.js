@@ -12,7 +12,7 @@ describe 'h.js / H' do
 
   describe '.elt' do
 
-    it 'works .elt(selector)' do
+    it 'works  .elt(selector)' do
 
       expect(run(%{
         return H.elt('.car.bentley .blue').textContent;
@@ -20,6 +20,8 @@ describe 'h.js / H' do
         'blue bentley'
       )
     end
+
+    it 'works  .elt(start, selector)'
   end
 
   describe '.elts' do
@@ -27,13 +29,14 @@ describe 'h.js / H' do
     it 'works  .elts(selector)' do
 
       expect(run(%{
-        return (typeof H.elt('.car .blue'));
-        return (typeof H.elts('.car .blue'));
-        return H.elts('.car .blue').map(function(e) { e.textContent.trim(); });
+        return H.elts('.car .blue')
+          .map(function(e) { return e.textContent.trim(); });
       })).to eq([
-        'blue bentley'
+        'blue bentley', 'blue volkswagen'
       ])
     end
+
+    it 'works  .elts(start, selector)'
   end
 end
 

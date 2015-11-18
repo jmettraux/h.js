@@ -21,7 +21,15 @@ describe 'h.js / H' do
       )
     end
 
-    it 'works  .elt(start, selector)'
+    it 'works  .elt(start, selector)' do
+
+      expect(run(%{
+        var t = H.elt('.train');
+        return H.elt(t, '.japan').textContent;
+      })).to eq(
+        'shinkansen'
+      )
+    end
   end
 
   describe '.elts' do
@@ -36,7 +44,16 @@ describe 'h.js / H' do
       ])
     end
 
-    it 'works  .elts(start, selector)'
+    it 'works  .elts(start, selector)' do
+
+      expect(run(%{
+        var t = H.elt('.train');
+        return H.elts(t, '.europe > div')
+          .map(function(e) { return e.textContent.trim(); });
+      })).to eq([
+        'ice', 'tgv', 'pendolino'
+      ])
+    end
   end
 end
 

@@ -318,8 +318,61 @@ describe 'h.js / H' do
   describe '.prepend' do
     it 'works'
   end
+
   describe '.clean' do
-    it 'works'
+
+    before :each do
+
+      reset
+    end
+
+    it 'works  .clean(sel)' do
+
+      expect(run(%{
+        H.clean('#cars .europe');
+        return H.elt('#cars').innerHTML;
+      })).to eq(%{
+<div class="asia">
+<div class="car japan mazda">
+<div class="red">
+red mazda
+</div>
+</div>
+</div>
+<div class="europe"></div>
+      }.strip)
+    end
+
+    it 'works  .clean(start, sel)' do
+
+      expect(run(%{
+        var e = H.elt('#cars');
+        H.clean(e, '.europe');
+        return H.elt('#cars').innerHTML;
+      })).to eq(%{
+<div class="asia">
+<div class="car japan mazda">
+<div class="red">
+red mazda
+</div>
+</div>
+</div>
+<div class="europe"></div>
+      }.strip)
+    end
+
+    it 'works  .clean(start, sel, "cla")' #do
+#
+#      expect(run(%{
+#        H.clean(null, '#cars .europe', 'car');
+#        return H.elt('#cars').innerHTML;
+#      })).to eq(%{
+#<div class="asia"></div>
+#<div class="europe"></div>
+#      }.strip)
+#    end
+
+    it 'works  .clean(start, sel, ".cla")'
   end
 
   describe '.trigger' do

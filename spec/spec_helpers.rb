@@ -14,13 +14,20 @@ def run(s)
     begin
       d = Selenium::WebDriver.for :phantomjs
       d.navigate.to('file://' + File.absolute_path('spec/test.html'))
+      d.execute_script('window._src = document.body.innerHTML;');
       d
     end
 
   r = $driver.execute_script(s)
 
   r = r.strip if r.is_a?(String)
+  r = r.gsub(/\n( *)/, "\n") if r.is_a?(String)
 
   r
+end
+
+def reset
+
+  $driver.execute_script('document.body.innerHTML = window._src;');
 end
 

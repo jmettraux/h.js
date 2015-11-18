@@ -393,11 +393,10 @@ red mazda
 
   describe '.dim' do
 
-    it 'returns the dimension of the target elt' do
+    it 'returns the dimensions of the target elt' do
 
       expect(run(%{
-        var d = H.dim('#cars');
-        return d;
+        return H.dim('#cars');
       })).to eq({
         'top' => 8, 'height' => 18, 'bottom' => 26,
         'left' => 8, 'width' => 384, 'right' => 392
@@ -406,7 +405,16 @@ red mazda
   end
 
   describe '.style' do
-    it 'works'
+
+    it 'returns the style of the target elt' do
+
+      expect(run(%{
+        var s = H.style('#list-of-trains');
+        return [ s.fontSize, s.marginLeft ];
+      })).to eq([
+        '16px', '45px'
+      ])
+    end
   end
 
   describe '.toCamelCase' do

@@ -454,6 +454,12 @@ var H = (function() {
     return elt;
   };
 
+  this.onDocumentReady = function(f) {
+
+    if (document.readyState != 'loading') f();
+    else document.addEventListener('DOMContentLoaded', f);
+  };
+
   //
   // over.
 

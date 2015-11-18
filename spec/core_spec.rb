@@ -85,9 +85,9 @@ describe 'h.js / H' do
 
       expect(run(%{
         var t = H.elt('.japan');
-        return H.closest(t, '.train').id;
+        return H.closest(t, '#cars').id;
       })).to eq(
-        'list-of-trains'
+        'cars'
       )
     end
 
@@ -108,7 +108,7 @@ describe 'h.js / H' do
 
       expect(run(%{
         var r = [];
-        H.forEach('.europe > div', function(e) {
+        H.forEach('.train .europe > div', function(e) {
           r.push(e.textContent.trim());
         });
         return r;
@@ -132,6 +132,69 @@ describe 'h.js / H' do
     end
   end
 
+  describe '.hasClass' do
+
+    it 'works  .hasClass(sel, "clas")' do
+
+      expect(run(%{
+        return [
+          H.hasClass('.bentley', 'train'),
+          H.hasClass('.bentley', 'car')
+        ];
+      })).to eq([
+        false, true
+      ])
+    end
+
+    it 'works  .hasClass(sel, ".clas")' do
+
+      expect(run(%{
+        return [
+          H.hasClass('.bentley', '.train'),
+          H.hasClass('.bentley', '.car')
+        ];
+      })).to eq([
+        false, true
+      ])
+    end
+
+    it 'works  .hasClass(start, sel, "clas")' do
+
+      expect(run(%{
+        var s = H.elt('#cars');
+        return [
+          H.hasClass(s, '.bentley', 'train'),
+          H.hasClass(s, '.bentley', 'car')
+        ];
+      })).to eq([
+        false, true
+      ])
+    end
+
+    it 'works  .hasClass(start, sel, ".clas")' do
+
+      expect(run(%{
+        var s = H.elt('#cars');
+        return [
+          H.hasClass(s, '.bentley', '.train'),
+          H.hasClass(s, '.bentley', '.car')
+        ];
+      })).to eq([
+        false, true
+      ])
+    end
+  end
+
+  describe '.addClass' do
+    it 'works'
+  end
+  describe '.removeClass' do
+    it 'works'
+  end
+  describe '.toggleClass' do
+    it 'works'
+  end
+
   describe '.dim' do
     it 'works'
   end
@@ -151,19 +214,6 @@ describe 'h.js / H' do
     it 'works'
   end
   describe '.style' do
-    it 'works'
-  end
-
-  describe '.hasClass' do
-    it 'works'
-  end
-  describe '.addClass' do
-    it 'works'
-  end
-  describe '.removeClass' do
-    it 'works'
-  end
-  describe '.toggleClass' do
     it 'works'
   end
 

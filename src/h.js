@@ -243,8 +243,11 @@ var H = (function() {
 
   this.matches = function(elt, sel) {
 
-    return elt.msMatchesSelector ?
-      elt.msMatchesSelector(sel) : elt.matches(sel);
+    if (elt.matches) return elt.matches(sel);
+    if (elt.matchesSelector) return elt.matchesSelector(sel);
+    if (elt.msMatchesSelector) return elt.msMatchesSelector(sel);
+
+    throw "browser doesn't support elt.matches() or elt.matchesSelector()";
   };
 
   this.closest = function(start, elt_or_selector, sel) {

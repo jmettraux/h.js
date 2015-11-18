@@ -57,7 +57,26 @@ describe 'h.js / H' do
   end
 
   describe '.closest' do
-    it 'works'
+
+    it 'works  .closest(start, selector)' do
+
+      expect(run(%{
+        var t = H.elt('.japan');
+        return H.closest(t, '.train').id;
+      })).to eq(
+        'list-of-trains'
+      )
+    end
+
+    it 'works  .closest(start, selector, selector)' do
+
+      expect(run(%{
+        var t = H.elt('#list-of-trains');
+        return H.closest(t, '.asia', '.train').id;
+      })).to eq(
+        'list-of-trains'
+      )
+    end
   end
 
   describe '.forEach' do

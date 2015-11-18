@@ -41,7 +41,9 @@ var H = (function() {
   var toElements = function(start, elt_or_selector) {
 
     if ( ! elt_or_selector) { elt_or_selector = start; start = document; }
+
     if ( ! start) { start = document; }
+    if ((typeof start) === 'string') start = document.querySelector(start);
 
     var es =
       (typeof elt_or_selector) === 'string' ?

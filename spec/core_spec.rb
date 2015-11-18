@@ -63,6 +63,16 @@ describe 'h.js / H' do
         'ice', 'tgv', 'pendolino'
       ])
     end
+
+    it 'works  .elts(sel, sel)' do
+
+      expect(run(%{
+        return H.elts('.train', '.europe > div')
+          .map(function(e) { return e.textContent.trim(); });
+      })).to eq([
+        'ice', 'tgv', 'pendolino'
+      ])
+    end
   end
 
   describe '.matches' do

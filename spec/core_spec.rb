@@ -80,8 +80,35 @@ describe 'h.js / H' do
   end
 
   describe '.forEach' do
-    it 'works'
+
+    it 'works  .forEach(sel, fun)' do
+
+      expect(run(%{
+        var r = [];
+        H.forEach('.europe > div', function(e) {
+          r.push(e.textContent.trim());
+        });
+        return r;
+      })).to eq([
+        'ice', 'tgv', 'pendolino'
+      ])
+    end
+
+    it 'works  .forEach(start, sel, fun)' do
+
+      expect(run(%{
+        var s = H.elt('#list-of-trains');
+        var r = [];
+        H.forEach(s, '.europe > div', function(e) {
+          r.push(e.textContent.trim());
+        });
+        return r;
+      })).to eq([
+        'ice', 'tgv', 'pendolino'
+      ])
+    end
   end
+
   describe '.dim' do
     it 'works'
   end

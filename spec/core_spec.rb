@@ -138,7 +138,17 @@ describe 'h.js / H' do
   end
 
   describe '.onDocumentReady' do
-    it 'works'
+
+    it 'works (well...)' do
+
+      expect(run(%{
+        var s = 'not ready';
+        H.onDocumentReady(function() { s = document.readyState; });
+        return s;
+      })).to eq(
+        'complete'
+      )
+    end
   end
 end
 

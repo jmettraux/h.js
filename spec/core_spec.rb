@@ -268,25 +268,29 @@ describe 'h.js / H' do
     it 'works'
   end
 
-  describe '.dim' do
-    it 'works'
-  end
-  describe '.on' do
-    it 'works'
-  end
   describe '.create' do
     it 'works'
   end
+
   describe '.toNode' do
     it 'works'
   end
+
+  describe '.dim' do
+    it 'works'
+  end
+  describe '.style' do
+    it 'works'
+  end
+
+  describe '.on' do
+    it 'works'
+  end
+
   describe '.request' do
     it 'works'
   end
   describe '.upload' do
-    it 'works'
-  end
-  describe '.style' do
     it 'works'
   end
 
@@ -311,10 +315,6 @@ describe 'h.js / H' do
     it 'works'
   end
 
-  describe '.toCamelCase' do
-    it 'works'
-  end
-
   describe '.prepend' do
     it 'works'
   end
@@ -324,6 +324,20 @@ describe 'h.js / H' do
 
   describe '.trigger' do
     it 'works'
+  end
+
+  describe '.toCamelCase' do
+
+    it 'works' do
+
+      expect(run(%{
+        return [
+          H.toCamelCase('ab-cd-ef'), H.toCamelCase('gh_ij-kl')
+        ];
+      })).to eq(%w[
+        abCdEf ghIjKl
+      ])
+    end
   end
 
   describe '.onDocumentReady' do

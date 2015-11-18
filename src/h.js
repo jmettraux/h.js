@@ -417,7 +417,7 @@ var H = (function() {
   this.toCamelCase = function(s) {
 
     return s.replace(
-      /(-[a-z])/g, function(x) { return x.substring(1).toUpperCase(); });
+      /([_-][a-z])/g, function(x) { return x.substring(1).toUpperCase(); });
   };
 
   this.prepend = function(start, elt_or_selector, child) {

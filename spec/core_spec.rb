@@ -30,6 +30,15 @@ describe 'h.js / H' do
         'shinkansen'
       )
     end
+
+    it 'works  .elt(sel, sel)' do
+
+      expect(run(%{
+        return H.elt('.train', '.japan').textContent;
+      })).to eq(
+        'shinkansen'
+      )
+    end
   end
 
   describe '.elts' do

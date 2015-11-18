@@ -3,6 +3,8 @@
 
 my Javascript foolbox.
 
+Owes a great deal to http://youmightnotneedjquery.com/
+
 
 ## LICENSE
 

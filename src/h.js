@@ -1,4 +1,3 @@
-
 //
 // Copyright (c) 2015-2015, John Mettraux, jmettraux@gmail.com
 //

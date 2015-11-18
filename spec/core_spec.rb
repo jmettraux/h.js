@@ -56,6 +56,29 @@ describe 'h.js / H' do
     end
   end
 
+  describe '.matches' do
+
+    it 'returns true when it matches' do
+
+      expect(run(%{
+        var e = H.elt('#list-of-trains');
+        return H.matches(e, '.train');
+      })).to eq(
+        true
+      )
+    end
+
+    it 'returns false else' do
+
+      expect(run(%{
+        var e = H.elt('#list-of-trains');
+        return H.matches(e, '.car');
+      })).to eq(
+        false
+      )
+    end
+  end
+
   describe '.closest' do
 
     it 'works  .closest(start, selector)' do
@@ -125,9 +148,6 @@ describe 'h.js / H' do
     it 'works'
   end
   describe '.upload' do
-    it 'works'
-  end
-  describe '.matches' do
     it 'works'
   end
   describe '.style' do

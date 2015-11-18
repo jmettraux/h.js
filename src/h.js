@@ -36,14 +36,14 @@ var H = (function() {
     return [ start, elt_or_sel ];
   };
 
-  var toElement = function(start, elt_or_sel) {
+  var toElt = function(start, elt_or_sel) {
 
     var se = toEltRefine(start, elt_or_sel); var sta = se[0], sel = se[1];
 
     return ((typeof sel) === 'string') ?  sta.querySelector(sel) : sel;
   };
 
-  var toElements = function(start, elt_or_sel) {
+  var toElts = function(start, elt_or_sel) {
 
     var se = toEltRefine(start, elt_or_sel); var sta = se[0], sel = se[1];
     var es = (typeof sel) === 'string' ?  sta.querySelectorAll(sel) : [ sel ];
@@ -54,19 +54,19 @@ var H = (function() {
 
   this.elt = function(start, elt_or_selector) {
 
-    return toElement(start, elt_or_selector);
+    return toElt(start, elt_or_selector);
   };
 
   this.elts = function(start, selector) {
 
-    return toElements(start, selector);
+    return toElts(start, selector);
   }
 
   this.forEach = function(start, selector, func) {
 
     if ((typeof selector) === 'function') { func = selector; selector = null; }
 
-    var r = toElements(start, selector);
+    var r = toElts(start, selector);
     r.forEach(func);
 
     return r;
@@ -74,7 +74,7 @@ var H = (function() {
 
   this.dim = function(start, elt_or_selector) {
 
-    var e = toElement(start, elt_or_selector);
+    var e = toElt(start, elt_or_selector);
 
     if ( ! e) return null;
 
@@ -97,7 +97,7 @@ var H = (function() {
       start = document;
     }
 
-    var es = toElements(start, elt_or_selector);
+    var es = toElts(start, elt_or_selector);
     for (var i = 0; ; i++) {
       var e = es[i]; if ( ! e) break;
       if (dir === 'on') e.addEventListener(eventName, eventHandler);
@@ -255,7 +255,7 @@ var H = (function() {
     if ( ! sel) {
       sel = elt_or_selector; elt_or_selector = start; start = null;
     }
-    var elt = toElement(start, elt_or_selector);
+    var elt = toElt(start, elt_or_selector);
 
     if (H.matches(elt, sel)) return elt;
 
@@ -266,7 +266,7 @@ var H = (function() {
   //
   this.style = function(start, elt_or_selector) {
 
-    var elt = toElement(start, elt_or_selector);
+    var elt = toElt(start, elt_or_selector);
 
     var r = {};
     var style = null;
@@ -310,7 +310,7 @@ var H = (function() {
       className = elt_or_selector; elt_or_selector = start; start = null;
     }
 
-    var elt = toElement(start, elt_or_selector);
+    var elt = toElt(start, elt_or_selector);
     if (className[0] === '.') className = className.substring(1);
 
     try {
@@ -330,7 +330,7 @@ var H = (function() {
 
     if (className[0] === '.') className = className.substring(1);
 
-    toElements(start, elt_or_selector).forEach(function(e) {
+    toElts(start, elt_or_selector).forEach(function(e) {
       e.classList.remove(className);
     });
   }
@@ -343,7 +343,7 @@ var H = (function() {
 
     if (className[0] === '.') className = className.substring(1);
 
-    toElements(start, elt_or_selector).forEach(function(e) {
+    toElts(start, elt_or_selector).forEach(function(e) {
       e.classList.add(className);
     });
   }
@@ -360,7 +360,7 @@ var H = (function() {
       bool = ! self.hasClass(start, elt_or_selector, klass);
     }
 
-    toElements(start, elt_or_selector).forEach(function(e) {
+    toElts(start, elt_or_selector).forEach(function(e) {
       self[bool ? 'addClass' : 'removeClass'](e, klass);
       return bool;
     });
@@ -392,7 +392,7 @@ var H = (function() {
       bool = elt_or_selector; elt_or_selector = start; start = null;
     }
 
-    toElements(start, elt_or_selector).forEach(function(e) {
+    toElts(start, elt_or_selector).forEach(function(e) {
       if (bool === false || bool === null)
         e.setAttribute('disabled', 'disabled');
       else
@@ -427,7 +427,7 @@ var H = (function() {
       child = elt_or_selector; elt_or_selector = start; start = null;
     }
 
-    var elt = toElement(start, elt_or_selector);
+    var elt = toElt(start, elt_or_selector);
 
     elt.parentNode.insertBefore(child, elt);
   };
@@ -438,7 +438,7 @@ var H = (function() {
       eventName = elt_or_selector; elt_or_selector = start; start = null;
     }
 
-    var elt = toElement(start, elt_or_selector);
+    var elt = toElt(start, elt_or_selector);
 
     var ev = document.createEvent('HTMLEvents');
     ev.initEvent(eventName, true, false);
@@ -448,7 +448,7 @@ var H = (function() {
 
   this.clean = function(start, elt_or_selector, className) {
 
-    var elt = toElement(start, elt_or_selector);
+    var elt = toElt(start, elt_or_selector);
     if (className) H.forEach(elt, className, function(e) { e.remove(); });
     else while (elt.firstChild) elt.removeChild(elt.firstChild);
 

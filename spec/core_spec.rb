@@ -295,13 +295,6 @@ describe 'h.js / H' do
     it 'works'
   end
 
-  describe '.dim' do
-    it 'works'
-  end
-  describe '.style' do
-    it 'works'
-  end
-
   describe '.on' do
     it 'works'
   end
@@ -395,6 +388,24 @@ red mazda
   end
 
   describe '.trigger' do
+    it 'works'
+  end
+
+  describe '.dim' do
+
+    it 'returns the dimension of the target elt' do
+
+      expect(run(%{
+        var d = H.dim('#cars');
+        return d;
+      })).to eq({
+        'top' => 8, 'height' => 18, 'bottom' => 26,
+        'left' => 8, 'width' => 384, 'right' => 392
+      })
+    end
+  end
+
+  describe '.style' do
     it 'works'
   end
 

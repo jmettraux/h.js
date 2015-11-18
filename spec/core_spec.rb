@@ -185,13 +185,86 @@ describe 'h.js / H' do
     end
   end
 
+  describe '.toggleClass' do
+
+    before :each do
+
+      run(%{ H.removeClass('#test', '.klass'); })
+    end
+
+    it 'works  .toggleClass(sel, "cla")' do
+
+      expect(run(%{
+        var r = [];
+        r.push(H.hasClass('#test', '.klass'));
+        H.toggleClass('#test', 'klass');
+        r.push(H.hasClass('#test', '.klass'));
+        H.toggleClass('#test', 'klass');
+        r.push(H.hasClass('#test', '.klass'));
+        return r;
+      })).to eq([
+        false, true, false
+      ])
+    end
+
+    it 'works  .toggleClass(sel, ".cla")' do
+
+      expect(run(%{
+        var r = [];
+        r.push(H.hasClass('#test', '.klass'));
+        H.toggleClass('#test', '.klass');
+        r.push(H.hasClass('#test', '.klass'));
+        H.toggleClass('#test', '.klass');
+        r.push(H.hasClass('#test', '.klass'));
+        return r;
+      })).to eq([
+        false, true, false
+      ])
+    end
+
+    it 'works  .toggleClass(start, sel, "cla")' do
+
+      expect(run(%{
+        var e = H.elt('.train');
+        var r = [];
+        r.push(H.hasClass(e, '.japan', '.klass'));
+        r.push(H.hasClass('.car .japan', '.klass'));
+        H.toggleClass(e, '.japan', 'klass');
+        r.push(H.hasClass(e, '.japan', '.klass'));
+        r.push(H.hasClass('.car .japan', '.klass'));
+        H.toggleClass(e, '.japan', 'klass');
+        r.push(H.hasClass(e, '.japan', '.klass'));
+        r.push(H.hasClass('.car .japan', '.klass'));
+        return r;
+      })).to eq([
+        false, false, true, false, false, false
+      ])
+    end
+
+    it 'works  .toggleClass(start, sel, ".cla")' do
+
+      expect(run(%{
+        var e = H.elt('.train');
+        var r = [];
+        r.push(H.hasClass(e, '.japan', '.klass'));
+        r.push(H.hasClass('.car .japan', '.klass'));
+        H.toggleClass(e, '.japan', '.klass');
+        r.push(H.hasClass(e, '.japan', '.klass'));
+        r.push(H.hasClass('.car .japan', '.klass'));
+        H.toggleClass(e, '.japan', '.klass');
+        r.push(H.hasClass(e, '.japan', '.klass'));
+        r.push(H.hasClass('.car .japan', '.klass'));
+        return r;
+      })).to eq([
+        false, false, true, false, false, false
+      ])
+    end
+  end
+
   describe '.addClass' do
     it 'works'
   end
   describe '.removeClass' do
-    it 'works'
-  end
-  describe '.toggleClass' do
     it 'works'
   end
 

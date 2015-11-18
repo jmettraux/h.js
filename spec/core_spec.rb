@@ -23,13 +23,29 @@ describe 'h.js / H' do
     @driver.quit
   end
 
-  describe '.x()' do
+  describe '.elt' do
 
-    it 'works' do
+    it 'works .elt(selector)' do
 
-      expect(@driver.execute_script(
-        'return 1 + 1'
-      )).to eq(2)
+      expect(@driver.execute_script(%{
+        return H.elt('.car.bentley .blue').textContent;
+      }).strip).to eq(
+        'blue bentley'
+      )
+    end
+  end
+
+  describe '.elts' do
+
+    it 'works  .elts(selector)' do
+
+      expect(@driver.execute_script(%{
+        return (typeof H.elt('.car .blue'));
+        return (typeof H.elts('.car .blue'));
+        return H.elts('.car .blue').map(function(e) { e.textContent.trim(); });
+      })).to eq([
+        'blue bentley'
+      ])
     end
   end
 end

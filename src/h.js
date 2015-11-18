@@ -26,30 +26,27 @@ var H = (function() {
 
   this.VERSION = '1.0.0';
 
-  var toElement = function(start, elt_or_selector) {
+  var toEltRefine = function(start, elt_or_sel) {
 
-    if ( ! elt_or_selector) { elt_or_selector = start; start = document; }
+    if ( ! elt_or_sel) { elt_or_sel = start; start = document; }
 
     if ( ! start) { start = document; }
     if ((typeof start) === 'string') start = document.querySelector(start);
 
-    if ((typeof elt_or_selector) === 'string')
-      return start.querySelector(elt_or_selector);
-    return elt_or_selector;
+    return [ start, elt_or_sel ];
   };
 
-  var toElements = function(start, elt_or_selector) {
+  var toElement = function(start, elt_or_sel) {
 
-    if ( ! elt_or_selector) { elt_or_selector = start; start = document; }
+    var se = toEltRefine(start, elt_or_sel); var sta = se[0], sel = se[1];
 
-    if ( ! start) { start = document; }
-    if ((typeof start) === 'string') start = document.querySelector(start);
+    return ((typeof sel) === 'string') ?  sta.querySelector(sel) : sel;
+  };
 
-    var es =
-      (typeof elt_or_selector) === 'string' ?
-      start.querySelectorAll(elt_or_selector) :
-      [ elt_or_selector ];
+  var toElements = function(start, elt_or_sel) {
 
+    var se = toEltRefine(start, elt_or_sel); var sta = se[0], sel = se[1];
+    var es = (typeof sel) === 'string' ?  sta.querySelectorAll(sel) : [ sel ];
     var r = []; for (var i = 0, l = es.length; i < l; i++) { r.push(es[i]); };
 
     return r;

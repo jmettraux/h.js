@@ -55,5 +55,90 @@ describe 'h.js / H' do
       ])
     end
   end
+
+  describe '.closest' do
+    it 'works'
+  end
+
+  describe '.forEach' do
+    it 'works'
+  end
+  describe '.dim' do
+    it 'works'
+  end
+  describe '.on' do
+    it 'works'
+  end
+  describe '.create' do
+    it 'works'
+  end
+  describe '.toNode' do
+    it 'works'
+  end
+  describe '.request' do
+    it 'works'
+  end
+  describe '.upload' do
+    it 'works'
+  end
+  describe '.matches' do
+    it 'works'
+  end
+  describe '.style' do
+    it 'works'
+  end
+
+  describe '.hasClass' do
+    it 'works'
+  end
+  describe '.addClass' do
+    it 'works'
+  end
+  describe '.removeClass' do
+    it 'works'
+  end
+  describe '.toggleClass' do
+    it 'works'
+  end
+
+  describe '.show' do
+    it 'works'
+  end
+  describe '.hide' do
+    it 'works'
+  end
+
+  describe '.enable' do
+    it 'works'
+  end
+  describe '.disable' do
+    it 'works'
+  end
+
+  describe '.cenable' do
+    it 'works'
+  end
+  describe '.cdisable' do
+    it 'works'
+  end
+
+  describe '.toCamelCase' do
+    it 'works'
+  end
+
+  describe '.prepend' do
+    it 'works'
+  end
+  describe '.clean' do
+    it 'works'
+  end
+
+  describe '.trigger' do
+    it 'works'
+  end
+
+  describe '.onDocumentReady' do
+    it 'works'
+  end
 end
 

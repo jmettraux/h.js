@@ -81,16 +81,13 @@ var H = (function() {
     }
   }
 
-  var onOrOff = function(dir, start, elt_or_selector, eventName, eventHandler) {
+  var onOrOff = function(dir, start, sel, eventName, eventHandler) {
 
     if ( ! eventHandler) {
-      eventHandler = eventName;
-      eventName = elt_or_selector;
-      elt_or_selector = start;
-      start = document;
+      eventHandler = eventName; eventName = sel; sel = start; start = document;
     }
 
-    var es = toElts(start, elt_or_selector);
+    var es = toElts(start, sel);
     for (var i = 0; ; i++) {
       var e = es[i]; if ( ! e) break;
       if (dir === 'on') e.addEventListener(eventName, eventHandler);
@@ -98,12 +95,12 @@ var H = (function() {
     }
   };
 
-  this.on = function(start, elt_or_selector, eventName, eventHandler) {
-    onOrOff('on', start, elt_or_selector, eventName, eventHandler);
+  this.on = function(start, sel, eventName, eventHandler) {
+    onOrOff('on', start, sel, eventName, eventHandler);
   };
 
-  this.off = function(start, elt_or_selector, eventName, eventHandler) {
-    onOrOff('off', start, elt_or_selector, eventName, eventHandler);
+  this.off = function(start, sel, eventName, eventHandler) {
+    onOrOff('off', start, sel, eventName, eventHandler);
   };
 
   var indexNext = function(sel) {
@@ -247,23 +244,21 @@ var H = (function() {
     throw "browser doesn't support elt.matches() or elt.matchesSelector()";
   };
 
-  this.closest = function(start, elt_or_selector, sel) {
+  this.closest = function(start, sel, sel1) {
 
-    if ( ! sel) {
-      sel = elt_or_selector; elt_or_selector = start; start = null;
-    }
-    var elt = toElt(start, elt_or_selector);
+    if ( ! sel1) { sel1 = sel; sel = start; start = null; }
+    var elt = toElt(start, sel);
 
-    if (H.matches(elt, sel)) return elt;
+    if (H.matches(elt, sel1)) return elt;
 
-    return elt.parentElement ? H.closest(elt.parentElement, sel) : null;
+    return elt.parentElement ? H.closest(elt.parentElement, sel1) : null;
   };
 
   // adapted from http://upshots.org/javascript/jquery-copy-style-copycss
   //
-  this.style = function(start, elt_or_selector) {
+  this.style = function(start, sel) {
 
-    var elt = toElt(start, elt_or_selector);
+    var elt = toElt(start, sel);
 
     var r = {};
     var style = null;
@@ -301,13 +296,11 @@ var H = (function() {
     return r;
   };
 
-  this.hasClass = function(start, elt_or_selector, className) {
+  this.hasClass = function(start, sel, className) {
 
-    if ( ! className) {
-      className = elt_or_selector; elt_or_selector = start; start = null;
-    }
+    if ( ! className) { className = sel; sel = start; start = null; }
 
-    var elt = toElt(start, elt_or_selector);
+    var elt = toElt(start, sel);
     if (className[0] === '.') className = className.substring(1);
 
     try {
@@ -388,15 +381,8 @@ var H = (function() {
   this.enable = function(start, sel, bof) { able(start, sel, bof, 'e'); };
   this.disable = function(start, sel, bof) { able(start, sel, bof, 'd'); };
 
-  this.cdisable = function(start, elt_or_selector) {
-
-    H.addClass(start, elt_or_selector, '.disabled');
-  };
-
-  this.cenable = function(start, elt_or_selector) {
-
-    H.removeClass(start, elt_or_selector, '.disabled');
-  };
+  this.cdisable = function(start, sel) { H.addClass(start, sel, '.disabled'); };
+  this.cenable = function(start, sel) { H.removeClass(start, sel, '.disabled'); };
 
   this.toCamelCase = function(s) {
 

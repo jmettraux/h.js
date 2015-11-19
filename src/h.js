@@ -319,31 +319,19 @@ var H = (function() {
     }
   };
 
-  this.removeClass = function(start, elt_or_selector, className) {
+  var reclass = function(start, sel, cla, dir) {
 
-    if ( ! className) {
-      className = elt_or_selector; elt_or_selector = start; start = null;
-    }
+    if ( ! cla) { cla = sel; sel = start; start = null; }
 
-    if (className[0] === '.') className = className.substring(1);
+    if (cla[0] === '.') cla = cla.substring(1);
 
-    toElts(start, elt_or_selector).forEach(function(e) {
-      e.classList.remove(className);
+    toElts(start, sel).forEach(function(e) {
+      e.classList[dir == 'r' ? 'remove' : 'add'](cla);
     });
-  }
+  };
 
-  this.addClass = function(start, elt_or_selector, className) {
-
-    if ( ! className) {
-      className = elt_or_selector; elt_or_selector = start; start = null;
-    }
-
-    if (className[0] === '.') className = className.substring(1);
-
-    toElts(start, elt_or_selector).forEach(function(e) {
-      e.classList.add(className);
-    });
-  }
+  this.addClass = function(start, sel, cla) { reclass(start, sel, cla, 'a'); }
+  this.removeClass = function(start, sel, cla) { reclass(start, sel, cla, 'r'); };
 
   var visit = function(start, sel, bof, onTrue, onFalse) {
 

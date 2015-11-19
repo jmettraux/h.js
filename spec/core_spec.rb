@@ -281,10 +281,60 @@ describe 'h.js / H' do
   end
 
   describe '.addClass' do
-    it 'works'
+
+    before(:each) { reset_dom }
+    after(:all) { reset_dom }
+
+    it 'works  .addClass(sel, "cla")' do
+
+      expect(run(%{
+        H.addClass('.car.japan', 'vehicle');
+        return H.elt('.car.japan').classList;
+      })).to eq(%w{
+        car japan mazda vehicle
+      })
+    end
+
+    it 'works  .addClass(sel, ".cla")' do
+
+      expect(run(%{
+        H.addClass('.car.japan', '.vehicle');
+        return H.elt('.car.japan').classList;
+      })).to eq(%w{
+        car japan mazda vehicle
+      })
+    end
+
+    it 'works  .addClass(start, sel, "cla")' do
+
+      expect(run(%{
+        var e = H.elt('#cars');
+        H.addClass(e, '.car.japan', 'vehicle');
+        return H.elt(e, '.car.japan').classList;
+      })).to eq(%w{
+        car japan mazda vehicle
+      })
+    end
+
+    it 'works  .addClass(start, sel, ".cla")' do
+
+      expect(run(%{
+        var e = H.elt('#cars');
+        H.addClass(e, '.car.japan', '.vehicle');
+        return H.elt(e, '.car.japan').classList;
+      })).to eq(%w{
+        car japan mazda vehicle
+      })
+    end
   end
+
   describe '.removeClass' do
-    it 'works'
+
+    before(:each) { reset_dom }
+    after(:all) { reset_dom }
+
+    it 'works  .addClass(sel, "cla")'
+    it 'works  .addClass(start, sel, "cla")'
   end
 
   describe '.create' do

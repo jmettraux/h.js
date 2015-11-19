@@ -414,13 +414,10 @@ var H = (function() {
       /([_-][a-z])/g, function(x) { return x.substring(1).toUpperCase(); });
   };
 
-  this.prepend = function(start, elt_or_selector, child) {
+  this.prepend = function(start, sel, child) {
 
-    if ( ! child) {
-      child = elt_or_selector; elt_or_selector = start; start = null;
-    }
-
-    var elt = toElt(start, elt_or_selector);
+    if ( ! child) { child = sel; sel = start; start = null; }
+    var elt = toElt(start, sel);
 
     elt.parentNode.insertBefore(child, elt);
   };

@@ -374,7 +374,28 @@ yellow volkswagen
     before(:each) { reset_dom }
     after(:all) { reset_dom }
 
-    it 'works'
+    it 'works  .prepend(sel, elt)' do
+
+      expect(run(%{
+        var e = H.create('div.america', {}, '');
+        H.prepend('#cars .europe', e);
+        return H.elt('#cars').innerHTML;
+      })).to match(
+        /<div class="america"><\/div><div class="europe">/
+      )
+    end
+
+    it 'works  .prepend(start, sel, elt)' do
+
+      expect(run(%{
+        var cars = H.elt('#cars');
+        var e = H.create('div.america', {}, '');
+        H.prepend(cars, '.europe', e);
+        return H.elt('#cars').innerHTML;
+      })).to match(
+        /<div class="america"><\/div><div class="europe">/
+      )
+    end
   end
 
   describe '.clean' do

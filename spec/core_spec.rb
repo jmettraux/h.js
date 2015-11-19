@@ -524,6 +524,10 @@ yellow volkswagen
 <input type="text" name="first-name">
 <input type="text" name="last-name">
 <input type="number" name="age" disabled="disabled">
+
+<input class="i" type="text" name="alpha" disabled="disabled">
+<input class="i disabled" type="text" name="bravo" disabled="disabled">
+<input class="i disabled" type="text" name="charly" disabled="disabled">
       }.strip)
     end
 
@@ -569,6 +573,10 @@ yellow volkswagen
 <input type="text" name="first-name">
 <input type="text" name="last-name">
 <input type="number" name="age" disabled="disabled">
+
+<input class="i" type="text" name="alpha" disabled="disabled">
+<input class="i disabled" type="text" name="bravo" disabled="disabled">
+<input class="i disabled" type="text" name="charly" disabled="disabled">
       }.strip)
     end
   end
@@ -824,8 +832,85 @@ yellow volkswagen
   end
 
   describe '.cenable' do
-    it 'works'
+
+    before(:each) { reset_dom }
+    after(:all) { reset_dom }
+
+    it 'works .cenable(sel)' do
+
+      expect(run(%{
+        H.cenable('input.i');
+        return H.elts('input.i')
+          .map(function(e) { return e.outerHTML.trim(); })
+          .join('\\n');
+      })).to eq(%{
+<input class="i" type="text" name="alpha">
+<input class="i" type="text" name="bravo">
+<input class="i" type="text" name="charly">
+      }.strip)
+    end
+
+    it 'works .cenable(sel, bool)' do
+
+      expect(run(%{
+        H.cenable('input.i', true);
+        return H.elts('input.i')
+          .map(function(e) { return e.outerHTML.trim(); })
+          .join('\\n');
+      })).to eq(%{
+<input class="i" type="text" name="alpha">
+<input class="i" type="text" name="bravo">
+<input class="i" type="text" name="charly">
+      }.strip)
+    end
+
+    it 'works .cenable(sel, fun)' do
+
+      expect(run(%{
+        H.cenable('#input input', function(e) {
+          return e.getAttribute('name') === 'charly';
+        });
+        return H.elts('input.i')
+          .map(function(e) { return e.outerHTML.trim(); })
+          .join('\\n');
+      })).to eq(%{
+<input class="i disabled" type="text" name="alpha">
+<input class="i disabled" type="text" name="bravo">
+<input class="i" type="text" name="charly">
+      }.strip)
+    end
+
+    it 'works .cenable(start, sel)' do
+
+      expect(run(%{
+        var i = H.elt('#input');
+        H.cenable(i, 'input.i');
+        return H.elts('input.i')
+          .map(function(e) { return e.outerHTML.trim(); })
+          .join('\\n');
+      })).to eq(%{
+<input class="i" type="text" name="alpha">
+<input class="i" type="text" name="bravo">
+<input class="i" type="text" name="charly">
+      }.strip)
+    end
+
+    it 'works .cenable(start, sel, bool)' do
+
+      expect(run(%{
+        var i = H.elt('#input');
+        H.cenable(i, 'input.i', false);
+        return H.elts('input.i')
+          .map(function(e) { return e.outerHTML.trim(); })
+          .join('\\n');
+      })).to eq(%{
+<input class="i disabled" type="text" name="alpha">
+<input class="i disabled" type="text" name="bravo">
+<input class="i disabled" type="text" name="charly">
+      }.strip)
+    end
   end
+
   describe '.cdisable' do
     it 'works'
   end

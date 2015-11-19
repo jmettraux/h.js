@@ -335,7 +335,7 @@ var H = (function() {
     });
   };
 
-  var toggle = function(start, sel, bof, cla) {
+  var toggle = function(start, sel, bof, cla, inv) {
 
     var t = (typeof sel);
     if (t === 'function' || t === 'boolean') {
@@ -343,11 +343,10 @@ var H = (function() {
     }
     if (bof === undefined) bof = true;
 
-    visit(
-      start, sel,
-      bof,
-      function(e) { self.addClass(e, cla); },
-      function(e) { self.removeClass(e, cla); });
+    var add = function(e) { self.addClass(e, cla); };
+    var rem = function(e) { self.removeClass(e, cla); };
+
+    visit(start, sel, bof, inv ? rem : add, inv ? add : rem);
   };
 
   this.toggleClass = function(start, sel, cla) {
@@ -381,8 +380,20 @@ var H = (function() {
   this.enable = function(start, sel, bof) { able(start, sel, bof, 'e'); };
   this.disable = function(start, sel, bof) { able(start, sel, bof, 'd'); };
 
-  this.cdisable = function(start, sel) { H.addClass(start, sel, '.disabled'); };
-  this.cenable = function(start, sel) { H.removeClass(start, sel, '.disabled'); };
+  var cable = function(start, sel, bof, dir) {
+
+    toggle(start, sel, bof, '.disabled', dir === 'd');
+  };
+
+  this.cenable = function(start, sel, bof) {
+
+    toggle(start, sel, bof, '.disabled', true);
+  };
+
+  this.cdisable = function(start, sel, bof) {
+
+    toggle(start, sel, bof, '.disabled', false);
+  };
 
   this.toCamelCase = function(s) {
 

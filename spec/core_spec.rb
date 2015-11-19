@@ -288,7 +288,51 @@ describe 'h.js / H' do
   end
 
   describe '.create' do
-    it 'works'
+
+    it 'works  .create(tag, atts, text)' do
+
+      expect(run(%{
+        return H.create('span', { 'data-id': 123 }, 'hello').outerHTML;
+      })).to eq(
+        '<span data-id="123">hello</span>'
+      )
+    end
+
+    it 'works  .create(tag#id, atts, text)' do
+
+      expect(run(%{
+        return H.create('span#xyz', { 'data-id': 123 }, 'hello').outerHTML;
+      })).to eq(
+        '<span id="xyz" data-id="123">hello</span>'
+      )
+    end
+
+    it 'works  .create(tag#id.class, atts, text)' do
+
+      expect(run(%{
+        return H.create('span#xyz.ab.cd', { 'data-id': 123 }, 'xzy').outerHTML;
+      })).to eq(
+        '<span id="xyz" class="ab cd" data-id="123">xzy</span>'
+      )
+    end
+
+    it 'works  .create(#id, atts, text)' do
+
+      expect(run(%{
+        return H.create('span#xyz', { 'data-id': 123 }, 'xzy').outerHTML;
+      })).to eq(
+        '<span id="xyz" data-id="123">xzy</span>'
+      )
+    end
+
+    it 'works  .create(.class, atts, text)' do
+
+      expect(run(%{
+        return H.create('.cla', { 'data-id': 123 }, 'xzy').outerHTML;
+      })).to eq(
+        '<div class="cla" data-id="123">xzy</div>'
+      )
+    end
   end
 
   describe '.toNode' do

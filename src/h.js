@@ -120,14 +120,18 @@ var H = (function() {
 
     var e = document.createElement('div');
 
-    for (var i = 0; i < sel.length; ) {
+    for (var i = 0, l = sel.length; i < l; ) {
+
       var t = sel.substring(i, i + 1);
       var j = indexNext(sel.substring(i + 1));
       var s = j > -1 ? sel.substring(i + 1, i + 1 + j) : sel.substring(i + 1);
-      //console.log([ t, j, s ]);
-      if (t === '%') e = document.createElement(s);
-      else if (t === '#') e.id = s;
-      else if (t === '.') e.classList.add(s);
+
+      if (s.length > 0) {
+        if (t === '%') e = document.createElement(s);
+        else if (t === '#') e.id = s;
+        else if (t === '.') e.classList.add(s);
+      }
+
       if (j < 0) break;
       i = i + 1 + j;
     }

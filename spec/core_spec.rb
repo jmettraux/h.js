@@ -573,16 +573,131 @@ yellow volkswagen
     end
   end
 
-  describe '.request' do
-    it 'works'
-  end
-  describe '.upload' do
-    it 'works'
+  describe '.show' do
+
+    before(:each) { reset_dom }
+    after(:all) { reset_dom }
+
+    it 'works  .show(sel)' do
+
+      expect(run(%{
+        H.show('#test0');
+        return H.elts('.t').map(function(e) { return e.idAndClasses(); });
+      })).to eq(%w[
+        #test0.t.shown
+        #test1.t.shown
+        #test2.t.hidden
+        #test3.t.hidden
+      ])
+    end
+
+    it 'works  .show(sel, bool)' do
+
+      expect(run(%{
+        H.show('#test0', true);
+        return H.elts('.t').map(function(e) { return e.idAndClasses(); });
+      })).to eq(%w{
+        #test0.t.shown
+        #test1.t.shown
+        #test2.t.hidden
+        #test3.t.hidden
+      })
+    end
+
+    it 'works  .show(start, sel)' do
+
+      expect(run(%{
+        var has = H.elt('#hide_and_show');
+        H.show(has, '#test0');
+        return H.elts('.t').map(function(e) { return e.idAndClasses(); });
+      })).to eq(%w[
+        #test0.t.shown
+        #test1.t.shown
+        #test2.t.hidden
+        #test3.t.hidden
+      ])
+    end
+
+    it 'works  .show(sel, fun)' do
+
+      expect(run(%{
+        H.show('.t', function(e) {
+          return parseInt(e.id.substring(4, 5), 10) % 2 == 0;
+        });
+        return H.elts('.t').map(function(e) { return e.idAndClasses(); });
+      })).to eq(%w[
+        #test0.t.shown
+        #test1.t
+        #test2.t.hidden.shown
+        #test3.t.hidden
+      ])
+    end
+
+    it 'works  .show(start, sel, fun)' do
+
+      expect(run(%{
+        var has = H.elt('#hide_and_show');
+        H.show(has, '.t', function(e) {
+          return parseInt(e.id.substring(4, 5), 10) % 2 == 1;
+        });
+        return H.elts('.t').map(function(e) { return e.idAndClasses(); });
+      })).to eq(%w[
+        #test0.t
+        #test1.t.shown
+        #test2.t.hidden
+        #test3.t.hidden.shown
+      ])
+    end
+
+    it 'works  .show(sel, bool)' do
+
+      expect(run(%{
+        H.show('.t', true);
+        return H.elts('.t').map(function(e) { return e.idAndClasses(); });
+      })).to eq(%w[
+        #test0.t.shown
+        #test1.t.shown
+        #test2.t.hidden.shown
+        #test3.t.hidden.shown
+      ])
+
+      expect(run(%{
+        H.show('.t', false);
+        return H.elts('.t').map(function(e) { return e.idAndClasses(); });
+      })).to eq(%w[
+        #test0.t
+        #test1.t
+        #test2.t.hidden
+        #test3.t.hidden
+      ])
+    end
+
+    it 'works  .show(start, sel, bool)' do
+
+      expect(run(%{
+        var has = H.elt('#hide_and_show');
+        H.show(has, '.t', true);
+        return H.elts('.t').map(function(e) { return e.idAndClasses(); });
+      })).to eq(%w[
+        #test0.t.shown
+        #test1.t.shown
+        #test2.t.hidden.shown
+        #test3.t.hidden.shown
+      ])
+
+      expect(run(%{
+        var has = H.elt('#hide_and_show');
+        H.show(has, '.t', false);
+        return H.elts('.t').map(function(e) { return e.idAndClasses(); });
+      })).to eq(%w[
+        #test0.t
+        #test1.t
+        #test2.t.hidden
+        #test3.t.hidden
+      ])
+    end
   end
 
-  describe '.show' do
-    it 'works'
-  end
   describe '.hide' do
     it 'works'
   end
@@ -727,6 +842,13 @@ red mazda
         abCdEf ghIjKl
       ])
     end
+  end
+
+  describe '.request' do
+    it 'works'
+  end
+  describe '.upload' do
+    it 'works'
   end
 
   describe '.onDocumentReady' do

@@ -1,6 +1,6 @@
 
 //
-// methods missing from PhantomJS
+// methods missing from PhantomJS plus some other helpers
 //
 
 
@@ -46,4 +46,15 @@ HTMLElement.prototype.click = function() {
 //
 //    elt.dispatchEvent(ev);
 //  };
+
+HTMLElement.prototype.idAndClasses = function() {
+
+  var a = []; for (var i = 0, l = this.classList.length; i < l; i++) {
+    a.push(this.classList[i]);
+  }
+
+  return '' +
+    (this.id ? '#' + this.id : '') +
+    (a.length > 0 ? '.' + a.join('.') : '');
+};
 

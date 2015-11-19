@@ -344,6 +344,12 @@ var H = (function() {
 
   var toggle = function(start, sel, bof, cla) {
 
+    var t = (typeof sel);
+    if (t === 'function' || t === 'boolean') {
+      bof = sel; sel = start; start = null;
+    }
+    if (bof === undefined) bof = true;
+
     visit(
       start, sel,
       bof,
@@ -359,7 +365,7 @@ var H = (function() {
   };
   this.toggle = this.toggleClass;
 
-  this.show = function(start, sel, bof) { toggle(start, sel, bof, '.show'); };
+  this.show = function(start, sel, bof) { toggle(start, sel, bof, '.shown'); };
   this.hide = function(start, sel, bof) { toggle(start, sel, bof, '.hidden'); };
 
   var able = function(start, sel, bof, dir) {

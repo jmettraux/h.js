@@ -385,6 +385,83 @@ yellow volkswagen
     end
   end
 
+  describe '.enable' do
+
+    before(:each) { reset_dom }
+    after(:all) { reset_dom }
+
+    it 'works .enable(sel)' do
+
+      expect(run(%{
+        H.enable('input[name="first-name"]');
+        return H.elt('input[name="first-name"]').outerHTML;
+      })).to eq(%{
+<input type="text" name="first-name">
+      }.strip)
+    end
+
+    it 'works .enable(sel, bool)' do
+
+      expect(run(%{
+        H.enable('input[name="name"]', false);
+        H.enable('input[name="first-name"]', true);
+        return [
+          H.elt('input[name="name"]').outerHTML,
+          H.elt('input[name="first-name"]').outerHTML
+        ];
+      })).to eq([
+        '<input type="text" name="name" disabled="disabled">',
+        '<input type="text" name="first-name">'
+      ])
+    end
+
+    it 'works .enable(sel, fun)' do
+
+      expect(run(%{
+        H.enable('#input input', function(e) {
+          return e.getAttribute('name').match(/name/);
+        });
+        return H.elt('#input form').innerHTML;
+      })).to eq(%{
+<input type="text" name="name">
+<input type="text" name="first-name">
+<input type="text" name="last-name">
+<input type="number" name="age" disabled="disabled">
+      }.strip)
+    end
+
+    it 'works .enable(start, sel)' do
+
+      expect(run(%{
+        var i = H.elt('#input');
+        H.enable(i, 'input[name="first-name"]');
+        return H.elt(i, 'input[name="first-name"]').outerHTML;
+      })).to eq(%{
+<input type="text" name="first-name">
+      }.strip)
+    end
+
+    it 'works .enable(start, sel, bool)' do
+
+      expect(run(%{
+        var i = H.elt('#input');
+        H.enable(i, 'input[name="name"]', false);
+        H.enable(i, 'input[name="first-name"]', true);
+        return [
+          H.elt(i, 'input[name="name"]').outerHTML,
+          H.elt(i, 'input[name="first-name"]').outerHTML
+        ];
+      })).to eq([
+        '<input type="text" name="name" disabled="disabled">',
+        '<input type="text" name="first-name">'
+      ])
+    end
+  end
+
+  describe '.disable' do
+    it 'works'
+  end
+
   describe '.request' do
     it 'works'
   end
@@ -396,13 +473,6 @@ yellow volkswagen
     it 'works'
   end
   describe '.hide' do
-    it 'works'
-  end
-
-  describe '.enable' do
-    it 'works'
-  end
-  describe '.disable' do
     it 'works'
   end
 

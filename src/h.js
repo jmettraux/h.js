@@ -383,24 +383,32 @@ var H = (function() {
     tog(start, elt_or_selector, bool, '.hidden');
   };
 
-  this.enable = function(start, elt_or_selector, bool) {
+  var visit = function(start, sel, bof, onTrue, onFalse) {
 
-    if (bool === undefined) {
-      bool = elt_or_selector; elt_or_selector = start; start = null;
-    }
+    H.forEach(start, sel, function(e) {
 
-    toElts(start, elt_or_selector).forEach(function(e) {
-      if (bool === false || bool === null)
-        e.setAttribute('disabled', 'disabled');
-      else
-        e.removeAttribute('disabled');
+      var b = ((typeof bof) === 'function') ? bof(e) : bof;
+      var fun = b ? onTrue : onFalse; if (fun) fun(e);
     });
+  };
+
+  this.enable = function(start, sel, bof) {
+
+    var t = (typeof sel);
+    if (t === 'function' || t === 'boolean') {
+      bof = sel; sel = start; start = null;
+    }
+    else if (t === 'undefined') {
+      sel = start; start = null;
+    }
+    if (bof === undefined) bof = true;
+
+    visit(start, sel, bof,
+      function(e) { e.removeAttribute('disabled') },
+      function(e) { e.setAttribute('disabled', 'disabled'); });
   }
 
-  this.disable = function(start, elt_or_selector) {
-
-    self.enable(start, elt_or_selector, false);
-  };
+  this.disable = function(start, sel) { self.enable(start, sel, false); };
 
   this.cdisable = function(start, elt_or_selector) {
 

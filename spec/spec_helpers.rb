@@ -28,6 +28,13 @@ end
 
 def reset_dom
 
-  $driver.execute_script('document.body.innerHTML = window._src;') if $driver
+  $driver.execute_script('document.body.innerHTML = window._src;') \
+    if $driver
+end
+
+def reload
+
+  $driver.navigate.to('file://' + File.absolute_path('spec/test.html')) \
+    if $driver
 end
 

@@ -556,7 +556,21 @@ yellow volkswagen
   end
 
   describe '.disable' do
-    it 'works'
+
+    it 'works .disable(sel, fun)' do
+
+      expect(run(%{
+        H.disable('#input input', function(e) {
+          return ! e.getAttribute('name').match(/name/);
+        });
+        return H.elt('#input form').innerHTML;
+      })).to eq(%{
+<input type="text" name="name">
+<input type="text" name="first-name">
+<input type="text" name="last-name">
+<input type="number" name="age" disabled="disabled">
+      }.strip)
+    end
   end
 
   describe '.request' do

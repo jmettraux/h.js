@@ -35,3 +35,15 @@ HTMLElement.prototype.click = function() {
   this.dispatchEvent(ev);
 };
 
+//  this.trigger = function(start, sel, eventName) {
+//
+//    if ( ! eventName) { eventName = sel; sel = start; start = null; }
+//
+//    var elt = toElt(start, sel);
+//
+//    var ev = document.createEvent('HTMLEvents');
+//    ev.initEvent(eventName, true, false);
+//
+//    elt.dispatchEvent(ev);
+//  };
+

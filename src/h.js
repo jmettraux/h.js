@@ -152,7 +152,7 @@ var H = (function() {
 
     return function(res) {
       if (type === 'load') console.log([ method + ' ' + uri, res ]);
-      else console.log([ meth + ' ' + uri + ' connection problem', res ]);
+      else console.log([ method + ' ' + uri + ' connection problem', res ]);
     }
   };
 

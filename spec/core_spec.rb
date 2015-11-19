@@ -297,10 +297,8 @@ describe 'h.js / H' do
 
   describe '.on' do
 
-    before :each do
-
-      reset
-    end
+    before(:each) { reset }
+    after(:all) { reset }
 
     it 'works  .on(sta, sel, ev, fun)' do
 
@@ -381,10 +379,8 @@ yellow volkswagen
 
   describe '.clean' do
 
-    before :each do
-
-      reset
-    end
+    before(:each) { reset }
+    after(:all) { reset }
 
     it 'works  .clean(sel)' do
 
@@ -421,18 +417,31 @@ red mazda
       }.strip)
     end
 
-    it 'works  .clean(start, sel, "cla")' #do
-#
-#      expect(run(%{
-#        H.clean(null, '#cars .europe', 'car');
-#        return H.elt('#cars').innerHTML;
-#      })).to eq(%{
-#<div class="asia"></div>
-#<div class="europe"></div>
-#      }.strip)
-#    end
+    it 'works  .clean(start, sel, "cla")' do
 
-    it 'works  .clean(start, sel, ".cla")'
+      expect(run(%{
+        H.clean('#cars', '.europe', 'car');
+        return H.elt('#cars .europe').outerHTML;
+      })).to eq(%{
+<div class="europe">
+
+
+</div>
+      }.strip)
+    end
+
+    it 'works  .clean(start, sel, ".cla")' do
+
+      expect(run(%{
+        H.clean('#cars', '.europe', '.car');
+        return H.elt('#cars .europe').outerHTML;
+      })).to eq(%{
+<div class="europe">
+
+
+</div>
+      }.strip)
+    end
   end
 
   describe '.dim' do

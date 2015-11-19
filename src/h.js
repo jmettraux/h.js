@@ -437,11 +437,15 @@ var H = (function() {
     elt.dispatchEvent(ev);
   };
 
-  this.clean = function(start, elt_or_selector, className) {
+  this.clean = function(start, sel, claName) {
 
-    var elt = toElt(start, elt_or_selector);
-    if (className) H.forEach(elt, className, function(e) { e.remove(); });
-    else while (elt.firstChild) elt.removeChild(elt.firstChild);
+    var elt = toElt(start, sel);
+    if (claName && claName[0] !== '.') claName = '.' + claName;
+
+    if (claName)
+      H.forEach(elt, claName, function(e) { e.parentElement.removeChild(e); });
+    else
+      while (elt.firstChild) elt.removeChild(elt.firstChild);
 
     return elt;
   };

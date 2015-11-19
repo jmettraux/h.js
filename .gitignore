@@ -1,4 +1,5 @@
 
 .rspec
 bin/phantomjs
+bin/chromedriver
 

@@ -425,7 +425,15 @@ describe 'h.js / H' do
   end
 
   describe '.toNode' do
-    it 'works'
+
+    it 'works' do
+
+      expect(run(%{
+        return H.toNode('<span id="x" class="y z">hello</span>').outerHTML;
+      })).to eq(
+        '<span id="x" class="y z">hello</span>'
+      )
+    end
   end
 
   describe '.on' do

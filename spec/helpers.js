@@ -1,11 +1,8 @@
 
-//Array.prototype.map = function(f) {
 //
-//  var r = [];
-//  this.forEach(function(e) { r.push(f(e)); });
+// methods missing from PhantomJS
 //
-//  return r;
-//};
+
 
 // from https://developer.mozilla.org/en/docs/Web/API/Element/matches
 //
@@ -15,5 +12,26 @@ HTMLElement.prototype.matches = function(sel) {
   for (var i = 0, l = es.length; i < l; i ++) if (es[i] === this) return true;
 
   return false;
-}
+};
+
+HTMLElement.prototype.remove = function() {
+
+  this.parentElement.removeChild(this);
+};
+
+// http://stackoverflow.com/questions/15739263/phantomjs-click-an-element
+//
+HTMLElement.prototype.click = function() {
+
+  var ev = document.createEvent('MouseEvent');
+  ev.initMouseEvent(
+    'click',
+    true, true, // bubble, cancellable
+    window, null,
+    0, 0, 0, 0, // coordinates
+    false, false, false, false, // modifier keys
+    0, // button=left
+    null);
+  this.dispatchEvent(ev);
+};
 

@@ -425,13 +425,11 @@ var H = (function() {
     elt.parentNode.insertBefore(child, elt);
   };
 
-  this.trigger = function(start, elt_or_selector, eventName) {
+  this.trigger = function(start, sel, eventName) {
 
-    if ( ! eventName) {
-      eventName = elt_or_selector; elt_or_selector = start; start = null;
-    }
+    if ( ! eventName) { eventName = sel; sel = start; start = null; }
 
-    var elt = toElt(start, elt_or_selector);
+    var elt = toElt(start, sel);
 
     var ev = document.createEvent('HTMLEvents');
     ev.initEvent(eventName, true, false);

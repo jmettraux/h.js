@@ -296,6 +296,54 @@ describe 'h.js / H' do
   end
 
   describe '.on' do
+
+    before :each do
+
+      reset
+    end
+
+    it 'works  .on(sta, sel, ev, fun)' do
+
+      expect(run(%{
+        H.on('#cars', '.europe .car', 'click', function(ev) {
+          ev.target.remove();
+        });
+        H.elt('.car.bentley').click();
+        return H.elt('#cars .europe').innerHTML;
+      })).to eq(%{
+<div class="car volkswagen">
+<div class="blue">
+blue volkswagen
+</div>
+<div class="yellow">
+yellow volkswagen
+</div>
+</div>
+      }.strip)
+    end
+
+    it 'works  .on(sel, ev, fun)' do
+
+      expect(run(%{
+        H.on('#cars .europe .car', 'click', function(ev) {
+          ev.target.remove();
+        });
+        H.elt('.car.bentley').click();
+        return H.elt('#cars .europe').innerHTML;
+      })).to eq(%{
+<div class="car volkswagen">
+<div class="blue">
+blue volkswagen
+</div>
+<div class="yellow">
+yellow volkswagen
+</div>
+</div>
+      }.strip)
+    end
+  end
+
+  describe '.trigger' do
     it 'works'
   end
 
@@ -385,10 +433,6 @@ red mazda
 #    end
 
     it 'works  .clean(start, sel, ".cla")'
-  end
-
-  describe '.trigger' do
-    it 'works'
   end
 
   describe '.dim' do

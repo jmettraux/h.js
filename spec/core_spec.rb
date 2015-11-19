@@ -515,9 +515,8 @@ red mazda
 
       expect(run(%{
         return H.dim('#cars');
-      })).to eq({
-        'top' => 8, 'height' => 18, 'bottom' => 26,
-        'left' => 8, 'width' => 384, 'right' => 392
+      }).collect { |k, v| "#{k}:#{v}" }.sort).to eq(%w{
+        bottom:98 height:90 left:8 right:392 top:8 width:384
       })
     end
   end

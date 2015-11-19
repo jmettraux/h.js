@@ -333,8 +333,47 @@ describe 'h.js / H' do
     before(:each) { reset_dom }
     after(:all) { reset_dom }
 
-    it 'works  .addClass(sel, "cla")'
-    it 'works  .addClass(start, sel, "cla")'
+    it 'works  .removeClass(sel, "cla")' do
+
+      expect(run(%{
+        H.removeClass('.car.japan', 'japan');
+        return H.elt('.car.mazda').classList;
+      })).to eq(%w{
+        car mazda
+      })
+    end
+
+    it 'works  .removeClass(sel, ".cla")' do
+
+      expect(run(%{
+        H.removeClass('.car.japan', '.japan');
+        return H.elt('.car.mazda').classList;
+      })).to eq(%w{
+        car mazda
+      })
+    end
+
+    it 'works  .removeClass(start, sel, "cla")' do
+
+      expect(run(%{
+        var e = H.elt('#cars');
+        H.removeClass(e, '.car.japan', 'japan');
+        return H.elt(e, '.car.mazda').classList;
+      })).to eq(%w{
+        car mazda
+      })
+    end
+
+    it 'works  .removeClass(start, sel, ".cla")' do
+
+      expect(run(%{
+        var e = H.elt('#cars');
+        H.removeClass(e, '.car.japan', '.japan');
+        return H.elt(e, '.car.mazda').classList;
+      })).to eq(%w{
+        car mazda
+      })
+    end
   end
 
   describe '.create' do

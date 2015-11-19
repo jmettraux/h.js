@@ -699,7 +699,128 @@ yellow volkswagen
   end
 
   describe '.hide' do
-    it 'works'
+
+    before(:each) { reset_dom }
+    after(:all) { reset_dom }
+
+    it 'works  .hide(sel)' do
+
+      expect(run(%{
+        H.hide('#test0');
+        return H.elts('.t').map(function(e) { return e.idAndClasses(); });
+      })).to eq(%w[
+        #test0.t.hidden
+        #test1.t.shown
+        #test2.t.hidden
+        #test3.t.hidden
+      ])
+    end
+
+    it 'works  .hide(sel, bool)' do
+
+      expect(run(%{
+        H.hide('#test0', true);
+        return H.elts('.t').map(function(e) { return e.idAndClasses(); });
+      })).to eq(%w{
+        #test0.t.hidden
+        #test1.t.shown
+        #test2.t.hidden
+        #test3.t.hidden
+      })
+    end
+
+    it 'works  .hide(start, sel)' do
+
+      expect(run(%{
+        var has = H.elt('#hide_and_show');
+        H.hide(has, '#test0');
+        return H.elts('.t').map(function(e) { return e.idAndClasses(); });
+      })).to eq(%w[
+        #test0.t.hidden
+        #test1.t.shown
+        #test2.t.hidden
+        #test3.t.hidden
+      ])
+    end
+
+    it 'works  .hide(sel, fun)' do
+
+      expect(run(%{
+        H.hide('.t', function(e) {
+          return parseInt(e.id.substring(4, 5), 10) % 2 == 0;
+        });
+        return H.elts('.t').map(function(e) { return e.idAndClasses(); });
+      })).to eq(%w[
+        #test0.t.hidden
+        #test1.t.shown
+        #test2.t.hidden
+        #test3.t
+      ])
+    end
+
+    it 'works  .hide(start, sel, fun)' do
+
+      expect(run(%{
+        var has = H.elt('#hide_and_show');
+        H.hide(has, '.t', function(e) {
+          return parseInt(e.id.substring(4, 5), 10) % 2 == 1;
+        });
+        return H.elts('.t').map(function(e) { return e.idAndClasses(); });
+      })).to eq(%w[
+        #test0.t
+        #test1.t.shown.hidden
+        #test2.t
+        #test3.t.hidden
+      ])
+    end
+
+    it 'works  .hide(sel, bool)' do
+
+      expect(run(%{
+        H.hide('.t', true);
+        return H.elts('.t').map(function(e) { return e.idAndClasses(); });
+      })).to eq(%w[
+        #test0.t.hidden
+        #test1.t.shown.hidden
+        #test2.t.hidden
+        #test3.t.hidden
+      ])
+
+      expect(run(%{
+        H.hide('.t', false);
+        return H.elts('.t').map(function(e) { return e.idAndClasses(); });
+      })).to eq(%w[
+        #test0.t
+        #test1.t.shown
+        #test2.t
+        #test3.t
+      ])
+    end
+
+    it 'works  .hide(start, sel, bool)' do
+
+      expect(run(%{
+        var has = H.elt('#hide_and_show');
+        H.hide(has, '.t', true);
+        return H.elts('.t').map(function(e) { return e.idAndClasses(); });
+      })).to eq(%w[
+        #test0.t.hidden
+        #test1.t.shown.hidden
+        #test2.t.hidden
+        #test3.t.hidden
+      ])
+
+      expect(run(%{
+        var has = H.elt('#hide_and_show');
+        H.hide(has, '.t', false);
+        return H.elts('.t').map(function(e) { return e.idAndClasses(); });
+      })).to eq(%w[
+        #test0.t
+        #test1.t.shown
+        #test2.t
+        #test3.t
+      ])
+    end
   end
 
   describe '.cenable' do

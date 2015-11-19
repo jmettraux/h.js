@@ -13,6 +13,7 @@ def run(s)
   $driver ||=
     begin
       d = Selenium::WebDriver.for :phantomjs
+      #d = Selenium::WebDriver.for :chrome
       d.navigate.to('file://' + File.absolute_path('spec/test.html'))
       d.execute_script('window._src = document.body.innerHTML;');
       d

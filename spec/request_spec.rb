@@ -11,8 +11,20 @@ require 'spec_helpers.rb'
 describe 'H and xhr requests' do
 
   describe '.request' do
-    it 'works'
+
+    it 'gets' do
+
+      expect(run(%{
+        var r = null;
+        var onok = function(res) { r = res; };
+        H.request('GET', 'http://www.example.org', onok);
+        return r;
+      })).to eq(
+        :x
+      )
+    end
   end
+
   describe '.upload' do
     it 'works'
   end

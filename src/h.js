@@ -345,44 +345,6 @@ var H = (function() {
     });
   }
 
-  var tog = function(start, elt_or_selector, bool, klass) {
-
-    if (
-      (typeof elt_or_selector) === 'boolean' || elt_or_selector === 'toggle'
-    ) {
-      bool = elt_or_selector; elt_or_selector = start; start = null;
-    }
-
-    if (bool === 'toggle') {
-      bool = ! self.hasClass(start, elt_or_selector, klass);
-    }
-
-    toElts(start, elt_or_selector).forEach(function(e) {
-      self[bool ? 'addClass' : 'removeClass'](e, klass);
-      return bool;
-    });
-  };
-
-  this.toggleClass = function(start, elt_or_selector, className) {
-
-    if ( ! className) {
-      className = elt_or_selector; elt_or_selector = start; start = null;
-    }
-
-    return tog(start, elt_or_selector, 'toggle', className);
-  };
-  this.toggle = this.toggleClass;
-
-  this.show = function(start, elt_or_selector, bool) {
-
-    tog(start, elt_or_selector, bool, '.show');
-  };
-
-  this.hide = function(start, elt_or_selector, bool) {
-
-    tog(start, elt_or_selector, bool, '.hidden');
-  };
-
   var visit = function(start, sel, bof, onTrue, onFalse) {
 
     H.forEach(start, sel, function(e) {
@@ -391,6 +353,26 @@ var H = (function() {
       var fun = b ? onTrue : onFalse; if (fun) fun(e);
     });
   };
+
+  var toggle = function(start, sel, bof, cla) {
+
+    visit(
+      start, sel,
+      bof,
+      function(e) { self.addClass(e, cla); },
+      function(e) { self.removeClass(e, cla); });
+  };
+
+  this.toggleClass = function(start, sel, cla) {
+
+    if ( ! cla) { cla = sel; sel = start; start = null; }
+
+    toggle(start, sel, function(e) { return ! self.hasClass(e, cla); }, cla);
+  };
+  this.toggle = this.toggleClass;
+
+  this.show = function(start, sel, bof) { toggle(start, sel, bof, '.show'); };
+  this.hide = function(start, sel, bof) { toggle(start, sel, bof, '.hidden'); };
 
   this.enable = function(start, sel, bof) {
 

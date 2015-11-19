@@ -297,8 +297,8 @@ describe 'h.js / H' do
 
   describe '.on' do
 
-    before(:each) { reset }
-    after(:all) { reset }
+    before(:each) { reset_dom }
+    after(:all) { reset_dom }
 
     it 'works  .on(sta, sel, ev, fun)' do
 
@@ -370,13 +370,17 @@ yellow volkswagen
   end
 
   describe '.prepend' do
+
+    before(:each) { reset_dom }
+    after(:all) { reset_dom }
+
     it 'works'
   end
 
   describe '.clean' do
 
-    before(:each) { reset }
-    after(:all) { reset }
+    before(:each) { reset_dom }
+    after(:all) { reset_dom }
 
     it 'works  .clean(sel)' do
 

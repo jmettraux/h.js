@@ -26,7 +26,7 @@ def run(s)
   r
 end
 
-def reset
+def reset_dom
 
   $driver.execute_script('document.body.innerHTML = window._src;');
 end

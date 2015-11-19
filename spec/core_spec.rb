@@ -341,10 +341,6 @@ yellow volkswagen
     end
   end
 
-  describe '.trigger' do
-    it 'works'
-  end
-
   describe '.request' do
     it 'works'
   end

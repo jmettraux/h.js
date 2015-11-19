@@ -425,17 +425,17 @@ var H = (function() {
     elt.parentNode.insertBefore(child, elt);
   };
 
-  this.trigger = function(start, sel, eventName) {
-
-    if ( ! eventName) { eventName = sel; sel = start; start = null; }
-
-    var elt = toElt(start, sel);
-
-    var ev = document.createEvent('HTMLEvents');
-    ev.initEvent(eventName, true, false);
-
-    elt.dispatchEvent(ev);
-  };
+//  this.trigger = function(start, sel, eventName) {
+//
+//    if ( ! eventName) { eventName = sel; sel = start; start = null; }
+//
+//    var elt = toElt(start, sel);
+//
+//    var ev = document.createEvent('HTMLEvents');
+//    ev.initEvent(eventName, true, false);
+//
+//    elt.dispatchEvent(ev);
+//  };
 
   this.clean = function(start, sel, claName) {
 

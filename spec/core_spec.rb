@@ -8,7 +8,7 @@
 require 'spec_helpers.rb'
 
 
-describe 'h.js / H' do
+describe 'H' do
 
   describe '.elt' do
 
@@ -1062,13 +1062,6 @@ red mazda
         abCdEf ghIjKl
       ])
     end
-  end
-
-  describe '.request' do
-    it 'works'
-  end
-  describe '.upload' do
-    it 'works'
   end
 
   describe '.onDocumentReady' do

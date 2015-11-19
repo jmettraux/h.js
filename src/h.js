@@ -362,7 +362,7 @@ var H = (function() {
   this.show = function(start, sel, bof) { toggle(start, sel, bof, '.show'); };
   this.hide = function(start, sel, bof) { toggle(start, sel, bof, '.hidden'); };
 
-  this.enable = function(start, sel, bof) {
+  var able = function(start, sel, bof, dir) {
 
     var t = (typeof sel);
     if (t === 'function' || t === 'boolean') {
@@ -373,12 +373,14 @@ var H = (function() {
     }
     if (bof === undefined) bof = true;
 
-    visit(start, sel, bof,
-      function(e) { e.removeAttribute('disabled') },
-      function(e) { e.setAttribute('disabled', 'disabled'); });
-  }
+    var en = function(e) { e.removeAttribute('disabled') };
+    var dis = function(e) { e.setAttribute('disabled', 'disabled'); };
 
-  this.disable = function(start, sel) { self.enable(start, sel, false); };
+    visit(start, sel, bof, dir === 'e' ? en : dis, dir === 'e' ? dis : en);
+  };
+
+  this.enable = function(start, sel, bof) { able(start, sel, bof, 'e'); };
+  this.disable = function(start, sel, bof) { able(start, sel, bof, 'd'); };
 
   this.cdisable = function(start, elt_or_selector) {
 

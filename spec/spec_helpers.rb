@@ -28,6 +28,6 @@ end
 
 def reset_dom
 
-  $driver.execute_script('document.body.innerHTML = window._src;');
+  $driver.execute_script('document.body.innerHTML = window._src;') if $driver
 end
 

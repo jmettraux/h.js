@@ -912,7 +912,21 @@ yellow volkswagen
   end
 
   describe '.cdisable' do
-    it 'works'
+
+    it 'works .cdisable(start, sel, bool)' do
+
+      expect(run(%{
+        var i = H.elt('#input');
+        H.cdisable(i, 'input.i', true);
+        return H.elts('input.i')
+          .map(function(e) { return e.outerHTML.trim(); })
+          .join('\\n');
+      })).to eq(%{
+<input class="i disabled" type="text" name="alpha">
+<input class="i disabled" type="text" name="bravo">
+<input class="i disabled" type="text" name="charly">
+      }.strip)
+    end
   end
 
   describe '.prepend' do

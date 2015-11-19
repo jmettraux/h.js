@@ -189,8 +189,6 @@ var H = (function() {
 
   this.upload = function(uri, inputFileElt_s, data, callbacks) {
 
-    //console.log('uploading to ' + uri + ' ...');
-
     if ( ! callbacks) { callbacks = data; data = {}; }
 
     var fd = new FormData();
@@ -212,7 +210,12 @@ var H = (function() {
 
         var f = files[i];
 
-        var l = elt.getAttribute('data-sg-lang');
+        var l = null;
+        for (var j = 0, al = elt.attributes.length; j < al; j++) {
+          var a = elt.attributes.item(j);
+          if (a.name.match(/^data-(.*-)?lang$/)) { l = a.value; break; }
+        }
+
         var k = 'file-';
         if (l || isMulti) k = k + elt.name + '-';
         if (l) k = k + l + '-';

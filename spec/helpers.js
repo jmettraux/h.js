@@ -58,3 +58,23 @@ HTMLElement.prototype.idAndClasses = function() {
     (a.length > 0 ? '.' + a.join('.') : '');
 };
 
+//
+// faking XMLHttpRequest
+
+XMLHttpRequest = function() {
+  window._req = this;
+  this.sent = false;
+};
+XMLHttpRequest.prototype.open = function(meth, uri, bool) {
+  this.method = meth;
+  this.uri = uri;
+};
+XMLHttpRequest.prototype.setRequestHeader = function(key, val) {
+  if ( ! this.headers) this.headers = {};
+  this.headers[key] = val;
+};
+XMLHttpRequest.prototype.send = function(data) {
+  this.data = data;
+  this.sent = true;
+};
+

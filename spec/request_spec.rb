@@ -14,18 +14,21 @@ describe 'H and xhr requests' do
 
     it 'gets' do
 
-      expect(run(%{
-        var r = null;
-        var onok = function(res) { r = res; };
-        H.request('GET', 'http://www.example.org', onok);
-        return r;
-      })).to eq(
-        :x
-      )
+      req =
+        run(%{
+          var onok = function(res) {};
+          H.request('GET', 'http://www.example.org', onok);
+          return window._req;
+        })
+
+      expect(req['uri']).to eq('http://www.example.org')
+      expect(req['method']).to eq('GET')
+      expect(req['sent']).to eq(true)
     end
   end
 
   describe '.upload' do
+
     it 'works'
   end
 end

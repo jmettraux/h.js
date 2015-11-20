@@ -38,9 +38,10 @@ end
 #    if $driver
 #end
 
-def logs
+def read_console
 
-  $driver.manage.logs.get(:browser)
-    .collect { |e| "#{e.level} #{e.time} #{e.message}" }
+  #$driver.manage.logs.get(:browser)
+  #  .collect { |e| "#{e.level} #{e.time} #{e.message}" }
+  $driver.manage.logs.get(:browser).collect(&:message)
 end
 

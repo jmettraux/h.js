@@ -77,7 +77,7 @@ var H = (function() {
       left: e.offsetLeft,
       right: e.offsetLeft + e.offsetWidth,
       height: e.offsetHeight,
-      width: e.offsetWidth,
+      width: e.offsetWidth
     }
   }
 

@@ -33,9 +33,14 @@ def reset_dom
     if $driver
 end
 
-def reload
+#def reload
+#  $driver.navigate.to('file://' + File.absolute_path('spec/test.html')) \
+#    if $driver
+#end
 
-  $driver.navigate.to('file://' + File.absolute_path('spec/test.html')) \
-    if $driver
+def logs
+
+  $driver.manage.logs.get(:browser)
+    .collect { |e| "#{e.level} #{e.time} #{e.message}" }
 end
 

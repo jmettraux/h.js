@@ -23,7 +23,13 @@ pkg_mini:
 	java -jar tools/closure-compiler.jar --js src/h.js >> pkg/h-$(VERSION).min.js
 	echo "/* minified from commit $(SHA) on $(NOW) */" >> pkg/h-$(VERSION).min.js
 
-pkg: pkg_plain pkg_mini
+pkg_comp:
+	mkdir -p pkg
+	printf "/* h-$(VERSION).com.js | MIT license: http://github.com/jmettraux/h.js/LICENSE.txt */\n" > pkg/h-$(VERSION).com.js
+	cat src/h.js | ruby tools/compactor.rb >> pkg/h-$(VERSION).com.js
+	echo "/* compacted from commit $(SHA) on $(NOW) */" >> pkg/h-$(VERSION).com.js
+
+pkg: pkg_plain pkg_mini pkg_comp
 
 
 .PHONY: spec pkg

@@ -63,6 +63,7 @@ HTMLElement.prototype.idAndClasses = function() {
 
 XMLHttpRequest = function() {
   window._req = this;
+  this.data = null;
   this.sent = false;
 };
 XMLHttpRequest.prototype.open = function(meth, uri, bool) {

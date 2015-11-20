@@ -8,6 +8,7 @@ STDIN.readlines.each do |line|
   next if l == ''
   next if l.match(/\A\/\//)
 
+  #puts l
   if line.match(/\A  /)
     puts line[2..-1]
   else

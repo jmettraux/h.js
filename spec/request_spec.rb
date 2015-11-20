@@ -14,17 +14,32 @@ describe 'H and xhr requests' do
 
     it 'gets' do
 
-      req =
+      req, (ok, lo, er) =
         run(%{
-          var onok = function(res) {};
-          H.request('GET', 'http://www.example.org', onok);
-          return window._req;
+          var r = [ null, null, null ];
+
+          var onok = function(res) { r[0] = res; };
+          var onload = function(res) { r[1] = res; };
+          var onerror = function(err) { r[2] = err; };
+
+          H.request('GET', 'http://www.example.org/data.json', onok);
+          //
+          window._req.respond(200, '{"a":1,"b":2}');
+
+          return [ window._req, r ];
         })
 
-      expect(req['uri']).to eq('http://www.example.org')
+      expect(req['uri']).to eq('http://www.example.org/data.json')
       expect(req['method']).to eq('GET')
       expect(req['data']).to eq(nil)
       expect(req['sent']).to eq(true)
+
+      expect(ok['status']).to eq(200)
+      expect(ok['data']).to eq({ 'a' => 1, 'b' => 2 })
+      #
+      expect(lo).to eq(nil)
+      #
+      expect(er).to eq(nil)
     end
 
     it 'posts' do

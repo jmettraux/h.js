@@ -78,4 +78,11 @@ XMLHttpRequest.prototype.send = function(data) {
   this.data = data;
   this.sent = true;
 };
+//
+XMLHttpRequest.prototype.respond = function(status, text) {
+  this.status = status;
+  this.responseText = text;
+  if (status) this.onload(); else this.onerror();
+  return this;
+};
 

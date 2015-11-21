@@ -383,11 +383,6 @@ var H = (function() {
   this.enable = function(start, sel, bof) { able(start, sel, bof, 'e'); };
   this.disable = function(start, sel, bof) { able(start, sel, bof, 'd'); };
 
-  var cable = function(start, sel, bof, dir) {
-
-    toggle(start, sel, bof, '.disabled', dir === 'd');
-  };
-
   this.cenable = function(start, sel, bof) {
 
     toggle(start, sel, bof, '.disabled', true);

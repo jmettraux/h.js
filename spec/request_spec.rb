@@ -12,15 +12,15 @@ describe 'H and xhr requests' do
 
   describe '.request' do
 
-    it 'gets' do
+    it 'gets 200' do
 
       req, (ok, lo, er) =
         run(%{
           var r = [ null, null, null ];
 
           var onok = function(res) { r[0] = res; };
-          var onload = function(res) { r[1] = res; };
-          var onerror = function(err) { r[2] = err; };
+          //var onload = function(res) { r[1] = res; };
+          //var onerror = function(err) { r[2] = err; };
 
           H.request('GET', 'http://www.example.org/data.json', onok);
           //
@@ -42,7 +42,40 @@ describe 'H and xhr requests' do
       expect(er).to eq(nil)
     end
 
-    it 'posts' do
+    it 'gets 400' do
+
+      req, (ok, lo, er) =
+        run(%{
+          var r = [ null, null, null ];
+
+          var onok = function(res) { r[0] = res; };
+          var onload = function(res) { r[1] = res; };
+          var onerror = function(err) { r[2] = err; };
+
+          H.request(
+            'GET', 'http://www.example.org/data.json',
+            { onok: onok, onload: onload, onerror: onerror });
+          //
+          window._req.respond(401, '"get off"');
+
+          return [ window._req, r ];
+        })
+
+      expect(req['uri']).to eq('http://www.example.org/data.json')
+      expect(req['method']).to eq('GET')
+      expect(req['data']).to eq(nil)
+      expect(req['sent']).to eq(true)
+
+      expect(ok).to eq(nil)
+      #
+      expect(lo).not_to eq(nil)
+      expect(lo['status']).to eq(401)
+      expect(lo['data']).to eq('get off')
+      #
+      expect(er).to eq(nil)
+    end
+
+    it 'posts 200' do
 
       req =
         run(%{

@@ -599,6 +599,20 @@ yellow volkswagen
       ])
     end
 
+    it 'works  .show(sel, something_undefined)' do
+
+      expect(run(%{
+        var h = {};
+        H.show('#test1', h.something);
+        return H.elts('.t').map(function(e) { return e.idAndClasses(); });
+      })).to eq(%w[
+        #test0.t
+        #test1.t
+        #test2.t.hidden
+        #test3.t.hidden
+      ])
+    end
+
     it 'works  .show(sel, bool)' do
 
       expect(run(%{

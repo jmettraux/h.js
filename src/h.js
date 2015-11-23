@@ -40,7 +40,7 @@ var H = (function() {
 
     var se = toEltRefine(start, sel); var sta = se[0], sel = se[1];
 
-    return ((typeof sel) === 'string') ?  sta.querySelector(sel) : sel;
+    return ((typeof sel) === 'string') ? sta.querySelector(sel) : sel;
   };
 
   var toElts = function(start, sel) {
@@ -52,22 +52,22 @@ var H = (function() {
     return r;
   };
 
-  this.elt = function(start, selector) { return toElt(start, selector); };
-  this.elts = function(start, selector) { return toElts(start, selector); };
+  this.elt = function(start, sel) { return toElt(start, sel); };
+  this.elts = function(start, sel) { return toElts(start, sel); };
 
-  this.forEach = function(start, selector, func) {
+  this.forEach = function(start, sel, fun) {
 
-    if ((typeof selector) === 'function') { func = selector; selector = null; }
+    if ((typeof sel) === 'function') { fun = sel; sel = null; }
 
-    var r = toElts(start, selector);
-    r.forEach(func);
+    var r = toElts(start, sel);
+    r.forEach(fun);
 
     return r;
   };
 
-  this.dim = function(start, selector) {
+  this.dim = function(start, sel) {
 
-    var e = toElt(start, selector);
+    var e = toElt(start, sel);
 
     if ( ! e) return null;
 

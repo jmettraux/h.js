@@ -340,12 +340,6 @@ var H = (function() {
 
   var toggle = function(start, sel, bof, cla, inv) {
 
-    var t = (typeof sel);
-    if (t === 'function' || t === 'boolean') {
-      bof = sel; sel = start; start = null;
-    }
-    if (bof === undefined) bof = true;
-
     var add = function(e) { self.addClass(e, cla); };
     var rem = function(e) { self.removeClass(e, cla); };
 
@@ -360,8 +354,31 @@ var H = (function() {
   };
   this.toggle = this.toggleClass;
 
-  this.show = function(start, sel, bof) { toggle(start, sel, bof, '.shown'); };
-  this.hide = function(start, sel, bof) { toggle(start, sel, bof, '.hidden'); };
+  var rearg_sta_sel_bof = function(args) {
+
+    var a = args[0], b = args[1], c = args[2], t = (typeof args[1]);
+
+    if (args.length === 1) return { sta: a, sel: null, bof: true };
+    if (args.length > 2) return { sta: a, sel: b, bof: c };
+
+    if (args.length === 2) {
+      if (t === 'boolean' || t === 'function' || t === 'undefined') {
+        return { sta: a, sel: null, bof: b };
+      }
+      return { sta: a, sel: b, bof: true };
+    }
+
+    throw "rearg_sta_sel_bof() but no arguments";
+  };
+
+  this.show = function(start, sel, bof) {
+    var as = rearg_sta_sel_bof(arguments);
+    toggle(as.sta, as.sel, as.bof, '.shown');
+  };
+  this.hide = function(start, sel, bof) {
+    var as = rearg_sta_sel_bof(arguments);
+    toggle(as.sta, as.sel, as.bof, '.hidden');
+  };
 
   var able = function(start, sel, bof, dir) {
 
@@ -384,13 +401,13 @@ var H = (function() {
   this.disable = function(start, sel, bof) { able(start, sel, bof, 'd'); };
 
   this.cenable = function(start, sel, bof) {
-
-    toggle(start, sel, bof, '.disabled', true);
+    var as = rearg_sta_sel_bof(arguments);
+    toggle(as.sta, as.sel, as.bof, '.disabled', true);
   };
 
   this.cdisable = function(start, sel, bof) {
-
-    toggle(start, sel, bof, '.disabled', false);
+    var as = rearg_sta_sel_bof(arguments);
+    toggle(as.sta, as.sel, as.bof, '.disabled', false);
   };
 
   this.toCamelCase = function(s) {

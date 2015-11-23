@@ -382,29 +382,25 @@ var H = (function() {
 
   var able = function(start, sel, bof, dir) {
 
-    var t = (typeof sel);
-    if (t === 'function' || t === 'boolean') {
-      bof = sel; sel = start; start = null;
-    }
-    else if (t === 'undefined') {
-      sel = start; start = null;
-    }
-    if (bof === undefined) bof = true;
-
     var en = function(e) { e.removeAttribute('disabled') };
     var dis = function(e) { e.setAttribute('disabled', 'disabled'); };
 
     visit(start, sel, bof, dir === 'e' ? en : dis, dir === 'e' ? dis : en);
   };
 
-  this.enable = function(start, sel, bof) { able(start, sel, bof, 'e'); };
-  this.disable = function(start, sel, bof) { able(start, sel, bof, 'd'); };
+  this.enable = function(start, sel, bof) {
+    var as = rearg_sta_sel_bof(arguments);
+    able(as.sta, as.sel, as.bof, 'e');
+  };
+  this.disable = function(start, sel, bof) {
+    var as = rearg_sta_sel_bof(arguments);
+    able(as.sta, as.sel, as.bof, 'd');
+  };
 
   this.cenable = function(start, sel, bof) {
     var as = rearg_sta_sel_bof(arguments);
     toggle(as.sta, as.sel, as.bof, '.disabled', true);
   };
-
   this.cdisable = function(start, sel, bof) {
     var as = rearg_sta_sel_bof(arguments);
     toggle(as.sta, as.sel, as.bof, '.disabled', false);

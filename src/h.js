@@ -299,16 +299,16 @@ var H = (function() {
     return r;
   };
 
-  this.hasClass = function(start, sel, className) {
+  this.hasClass = function(start, sel, cla) {
 
-    if ( ! className) { className = sel; sel = start; start = null; }
+    if ( ! cla) { cla = sel; sel = start; start = null; }
 
     var elt = toElt(start, sel);
-    if (className[0] === '.') className = className.substring(1);
+    if (cla[0] === '.') cla = cla.substring(1);
 
     try {
-      if (elt.classList) return elt.classList.contains(className);
-      return (new RegExp('\\b' + className + '\\b')).test(elt.className);
+      if (elt.classList) return elt.classList.contains(cla);
+      return (new RegExp('\\b' + cla + '\\b')).test(elt.className);
     }
     catch (ex) {
       return false;
@@ -420,13 +420,13 @@ var H = (function() {
     elt.parentNode.insertBefore(child, elt);
   };
 
-  this.clean = function(start, sel, claName) {
+  this.clean = function(start, sel, cla) {
 
     var elt = toElt(start, sel);
-    if (claName && claName[0] !== '.') claName = '.' + claName;
+    if (cla && cla[0] !== '.') cla = '.' + cla;
 
-    if (claName)
-      H.forEach(elt, claName, function(e) { e.parentElement.removeChild(e); });
+    if (cla)
+      H.forEach(elt, cla, function(e) { e.parentElement.removeChild(e); });
     else
       while (elt.firstChild) elt.removeChild(elt.firstChild);
 

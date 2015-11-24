@@ -29,8 +29,12 @@ pkg_comp:
 	cat src/h.js | ruby tools/compactor.rb >> pkg/h-$(VERSION).com.js
 	echo "/* compacted from commit $(SHA) on $(NOW) */" >> pkg/h-$(VERSION).com.js
 
-pkg: pkg_plain pkg_mini pkg_comp
+#pkg: pkg_plain pkg_mini pkg_comp
+pkg: pkg_plain pkg_comp
+
+clean:
+	rm -fR pkg/
 
 
-.PHONY: spec pkg
+.PHONY: spec pkg clean
 

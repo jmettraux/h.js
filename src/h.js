@@ -322,7 +322,7 @@ var H = (function() {
     if (cla[0] === '.') cla = cla.substring(1);
 
     toElts(start, sel).forEach(function(e) {
-      e.classList[dir == 'r' ? 'remove' : 'add'](cla);
+      e.classList[dir === 'r' ? 'remove' : 'add'](cla);
     });
   };
 

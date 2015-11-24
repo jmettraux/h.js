@@ -295,6 +295,36 @@ describe 'H' do
       })
     end
 
+    it 'works  .addClass(sel, "cla", boo)' do
+
+      expect(run(%{
+        H.addClass('.car.mazda', 'vehicle', false);
+        H.addClass('.car.bentley', 'vehicle', true);
+        return [
+          H.elt('.car.mazda').classList,
+          H.elt('.car.bentley').classList
+        ];
+      })).to eq([
+        %w{ car japan mazda },
+        %w{ car bentley vehicle }
+      ])
+    end
+
+    it 'works  .addClass(sel, "cla", fun)' do
+
+      expect(run(%{
+        H.addClass('.car.mazda', 'vehicle', function(e) { return false; });
+        H.addClass('.car.bentley', 'vehicle', function(e) { return true; });
+        return [
+          H.elt('.car.mazda').classList,
+          H.elt('.car.bentley').classList
+        ];
+      })).to eq([
+        %w{ car japan mazda },
+        %w{ car bentley vehicle }
+      ])
+    end
+
     it 'works  .addClass(sel, ".cla")' do
 
       expect(run(%{
@@ -314,6 +344,38 @@ describe 'H' do
       })).to eq(%w{
         car japan mazda vehicle
       })
+    end
+
+    it 'works  .addClass(start, sel, "cla", boo)' do
+
+      expect(run(%{
+        var e = H.elt('#cars');
+        H.addClass(e, '.car.mazda', 'vehicle', false);
+        H.addClass(e, '.car.bentley', 'vehicle', true);
+        return [
+          H.elt('.car.mazda').classList,
+          H.elt('.car.bentley').classList
+        ];
+      })).to eq([
+        %w{ car japan mazda },
+        %w{ car bentley vehicle }
+      ])
+    end
+
+    it 'works  .addClass(start, sel, "cla", fun)' do
+
+      expect(run(%{
+        var e = H.elt('#cars');
+        H.addClass(e, '.car.mazda', 'vehicle', function(e) { return false; });
+        H.addClass(e, '.car.bentley', 'vehicle', function(e) { return true; });
+        return [
+          H.elt('.car.mazda').classList,
+          H.elt('.car.bentley').classList
+        ];
+      })).to eq([
+        %w{ car japan mazda },
+        %w{ car bentley vehicle }
+      ])
     end
 
     it 'works  .addClass(start, sel, ".cla")' do

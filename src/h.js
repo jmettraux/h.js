@@ -315,19 +315,44 @@ var H = (function() {
     }
   };
 
-  var reclass = function(start, sel, cla, dir) {
-
-    if ( ! cla) { cla = sel; sel = start; start = null; }
+  var reClass = function(elt, cla, dir) {
 
     if (cla[0] === '.') cla = cla.substring(1);
-
-    toElts(start, sel).forEach(function(e) {
-      e.classList[dir === 'r' ? 'remove' : 'add'](cla);
-    });
+    elt.classList[dir === 'r' ? 'remove' : 'add'](cla);
   };
 
-  this.addClass = function(start, sel, cla) { reclass(start, sel, cla, 'a'); }
-  this.removeClass = function(start, sel, cla) { reclass(start, sel, cla, 'r'); };
+  var rearg_sta_sel_cla_bof = function(args) {
+
+    var a = args[0], b = args[1], c = args[2], d = args[3];
+
+    if (args.length < 2) throw "rearg_sta_sel_cla_bof() not enough arguments";
+
+    if (args.length === 2) return { sta: a, sel: null, cla: b, bof: true };
+    if (args.length > 3) return { sta: a, sel: b, cla: c, bof: d };
+
+    // sta/sel/cla or sta/cla/bof ?
+
+    if ((typeof c) === 'string' && c.match(/^\.?[^ ]+$/))
+      return { sta: a, sel: b, cla: c, bof: true };
+
+    return { sta: a, sel: null, cla: b, bof: c };
+  };
+
+  this.addClass = function(start, sel, cla, bof) {
+
+    var as = rearg_sta_sel_cla_bof(arguments);
+    var pos = function(e) { reClass(e, as.cla, 'a') };
+
+    visit(as.sta, as.sel, as.bof, pos, null);
+  }
+
+  this.removeClass = function(start, sel, cla, bof) {
+
+    var as = rearg_sta_sel_cla_bof(arguments);
+    var pos = function(e) { reClass(e, as.cla, 'r') };
+
+    visit(as.sta, as.sel, as.bof, pos, null);
+  };
 
   var visit = function(start, sel, bof, onTrue, onFalse) {
 
@@ -340,8 +365,8 @@ var H = (function() {
 
   var toggle = function(start, sel, bof, cla, inv) {
 
-    var add = function(e) { self.addClass(e, cla); };
-    var rem = function(e) { self.removeClass(e, cla); };
+    var add = function(e) { reClass(e, cla, 'a'); };
+    var rem = function(e) { reClass(e, cla, 'r'); };
 
     visit(start, sel, bof, inv ? rem : add, inv ? add : rem);
   };
@@ -368,7 +393,7 @@ var H = (function() {
       return { sta: a, sel: b, bof: true };
     }
 
-    throw "rearg_sta_sel_bof() but no arguments";
+    throw "rearg_sta_sel_bof() called without arguments";
   };
 
   this.show = function(start, sel, bof) {

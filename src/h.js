@@ -363,7 +363,7 @@ var H = (function() {
     });
   };
 
-  var toggle = function(start, sel, bof, cla, inv) {
+  var toggle = function(start, sel, cla, bof, inv) {
 
     var add = function(e) { reClass(e, cla, 'a'); };
     var rem = function(e) { reClass(e, cla, 'r'); };
@@ -375,7 +375,7 @@ var H = (function() {
 
     if ( ! cla) { cla = sel; sel = start; start = null; }
 
-    toggle(start, sel, function(e) { return ! self.hasClass(e, cla); }, cla);
+    toggle(start, sel, cla, function(e) { return ! self.hasClass(e, cla); });
   };
   this.toggle = this.toggleClass;
 
@@ -398,11 +398,11 @@ var H = (function() {
 
   this.show = function(start, sel, bof) {
     var as = rearg_sta_sel_bof(arguments);
-    toggle(as.sta, as.sel, as.bof, '.shown');
+    toggle(as.sta, as.sel, '.shown', as.bof);
   };
   this.hide = function(start, sel, bof) {
     var as = rearg_sta_sel_bof(arguments);
-    toggle(as.sta, as.sel, as.bof, '.hidden');
+    toggle(as.sta, as.sel, '.hidden', as.bof);
   };
 
   var able = function(start, sel, bof, dir) {
@@ -424,11 +424,11 @@ var H = (function() {
 
   this.cenable = function(start, sel, bof) {
     var as = rearg_sta_sel_bof(arguments);
-    toggle(as.sta, as.sel, as.bof, '.disabled', true);
+    toggle(as.sta, as.sel, '.disabled', as.bof, true);
   };
   this.cdisable = function(start, sel, bof) {
     var as = rearg_sta_sel_bof(arguments);
-    toggle(as.sta, as.sel, as.bof, '.disabled', false);
+    toggle(as.sta, as.sel, '.disabled', as.bof, false);
   };
 
   this.toCamelCase = function(s) {

@@ -347,6 +347,17 @@ var H = (function() {
     return { sta: a, sel: null, cla: b, bof: c };
   };
 
+  var toggle = function(start, sel, cla, bof, mod) {
+
+    var add = function(e) { reClass(e, cla, 'a'); };
+    var rem = function(e) { reClass(e, cla, 'r'); };
+
+    var pos = add, neg = rem;
+    if (mod === 'ra') { pos = rem; neg = add; }
+
+    visit(start, sel, bof, pos, neg);
+  };
+
   this.addClass = function(start, sel, cla, bof) {
 
     var as = rearg_sta_sel_cla_bof(arguments);
@@ -363,26 +374,19 @@ var H = (function() {
     visit(as.sta, as.sel, as.bof, pos, null);
   };
 
-  var toggle = function(start, sel, cla, bof, inv) {
-
-    var add = function(e) { reClass(e, cla, 'a'); };
-    var rem = function(e) { reClass(e, cla, 'r'); };
-
-    visit(start, sel, bof, inv ? rem : add, inv ? add : rem);
-  };
-
   this.toggleClass = function(start, sel, cla) {
 
     if ( ! cla) { cla = sel; sel = start; start = null; }
+    var bof = function(e) { return ! self.hasClass(e, cla); };
 
-    toggle(start, sel, cla, function(e) { return ! self.hasClass(e, cla); });
+    toggle(start, sel, cla, bof, 'ar');
   };
   this.toggle = this.toggleClass;
 
   this.setClass = function(start, sel, cla, bof) {
 
     var as = rearg_sta_sel_cla_bof(arguments);
-    toggle(as.sta, as.sel, as.cla, as.bof);
+    toggle(as.sta, as.sel, as.cla, as.bof, 'ar');
   };
 
   var rearg_sta_sel_bof = function(args) {
@@ -404,11 +408,11 @@ var H = (function() {
 
   this.show = function(start, sel, bof) {
     var as = rearg_sta_sel_bof(arguments);
-    toggle(as.sta, as.sel, '.shown', as.bof);
+    toggle(as.sta, as.sel, '.shown', as.bof, 'ar');
   };
   this.hide = function(start, sel, bof) {
     var as = rearg_sta_sel_bof(arguments);
-    toggle(as.sta, as.sel, '.hidden', as.bof);
+    toggle(as.sta, as.sel, '.hidden', as.bof, 'ar');
   };
 
   var able = function(start, sel, bof, dir) {
@@ -430,11 +434,11 @@ var H = (function() {
 
   this.cenable = function(start, sel, bof) {
     var as = rearg_sta_sel_bof(arguments);
-    toggle(as.sta, as.sel, '.disabled', as.bof, true);
+    toggle(as.sta, as.sel, '.disabled', as.bof, 'ra');
   };
   this.cdisable = function(start, sel, bof) {
     var as = rearg_sta_sel_bof(arguments);
-    toggle(as.sta, as.sel, '.disabled', as.bof, false);
+    toggle(as.sta, as.sel, '.disabled', as.bof, 'ar');
   };
 
   this.toCamelCase = function(s) {

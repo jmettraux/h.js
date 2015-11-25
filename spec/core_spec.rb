@@ -290,9 +290,9 @@ describe 'H' do
       expect(run(%{
         H.addClass('.car.japan', 'vehicle');
         return H.elt('.car.japan').classList;
-      })).to eq(%w{
+      })).to eq(%w[
         car japan mazda vehicle
-      })
+      ])
     end
 
     it 'works  .addClass(sel, "cla", boo)' do
@@ -305,8 +305,8 @@ describe 'H' do
           H.elt('.car.bentley').classList
         ];
       })).to eq([
-        %w{ car japan mazda },
-        %w{ car bentley vehicle }
+        %w[ car japan mazda ],
+        %w[ car bentley vehicle ]
       ])
     end
 
@@ -320,8 +320,8 @@ describe 'H' do
           H.elt('.car.bentley').classList
         ];
       })).to eq([
-        %w{ car japan mazda },
-        %w{ car bentley vehicle }
+        %w[ car japan mazda ],
+        %w[ car bentley vehicle ]
       ])
     end
 
@@ -330,9 +330,9 @@ describe 'H' do
       expect(run(%{
         H.addClass('.car.japan', '.vehicle');
         return H.elt('.car.japan').classList;
-      })).to eq(%w{
+      })).to eq(%w[
         car japan mazda vehicle
-      })
+      ])
     end
 
     it 'works  .addClass(start, sel, "cla")' do
@@ -341,9 +341,9 @@ describe 'H' do
         var e = H.elt('#cars');
         H.addClass(e, '.car.japan', 'vehicle');
         return H.elt(e, '.car.japan').classList;
-      })).to eq(%w{
+      })).to eq(%w[
         car japan mazda vehicle
-      })
+      ])
     end
 
     it 'works  .addClass(start, sel, "cla", boo)' do
@@ -357,8 +357,8 @@ describe 'H' do
           H.elt('.car.bentley').classList
         ];
       })).to eq([
-        %w{ car japan mazda },
-        %w{ car bentley vehicle }
+        %w[ car japan mazda ],
+        %w[ car bentley vehicle ]
       ])
     end
 
@@ -373,8 +373,8 @@ describe 'H' do
           H.elt('.car.bentley').classList
         ];
       })).to eq([
-        %w{ car japan mazda },
-        %w{ car bentley vehicle }
+        %w[ car japan mazda ],
+        %w[ car bentley vehicle ]
       ])
     end
 
@@ -384,9 +384,9 @@ describe 'H' do
         var e = H.elt('#cars');
         H.addClass(e, '.car.japan', '.vehicle');
         return H.elt(e, '.car.japan').classList;
-      })).to eq(%w{
+      })).to eq(%w[
         car japan mazda vehicle
-      })
+      ])
     end
   end
 
@@ -400,9 +400,9 @@ describe 'H' do
       expect(run(%{
         H.removeClass('.car.japan', 'japan');
         return H.elt('.car.mazda').classList;
-      })).to eq(%w{
+      })).to eq(%w[
         car mazda
-      })
+      ])
     end
 
     it 'works  .removeClass(sel, ".cla")' do
@@ -410,9 +410,9 @@ describe 'H' do
       expect(run(%{
         H.removeClass('.car.japan', '.japan');
         return H.elt('.car.mazda').classList;
-      })).to eq(%w{
+      })).to eq(%w[
         car mazda
-      })
+      ])
     end
 
     it 'works  .removeClass(start, sel, "cla")' do
@@ -421,9 +421,9 @@ describe 'H' do
         var e = H.elt('#cars');
         H.removeClass(e, '.car.japan', 'japan');
         return H.elt(e, '.car.mazda').classList;
-      })).to eq(%w{
+      })).to eq(%w[
         car mazda
-      })
+      ])
     end
 
     it 'works  .removeClass(start, sel, ".cla")' do
@@ -432,9 +432,69 @@ describe 'H' do
         var e = H.elt('#cars');
         H.removeClass(e, '.car.japan', '.japan');
         return H.elt(e, '.car.mazda').classList;
-      })).to eq(%w{
+      })).to eq(%w[
         car mazda
-      })
+      ])
+    end
+  end
+
+  describe '.setClass' do
+
+    it 'works  .setClass(sel, ".cla")' do
+
+      expect(run(%{
+        H.setClass('#sc > div', '.b');
+        var a = [];
+        H.forEach('#sc > div', function(e) { a.push(e.classList); });
+        return a;
+      })).to eq([
+        %w[ b ], %w[ b ], %w[ a b ], %w[ a b ]
+      ])
+    end
+
+    it 'works  .setClass(sel, ".cla", boo)' do
+
+      expect(run(%{
+        H.setClass('#sc > div', '.b', false);
+        var a = [];
+        H.forEach('#sc > div', function(e) { a.push(e.classList); });
+        return a;
+      })).to eq([
+        %w[ ], %w[ ], %w[ a ], %w[ a ]
+      ])
+      expect(run(%{
+        H.setClass('#sc > div', '.b', true);
+        var a = [];
+        H.forEach('#sc > div', function(e) { a.push(e.classList); });
+        return a;
+      })).to eq([
+        %w[ b ], %w[ b ], %w[ a b ], %w[ a b ]
+      ])
+    end
+
+    it 'works  .setClass(sel, ".cla", fun)' do
+
+      expect(run(%{
+        var fun = function(e) { return ! H.hasClass(e, 'a'); };
+        H.setClass('#sc > div', '.b', fun);
+        var a = [];
+        H.forEach('#sc > div', function(e) { a.push(e.classList); });
+        return a;
+      })).to eq([
+        %w[ b ], %w[ b ], %w[ a ], %w[ a ]
+      ])
+    end
+
+    it 'works  .setClass(sel, ".cla", undefined)' do
+
+      expect(run(%{
+        H.setClass('#sc > div', '.b', undefined);
+        var a = [];
+        H.forEach('#sc > div', function(e) { a.push(e.classList); });
+        return a;
+      })).to eq([
+        %w[ ], %w[ ], %w[ a ], %w[ a ]
+      ])
     end
   end
 

@@ -315,6 +315,15 @@ var H = (function() {
     }
   };
 
+  var visit = function(start, sel, bof, onTrue, onFalse) {
+
+    H.forEach(start, sel, function(e) {
+
+      var b = ((typeof bof) === 'function') ? bof(e) : bof;
+      var fun = b ? onTrue : onFalse; if (fun) fun(e);
+    });
+  };
+
   var reClass = function(elt, cla, dir) {
 
     if (cla[0] === '.') cla = cla.substring(1);
@@ -354,15 +363,6 @@ var H = (function() {
     visit(as.sta, as.sel, as.bof, pos, null);
   };
 
-  var visit = function(start, sel, bof, onTrue, onFalse) {
-
-    H.forEach(start, sel, function(e) {
-
-      var b = ((typeof bof) === 'function') ? bof(e) : bof;
-      var fun = b ? onTrue : onFalse; if (fun) fun(e);
-    });
-  };
-
   var toggle = function(start, sel, cla, bof, inv) {
 
     var add = function(e) { reClass(e, cla, 'a'); };
@@ -378,6 +378,12 @@ var H = (function() {
     toggle(start, sel, cla, function(e) { return ! self.hasClass(e, cla); });
   };
   this.toggle = this.toggleClass;
+
+  this.setClass = function(start, sel, cla, bof) {
+
+    var as = rearg_sta_sel_cla_bof(arguments);
+    toggle(as.sta, as.sel, as.cla, as.bof);
+  };
 
   var rearg_sta_sel_bof = function(args) {
 

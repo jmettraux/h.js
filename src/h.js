@@ -354,24 +354,19 @@ var H = (function() {
 
     var pos = add, neg = rem;
     if (mod === 'ra') { pos = rem; neg = add; }
+    else if (mod === 'a') { neg = null; }
+    else if (mod === 'r') { pos = rem; neg = null; }
 
     visit(start, sel, bof, pos, neg);
   };
 
   this.addClass = function(start, sel, cla, bof) {
-
     var as = rearg_sta_sel_cla_bof(arguments);
-    var pos = function(e) { reClass(e, as.cla, 'a') };
-
-    visit(as.sta, as.sel, as.bof, pos, null);
+    toggle(as.sta, as.sel, as.cla, as.bof, 'a');
   }
-
   this.removeClass = function(start, sel, cla, bof) {
-
     var as = rearg_sta_sel_cla_bof(arguments);
-    var pos = function(e) { reClass(e, as.cla, 'r') };
-
-    visit(as.sta, as.sel, as.bof, pos, null);
+    toggle(as.sta, as.sel, as.cla, as.bof, 'r');
   };
 
   this.toggleClass = function(start, sel, cla) {
@@ -384,7 +379,6 @@ var H = (function() {
   this.toggle = this.toggleClass;
 
   this.setClass = function(start, sel, cla, bof) {
-
     var as = rearg_sta_sel_cla_bof(arguments);
     toggle(as.sta, as.sel, as.cla, as.bof, 'ar');
   };

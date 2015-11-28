@@ -441,12 +441,12 @@ var H = (function() {
       /([_-][a-z])/g, function(x) { return x.substring(1).toUpperCase(); });
   };
 
-  this.prepend = function(start, sel, child) {
+  this.prepend = function(start, sel, elt) {
 
-    if ( ! child) { child = sel; sel = start; start = null; }
-    var elt = toElt(start, sel);
+    if ( ! elt) { elt = sel; sel = start; start = null; }
+    var e = toElt(start, sel);
 
-    elt.parentNode.insertBefore(child, elt);
+    e.parentNode.insertBefore(elt, e);
   };
 
   this.clean = function(start, sel, cla) {
@@ -462,10 +462,10 @@ var H = (function() {
     return elt;
   };
 
-  this.onDocumentReady = function(f) {
+  this.onDocumentReady = function(fev) {
 
-    if (document.readyState != 'loading') f();
-    else document.addEventListener('DOMContentLoaded', f);
+    if (document.readyState != 'loading') fev();
+    else document.addEventListener('DOMContentLoaded', fev);
   };
 
   //

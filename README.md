@@ -16,9 +16,11 @@ Owes a great deal to http://youmightnotneedjquery.com/
 // cla: classname, may start with a dot "." or not
 // elt: a DOM Element
 // evn: an event name, like 'click', 'keyup' or 'change'
+// fev: a classical event function, function(evt) {}
 // fun: a function, function(elt) {}
 // sel: css selector
 // sta: start point, either a DOM Element, either a CSS selector
+// str: a String
 
 
 // Returns a single Element
@@ -91,12 +93,57 @@ H.toNode(string);
   //
   H.toNode('<span data-id="123">hello</span>');
 
-// Adds an event listener to an Element or a set of Element.
-H.on(sta, evn, fun);
-H.on(sta, sel, evn, fun);
-  //
-  // the function here has the classical signature:
-  function(event) {}
+// Adds an event listener to an Element or a set of Element
+H.on(sta, evn, fev);
+H.on(sta, sel, evn, fev);
+
+// Sets disabled="disabled" on an Element or a set of Element.
+// If the bof is present and  yields false, disabled="disabled" will be removed.
+// (behaviour similar to H.setClass() above).
+H.disable(sta);
+H.disable(sta, sel);
+H.disable(sta, bof);
+H.disable(sta, sel, bof);
+
+// Like H.disable() but with an inverse effect.
+H.enable(sta);
+H.enable(sta, sel);
+H.enable(sta, bof);
+H.enable(sta, sel, bof);
+
+// Like H.disable() and H.enable(), but instead of working with the "disabled"
+// attribute, sets or removes the "disabled" class.
+H.cdisable(sta);
+H.cdisable(sta, sel);
+H.cdisable(sta, bof);
+H.cdisable(sta, sel, bof);
+H.cenable(sta);
+H.cenable(sta, sel);
+H.cenable(sta, bof);
+H.cenable(sta, sel, bof);
+
+// Like H.cenable() but toggles the 'shown' class
+H.show(sta);
+H.show(sta, sel);
+H.show(sta, bof);
+H.show(sta, sel, bof);
+
+// Like H.cenable() but toggles the 'hidden' class
+H.hide(sta);
+H.hide(sta, sel);
+H.hide(sta, bof);
+H.hide(sta, sel, bof);
+
+// turns "my_old-donkey" into "myOldDonkey"
+H.toCamelCase(str);
+
+// Inserts an Element before another one (the one pointed at by sta[, sel]).
+H.prepend(sta, elt);
+H.prepend(sta, sel, elt);
+
+// Runs fev as soon as the Document is ready,
+// the evt passed to the function might be undefined
+H.onDocumentReady(fev);
 ```
 
 

@@ -134,7 +134,7 @@ H.hide(sta, sel);
 H.hide(sta, bof);
 H.hide(sta, sel, bof);
 
-// turns "my_old-donkey" into "myOldDonkey"
+// Turns "my_old-donkey" into "myOldDonkey"
 H.toCamelCase(str);
 
 // Inserts an Element before another one (the one pointed at by sta[, sel]).
@@ -144,6 +144,39 @@ H.prepend(sta, sel, elt);
 // Runs fev as soon as the Document is ready,
 // the evt passed to the function might be undefined
 H.onDocumentReady(fev);
+```
+
+H.js also sports a few functions wrapping XMLHttpRequest.
+
+```
+// H.request()
+//
+// meth: 'GET', 'POST', 'PUT', 'HEAD', 'DELETE', ...
+// uri: "http://that.example.org/stuff"
+//
+// data:
+//   TODO
+//
+// onok:
+//   a function with the signature function(res) {}
+//   a "res" object is a of the form { status: int, request: r, data: x }
+//   TODO
+// callbacks:
+//   an object with at least an "onok" entry and at most "onok", "onload"
+//   and "onerror" entries.
+//   The 3 entries should point to a function with signature function(res) {}
+//   As seen above, "onok" is called for responses with status code 200 OK.
+//   "onload" is called for any non-200 status code responses.
+//   "onerror" is called when the request failed (no response).
+//
+H.request(meth, uri, onok);
+H.request(meth, uri, data, onok);
+H.request(meth, uri, callbacks);
+H.request(meth, uri, data, callbacks);
+
+// H.upload()
+//
+// TODO
 ```
 
 

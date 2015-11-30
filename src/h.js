@@ -383,6 +383,16 @@ var H = (function() {
     toggle(as.sta, as.sel, as.cla, as.bof, 'ar');
   };
 
+  this.renameClass = function(start, sel, cla0, cla1) {
+
+    if ( ! cla1) { cla1 = cla0; cla0 = sel; sel = start; start = null; }
+
+    var bof = function(e) { return H.hasClass(e, cla0); };
+    var fun = function(e) { H.removeClass(e, cla0); H.addClass(e, cla1); };
+
+    visit(start, sel, bof, fun, null);
+  };
+
   var rearg_sta_sel_bof = function(args) {
 
     var a = args[0], b = args[1], c = args[2], t = (typeof args[1]);

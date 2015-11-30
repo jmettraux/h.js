@@ -73,6 +73,11 @@ H.setClass(sta, sel, cla);
 H.setClass(sta, cla, bof);
 H.setClass(sta, sel, cla, bof);
 
+// Iterates a set of Element, when it finds class cla0, it removes it and
+// replaces it with cla1
+H.renameClass(sta, cla0, cla1);
+H.renameClass(sta, sel, cla0, cla1);
+
 // Creates an HTMLElement
 H.create(tagName, attributes, textContent);
   //

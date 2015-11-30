@@ -498,6 +498,45 @@ describe 'H' do
     end
   end
 
+  describe '.renameClass' do
+
+    before(:each) { reset_dom }
+    after(:all) { reset_dom }
+
+    it 'works  .renameClass(sel, cla0, cla1)' do
+
+      expect(run(%{
+        H.renameClass('.europe', '.europe', '.old-europe');
+        H.renameClass('.japan', 'japan', 'crazy-japan');
+        return [
+          H.elt('.europe'),
+          H.elt('.japan'),
+          H.elt('.old-europe').className,
+          H.elt('.crazy-japan').className,
+        ];
+      })).to eq(
+        [ nil, nil, 'old-europe', 'car mazda crazy-japan' ]
+      )
+    end
+
+    it 'works  .renameClass(sta, sel, cla0, cla1)' do
+
+      expect(run(%{
+        var c = H.elt('#cars');
+        H.renameClass(c, '.europe', '.europe', '.old-europe');
+        H.renameClass(c, '.japan', 'japan', 'crazy-japan');
+        return [
+          H.elt(c, '.europe'),
+          H.elt(c, '.japan'),
+          H.elt(c, '.old-europe').className,
+          H.elt(c, '.crazy-japan').className,
+        ];
+      })).to eq(
+        [ nil, nil, 'old-europe', 'car mazda crazy-japan' ]
+      )
+    end
+  end
+
   describe '.create' do
 
     it 'works  .create(tag, atts, text)' do

@@ -151,6 +151,18 @@ H.prepend(sta, sel, elt);
 H.onDocumentReady(fev);
 ```
 
+```
+// Returns an object
+// { top: p, bottom: p, left: p, right: p, height: p, width: p }
+// where p are values in pixel
+H.dim(sta);
+H.dim(sta, sel);
+
+// Returns an object with the computed style of an element
+H.style(sta);
+H.style(sta, sel);
+```
+
 H.js also sports a few functions wrapping XMLHttpRequest.
 
 ```

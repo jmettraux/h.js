@@ -153,6 +153,14 @@ H.remove(sta, sel);
 H.remove(sta, bof);
 H.remove(sta, sel, bof);
 
+// Given an element (the first to match (sta, sel)) removes all its children.
+// If a classname is given, removes only those children that sport the
+// classname.
+H.clean(sta);
+H.clean(sta, sel);
+H.clean(sta, cla);
+H.clean(sta, sel, cla);
+
 // Runs fev as soon as the Document is ready,
 // the evt passed to the function might be undefined
 H.onDocumentReady(fev);

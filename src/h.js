@@ -463,7 +463,9 @@ var H = (function() {
     var as = rearg_sta_sel_bof(arguments);
 
     toElts(as.sta, as.sel).forEach(function(e) {
-      if ((typeof as.bof) === 'function' ? as.bof(e) : as.bof) e.remove();
+      if ((typeof as.bof) === 'function' ? as.bof(e) : as.bof) {
+        e.parentElement.removeChild(e);
+      }
     });
   };
 

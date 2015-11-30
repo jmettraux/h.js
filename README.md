@@ -146,6 +146,13 @@ H.toCamelCase(str);
 H.prepend(sta, elt);
 H.prepend(sta, sel, elt);
 
+// Removes an Element or a set of Element. If bof is present, removes only
+// if bof yields true.
+H.remove(sta);
+H.remove(sta, sel);
+H.remove(sta, bof);
+H.remove(sta, sel, bof);
+
 // Runs fev as soon as the Document is ready,
 // the evt passed to the function might be undefined
 H.onDocumentReady(fev);

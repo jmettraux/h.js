@@ -1178,11 +1178,8 @@ red mazda
       expect(run(%{
         H.clean('#cars', '.europe', 'car');
         return H.elt('#cars .europe').outerHTML;
-      })).to eq(%{
-<div class="europe">
-
-
-</div>
+      }).gsub(/\n+/, '')).to eq(%{
+<div class="europe"></div>
       }.strip)
     end
 
@@ -1191,11 +1188,76 @@ red mazda
       expect(run(%{
         H.clean('#cars', '.europe', '.car');
         return H.elt('#cars .europe').outerHTML;
+      }).gsub(/\n+/, '')).to eq(%{
+<div class="europe"></div>
+      }.strip)
+    end
+  end
+
+  describe '.remove' do
+
+    before(:each) { reset_dom }
+    after(:all) { reset_dom }
+
+    it 'works  .remove(sta)' do
+
+      expect(run(%{
+        H.remove('#cars > div');
+        return H.elt('#cars').outerHTML;
+      }).gsub(/\n+/, '')).to eq(%{
+<div id="cars"></div>
+      }.strip)
+    end
+
+    it 'works  .remove(sta, sel)' do
+
+      expect(run(%{
+        H.remove('#hide_and_show', '.t');
+        return H.elt('#hide_and_show').outerHTML;
+      }).gsub(/\n+/, '')).to eq(%{
+<div id="hide_and_show"></div>
+      }.strip)
+    end
+
+    it 'works  .remove(sta, boo)' do
+
+      expect(run(%{
+        H.remove('#sc > div', false);
+        return H.elt('#sc').outerHTML;
       })).to eq(%{
-<div class="europe">
-
-
+<div id="sc">
+<div id="sc-test-0"></div>
+<div id="sc-test-1"></div>
+<div id="sc-test-2" class="a"></div>
+<div id="sc-test-3" class="a"></div>
 </div>
+      }.strip)
+
+      expect(run(%{
+        H.remove('#sc > div', true);
+        return H.elt('#sc').outerHTML;
+      }).gsub(/\n+/, '')).to eq(%{
+<div id="sc"></div>
+      }.strip)
+    end
+
+    it 'works  .remove(sta, bof)' do
+
+      expect(run(%{
+        H.remove('#sc > div', function(e) { return H.hasClass(e, 'a'); });
+        return H.elt('#sc').outerHTML;
+      }).gsub(/\n+/, '')).to eq(%{
+<div id="sc"><div id="sc-test-0"></div><div id="sc-test-1"></div></div>
+      }.strip)
+    end
+
+    it 'works  .remove(sta, sel, bof)' do
+
+      expect(run(%{
+        H.remove('#sc', 'div', function(e) { return H.hasClass(e, 'a'); });
+        return H.elt('#sc').outerHTML;
+      }).gsub(/\n+/, '')).to eq(%{
+<div id="sc"><div id="sc-test-0"></div><div id="sc-test-1"></div></div>
       }.strip)
     end
   end

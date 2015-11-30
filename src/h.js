@@ -292,7 +292,6 @@ var H = (function() {
         var s = style[p];
         if ((typeof s) !== 'function') r[p] = s;
       }
-
       //return r;
     }
 
@@ -457,6 +456,15 @@ var H = (function() {
     var e = toElt(start, sel);
 
     e.parentNode.insertBefore(elt, e);
+  };
+
+  this.remove = function(start, sel, bof) {
+
+    var as = rearg_sta_sel_bof(arguments);
+
+    toElts(as.sta, as.sel).forEach(function(e) {
+      if ((typeof as.bof) === 'function' ? as.bof(e) : as.bof) e.remove();
+    });
   };
 
   this.clean = function(start, sel, cla) {

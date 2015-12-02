@@ -166,6 +166,8 @@ H.clean(sta, sel, cla);
 H.onDocumentReady(fev);
 ```
 
+Two methods for inspecting style and dimensions of an element.
+
 ```
 // Returns an object
 // { top: p, bottom: p, left: p, right: p, height: p, width: p }

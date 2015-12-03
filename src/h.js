@@ -156,36 +156,64 @@ var H = (function() {
     }
   };
 
-  this.request = function(method, uri, data, callbacks) {
-  //this.request = function(method, uri, data, headers, callbacks) { // TODO
+  var isHeaders = function(o) {
 
-    if ( ! callbacks) { callbacks = data; data = null; }
-    if ((typeof callbacks) === 'function') callbacks = { onok: callbacks };
+    if ((typeof o) !== 'object') return false;
+    for (var k in o) { if ((typeof o[k]) !== 'string') return false; }
+    return true;
+  };
+
+  this.request = function(method, uri, data, headers, callbacks) {
+
+    // shuffle args
+
+    var as = { met: method, uri: uri };
+    if (arguments.length >= 5) {
+      as.dat = data; as.hds = headers; as.cbs = callbacks;
+    }
+    else if (arguments.length === 4) {
+      // met uri dat cbs || met uri hds cbs
+      if (isHeaders(data)) as.hds = data; else as.dat = data;
+      as.cbs = headers;
+    }
+    else if (arguments.length === 3) {
+      as.cbs = data;
+    }
+    else {
+      throw "not enough arguments for H.request";
+    }
+    if ((typeof as.cbs) === 'function') as.cbs = { onok: as.cbs };
+
+    // prepare request
 
     var r = new XMLHttpRequest();
-    r.open(method, uri, true);
+    r.open(as.met, as.uri, true);
 
-    if (data) {
-      if (data.constructor.toString().match(/FormData/)) {
+    if (as.dat) {
+      if (as.dat.constructor.toString().match(/FormData/)) {
         //r.setRequestHeader('Content-Type', 'application/form-data');
       }
       else {
         r.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-        data = (typeof data) === 'string' ? data : JSON.stringify(data);
+        as.dat = (typeof as.dat) === 'string' ? as.dat : JSON.stringify(as.dat);
       }
     }
+
+    // prepare callbacks
 
     r.onload = function() {
       var o = { status: r.status, request: r };
       o.data = null; try { o.data = JSON.parse(r.responseText); } catch (ex) {};
-      if (callbacks.onok && r.status === 200)
-        callbacks.onok(o);
+      if (as.cbs.onok && r.status === 200)
+        as.cbs.onok(o);
       else
-        (callbacks.onload || defaultOn('load', method, uri))(o);
+        (as.cbs.onload || defaultOn('load', as.met, as.uri))(o);
     };
-    r.onerror = callbacks.onerror || defaultOn('error', method, uri);
+    r.onerror = as.cbs.onerror || defaultOn('error', as.met, as.uri);
 
-    r.send(data);
+    // request
+
+    r.send(as.dat);
   };
 
   this.upload = function(uri, inputFileElt_s, data, callbacks) {

@@ -157,6 +157,7 @@ var H = (function() {
   };
 
   this.request = function(method, uri, data, callbacks) {
+  //this.request = function(method, uri, data, headers, callbacks) { // TODO
 
     if ( ! callbacks) { callbacks = data; data = null; }
     if ((typeof callbacks) === 'function') callbacks = { onok: callbacks };

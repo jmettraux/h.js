@@ -159,43 +159,58 @@ var H = (function() {
   var isHeaders = function(o) {
 
     if ((typeof o) !== 'object') return false;
-    for (var k in o) { if ((typeof o[k]) !== 'string') return false; }
+    for (var k in o) {
+      if ((typeof o[k]) !== 'string') return false;
+      if ( ! k.match(/^[A-Z][A-Za-z0-9-]+$/)) return false;
+    }
     return true;
   };
 
-  this.request = function(method, uri, data, headers, callbacks) {
+  this.request = function(method, uri, headers, data, callbacks) {
 
     // shuffle args
 
     var as = { met: method, uri: uri };
     if (arguments.length >= 5) {
-      as.dat = data; as.hds = headers; as.cbs = callbacks;
+      as.hds = headers; as.dat = data; as.cbs = callbacks;
     }
     else if (arguments.length === 4) {
       // met uri dat cbs || met uri hds cbs
-      if (isHeaders(data)) as.hds = data; else as.dat = data;
-      as.cbs = headers;
+      if (isHeaders(headers)) as.hds = headers; else as.dat = headers;
+      as.cbs = data;
     }
     else if (arguments.length === 3) {
-      as.cbs = data;
+      as.cbs = headers;
     }
     else {
       throw "not enough arguments for H.request";
     }
+
     if ((typeof as.cbs) === 'function') as.cbs = { onok: as.cbs };
+    if ( ! as.hds) as.hds = {};
 
     // prepare request
 
     var r = new XMLHttpRequest();
     r.open(as.met, as.uri, true);
 
+    for (var k in as.hds) r.setRequestHeader(k, as.hds[k]);
+
     if (as.dat) {
-      if (as.dat.constructor.toString().match(/FormData/)) {
+
+      var con = as.dat.constructor.toString();
+      var typ = typeof as.dat;
+      var cot = as.hds['Content-Type'] || '/json';
+
+      if (con.match(/FormData/)) {
         //r.setRequestHeader('Content-Type', 'application/form-data');
       }
-      else {
+      else if (cot.match(/\/json\b/) || typ !== 'string') {
         r.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-        as.dat = (typeof as.dat) === 'string' ? as.dat : JSON.stringify(as.dat);
+        as.dat = typ === 'string' ? as.dat : JSON.stringify(as.dat);
+      }
+      else {
+        as.dat = as.dat.toString();
       }
     }
 

@@ -90,6 +90,27 @@ describe 'H and xhr requests' do
       expect(req['data']).to eq('{"a":1}')
       expect(req['sent']).to eq(true)
     end
+
+    it 'posts text/plain' do
+
+      req =
+        run(%{
+          var onok = function(res) {};
+          H.request(
+            'POST',
+            'http://www.example.org',
+            { 'Content-Type': 'text/plain' },
+            "a: red green: 2 c: blue",
+            onok);
+          return window._req;
+        })
+
+      expect(req['uri']).to eq('http://www.example.org')
+      expect(req['method']).to eq('POST')
+      expect(req['headers']).to eq({ 'Content-Type' => 'text/plain' })
+      expect(req['data']).to eq("a: red green: 2 c: blue")
+      expect(req['sent']).to eq(true)
+    end
   end
 
   describe '.upload' do

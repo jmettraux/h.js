@@ -63,6 +63,7 @@ describe 'H and xhr requests' do
 
       expect(req['uri']).to eq('http://www.example.org/data.json')
       expect(req['method']).to eq('GET')
+      expect(req['headers']).to eq({})
       expect(req['data']).to eq(nil)
       expect(req['sent']).to eq(true)
 

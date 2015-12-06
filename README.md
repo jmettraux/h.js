@@ -204,9 +204,13 @@ H.js also sports a few functions wrapping XMLHttpRequest.
 //   "onerror" is called when the request failed (no response).
 //
 H.request(meth, uri, onok);
+H.request(meth, uri, headers, onok);
 H.request(meth, uri, data, onok);
+H.request(meth, uri, headers, data, onok);
 H.request(meth, uri, callbacks);
+H.request(meth, uri, headers, callbacks);
 H.request(meth, uri, data, callbacks);
+H.request(meth, uri, headers, data, callbacks);
 
 // H.upload()
 //

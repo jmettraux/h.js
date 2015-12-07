@@ -189,12 +189,18 @@ H.js also sports a few functions wrapping XMLHttpRequest.
 // uri: "http://that.example.org/stuff"
 //
 // data:
-//   TODO
+//   by default, h.js will consider data as something to turn into JSON
+//   via JSON.stringify. If data is a string will simply pass it as is.
+//
+//   If the data is an instance of FormData, the data will be passed as is.
+//
+//   If a "Content-Type" request header that is doesn't contain "json" is
+//   given, the data is turned into a string via toString() before being sent.
 //
 // onok:
 //   a function with the signature function(res) {}
 //   a "res" object is a of the form { status: int, request: r, data: x }
-//   TODO
+//
 // callbacks:
 //   an object with at least an "onok" entry and at most "onok", "onload"
 //   and "onerror" entries.

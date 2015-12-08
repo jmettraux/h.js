@@ -438,15 +438,15 @@ var H = (function() {
 
   var rearg_sta_sel_bof = function(args) {
 
-    var a = args[0], b = args[1], c = args[2], t = (typeof args[1]);
+    var a = args[0], b = args[1], c = args[2], t = (typeof b);
 
     if (args.length === 1) return { sta: a, sel: null, bof: true };
     if (args.length > 2) return { sta: a, sel: b, bof: c };
 
     if (args.length === 2) {
-      if (t === 'boolean' || t === 'function' || t === 'undefined') {
-        return { sta: a, sel: null, bof: b };
-      }
+      if (
+        t === 'boolean' || t === 'function' || t === 'undefined' || b === null
+      ) return { sta: a, sel: null, bof: b };
       return { sta: a, sel: b, bof: true };
     }
 

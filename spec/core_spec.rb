@@ -648,7 +648,7 @@ yellow volkswagen
     before(:each) { reset_dom }
     after(:all) { reset_dom }
 
-    it 'works .enable(sel)' do
+    it 'works  .enable(sel)' do
 
       expect(run(%{
         H.enable('input[name="first-name"]');
@@ -658,22 +658,37 @@ yellow volkswagen
       }.strip)
     end
 
-    it 'works .enable(sel, bool)' do
+    it 'works  .enable(sel, bool)' do
 
       expect(run(%{
         H.enable('input[name="name"]', false);
         H.enable('input[name="first-name"]', true);
+        H.enable(H.elt('input[name="last-name"]'), false);
         return [
           H.elt('input[name="name"]').outerHTML,
-          H.elt('input[name="first-name"]').outerHTML
+          H.elt('input[name="first-name"]').outerHTML,
+          H.elt('input[name="last-name"]').outerHTML
         ];
       })).to eq([
         '<input type="text" name="name" disabled="disabled">',
-        '<input type="text" name="first-name">'
+        '<input type="text" name="first-name">',
+        '<input type="text" name="last-name" disabled="disabled">'
       ])
     end
 
-    it 'works .enable(sel, fun)' do
+    it 'works  .enable(elt, undefined)' do
+
+      expect(run(%{
+        H.enable(H.elt('input[name="last-name"]'), "".match(/nada/));
+        return [
+          H.elt('input[name="last-name"]').outerHTML
+        ];
+      })).to eq([
+        '<input type="text" name="last-name" disabled="disabled">'
+      ])
+    end
+
+    it 'works  .enable(sel, fun)' do
 
       expect(run(%{
         H.enable('#input input', function(e) {
@@ -692,7 +707,7 @@ yellow volkswagen
       }.strip)
     end
 
-    it 'works .enable(start, sel)' do
+    it 'works  .enable(start, sel)' do
 
       expect(run(%{
         var i = H.elt('#input');
@@ -703,7 +718,7 @@ yellow volkswagen
       }.strip)
     end
 
-    it 'works .enable(start, sel, bool)' do
+    it 'works  .enable(start, sel, bool)' do
 
       expect(run(%{
         var i = H.elt('#input');
@@ -722,7 +737,7 @@ yellow volkswagen
 
   describe '.disable' do
 
-    it 'works .disable(sel, fun)' do
+    it 'works  .disable(sel, fun)' do
 
       expect(run(%{
         H.disable('#input input', function(e) {

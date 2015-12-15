@@ -1275,6 +1275,14 @@ red mazda
 <div id="sc"><div id="sc-test-0"></div><div id="sc-test-1"></div></div>
       }.strip)
     end
+
+    it 'works  .remove("#gone")' do
+
+      expect(run(%{
+        H.remove('#gone');
+        return 1;
+      })).to eq(1)
+    end
   end
 
   describe '.dim' do

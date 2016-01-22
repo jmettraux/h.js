@@ -65,6 +65,25 @@ var H = (function() {
     return r;
   };
 
+  this.tdim = function(start, sel) {
+
+    var elt = toElt(start, sel); if ( ! elt) return null;
+
+    var left = 0; var top = 0;
+    var e = elt;
+
+    while (e) {
+      left += e.offsetLeft; top += e.offsetTop;
+      e = e.offsetParent;
+    }
+
+    return {
+      top: top, bottom: top + el.offsetHeight,
+      left: left, right: left + el.offsetWidth,
+      height: el.offsetHeight, width: el.offsetWidth
+    }
+  }
+
   this.dim = function(start, sel) {
 
     var e = toElt(start, sel);

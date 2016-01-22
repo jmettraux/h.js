@@ -166,14 +166,27 @@ H.clean(sta, sel, cla);
 H.onDocumentReady(fev);
 ```
 
-Two methods for inspecting style and dimensions of an element.
+Three methods for inspecting style and dimensions of an element.
 
 ```
 // Returns an object
 // { top: p, bottom: p, left: p, right: p, height: p, width: p }
 // where p are values in pixel
+//
+// Doesn't work for object inside of a table (use tdim() for those)
+//
 H.dim(sta);
 H.dim(sta, sel);
+
+// Returns an object
+// { top: p, bottom: p, left: p, right: p, height: p, width: p }
+// where p are values in pixel
+//
+// Computes iteratively from offsetParent to offsetParent (OK with elements
+// inside of tables).
+//
+H.tdim(sta);
+H.tdim(sta, sel);
 
 // Returns an object with the computed style of an element
 H.style(sta);

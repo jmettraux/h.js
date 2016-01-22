@@ -24,7 +24,7 @@ var H = (function() {
 
   var self = this;
 
-  this.VERSION = '1.0.0';
+  this.VERSION = '1.0.1';
 
   var toEltRefine = function(start, sel) {
 

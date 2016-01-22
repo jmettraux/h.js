@@ -1297,6 +1297,18 @@ red mazda
     end
   end
 
+  describe '.tdim' do
+
+    it 'returns the dimensions of the target elt' do
+
+      expect(run(%{
+        return H.tdim('#cars');
+      }).collect { |k, v| "#{k}:#{v}" }.sort).to eq(%w{
+        bottom:98 height:90 left:8 right:392 top:8 width:384
+      })
+    end
+  end
+
   describe '.style' do
 
     it 'returns the style of the target elt' do

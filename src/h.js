@@ -78,9 +78,9 @@ var H = (function() {
     }
 
     return {
-      top: top, bottom: top + el.offsetHeight,
-      left: left, right: left + el.offsetWidth,
-      height: el.offsetHeight, width: el.offsetWidth
+      top: top, bottom: top + elt.offsetHeight,
+      left: left, right: left + elt.offsetWidth,
+      height: elt.offsetHeight, width: elt.offsetWidth
     }
   }
 

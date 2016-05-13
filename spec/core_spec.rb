@@ -119,6 +119,34 @@ describe 'H' do
         'list-of-trains'
       )
     end
+
+    it 'returns start if it matches' do
+
+      expect(run(%{
+        return H.closest('#list-of-trains', '.train').id;
+      })).to eq(
+        'list-of-trains'
+      )
+    end
+
+    it 'returns start if it matches (2)' do
+
+      expect(run(%{
+        var t = H.elt('#list-of-trains');
+        return H.closest(t, '.train').id;
+      })).to eq(
+        'list-of-trains'
+      )
+    end
+
+    it 'returns start + selector if it matches' do
+
+      expect(run(%{
+        return H.closest(H.elt('body'), '.train', '.train').id;
+      })).to eq(
+        'list-of-trains'
+      )
+    end
   end
 
   describe '.forEach' do

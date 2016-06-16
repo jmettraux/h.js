@@ -7,6 +7,11 @@
 * adopt H.matches(start, sel, pat)
 
 
+## h.js 1.0.1  released 2016/05/27
+
+* various enhancements
+
+
 ## h.js 1.0.0  released 2015/12/15
 
 * initial release

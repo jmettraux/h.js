@@ -31,8 +31,9 @@ H.elt(sta, sel);
 H.elts(sel);
 H.elts(sta, sel);
 
-// Returns true if the elt matches the sel
-H.matches(elt, sel);
+// Returns true if the elt matches the final sel
+H.matches(sta, sel);
+H.matches(sta, sel, sel);
 
 // Returns a single Element, stars from (sta[, sel]) up until it matches up-sel
 H.closest(sta, up-sel);

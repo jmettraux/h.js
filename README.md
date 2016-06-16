@@ -168,7 +168,7 @@ H.onDocumentReady(fev);
 
 Three methods for inspecting style and dimensions of an element.
 
-```
+```js
 // Returns an object
 // { top: p, bottom: p, left: p, right: p, height: p, width: p }
 // where p are values in pixel
@@ -195,7 +195,7 @@ H.style(sta, sel);
 
 H.js also sports a few functions wrapping XMLHttpRequest.
 
-```
+```js
 // H.request()
 //
 // meth: 'GET', 'POST', 'PUT', 'HEAD', 'DELETE', ...

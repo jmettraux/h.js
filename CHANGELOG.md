@@ -2,7 +2,7 @@
 # h.js
 
 
-## h.js 1.0.2  not yet released
+## h.js 1.0.2  released 2016/06/17
 
 * adopt H.matches(start, sel, pat)
 

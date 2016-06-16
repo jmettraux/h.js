@@ -24,7 +24,7 @@ var H = (function() {
 
   var self = this;
 
-  this.VERSION = '1.0.1';
+  this.VERSION = '1.0.2';
 
   var toEltRefine = function(start, sel) {
 
@@ -301,11 +301,14 @@ var H = (function() {
     return fcount;
   };
 
-  this.matches = function(elt, sel) {
+  this.matches = function(start, sel, pat) {
 
-    if (elt.matches) return elt.matches(sel);
-    if (elt.matchesSelector) return elt.matchesSelector(sel);
-    if (elt.msMatchesSelector) return elt.msMatchesSelector(sel);
+    if ( ! pat) { pat = sel; sel = start; start = null; }
+    var elt = toElt(start, sel);
+
+    if (elt.matches) return elt.matches(pat);
+    if (elt.matchesSelector) return elt.matchesSelector(pat);
+    if (elt.msMatchesSelector) return elt.msMatchesSelector(pat);
 
     throw "browser doesn't support elt.matches() or elt.matchesSelector()";
   };

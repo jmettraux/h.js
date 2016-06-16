@@ -96,6 +96,19 @@ describe 'H' do
         false
       )
     end
+
+    it 'works  .matches(e, sel, sel)' do
+
+      expect(run(%{
+        var e = H.elt('.train');
+        return [
+          H.matches(e, '.europe', '.europe'),
+          H.matches(e, '.europe', '.asia')
+        ];
+      })).to eq([
+        true, false
+      ])
+    end
   end
 
   describe '.closest' do

@@ -79,6 +79,11 @@ H.setClass(sta, sel, cla, bof);
 H.renameClass(sta, cla0, cla1);
 H.renameClass(sta, sel, cla0, cla1);
 
+// Returns the array of class names for the targeted element.
+// Returns a Javascript Array, not a DOMTokenList
+H.classArray(sta);
+H.classArray(sta, sel);
+
 // Creates an HTMLElement
 H.create(tagName, attributes, textContent);
   //

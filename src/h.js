@@ -458,6 +458,17 @@ var H = (function() {
     visit(start, sel, bof, fun, null);
   };
 
+  this.classArray = function(start, sel) {
+
+    var e = H.elt(start, sel);
+    var l = e.classList || e.className.split(' ');
+
+    var a = [];
+    for (var i = 0, l = e.classList.length; i < l; i++) a.push(e.classList[i]);
+
+    return a;
+  };
+
   var rearg_sta_sel_bof = function(args) {
 
     var a = args[0], b = args[1], c = args[2];

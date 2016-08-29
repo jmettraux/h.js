@@ -578,6 +578,25 @@ describe 'H' do
     end
   end
 
+  describe '.classArray' do
+
+    it 'returns the classList but as an array' do
+
+      expect(run(%{
+        var c = H.elt('.car.bentley');
+        return [
+          H.classArray(c),
+          H.classArray('.car.bentley'),
+          H.classArray(H.elt('body'), '.car.bentley')
+        ];
+      })).to eq([
+        [ 'car', 'bentley' ],
+        [ 'car', 'bentley' ],
+        [ 'car', 'bentley' ]
+      ])
+    end
+  end
+
   describe '.create' do
 
     it 'works  .create(tag, atts, text)' do

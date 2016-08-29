@@ -4,6 +4,8 @@
 
 ## h.js 1.0.3  not yet released
 
+* implement H.classArray(start, sel)
+
 
 ## h.js 1.0.2  released 2016/06/17
 

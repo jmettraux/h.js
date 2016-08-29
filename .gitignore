@@ -1,5 +1,6 @@
 
 .rspec
+.ruby-version
 bin/phantomjs
 bin/chromedriver
 

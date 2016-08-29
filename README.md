@@ -24,11 +24,11 @@ Owes a great deal to http://youmightnotneedjquery.com/
 
 
 // Returns a single Element
-H.elt(sel);
+H.elt(sta);
 H.elt(sta, sel);
 
 // Returns a javascript array of elements
-H.elts(sel);
+H.elts(sta);
 H.elts(sta, sel);
 
 // Returns true if the elt matches the final sel
@@ -81,7 +81,7 @@ H.renameClass(sta, sel, cla0, cla1);
 
 // Returns the array of class names for the targeted element.
 // Returns a Javascript Array, not a DOMTokenList
-H.classArray(sel);
+H.classArray(sta);
 H.classArray(sta, sel);
 
 // Creates an HTMLElement

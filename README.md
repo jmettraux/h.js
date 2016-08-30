@@ -145,8 +145,12 @@ H.hide(sta, sel);
 H.hide(sta, bof);
 H.hide(sta, sel, bof);
 
+// Turns 'jeff' into 'Jeff'
+H.capitalize(str);
+
 // Turns "my_old-donkey" into "myOldDonkey"
 H.toCamelCase(str);
+H.toCamelCase(str, cap); // when cap is true, capitalizes the first char
 
 // Inserts an Element before another one (the one pointed at by sta[, sel]).
 H.prepend(sta, elt);

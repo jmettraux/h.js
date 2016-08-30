@@ -1382,6 +1382,18 @@ red mazda
     end
   end
 
+  describe '.capitalize' do
+
+    it 'works' do
+
+      expect(run(%{
+        return H.capitalize('jeff');
+      })).to eq(
+        'Jeff'
+      )
+    end
+  end
+
   describe '.toCamelCase' do
 
     it 'works' do
@@ -1392,6 +1404,17 @@ red mazda
         ];
       })).to eq(%w[
         abCdEf ghIjKl
+      ])
+    end
+
+    it 'capitalizes if requested' do
+
+      expect(run(%{
+        return [
+          H.toCamelCase('ab-cd-ef', true), H.toCamelCase('gh_ij-kl', true)
+        ];
+      })).to eq(%w[
+        AbCdEf GhIjKl
       ])
     end
   end

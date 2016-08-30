@@ -4,6 +4,8 @@
 
 ## h.js 1.0.3  not yet released
 
+* implement H.capitalize(s)
+* implement H.toCamelCase(s, cap)
 * implement H.classArray(start, sel)
 
 

@@ -519,10 +519,17 @@ var H = (function() {
     toggle(as.sta, as.sel, '.disabled', as.bof, 'ar');
   };
 
-  this.toCamelCase = function(s) {
+  this.capitalize = function(s) {
 
-    return s.replace(
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  };
+
+  this.toCamelCase = function(s, cap) {
+
+    var s = s.replace(
       /([_-][a-z])/g, function(x) { return x.substring(1).toUpperCase(); });
+
+    return cap ? self.capitalize(s) : s;
   };
 
   this.prepend = function(start, sel, elt) {

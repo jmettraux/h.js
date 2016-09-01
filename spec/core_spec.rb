@@ -657,6 +657,7 @@ describe 'H' do
     end
 
     it 'leaves element untouched' do
+
       expect(run(%{
         return H.toNode(H.elt('#list-of-trains .asia')).outerHTML;
       })).to eq(%{
@@ -665,6 +666,27 @@ describe 'H' do
 <div class="russia mongolia">transsiberian</div>
 </div>
       }.strip)
+    end
+
+    it 'creates a node and applies sel' do
+
+      expect(run(%{
+        return H.toNode(
+          '<div class="k"><span id="x" class="y z">hello</span></div>',
+          'span'
+        ).outerHTML;
+      })).to eq(
+        '<span id="x" class="y z">hello</span>'
+      )
+    end
+
+    it 'leaves element untouched and applies sel' do
+
+      expect(run(%{
+        return H.toNode(H.elt('#list-of-trains .asia'), '.japan').outerHTML;
+      })).to eq(
+        '<div class="japan">shinkansen</div>'
+      )
     end
   end
 

@@ -159,14 +159,15 @@ var H = (function() {
     return e;
   };
 
-  this.toNode = function(html) {
+  this.toNode = function(html, sel) {
 
-    if ((typeof html) !== 'string') return html;
+    if ((typeof html) !== 'string') return sel ? self.elt(html, sel) : html;
 
     var e = document.createElement('div');
     e.innerHTML = html; // :-(
+    e = e.children[0];
 
-    return e.children[0];
+    return sel ? self.elt(e, sel) : e;
   };
 
   var defaultOn = function(type, method, uri) {

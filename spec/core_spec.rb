@@ -655,6 +655,17 @@ describe 'H' do
         '<span id="x" class="y z">hello</span>'
       )
     end
+
+    it 'leaves element untouched' do
+      expect(run(%{
+        return H.toNode(H.elt('#list-of-trains .asia')).outerHTML;
+      })).to eq(%{
+<div class="asia">
+<div class="japan">shinkansen</div>
+<div class="russia mongolia">transsiberian</div>
+</div>
+      }.strip)
+    end
   end
 
   describe '.on' do

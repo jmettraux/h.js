@@ -161,6 +161,8 @@ var H = (function() {
 
   this.toNode = function(html) {
 
+    if ((typeof html) !== 'string') return html;
+
     var e = document.createElement('div');
     e.innerHTML = html; // :-(
 

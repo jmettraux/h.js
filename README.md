@@ -100,6 +100,7 @@ H.create(tagName, attributes, textContent);
 
 // Uses HTMLElement.innerHTML= to turn a string into an HTMLElement.
 // Handle with care.
+// Returns the argument if it's not a string.
 H.toNode(string);
   //
   H.toNode('<span data-id="123">hello</span>');

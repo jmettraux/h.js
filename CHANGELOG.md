@@ -4,6 +4,7 @@
 
 ## h.js 1.0.3  not yet released
 
+* let H.toNode(x) return x when x is not a string
 * implement H.capitalize(s)
 * implement H.toCamelCase(s, cap)
 * implement H.classArray(start, sel)

@@ -1241,6 +1241,35 @@ yellow volkswagen
     end
   end
 
+  describe '.postpend' do
+
+    before(:each) { reset_dom }
+    after(:all) { reset_dom }
+
+    it 'works  .postpend(sel, elt)' do
+
+      expect(run(%{
+        var e = H.create('div.america', {}, '');
+        H.postpend('#cars .asia', e);
+        return H.elt('#cars').innerHTML;
+      })).to match(
+        /<div class="america"><\/div>\s*<div class="europe">/
+      )
+    end
+
+    it 'works  .postpend(start, sel, elt)' do
+
+      expect(run(%{
+        var cars = H.elt('#cars');
+        var e = H.create('div.america', {}, '');
+        H.postpend(cars, '.asia', e);
+        return H.elt('#cars').innerHTML;
+      })).to match(
+        /<div class="america"><\/div>\s*<div class="europe">/
+      )
+    end
+  end
+
   describe '.clean' do
 
     before(:each) { reset_dom }

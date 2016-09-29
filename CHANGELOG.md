@@ -4,6 +4,7 @@
 
 ## h.js 1.0.3  not yet released
 
+* implement H.postpend(start, sel, elt)
 * let H.toNode() accept an optional selector
 * let H.toNode(x) return x when x is not a string
 * implement H.capitalize(s)

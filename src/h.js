@@ -543,6 +543,14 @@ var H = (function() {
     e.parentNode.insertBefore(elt, e);
   };
 
+  this.postpend = function(start, sel, elt) {
+
+    if ( ! elt) { elt = sel; sel = start; start = null; }
+    var e = toElt(start, sel);
+
+    e.parentNode.insertBefore(elt, e.nextSibling);
+  };
+
   this.remove = function(start, sel, bof) {
 
     var as = rearg_sta_sel_bof(arguments);

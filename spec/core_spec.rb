@@ -989,6 +989,25 @@ yellow volkswagen
     end
   end
 
+  describe '.unshow' do
+
+    before(:each) { reset_dom }
+    after(:all) { reset_dom }
+
+    it 'works  .show(sel)' do
+
+      expect(run(%{
+        H.unshow('#test1');
+        return H.elts('.t').map(function(e) { return e.idAndClasses(); });
+      })).to eq(%w[
+        #test0.t
+        #test1.t
+        #test2.t.hidden
+        #test3.t.hidden
+      ])
+    end
+  end
+
   describe '.hide' do
 
     before(:each) { reset_dom }
@@ -1110,6 +1129,39 @@ yellow volkswagen
         #test1.t.shown
         #test2.t
         #test3.t
+      ])
+    end
+  end
+
+  describe '.unhide' do
+
+    before(:each) { reset_dom }
+    after(:all) { reset_dom }
+
+    it 'works  .unhide(sel)' do
+
+      expect(run(%{
+        H.unhide('#test2');
+        return H.elts('.t').map(function(e) { return e.idAndClasses(); });
+      })).to eq(%w[
+        #test0.t
+        #test1.t.shown
+        #test2.t
+        #test3.t.hidden
+      ])
+    end
+
+    it 'works  .unhide(start, sel)' do
+
+      expect(run(%{
+        var has = H.elt('#hide_and_show');
+        H.unhide(has, '#test2');
+        return H.elts('.t').map(function(e) { return e.idAndClasses(); });
+      })).to eq(%w[
+        #test0.t
+        #test1.t.shown
+        #test2.t
+        #test3.t.hidden
       ])
     end
   end

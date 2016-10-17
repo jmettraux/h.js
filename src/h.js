@@ -491,9 +491,17 @@ var H = (function() {
     var as = rearg_sta_sel_bof(arguments);
     toggle(as.sta, as.sel, '.shown', as.bof, 'ar');
   };
+  this.unshow = function(start, sel, bof) {
+    var as = rearg_sta_sel_bof(arguments);
+    toggle(as.sta, as.sel, '.shown', as.bof, 'ra');
+  };
   this.hide = function(start, sel, bof) {
     var as = rearg_sta_sel_bof(arguments);
     toggle(as.sta, as.sel, '.hidden', as.bof, 'ar');
+  };
+  this.unhide = function(start, sel, bof) {
+    var as = rearg_sta_sel_bof(arguments);
+    toggle(as.sta, as.sel, '.hidden', as.bof, 'ra');
   };
 
   var able = function(start, sel, bof, dir) {

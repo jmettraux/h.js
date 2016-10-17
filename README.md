@@ -142,11 +142,23 @@ H.show(sta, sel);
 H.show(sta, bof);
 H.show(sta, sel, bof);
 
+// Like H.show() but negative
+H.unshow(sta);
+H.unshow(sta, sel);
+H.unshow(sta, bof);
+H.unshow(sta, sel, bof);
+
 // Like H.cenable() but toggles the 'hidden' class
 H.hide(sta);
 H.hide(sta, sel);
 H.hide(sta, bof);
 H.hide(sta, sel, bof);
+
+// Like H.hide() but negative
+H.unhide(sta);
+H.unhide(sta, sel);
+H.unhide(sta, bof);
+H.unhide(sta, sel, bof);
 
 // Turns 'jeff' into 'Jeff'
 H.capitalize(str);

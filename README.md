@@ -160,6 +160,10 @@ H.unhide(sta, sel);
 H.unhide(sta, bof);
 H.unhide(sta, sel, bof);
 
+// Returns true if the elt has the class 'hidden'
+H.isHidden(sta);
+H.isHidden(sta, sel);
+
 // Turns 'jeff' into 'Jeff'
 H.capitalize(str);
 

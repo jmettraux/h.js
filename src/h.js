@@ -26,6 +26,13 @@ var H = (function() {
 
   this.VERSION = '1.0.3';
 
+  var toArray = function(a) {
+
+    var aa = []; for (var i = 0, l = a.length; i < l; i++) aa.push(a[i]);
+
+    return aa;
+  };
+
   var toEltRefine = function(start, sel) {
 
     if ( ! sel) { sel = start; start = document; }
@@ -381,6 +388,13 @@ var H = (function() {
     catch (ex) {
       return false;
     }
+  };
+
+  this.isHidden = function(start, sel) {
+
+    var a = toArray(arguments); a.push('.hidden');
+
+    return self.hasClass.apply(null, a);
   };
 
   var visit = function(start, sel, bof, onTrue, onFalse) {

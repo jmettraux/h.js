@@ -1166,6 +1166,34 @@ yellow volkswagen
     end
   end
 
+  describe '.isHidden' do
+
+    it 'works  .isHidden(sel)' do
+
+      expect(run(%{
+        return [
+          H.isHidden('#test0'),
+          H.isHidden('#test2'),
+        ];
+      })).to eq([
+        false, true
+      ])
+    end
+
+    it 'works  .isHidden(start, sel)' do
+
+      expect(run(%{
+        var s = H.elt('#hide_and_show');
+        return [
+          H.isHidden(s, '.t'),
+          H.isHidden(s, '.t:nth-child(3)'),
+        ];
+      })).to eq([
+        false, true
+      ])
+    end
+  end
+
   describe '.cenable' do
 
     before(:each) { reset_dom }

@@ -4,3 +4,11 @@
 bin/phantomjs
 bin/chromedriver
 
+.errors
+.rspec.out
+.todo.md
+
+*.swp
+.vimrc
+.viminfo
+

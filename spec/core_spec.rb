@@ -1292,6 +1292,38 @@ yellow volkswagen
     end
   end
 
+  describe '.isDisabled' do
+
+    it 'works .isDisabled(start)' do
+
+      expect(run(%{
+        return [
+          H.isDisabled('#input input[name="name"]'),
+          H.isDisabled('#input input[name="age"]'),
+          H.isDisabled('#input input[name="last-name"]'),
+          H.isDisabled('#input input[name="bravo"]'),
+        ]
+      })).to eq([
+        false, true, false, true
+      ])
+    end
+
+    it 'works .isDisabled(start, sel)' do
+
+      expect(run(%{
+        var f = H.elt('#input');
+        return [
+          H.isDisabled(f, 'input[name="name"]'),
+          H.isDisabled(f, 'input[name="age"]'),
+          H.isDisabled(f, 'input[name="last-name"]'),
+          H.isDisabled(f, 'input[name="bravo"]'),
+        ]
+      })).to eq([
+        false, true, false, true
+      ])
+    end
+  end
+
   describe '.prepend' do
 
     before(:each) { reset_dom }

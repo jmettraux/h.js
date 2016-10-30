@@ -544,6 +544,16 @@ var H = (function() {
     toggle(as.sta, as.sel, '.disabled', as.bof, 'ar');
   };
 
+  this.isDisabled = function(start, sel) {
+
+    var elt = toElt(start, sel);
+
+    return (
+      (elt.getAttribute('disabled') === 'disabled') ||
+      H.hasClass(elt, '.disabled')
+    );
+  };
+
   this.capitalize = function(s) {
 
     return s.charAt(0).toUpperCase() + s.slice(1);

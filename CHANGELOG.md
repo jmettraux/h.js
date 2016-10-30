@@ -4,6 +4,10 @@
 
 ## h.js 1.0.3  not yet released
 
+* implement H.isDisabled(start, sel)
+* implement H.isHidden(start, sel)
+* implement H.unshow(start, sel) and H.unhide(start, sel)
+* implement H.classArray(start, sel)
 * implement H.postpend(start, sel, elt)
 * let H.toNode() accept an optional selector
 * let H.toNode(x) return x when x is not a string

@@ -136,6 +136,11 @@ H.cenable(sta, sel);
 H.cenable(sta, bof);
 H.cenable(sta, sel, bof);
 
+// Returns true if the elt has the attribute "disabled" set to "disabled" or
+// if the elt has the class "disabled".
+H.isDisabled(sta);
+H.isDisabled(sta, sel);
+
 // Like H.cenable() but toggles the 'shown' class
 H.show(sta);
 H.show(sta, sel);

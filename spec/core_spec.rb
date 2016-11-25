@@ -1556,6 +1556,44 @@ red mazda
     end
   end
 
+  describe '.path' do
+
+    it 'returns null if the elt cannot be found' do
+
+      expect(run(%{
+        return [ H.path('#nada'), H.path(document.body, '.nada') ];
+      })).to eq([
+        nil, nil
+      ])
+    end
+
+    it 'returns a CSS path for an element' do
+
+      expect(run(%{
+        return H.path('#list-of-trains');
+      })).to eq('#list-of-trains')
+
+      expect(run(%{
+        return H.path(document, 'body > div');
+      })).to eq('#test')
+      expect(run(%{
+        return H.path('body > div');
+      })).to eq('#test')
+
+      expect(run(%{
+        return H.path('#cars .bentley .blue');
+      })).to eq(
+        '#cars > div.europe > div.car.bentley > div.blue'
+      )
+
+      expect(run(%{
+        return (
+          H.elt('#cars .bentley .blue').innerHTML ===
+          H.elt('#cars > div.europe > div.car.bentley > div.blue').innerHTML)
+      })).to eq(true)
+    end
+  end
+
   describe '.capitalize' do
 
     it 'works' do

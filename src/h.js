@@ -107,6 +107,30 @@ var H = (function() {
     }
   }
 
+  var pathIndex = function(elt) {
+
+    var s = elt; var n = 1;
+    while (s.nodeType === Node.ELEMENT_NODE && (s = s.previousSibling)) n++;
+
+    return ":nth-child(" + n + ")";
+  };
+
+  this.path = function(start, sel) {
+
+    var e = toElt(start, sel);
+    if ( ! e) return null;
+
+    if (e.id) return '#' + e.id;
+
+    if (e.className === '') return (
+      self.path(e.parentElement) +
+      ' > ' + e.nodeName.toLowerCase() + pathIndex(e));
+
+    return (
+      self.path(e.parentElement) +
+      ' > ' + e.nodeName.toLowerCase() + '.' + self.classArray(e).join('.'));
+  };
+
   var onOrOff = function(dir, start, sel, eventName, eventHandler) {
 
     if ( ! eventHandler) {

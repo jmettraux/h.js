@@ -4,6 +4,7 @@
 
 ## h.js 1.0.3  not yet released
 
+* implement H.path(start, sel)
 * implement H.isDisabled(start, sel)
 * implement H.isHidden(start, sel)
 * implement H.unshow(start, sel) and H.unhide(start, sel)

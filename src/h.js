@@ -105,14 +105,6 @@ var H = (function() {
       height: e.offsetHeight,
       width: e.offsetWidth
     }
-  }
-
-  var pathIndex = function(elt) {
-
-    var s = elt; var n = 1;
-    while (s.nodeType === Node.ELEMENT_NODE && (s = s.previousSibling)) n++;
-
-    return ":nth-child(" + n + ")";
   };
 
   this.path = function(start, sel) {
@@ -122,13 +114,23 @@ var H = (function() {
 
     if (e.id) return '#' + e.id;
 
-    if (e.className === '') return (
-      self.path(e.parentElement) +
-      ' > ' + e.nodeName.toLowerCase() + pathIndex(e));
+    var pp = self.path(e.parentElement);
+      // >
+    var nn = e.nodeName.toLowerCase();
+    var cs = self.classArray(e); cs = cs.length > 0 ? '.' + cs.join('.') : '';
+    var an = e.getAttribute('name'); an = an ? '[name="' + an + '"]' : '';
 
-    return (
-      self.path(e.parentElement) +
-      ' > ' + e.nodeName.toLowerCase() + '.' + self.classArray(e).join('.'));
+    if (cs !== '' || an !== '') return pp + ' > ' + nn + cs + an;
+
+    //var sb = e; var n = 0;
+    //while (sb.nodeType === Node.ELEMENT_NODE && (sb = sb.previousSibling)) n++;
+    var sb = e; var n = 0;
+    while (sb) {
+      if (sb.nodeType === 1) n++;
+      sb = sb.previousSibling;
+    }
+      //
+    return pp + ' > ' + ':nth-child(' + n + ')';
   };
 
   var onOrOff = function(dir, start, sel, eventName, eventHandler) {

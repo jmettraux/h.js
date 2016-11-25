@@ -1567,7 +1567,7 @@ red mazda
       ])
     end
 
-    it 'returns a CSS path for an element' do
+    it 'returns a #path for an element' do
 
       expect(run(%{
         return H.path('#list-of-trains');
@@ -1579,6 +1579,9 @@ red mazda
       expect(run(%{
         return H.path('body > div');
       })).to eq('#test')
+    end
+
+    it 'returns a pa.t.h for an element' do
 
       expect(run(%{
         return H.path('#cars .bentley .blue');
@@ -1591,6 +1594,43 @@ red mazda
           H.elt('#cars .bentley .blue').innerHTML ===
           H.elt('#cars > div.europe > div.car.bentley > div.blue').innerHTML)
       })).to eq(true)
+    end
+
+    it 'returns a pa[name="th"] for an element' do
+
+      expect(run(%{
+        return H.path('input[type="number"]');
+      })).to eq(%{
+        #input > form[name="our-form"] > input[name="age"]
+      }.strip)
+    end
+
+    it 'returns a :nth-child(x) path for an element' do
+
+      expect(run(%{
+        return H.path('.container > span');
+      })).to eq(%{
+        #for-path > :nth-child(1) > div.container > :nth-child(1)
+      }.strip)
+
+      expect(run(%{
+        return [
+          H.elt(
+            '.container > span'
+          ).innerHTML,
+          H.elt(
+            '#for-path > :nth-child(1) > div.container > :nth-child(1)'
+          ).innerHTML ];
+      })).to eq(%w[
+        c c
+      ])
+
+      expect(run(%{
+        var e = H.elts('.container')[1];
+        return H.path(e, 'span');
+      })).to eq(%{
+        #for-path > :nth-child(2) > :nth-child(2) > div.container > :nth-child(1)
+      }.strip)
     end
   end
 

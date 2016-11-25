@@ -227,6 +227,19 @@ H.style(sta);
 H.style(sta, sel);
 ```
 
+The `.path` method returns a "sure" path to an element.
+(I use it mostly in my Selenium helper libraries).
+
+```js
+// Returns a path like, for example, "#for-path > :nth-child(2) > :nth-child(2)"
+// which points to the element from the root of the DOM.
+// Could be useful when an element was obtained by succession of queries and
+// one wants a single string CSS path to it.
+//
+H.path(sta);
+H.path(sta, sel);
+```
+
 H.js also sports a few functions wrapping XMLHttpRequest.
 
 ```js

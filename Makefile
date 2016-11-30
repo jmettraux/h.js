@@ -40,6 +40,9 @@ pkg: pkg_plain pkg_mini pkg_comp
 clean:
 	rm -fR pkg/
 
+serve: # just for test.html
+	ruby -run -ehttpd . -p7001
 
-.PHONY: spec pkg clean
+
+.PHONY: spec pkg clean serve
 

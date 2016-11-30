@@ -39,6 +39,38 @@ describe 'H' do
         'shinkansen'
       )
     end
+
+    it 'works  .elt(start, "^x")  (closest)' do
+
+      expect(run(%{
+        var t = H.elt('.japan');
+        return H.elt(t, '^#cars').id;
+      })).to eq(
+        'cars'
+      )
+
+      expect(run(%{
+        return H.elt('.japan', '^#cars').id;
+      })).to eq(
+        'cars'
+      )
+    end
+
+    it 'works  .elt(start, "^x y")  (closest then)' do
+
+      expect(run(%{
+        var e = H.elt('.germany');
+        return H.elt(e, '^.train .japan').textContent;
+      })).to eq(
+        'shinkansen'
+      )
+
+      expect(run(%{
+        return H.elt('.germany', '^.train .japan').textContent;
+      })).to eq(
+        'shinkansen'
+      )
+    end
   end
 
   describe '.elts' do

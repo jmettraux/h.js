@@ -4,6 +4,7 @@
 
 ## h.js 1.0.3  not yet released
 
+* integrate H.closest in H.elt via H.elt(sta, '^.sel .then')
 * implement H.path(start, sel)
 * implement H.isDisabled(start, sel)
 * implement H.isHidden(start, sel)

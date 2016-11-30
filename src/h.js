@@ -47,7 +47,17 @@ var H = (function() {
 
     var se = toEltRefine(start, sel); var sta = se[0], sel = se[1];
 
-    return ((typeof sel) === 'string') ? sta.querySelector(sel) : sel;
+    if ((typeof sel) !== 'string') return sel;
+
+    var m = (sel.substring(0, 1) === '^') && sel.match(/^\^([^ ]+)(.*)$/);
+    if (m) {
+      sta = self.closest(sta, m[1]);
+      sel = m[2].trim();
+    }
+
+    if ( ! sta) return null;
+    if (sel) return sta.querySelector(sel);
+    return sta;
   };
 
   var toElts = function(start, sel) {
@@ -356,7 +366,7 @@ var H = (function() {
 
     if (H.matches(elt, sel1)) return elt;
 
-    return elt.parentElement ? H.closest(elt.parentElement, sel1) : null;
+    return elt.parentElement ? self.closest(elt.parentElement, sel1) : null;
   };
 
   // adapted from http://upshots.org/javascript/jquery-copy-style-copycss

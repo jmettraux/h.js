@@ -22,6 +22,8 @@
 
 var H = (function() {
 
+  "use strict";
+
   var self = this;
 
   this.VERSION = '1.0.3';

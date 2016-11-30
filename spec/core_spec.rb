@@ -105,6 +105,40 @@ describe 'H' do
         'ice', 'tgv', 'pendolino'
       ])
     end
+
+    it 'works  .elts(start, "^x")  (closest)' do
+
+      expect(run(%{
+        var t = H.elt('.japan');
+        return H.elts(t, '^.asia').map(function(e) { return e.className; });
+      })).to eq([
+        'asia'
+      ])
+
+      expect(run(%{
+        return H.elt('.bentley', '^[id]').id;
+      })).to eq(
+        'cars'
+      )
+    end
+
+    it 'works  .elts(start, "^x y")  (closest then)' do
+
+      expect(run(%{
+        var e = H.elt('.japan.mazda');
+        return H.elts(e, '^[id] .car')
+          .map(function(e) { return e.className; });
+      })).to eq([
+        'car japan mazda', 'car bentley', 'car volkswagen'
+      ])
+
+      expect(run(%{
+        return H.elts('.bentley', '^[id] .car')
+          .map(function(e) { return e.className; });
+      })).to eq([
+        'car japan mazda', 'car bentley', 'car volkswagen'
+      ])
+    end
   end
 
   describe '.matches' do

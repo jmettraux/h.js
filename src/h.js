@@ -51,11 +51,8 @@ var H = (function() {
 
     if ((typeof sel) !== 'string') return sel;
 
-    var m = (sel.substring(0, 1) === '^') && sel.match(/^\^([^ ]+)(.*)$/);
-    if (m) {
-      sta = self.closest(sta, m[1]);
-      sel = m[2].trim();
-    }
+    var m = sel.match(/^\^([^ ]+)(.*)$/);
+    if (m) { sta = self.closest(sta, m[1]); sel = m[2].trim(); }
 
     if ( ! sta) return null;
     if (sel) return sta.querySelector(sel);
@@ -65,7 +62,17 @@ var H = (function() {
   var toElts = function(start, sel) {
 
     var se = toEltRefine(start, sel); var sta = se[0], sel = se[1];
-    var es = (typeof sel) === 'string' ?  sta.querySelectorAll(sel) : [ sel ];
+
+    var es = null;
+    if ((typeof sel) === 'string') {
+      var m = sel.match(/^\^([^ ]+)(.*)$/);
+      if (m) { sta = self.closest(sta, m[1]); sel = m[2].trim(); }
+      es = sel.length > 0 ? sta.querySelectorAll(sel) : [ sta ];
+    }
+    else {
+      es = [ sel ];
+    }
+
     var r = []; for (var i = 0, l = es.length; i < l; i++) { r.push(es[i]); };
 
     return r;

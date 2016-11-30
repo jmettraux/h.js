@@ -37,6 +37,12 @@ H.elt(sta, sel);
 H.elts(sta);
 H.elts(sta, sel);
 
+  // note the equivalencies:
+  //   H.elts(japan, '^.continent') <--> H.closest(japan, '.continent')
+  //   H.elts(japan, '^.continent .country') <--> H.elt(H.closest(japan, '.continent'), '.country')
+  // H.js has this ^ "up above" operator, only works at the beginning of the
+  // selector
+
 // Returns true if the elt matches the final sel
 H.matches(sta, sel);
 H.matches(sta, sel, sel);

@@ -346,7 +346,7 @@ var H = (function() {
     if (elt.matchesSelector) return elt.matchesSelector(pat);
     if (elt.msMatchesSelector) return elt.msMatchesSelector(pat);
 
-    throw "browser doesn't support elt.matches() or elt.matchesSelector()";
+    throw "H.js got fed something that doesn't respond to .matches() or .matchesSelector()";
   };
 
   this.closest = function(start, sel, sel1) {

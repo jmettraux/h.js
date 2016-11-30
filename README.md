@@ -27,6 +27,12 @@ Owes a great deal to http://youmightnotneedjquery.com/
 H.elt(sta);
 H.elt(sta, sel);
 
+  // note the equivalencies:
+  //   H.elt(japan, '^.asia') <--> H.closest(japan, '.asia')
+  //   H.elt(japan, '^.asia .korea') <--> H.elt(H.closest(japan, '.asia'), '.korea')
+  // H.js has this ^ "up above" operator, only works at the beginning of the
+  // selector
+
 // Returns a javascript array of elements
 H.elts(sta);
 H.elts(sta, sel);

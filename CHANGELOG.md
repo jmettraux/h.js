@@ -2,7 +2,12 @@
 # h.js
 
 
-## h.js 1.0.3  not yet released
+## h.js 1.1.0  released 2017/01/28
+
+* introduce H.grow(f)
+
+
+## h.js 1.0.3  released 2017/01/28
 
 * integrate H.closest in H.elts via H.elts(sta, '^.sel .then')
 * integrate H.closest in H.elt via H.elt(sta, '^.sel .then')

@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2016, John Mettraux, jmettraux@gmail.com
+// Copyright (c) 2015-2017, John Mettraux, jmettraux@gmail.com
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@ var H = (function() {
 
   var self = this;
 
-  this.VERSION = '1.0.3';
+  this.VERSION = '1.1.0';
 
   var toArray = function(a) {
 
@@ -658,8 +658,55 @@ var H = (function() {
     else document.addEventListener('DOMContentLoaded', fev);
   };
 
+  this.grow = function(f) {
+
+    var makeBuilder = function(name) {
+      var scan = function(s) {
+        var m, r = [];
+        s.replace(/([#.][^#.]+)/g, function(x) {
+          r.push({ k: x[0], n: x.substring(1, x.length) });
+        });
+        return r;
+      };
+      return function() {
+        var e = document.createElement(name);
+        for (var i = 0, l = arguments.length; i < l; i++) {
+          var a = arguments[i];
+          var s = (typeof a === 'string');
+          if (s && (a[0] === '.' || a[0] === '#') && ! a.match(/\s/))
+            scan(a).forEach(function(x) {
+              if (x.k === '#') e.id = x.n; else e.classList.add(x.n);
+            });
+          else if (s)
+            e.appendChild(document.createTextNode(a));
+          else if (a.nodeType && a.innerHTML)
+            e.appendChild(a);
+          else if (typeof a === 'object')
+            for (var k in a) { e.setAttribute(k, a[k]); };
+        }
+        return e;
+      };
+    };
+
+    var script = '';
+    script += 'var makeBuilder = ' + makeBuilder.toString() + ';';
+    [ 'div', 'span' ].forEach(function(b) {
+      script += 'var ' + b + ' = makeBuilder("' + b + '");';
+    });
+    script += 'var __out__ = (' + f.toString() + ').call();';
+
+    var i = H.create('iframe', { style: 'width: 0; height: 0' });
+    document.body.appendChild(i);
+    i.contentDocument.body.appendChild(H.create('script', {}, script));
+    var r = i.contentWindow.__out__;
+
+    i.remove();
+
+    return r;
+  };
+
   //
-  // over.
+  // done.
 
   return this;
 

@@ -63,6 +63,30 @@ describe 'H' do
         </div>
       }.strip.gsub(/>\s+/, '>').gsub(/\s+</, '<'))
     end
+
+    it 'skips subtrees when `false`' do
+
+      html = run(%{
+        return H.grow(function() {
+
+          return div('#nada.surf',
+            span('.a', 'alpha'),
+            span('.b', 'bravo'),
+            div('.c',
+              false,
+              span('.d', 'delta'),
+              span('.e', 'echo')));
+
+        }).outerHTML;
+      })
+
+      expect(html).to eq(%{
+        <div id="nada" class="surf">
+          <span class="a">alpha</span>
+          <span class="b">bravo</span>
+        </div>
+      }.strip.gsub(/>\s+/, '>').gsub(/\s+</, '<'))
+    end
   end
 end
 

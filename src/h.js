@@ -30,9 +30,7 @@ var H = (function() {
 
   this.toArray = function(a) {
 
-    var r = []; for (var i = 0, l = a.length; i < l; i++) r.push(a[i]);
-
-    return r;
+    return Array.prototype.slice.call(a);
   };
 
   var toEltRefine = function(start, sel) {

@@ -4,6 +4,7 @@
 
 ## h.js 1.1.0  released 2017/01/28
 
+* provide H.toArray(x) (mostly for arguments)
 * introduce H.grow(f)
 
 

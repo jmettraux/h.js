@@ -28,11 +28,11 @@ var H = (function() {
 
   this.VERSION = '1.1.0';
 
-  var toArray = function(a) {
+  this.toArray = function(a) {
 
-    var aa = []; for (var i = 0, l = a.length; i < l; i++) aa.push(a[i]);
+    var r = []; for (var i = 0, l = a.length; i < l; i++) r.push(a[i]);
 
-    return aa;
+    return r;
   };
 
   var toEltRefine = function(start, sel) {
@@ -437,7 +437,7 @@ var H = (function() {
 
   this.isHidden = function(start, sel) {
 
-    var a = toArray(arguments); a.push('.hidden');
+    var a = H.toArray(arguments); a.push('.hidden');
 
     return self.hasClass.apply(null, a);
   };

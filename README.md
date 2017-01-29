@@ -295,6 +295,19 @@ H.request(meth, uri, headers, data, callbacks);
 // TODO
 ```
 
+Misc functions:
+```js
+H.toArray(x);
+
+// (I mostly use it in code like
+  var fun = function(/* sel, start, mode */ {
+    var as = H.toArray(arguments);
+    var mode = as.pop();
+    var elt = H.elt.apply(null, as);
+  }
+// )
+```
+
 
 ## LICENSE
 

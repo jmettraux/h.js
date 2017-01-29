@@ -67,17 +67,17 @@ describe 'H' do
     it 'skips subtrees when `false`' do
 
       html = run(%{
-        return H.grow(function() {
+        return H.grow(function() { return (
 
-          return div('#nada.surf',
+          div('#nada.surf',
             span('.a', 'alpha'),
             span('.b', 'bravo'),
             div('.c',
               false,
               span('.d', 'delta'),
-              span('.e', 'echo')));
+              span('.e', 'echo')))
 
-        }).outerHTML;
+        ); }).outerHTML;
       })
 
       expect(html).to eq(%{

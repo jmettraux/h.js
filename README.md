@@ -303,7 +303,7 @@ H.grow(function() { return (
     span('.a', 'alpha'),
     span('.b', 'bravo'),
     div('.c',
-      false,
+      false, // <-- effectively comments out the containing element `.c`
       span('.d', 'delta'),
       span('.e', 'echo')))
 

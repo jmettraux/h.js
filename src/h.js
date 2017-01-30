@@ -704,6 +704,23 @@ var H = (function() {
     return r;
   };
 
+/*
+  this.grow = function(fun) {
+
+    var makeGrower = // same as above...
+    var m = makeGrower;
+
+    //eval('var span = m("span")'); // not working...
+
+    var div = m('div'), span = m('span'); // nice but not minifier-safe...
+
+    var f = fun.toString().trim();
+    f = f.substring(f.indexOf('{') + 1, f.lastIndexOf('}'));
+
+    return eval(f);
+  };
+*/
+
   this.delay = function(ms, fun) {
 
     var t = null;

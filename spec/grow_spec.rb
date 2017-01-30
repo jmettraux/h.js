@@ -67,7 +67,7 @@ describe 'H' do
     it 'skips subtrees when `false`' do
 
       html = run(%{
-        return H.grow(function() { return (
+        return H.grow(function() { return(
 
           div('#nada.surf',
             span('.a', 'alpha'),

@@ -668,20 +668,19 @@ var H = (function() {
 
   this.grow = function(fun) {
 
-    var js = 'var mg=' + self.makeGrower.toString() + ';';
-
-    js += 'var x=1';
-    'a abbr address area article aside audio b base bdi bdo blockquote br button canvas caption cite code col colgroup datalist dd del details dfn dialog div dl dt em embed fieldset figcaption figure footer form h1 h2 h3 h4 h5 h6 header hr i iframe img input ins kbd keygen label legend li main map mark menu menuitem meta meter nav noscript object ol optgroup option output p param picture pre progress q rp rt ruby s samp script section select small source span strong style sub summary sup table tbody td textarea tfoot th thead time title tr track u ul video wbr'
-      .split(' ').forEach(function(t) { js += ',' + t + '=mg("' + t + '")' });
+    var growers =
+      'var ' +
+      'a abbr address area article aside audio b base bdi bdo blockquote br button canvas caption cite code col colgroup datalist dd del details dfn dialog div dl dt em embed fieldset figcaption figure footer form h1 h2 h3 h4 h5 h6 header hr i iframe img input ins kbd keygen label legend li main map mark menu menuitem meta meter nav noscript object ol optgroup option output p param picture pre progress q rp rt ruby s samp script section select small source span strong style sub summary sup table tbody td textarea tfoot th thead time title tr track u ul video wbr'
+      .split(' ')
+      .map(function(t) { return t + '=H.makeGrower("' + t + '")' })
+      .join(',');
 
     // NB: "var" not included
 
     var f = fun.toString().trim();
     f = f.substring(f.indexOf('{') + 1, f.lastIndexOf('}'));
 
-    js += ';' + f.toString();
-
-    return eval(js);
+    return eval(growers + ';' + f.toString());
   };
 
   this.delay = function(ms, fun) {

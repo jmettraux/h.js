@@ -17,7 +17,7 @@ describe 'H' do
       html = run(%{
         return H.grow(function() {
 
-          return div('toto');
+          div('toto');
 
         }).outerHTML;
       })
@@ -32,7 +32,7 @@ describe 'H' do
       html = run(%{
         return H.grow(function() {
 
-          return div('#nada.surf', 'toto', '.hell');
+          div('#nada.surf', 'toto', '.hell');
 
         }).outerHTML;
       })
@@ -47,7 +47,7 @@ describe 'H' do
       html = run(%{
         return H.grow(function() {
 
-          return div('#nada.surf',
+          div('#nada.surf',
             span('.a', 'alpha'),
             'toto',
             span('.b', 'bravo'));
@@ -67,7 +67,7 @@ describe 'H' do
     it 'skips subtrees when `false`' do
 
       html = run(%{
-        return H.grow(function() { return(
+        return H.grow(function() {
 
           div('#nada.surf',
             span('.a', 'alpha'),
@@ -77,7 +77,7 @@ describe 'H' do
               span('.d', 'delta'),
               span('.e', 'echo')))
 
-        ); }).outerHTML;
+        }).outerHTML;
       })
 
       expect(html).to eq(%{

@@ -179,36 +179,6 @@ var H = (function() {
     return d < s ? d : s;
   };
 
-  this.create = function(sel, atts, text) {
-
-    sel = '%' + sel;
-    if ((typeof atts) === 'string') { text = atts; atts = {}; }
-
-    var e = document.createElement('div');
-
-    for (var i = 0, l = sel.length; i < l; ) {
-
-      var t = sel.substring(i, i + 1);
-      var j = indexNext(sel.substring(i + 1));
-      var s = j > -1 ? sel.substring(i + 1, i + 1 + j) : sel.substring(i + 1);
-
-      if (s.length > 0) {
-        if (t === '%') e = document.createElement(s);
-        else if (t === '#') e.id = s;
-        else if (t === '.') e.classList.add(s);
-      }
-
-      if (j < 0) break;
-      i = i + 1 + j;
-    }
-
-    for (var k in atts) e.setAttribute(k, atts[k]);
-
-    if (text) e.appendChild(document.createTextNode(text));
-
-    return e;
-  };
-
   this.toNode = function(html, sel) {
 
     if ((typeof html) !== 'string') return sel ? self.elt(html, sel) : html;
@@ -656,70 +626,63 @@ var H = (function() {
     else document.addEventListener('DOMContentLoaded', fev);
   };
 
-  this.grow = function(f) {
-
-    var makeGrower = function(name) {
-      var scan = function(s) {
-        var m, r = [];
-        s.replace(/([#.][^#.]+)/g, function(x) {
-          r.push({ k: x[0], n: x.substring(1, x.length) });
-        });
-        return r;
-      };
-      return function() {
-        var e = document.createElement(name);
-        for (var i = 0, l = arguments.length; i < l; i++) {
-          var a = arguments[i];
-          if (a === false) return null; // skip this subtree
-          if (a === null) continue; // ignore null (skipped) children
-          var s = (typeof a === 'string');
-          if (s && (a[0] === '.' || a[0] === '#') && ! a.match(/\s/))
-            scan(a).forEach(function(x) {
-              if (x.k === '#') e.id = x.n; else e.classList.add(x.n);
-            });
-          else if (s)
-            e.appendChild(document.createTextNode(a));
-          else if (a.nodeType && a.innerHTML)
-            e.appendChild(a);
-          else if (typeof a === 'object')
-            for (var k in a) { e.setAttribute(k, a[k]); };
-        }
-        return e;
-      };
+  this.makeGrower = function(name) {
+    var scan = function(s) {
+      var m, r = [];
+      s.replace(/([#.][^#.]+)/g, function(x) {
+        r.push({ k: x[0], n: x.substring(1, x.length) });
+      });
+      return r;
     };
-
-    var js =
-      'var mg=' + makeGrower.toString() + ';' +
-      '"a abbr address area article aside audio b base bdi bdo blockquote br button canvas caption cite code col colgroup datalist dd del details dfn dialog div dl dt em embed fieldset figcaption figure footer form h1 h2 h3 h4 h5 h6 header hr i iframe img input ins kbd keygen label legend li main map mark menu menuitem meta meter nav noscript object ol optgroup option output p param picture pre progress q rp rt ruby s samp script section select small source span strong style sub summary sup table tbody td textarea tfoot th thead time title tr track u ul var video wbr"' +
-      '.split(" ").forEach(function(n){window[n]=mg(n);});' +
-      'var __out__=(' + f.toString() + ')();';
-
-    var i = H.create('iframe', { style: 'width: 0; height: 0' });
-    document.body.appendChild(i);
-    i.contentDocument.body.appendChild(H.create('script', {}, js));
-    var r = i.contentWindow.__out__;
-
-    i.remove();
-
-    return r;
+    return function() {
+      var e = document.createElement(name);
+      for (var i = 0, l = arguments.length; i < l; i++) {
+        var a = arguments[i];
+        if (a === false) return null; // skip this subtree
+        if (a === null) continue; // ignore null (skipped) children
+        var s = (typeof a === 'string');
+        if (s && (a[0] === '.' || a[0] === '#') && ! a.match(/\s/))
+          scan(a).forEach(function(x) {
+            if (x.k === '#') e.id = x.n; else e.classList.add(x.n);
+          });
+        else if (s)
+          e.appendChild(document.createTextNode(a));
+        else if (a.nodeType && a.innerHTML)
+          e.appendChild(a);
+        else if (typeof a === 'object')
+          for (var k in a) { e.setAttribute(k, a[k]); };
+      }
+      return e;
+    };
   };
 
-/*
+  this.create = function(tagname/*, rest */) {
+
+    var as = Array.prototype.slice.call(arguments, 1);
+
+    var m = tagname.match(/^([a-zA-Z0-9]+)?([.#].+)$/)
+    if (m) { tagname = m[1] || 'div'; as.unshift(m[2]); }
+
+    return self.makeGrower(tagname).apply(null, as);
+  };
+
   this.grow = function(fun) {
 
-    var makeGrower = // same as above...
-    var m = makeGrower;
+    var js = 'var mg=' + self.makeGrower.toString() + ';';
 
-    //eval('var span = m("span")'); // not working...
+    js += 'var x=1';
+    'a abbr address area article aside audio b base bdi bdo blockquote br button canvas caption cite code col colgroup datalist dd del details dfn dialog div dl dt em embed fieldset figcaption figure footer form h1 h2 h3 h4 h5 h6 header hr i iframe img input ins kbd keygen label legend li main map mark menu menuitem meta meter nav noscript object ol optgroup option output p param picture pre progress q rp rt ruby s samp script section select small source span strong style sub summary sup table tbody td textarea tfoot th thead time title tr track u ul video wbr'
+      .split(' ').forEach(function(t) { js += ',' + t + '=mg("' + t + '")' });
 
-    var div = m('div'), span = m('span'); // nice but not minifier-safe...
+    // NB: "var" not included
 
     var f = fun.toString().trim();
     f = f.substring(f.indexOf('{') + 1, f.lastIndexOf('}'));
 
-    return eval(f);
+    js += ';' + f.toString();
+
+    return eval(js);
   };
-*/
 
   this.delay = function(ms, fun) {
 

@@ -297,7 +297,7 @@ H.request(meth, uri, headers, data, callbacks);
 
 There is a function called `grow` to generate HTML elements:
 ```js
-H.grow(function() { return (
+H.grow(function() {
 
   div('#nada.surf',
     span('.a', 'alpha'),
@@ -307,7 +307,7 @@ H.grow(function() { return (
       span('.d', 'delta'),
       span('.e', 'echo')))
 
-); }).outerHTML;
+}).outerHTML;
   //
   // ==>
   //

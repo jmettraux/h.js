@@ -704,6 +704,17 @@ var H = (function() {
     return r;
   };
 
+  this.delay = function(ms, fun) {
+
+    var t = null;
+
+    return function() {
+
+      window.clearTimeout(t);
+      t = window.setTimeout(fun, ms);
+    };
+  };
+
   //
   // done.
 

@@ -562,7 +562,7 @@ var H = (function() {
     var elt = toElt(start, sel);
 
     return (
-      (elt.getAttribute('disabled') === 'disabled') ||
+      (typeof elt.getAttribute('disabled')) === 'string' ||
       H.hasClass(elt, '.disabled')
     );
   };

@@ -1,6 +1,10 @@
 
 # h.js
 
+## h.js 1.1.1  not yet released
+
+* introduce H.delay
+
 
 ## h.js 1.1.0  released 2017/01/28
 

@@ -26,7 +26,7 @@ var H = (function() {
 
   var self = this;
 
-  this.VERSION = '1.1.0';
+  this.VERSION = '1.1.1';
 
   this.toArray = function(a) {
 
@@ -688,9 +688,9 @@ var H = (function() {
     var t = null;
 
     return function() {
-
+      var as = arguments;
       window.clearTimeout(t);
-      t = window.setTimeout(fun, ms);
+      t = window.setTimeout(function() { fun.apply(this, as) }, ms);
     };
   };
 
@@ -699,5 +699,5 @@ var H = (function() {
 
   return this;
 
-}).apply({});
+}).apply({}); // end H
 

@@ -216,10 +216,10 @@ H.getAtti(sta, sel, name/*, default*/);
 H.getAttf(sta, sel, name);
 H.getAttf(sta, sel, name/*, default*/);
 
-// Short for H.elt(sta, sel).textContent;
-//H.text(sta);
-//H.text(sta, sel);
-//H.text(sta, sel/*, default*/);
+// Short for H.elt(sta, sel).textContent.trim();
+H.text(sta);
+H.text(sta, sel);
+H.text(sta, sel, default);
 
 // Runs fev as soon as the Document is ready,
 // the evt passed to the function might be undefined

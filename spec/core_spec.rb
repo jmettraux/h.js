@@ -1848,6 +1848,37 @@ red mazda
     end
   end
 
+  describe '.text' do
+
+    it 'returns the textContent of the target' do
+
+      expect(run(%{
+        var e = H.elt('#cars');
+        return H.text(e, '.volkswagen .blue');
+      })).to eq(%{
+        blue volkswagen
+      }.strip)
+    end
+
+    it 'returns the default if the textContent is empty' do
+
+      expect(run(%{
+        return H.text('#empty', null, 'not empty');
+      })).to eq(
+        'not empty'
+      )
+    end
+
+    it 'fails if the elt does not exist' do
+
+      expect { run(%{
+        return H.text('#empty', '.nada');
+      }) }.to raise_error(
+        Selenium::WebDriver::Error::UnknownError
+      )
+    end
+  end
+
   describe '.onDocumentReady' do
 
     it 'works (well...)' do

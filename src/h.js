@@ -319,7 +319,7 @@ var H = (function() {
       onok(res);
     };
 
-    H.request('POST', uri, fd, callbacks);
+    self.request('POST', uri, fd, callbacks);
 
     return fcount;
   };
@@ -341,7 +341,7 @@ var H = (function() {
     if ( ! sel1) { sel1 = sel; sel = start; start = null; }
     var elt = toElt(start, sel);
 
-    if (H.matches(elt, sel1)) return elt;
+    if (self.matches(elt, sel1)) return elt;
 
     return elt.parentElement ? self.closest(elt.parentElement, sel1) : null;
   };
@@ -405,16 +405,16 @@ var H = (function() {
 
   this.isHidden = function(start, sel) {
 
-    var a = H.toArray(arguments); a.push('.hidden');
+    var a = self.toArray(arguments); a.push('.hidden');
 
     return self.hasClass.apply(null, a);
   };
 
   var visit = function(start, sel, bof, onTrue, onFalse) {
 
-    H.forEach(start, sel, function(e) {
+    self.forEach(start, sel, function(e) {
 
-      var b = ((typeof bof) === 'function') ? bof(e) : bof;
+      var b = (typeof bof === 'function') ? bof(e) : bof;
       var fun = b ? onTrue : onFalse; if (fun) fun(e);
     });
   };
@@ -482,15 +482,15 @@ var H = (function() {
 
     if ( ! cla1) { cla1 = cla0; cla0 = sel; sel = start; start = null; }
 
-    var bof = function(e) { return H.hasClass(e, cla0); };
-    var fun = function(e) { H.removeClass(e, cla0); H.addClass(e, cla1); };
+    var bof = function(e) { return self.hasClass(e, cla0); };
+    var fun = function(e) { self.removeClass(e, cla0); self.addClass(e, cla1); };
 
     visit(start, sel, bof, fun, null);
   };
 
   this.classArray = function(start, sel) {
 
-    var e = H.elt(start, sel);
+    var e = self.elt(start, sel);
     var l = e.classList || e.className.split(' ');
 
     var a = [];
@@ -499,36 +499,36 @@ var H = (function() {
     return a;
   };
 
-  var rearg_sta_sel_bof = function(args) {
+  var rearg_sta_sel_las = function(args, las) {
 
     var a = args[0], b = args[1], c = args[2];
 
-    if (args.length === 1) return { sta: a, sel: null, bof: true };
-    if (args.length > 2) return { sta: a, sel: b, bof: c };
+    if (args.length === 1) return { sta: a, sel: null, las: las };
+    if (args.length > 2) return { sta: a, sel: b, las: c };
 
     if (args.length === 2) {
-      if ((typeof b) === 'string') return { sta: a, sel: b, bof: true };
-      return { sta: a, sel: null, bof: b };
+      if ((typeof b) === 'string') return { sta: a, sel: b, las: las };
+      return { sta: a, sel: null, las: b };
     }
 
-    throw "rearg_sta_sel_bof() called without arguments";
+    throw "called without arguments";
   };
 
   this.show = function(start, sel, bof) {
-    var as = rearg_sta_sel_bof(arguments);
-    toggle(as.sta, as.sel, '.shown', as.bof, 'ar');
+    var as = rearg_sta_sel_las(arguments, true);
+    toggle(as.sta, as.sel, '.shown', as.las, 'ar');
   };
   this.unshow = function(start, sel, bof) {
-    var as = rearg_sta_sel_bof(arguments);
-    toggle(as.sta, as.sel, '.shown', as.bof, 'ra');
+    var as = rearg_sta_sel_las(arguments, true);
+    toggle(as.sta, as.sel, '.shown', as.las, 'ra');
   };
   this.hide = function(start, sel, bof) {
-    var as = rearg_sta_sel_bof(arguments);
-    toggle(as.sta, as.sel, '.hidden', as.bof, 'ar');
+    var as = rearg_sta_sel_las(arguments, true);
+    toggle(as.sta, as.sel, '.hidden', as.las, 'ar');
   };
   this.unhide = function(start, sel, bof) {
-    var as = rearg_sta_sel_bof(arguments);
-    toggle(as.sta, as.sel, '.hidden', as.bof, 'ra');
+    var as = rearg_sta_sel_las(arguments, true);
+    toggle(as.sta, as.sel, '.hidden', as.las, 'ra');
   };
 
   var able = function(start, sel, bof, dir) {
@@ -540,21 +540,21 @@ var H = (function() {
   };
 
   this.enable = function(start, sel, bof) {
-    var as = rearg_sta_sel_bof(arguments);
-    able(as.sta, as.sel, as.bof, 'e');
+    var as = rearg_sta_sel_las(arguments, true);
+    able(as.sta, as.sel, as.las, 'e');
   };
   this.disable = function(start, sel, bof) {
-    var as = rearg_sta_sel_bof(arguments);
-    able(as.sta, as.sel, as.bof, 'd');
+    var as = rearg_sta_sel_las(arguments, true);
+    able(as.sta, as.sel, as.las, 'd');
   };
 
   this.cenable = function(start, sel, bof) {
-    var as = rearg_sta_sel_bof(arguments);
-    toggle(as.sta, as.sel, '.disabled', as.bof, 'ra');
+    var as = rearg_sta_sel_las(arguments, true);
+    toggle(as.sta, as.sel, '.disabled', as.las, 'ra');
   };
   this.cdisable = function(start, sel, bof) {
-    var as = rearg_sta_sel_bof(arguments);
-    toggle(as.sta, as.sel, '.disabled', as.bof, 'ar');
+    var as = rearg_sta_sel_las(arguments, true);
+    toggle(as.sta, as.sel, '.disabled', as.las, 'ar');
   };
 
   this.isDisabled = function(start, sel) {
@@ -563,7 +563,7 @@ var H = (function() {
 
     return (
       (typeof elt.getAttribute('disabled')) === 'string' ||
-      H.hasClass(elt, '.disabled')
+      self.hasClass(elt, '.disabled')
     );
   };
 
@@ -571,7 +571,7 @@ var H = (function() {
 
     var as = rearg_sta_sel_nam_las(arguments, undefined);
 
-    var e = H.elt(as.sta, as.sel);
+    var e = self.elt(as.sta, as.sel);
     if ( ! e) throw "elt not found, cannot read attributes";
 
     return e.getAttribute(as.nam) || as.las;
@@ -586,6 +586,16 @@ var H = (function() {
     var v = self.getAtt.apply(null, arguments);
     return v ? parseFloat(v) : v;
   };
+
+//  this.text = function(start, sel/*, default*/) {
+//
+//    var as = rearg_sta_sel_las(arguments);
+//
+//    var e = self.elt(as.sta, as.sel);
+////    if ( ! e) throw "elt not found, cannot read text";
+//
+//    var t = e.textContent; return t; return (t === '' && as.las) ? as.las : t;
+//  };
 
   this.capitalize = function(s) {
 
@@ -618,10 +628,10 @@ var H = (function() {
 
   this.remove = function(start, sel, bof) {
 
-    var as = rearg_sta_sel_bof(arguments);
+    var as = rearg_sta_sel_las(arguments, true);
 
     toElts(as.sta, as.sel).forEach(function(e) {
-      if ((typeof as.bof) === 'function' ? as.bof(e) : as.bof) {
+      if ((typeof as.las === 'function') ? as.las(e) : as.las) {
         e.parentElement.removeChild(e);
       }
     });
@@ -633,7 +643,7 @@ var H = (function() {
     if (cla && cla[0] !== '.') cla = '.' + cla;
 
     if (cla)
-      H.forEach(elt, cla, function(e) { e.parentElement.removeChild(e); });
+      self.forEach(elt, cla, function(e) { e.parentElement.removeChild(e); });
     else
       while (elt.firstChild) elt.removeChild(elt.firstChild);
 

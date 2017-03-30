@@ -207,6 +207,16 @@ H.clean(sta, sel);
 H.clean(sta, cla);
 H.clean(sta, sel, cla);
 
+//H.getAtt(sta, name, /*default*/);
+//H.getAtt(sta, sel, name);
+//H.getAtt(sta, sel, name, /*default*/);
+//H.getAtti(sta, sel, name);
+//H.getAtti(sta, sel, name, /*default*/);
+//H.getAttf(sta, sel, name);
+//H.getAttf(sta, sel, name, /*default*/);
+//H.textContent(sta);
+//H.textContent(sta, sel);
+
 // Runs fev as soon as the Document is ready,
 // the evt passed to the function might be undefined
 H.onDocumentReady(fev);

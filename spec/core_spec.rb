@@ -1737,6 +1737,51 @@ red mazda
     end
   end
 
+  describe '.getAtt' do
+
+    it 'returns an attribute value' do
+
+      expect(run(%{
+        var e = H.elt('#for-getAtt');
+        return H.getAtt(e, '.gaa', 'data-hjs-alpha');
+      })).to eq(%{
+        alpha
+      }.strip)
+    end
+
+    it 'returns null else' do
+
+      expect(run(%{
+        var e = H.elt('#for-getAtt');
+        return (H.getAtt(e, '.gaa', 'data-hjs-omega'));
+      })).to eq(
+        nil
+      )
+    end
+
+    it 'returns the given default else' do
+
+      expect(run(%{
+        var e = H.elt('#for-getAtt');
+        return (H.getAtt(e, '.gaa', 'data-hjs-omega', 'omega'));
+      })).to eq(%{
+        omega
+      }.strip)
+    end
+  end
+
+  describe '.getAtti' do
+
+    it 'returns an attribute value as an integer'
+    it 'returns the given default else'
+  end
+
+  describe '.getAttf' do
+
+    it 'returns an attribute value as a float'
+    it 'returns the given default else'
+  end
+
   describe '.onDocumentReady' do
 
     it 'works (well...)' do

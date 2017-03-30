@@ -425,21 +425,21 @@ var H = (function() {
     elt.classList[dir === 'r' ? 'remove' : 'add'](cla);
   };
 
-  var rearg_sta_sel_cla_bof = function(args) {
+  var rearg_sta_sel_nam_bof = function(args, bofdef) {
 
     var a = args[0], b = args[1], c = args[2], d = args[3];
 
-    if (args.length < 2) throw "rearg_sta_sel_cla_bof() not enough arguments";
+    if (args.length < 2) throw "rearg_sta_sel_nam_bof() not enough arguments";
 
-    if (args.length === 2) return { sta: a, sel: null, cla: b, bof: true };
-    if (args.length > 3) return { sta: a, sel: b, cla: c, bof: d };
+    if (args.length === 2) return { sta: a, sel: null, nam: b, bof: bofdef };
+    if (args.length > 3) return { sta: a, sel: b, nam: c, bof: d };
 
-    // sta/sel/cla or sta/cla/bof ?
+    // sta/sel/nam or sta/nam/bof ?
 
     if ((typeof c) === 'string' && c.match(/^\.?[^ ]+$/))
-      return { sta: a, sel: b, cla: c, bof: true };
+      return { sta: a, sel: b, nam: c, bof: bofdef };
 
-    return { sta: a, sel: null, cla: b, bof: c };
+    return { sta: a, sel: null, nam: b, bof: c };
   };
 
   var toggle = function(start, sel, cla, bof, mod) {
@@ -456,12 +456,12 @@ var H = (function() {
   };
 
   this.addClass = function(start, sel, cla, bof) {
-    var as = rearg_sta_sel_cla_bof(arguments);
-    toggle(as.sta, as.sel, as.cla, as.bof, 'a');
+    var as = rearg_sta_sel_nam_bof(arguments, true);
+    toggle(as.sta, as.sel, as.nam, as.bof, 'a');
   }
   this.removeClass = function(start, sel, cla, bof) {
-    var as = rearg_sta_sel_cla_bof(arguments);
-    toggle(as.sta, as.sel, as.cla, as.bof, 'r');
+    var as = rearg_sta_sel_nam_bof(arguments, true);
+    toggle(as.sta, as.sel, as.nam, as.bof, 'r');
   };
 
   this.toggleClass = function(start, sel, cla) {
@@ -474,8 +474,8 @@ var H = (function() {
   this.toggle = this.toggleClass;
 
   this.setClass = function(start, sel, cla, bof) {
-    var as = rearg_sta_sel_cla_bof(arguments);
-    toggle(as.sta, as.sel, as.cla, as.bof, 'ar');
+    var as = rearg_sta_sel_nam_bof(arguments, true);
+    toggle(as.sta, as.sel, as.nam, as.bof, 'ar');
   };
 
   this.renameClass = function(start, sel, cla0, cla1) {
@@ -565,6 +565,16 @@ var H = (function() {
       (typeof elt.getAttribute('disabled')) === 'string' ||
       H.hasClass(elt, '.disabled')
     );
+  };
+
+  this.getAtt = function(start, sel, aname/*, default*/) {
+
+    var as = rearg_sta_sel_nam_bof(arguments, undefined);
+
+    var e = H.elt(as.sta, as.sel);
+    if ( ! e) throw "elt not found, cannot read attributes";
+
+    return e.getAttribute(as.nam) || as.bof;
   };
 
   this.capitalize = function(s) {

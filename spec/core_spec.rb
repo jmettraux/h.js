@@ -1763,7 +1763,7 @@ red mazda
 
       expect(run(%{
         var e = H.elt('#for-getAtt');
-        return (H.getAtt(e, '.gaa', 'data-hjs-omega', 'omega'));
+        return H.getAtt(e, '.gaa', 'data-hjs-omega', 'omega');
       })).to eq(%{
         omega
       }.strip)
@@ -1772,14 +1772,80 @@ red mazda
 
   describe '.getAtti' do
 
-    it 'returns an attribute value as an integer'
-    it 'returns the given default else'
+    it 'returns an attribute value as an integer' do
+
+      expect(run(%{
+        var e = H.elt('#for-getAtt');
+        return H.getAtti(e, '.gab', 'data-hjs-bravo');
+      })).to eq(
+        2
+      )
+      expect(run(%{
+        var e = H.elt('#for-getAtt');
+        return H.getAtti(e, '.gac', 'data-hjs-charly');
+      })).to eq(
+        3
+      )
+    end
+
+    it 'returns null else' do
+
+      expect(run(%{
+        var e = H.elt('#for-getAtt');
+        return H.getAtti(e, '.gaa', 'data-hjs-omega');
+      })).to eq(
+        nil
+      )
+    end
+
+    it 'returns the given default else' do
+
+      expect(run(%{
+        var e = H.elt('#for-getAtt');
+        return H.getAtti(e, '.gaa', 'data-hjs-omega', -12);
+      })).to eq(
+        -12
+      )
+    end
   end
 
   describe '.getAttf' do
 
-    it 'returns an attribute value as a float'
-    it 'returns the given default else'
+    it 'returns an attribute value as a float' do
+
+      expect(run(%{
+        var e = H.elt('#for-getAtt');
+        return H.getAttf(e, '.gab', 'data-hjs-bravo');
+      })).to eq(
+        2.0
+      )
+      expect(run(%{
+        var e = H.elt('#for-getAtt');
+        return H.getAttf(e, '.gac', 'data-hjs-charly');
+      })).to eq(
+        3.3
+      )
+    end
+
+    it 'returns null else' do
+
+      expect(run(%{
+        var e = H.elt('#for-getAtt');
+        return H.getAttf(e, '.gaa', 'data-hjs-omega');
+      })).to eq(
+        nil
+      )
+    end
+
+    it 'returns the given default else' do
+
+      expect(run(%{
+        var e = H.elt('#for-getAtt');
+        return H.getAttf(e, '.gaa', 'data-hjs-omega', -12);
+      })).to eq(
+        -12.0
+      )
+    end
   end
 
   describe '.onDocumentReady' do

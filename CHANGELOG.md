@@ -3,6 +3,7 @@
 
 ## h.js 1.1.1  not yet released
 
+* Introduce H.getAtt(), .getAtti() and .getAttf()
 * Grok `<a disabled="">` and `<a disabled="disabled">` in H.isDisabled()
 * Introduce H.delay
 

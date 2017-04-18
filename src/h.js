@@ -598,6 +598,24 @@ var H = (function() {
     return (t === '' && as.las) ? as.las : t;
   };
 
+  this.get = function(start, sel/* default */) {
+
+    var a = self.toArray(arguments);
+    var l = true; if (typeof a[a.length - 1] === 'boolean') l = a.pop();
+    var e = self.elt.apply(null, a);
+    var v = e.value.trim();
+    return l === false && v.length === 0 ? null : v;
+  };
+
+  this.set = function(start, sel, value) {
+
+    var a = self.toArray(arguments);
+    value = a.pop();
+    var e = self.elt.apply(null, a);
+
+    e.value = value;
+  };
+
   this.capitalize = function(s) {
 
     return s.charAt(0).toUpperCase() + s.slice(1);

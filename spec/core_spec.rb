@@ -1879,6 +1879,103 @@ red mazda
     end
   end
 
+  describe '.set' do
+
+    it 'sets <input>' do
+
+      expect(run(%{
+        H.set('#for-set-and-get [name="tzar"]', 'Nicolas II');
+        return H.elt('#for-set-and-get [name="tzar"]').value;
+      })).to eq(
+        'Nicolas II'
+      )
+    end
+
+    it 'sets <select>' do
+
+      expect(run(%{
+        H.set('#for-set-and-get [name="era"]', 'napo');
+        return H.elt('#for-set-and-get [name="era"]').value;
+      })).to eq(
+        'napo'
+      )
+    end
+
+    it 'sets <textarea>' do
+
+      expect(run(%{
+        H.set('#for-set-and-get [name="bio"]', "a and b");
+        return H.elt('#for-set-and-get [name="bio"]').value;
+      })).to eq(
+        'a and b'
+      )
+    end
+  end
+
+  describe '.get' do
+
+    it 'gets from <input>' do
+
+      expect(run(%{
+        H.set('#for-set-and-get [name="tzar"]', 'Ivan IV Vasilyevich');
+        return H.get('#for-set-and-get [name="tzar"]');
+      })).to eq(
+        'Ivan IV Vasilyevich'
+      )
+    end
+
+    it 'gets from <select>' do
+
+      expect(run(%{
+        H.set('#for-set-and-get [name="era"]', 'vict');
+        return H.get('#for-set-and-get [name="era"]');
+      })).to eq(
+        'vict'
+      )
+    end
+
+    it 'gets from <textarea>' do
+
+      expect(run(%{
+        H.set('#for-set-and-get [name="bio"]', "a and b and c");
+        return H.get('#for-set-and-get [name="bio"]');
+      })).to eq(
+        'a and b and c'
+      )
+    end
+
+    it 'gets from <input> (false)' do
+
+      expect(run(%{
+        var start = H.elt('#for-set-and-get');
+        H.set('#for-set-and-get [name="tzar"]', '');
+        return H.get(start, '[name="tzar"]', false);
+      })).to eq(
+        nil
+      )
+    end
+
+    it 'gets from <select> (false)' do
+
+      expect(run(%{
+        H.set('#for-set-and-get [name="era"]', '');
+        return H.get('#for-set-and-get [name="era"]', false);
+      })).to eq(
+        nil
+      )
+    end
+
+    it 'gets from <textarea> (false)' do
+
+      expect(run(%{
+        H.set('#for-set-and-get [name="bio"]', '');
+        return H.get('#for-set-and-get [name="bio"]', false);
+      })).to eq(
+        nil
+      )
+    end
+  end
+
   describe '.onDocumentReady' do
 
     it 'works (well...)' do

@@ -216,6 +216,15 @@ H.getAtti(sta, sel, name/*, default*/);
 H.getAttf(sta, sel, name);
 H.getAttf(sta, sel, name/*, default*/);
 
+// Sets the value of an input, select or textarea
+H.set(sta, val);
+H.set(sta, sel, val);
+
+// Gets the trimmed value of an input, select or textarea
+H.get(sta);
+H.get(sta, sel);
+H.get(sta, sel, false); // returns null if the trimmed value length is zero
+
 // Short for H.elt(sta, sel).textContent.trim();
 H.text(sta);
 H.text(sta, sel);

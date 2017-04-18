@@ -225,6 +225,11 @@ H.get(sta);
 H.get(sta, sel);
 H.get(sta, sel, false); // returns null if the trimmed value length is zero
 
+// Like get but returns true or false (true when 'true' or 'yes')
+H.getb(sta);
+H.getb(sta, sel);
+H.getb(sta, sel, default);
+
 // Short for H.elt(sta, sel).textContent.trim();
 H.text(sta);
 H.text(sta, sel);

@@ -1976,6 +1976,56 @@ red mazda
     end
   end
 
+  describe '.getb' do
+
+    it 'gets a boolean' do
+
+      expect(run(%{
+        var a = [];
+        H.set('#for-set-and-get [name="bio"]', 'true');
+        a.push(H.getb('#for-set-and-get [name="bio"]'));
+        H.set('#for-set-and-get [name="bio"]', 'false');
+        a.push(H.getb('#for-set-and-get [name="bio"]'));
+        H.set('#for-set-and-get [name="bio"]', 'yes');
+        a.push(H.getb('#for-set-and-get [name="bio"]'));
+        H.set('#for-set-and-get [name="bio"]', 'no');
+        a.push(H.getb('#for-set-and-get [name="bio"]'));
+        H.set('#for-set-and-get [name="bio"]', '');
+        a.push(H.getb('#for-set-and-get [name="bio"]'));
+        return a;
+      })).to eq([
+        true, false, true, false, false
+      ])
+    end
+
+    it 'gets a boolean (default)' do
+
+      expect(run(%{
+        var a = [];
+        H.set('#for-set-and-get [name="bio"]', '');
+        a.push(H.getb('#for-set-and-get [name="bio"]', true));
+        a.push(H.getb('#for-set-and-get [name="bio"]', false));
+        H.set('#for-set-and-get [name="bio"]', 'true');
+        a.push(H.getb('#for-set-and-get [name="bio"]', true));
+        a.push(H.getb('#for-set-and-get [name="bio"]', false));
+        H.set('#for-set-and-get [name="bio"]', 'false');
+        a.push(H.getb('#for-set-and-get [name="bio"]', true));
+        a.push(H.getb('#for-set-and-get [name="bio"]', false));
+        return a;
+      })).to eq([
+        true, false, true, true, false, false
+      ])
+    end
+  end
+  describe '.getf' do
+    it 'gets a float'
+    it 'gets a float (default)'
+  end
+  describe '.geti' do
+    it 'gets an integer'
+    it 'gets an integer (default)'
+  end
+
   describe '.onDocumentReady' do
 
     it 'works (well...)' do

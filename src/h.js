@@ -598,13 +598,22 @@ var H = (function() {
     return (t === '' && as.las) ? as.las : t;
   };
 
-  this.get = function(start, sel/* default */) {
+  this.get = function(start, sel/*, false */) {
 
     var a = self.toArray(arguments);
     var l = true; if (typeof a[a.length - 1] === 'boolean') l = a.pop();
     var e = self.elt.apply(null, a);
     var v = e.value.trim();
     return l === false && v.length === 0 ? null : v;
+  };
+
+  this.getb = function(start, sel/*, default */) {
+
+    var a = self.toArray(arguments);
+    var d = null; if (typeof a[a.length - 1] === 'boolean') d = a.pop();
+    var v = self.get.apply(null, a).toLowerCase();
+    if (d !== null && v === '') return d;
+    return v === 'true' || v === 'yes';
   };
 
   this.set = function(start, sel, value) {

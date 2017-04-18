@@ -1884,31 +1884,49 @@ red mazda
     it 'sets <input>' do
 
       expect(run(%{
+        var a = [];
         H.set('#for-set-and-get [name="tzar"]', 'Nicolas II');
-        return H.elt('#for-set-and-get [name="tzar"]').value;
-      })).to eq(
-        'Nicolas II'
-      )
+        a.push(H.elt('#for-set-and-get [name="tzar"]').value);
+        H.set('#for-set-and-get [name="tzar"]', null);
+        a.push(H.elt('#for-set-and-get [name="tzar"]').value);
+        H.set('#for-set-and-get [name="tzar"]', undefined);
+        a.push(H.elt('#for-set-and-get [name="tzar"]').value);
+        H.set('#for-set-and-get [name="tzar"]', 1.1);
+        a.push(H.elt('#for-set-and-get [name="tzar"]').value);
+        return a;
+      })).to eq([
+        'Nicolas II', '', '', '1.1'
+      ])
     end
 
     it 'sets <select>' do
 
       expect(run(%{
+        var a = [];
         H.set('#for-set-and-get [name="era"]', 'napo');
-        return H.elt('#for-set-and-get [name="era"]').value;
-      })).to eq(
-        'napo'
-      )
+        a.push(H.elt('#for-set-and-get [name="era"]').value);
+        H.set('#for-set-and-get [name="era"]', 'NADA');
+        a.push(H.elt('#for-set-and-get [name="era"]').value);
+        H.set('#for-set-and-get [name="era"]', null);
+        a.push(H.elt('#for-set-and-get [name="era"]').value);
+        return a;
+      })).to eq([
+        'napo', 'napo', ''
+      ])
     end
 
     it 'sets <textarea>' do
 
       expect(run(%{
+        var a = [];
         H.set('#for-set-and-get [name="bio"]', "a and b");
-        return H.elt('#for-set-and-get [name="bio"]').value;
-      })).to eq(
-        'a and b'
-      )
+        a.push(H.elt('#for-set-and-get [name="bio"]').value);
+        H.set('#for-set-and-get [name="bio"]', 1);
+        a.push(H.elt('#for-set-and-get [name="bio"]').value);
+        return a;
+      })).to eq([
+        'a and b', '1'
+      ])
     end
   end
 

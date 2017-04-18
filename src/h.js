@@ -628,6 +628,18 @@ var H = (function() {
     return parseFloat(v);
   };
 
+  this.geti = function(start, sel/*, default */) {
+
+    var a = self.toArray(arguments);
+    var l = a[a.length - 1];
+    var d = null;
+    if (typeof l === 'number') d = a.pop();
+    if (d !== null) a.push(false);
+    var v = self.get.apply(null, a);
+    if (v === null) { if (l === false) return v; v = d ? '' + d : '0' }
+    return parseInt(v, 10);
+  };
+
   this.set = function(start, sel, value) {
 
     var a = self.toArray(arguments);

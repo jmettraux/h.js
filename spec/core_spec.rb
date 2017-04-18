@@ -2076,8 +2076,43 @@ red mazda
   end
 
   describe '.geti' do
-    it 'gets an integer'
-    it 'gets an integer (default)'
+
+    it 'gets an integer' do
+
+      expect(run(%{
+        var a = [];
+        H.set('#for-set-and-get [name="tzar"]', '1.1');
+        a.push(H.geti('#for-set-and-get [name="tzar"]'));
+        H.set('#for-set-and-get [name="tzar"]', '1.0');
+        a.push(H.geti('#for-set-and-get [name="tzar"]'));
+        H.set('#for-set-and-get [name="tzar"]', '');
+        a.push(H.geti('#for-set-and-get [name="tzar"]'));
+        H.set('#for-set-and-get [name="tzar"]', '1');
+        a.push(H.geti('#for-set-and-get [name="tzar"]'));
+        H.set('#for-set-and-get [name="tzar"]', '.1');
+        a.push(H.geti('#for-set-and-get [name="tzar"]'));
+        H.set('#for-set-and-get [name="tzar"]', '');
+        a.push(H.geti('#for-set-and-get [name="tzar"]', false));
+        return a;
+      })).to eq([
+        1, 1, nil, 1, nil, nil
+      ])
+    end
+
+    it 'gets an integer (default)' do
+
+      expect(run(%{
+        var a = [];
+        H.set('#for-set-and-get [name="tzar"]', null);
+        a.push(H.geti('#for-set-and-get [name="tzar"]', 1.2));
+        H.set('#for-set-and-get [name="tzar"]', 1.0);
+        a.push(H.elt('#for-set-and-get [name="tzar"]').value);
+        a.push(H.geti('#for-set-and-get [name="tzar"]', 1.3));
+        return a;
+      })).to eq([
+        1, '1', 1
+      ])
+    end
   end
 
   describe '.onDocumentReady' do

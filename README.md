@@ -237,6 +237,12 @@ H.getf(sta, sel);
 H.getf(sta, sel, default);
 H.getf(sta, sel, false); // returns null if the trimmed value length is zero
 
+// Like getf but returns an integer
+H.geti(sta);
+H.geti(sta, sel);
+H.geti(sta, sel, default);
+H.geti(sta, sel, false); // returns null if the trimmed value length is zero
+
 // Short for H.elt(sta, sel).textContent.trim();
 H.text(sta);
 H.text(sta, sel);

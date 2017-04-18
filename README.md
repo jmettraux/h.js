@@ -229,6 +229,13 @@ H.get(sta, sel, false); // returns null if the trimmed value length is zero
 H.getb(sta);
 H.getb(sta, sel);
 H.getb(sta, sel, default);
+H.getb(sta, sel, false); // returns null if the trimmed value length is zero
+
+// Like get but returns a float
+H.getf(sta);
+H.getf(sta, sel);
+H.getf(sta, sel, default);
+H.getf(sta, sel, false); // returns null if the trimmed value length is zero
 
 // Short for H.elt(sta, sel).textContent.trim();
 H.text(sta);

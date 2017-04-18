@@ -603,7 +603,7 @@ var H = (function() {
     var a = self.toArray(arguments);
     var l = true; if (typeof a[a.length - 1] === 'boolean') l = a.pop();
     var e = self.elt.apply(null, a);
-    var v = e.value.trim();
+    var v = e ? e.value : null; v = v ? v.trim() : '';
     return l === false && v.length === 0 ? null : v;
   };
 
@@ -616,13 +616,27 @@ var H = (function() {
     return v === 'true' || v === 'yes';
   };
 
+  this.getf = function(start, sel/*, default */) {
+
+    var a = self.toArray(arguments);
+    var l = a[a.length - 1];
+    var d = null;
+    if (typeof l === 'number') d = a.pop();
+    if (d !== null) a.push(false);
+    var v = self.get.apply(null, a);
+    if (v === null) { if (l === false) return v; if (d) return d; v = '0.0' }
+    return parseFloat(v);
+  };
+
   this.set = function(start, sel, value) {
 
     var a = self.toArray(arguments);
-    value = a.pop();
-    var e = self.elt.apply(null, a);
+    var v = a.pop(); v = (v === null || v === undefined) ? '' : '' + v;
 
-    e.value = value;
+    var e = self.elt.apply(null, a);
+    if (e) e.value = v;
+
+    return v;
   };
 
   this.capitalize = function(s) {

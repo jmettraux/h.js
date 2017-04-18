@@ -2018,9 +2018,45 @@ red mazda
     end
   end
   describe '.getf' do
-    it 'gets a float'
-    it 'gets a float (default)'
+
+    it 'gets a float' do
+
+      expect(run(%{
+        var a = [];
+        H.set('#for-set-and-get [name="tzar"]', '1.1');
+        a.push(H.getf('#for-set-and-get [name="tzar"]'));
+        H.set('#for-set-and-get [name="tzar"]', '1.0');
+        a.push(H.getf('#for-set-and-get [name="tzar"]'));
+        H.set('#for-set-and-get [name="tzar"]', '');
+        a.push(H.getf('#for-set-and-get [name="tzar"]'));
+        H.set('#for-set-and-get [name="tzar"]', '1');
+        a.push(H.getf('#for-set-and-get [name="tzar"]'));
+        H.set('#for-set-and-get [name="tzar"]', '.1');
+        a.push(H.getf('#for-set-and-get [name="tzar"]'));
+        H.set('#for-set-and-get [name="tzar"]', '');
+        a.push(H.getf('#for-set-and-get [name="tzar"]', false));
+        return a;
+      })).to eq([
+        1.1, 1, nil, 1, 0.1, nil
+      ])
+    end
+
+    it 'gets a float (default)' do
+
+      expect(run(%{
+        var a = [];
+        H.set('#for-set-and-get [name="tzar"]', null);
+        a.push(H.getf('#for-set-and-get [name="tzar"]', 1.2));
+        H.set('#for-set-and-get [name="tzar"]', 1.0);
+        a.push(H.elt('#for-set-and-get [name="tzar"]').value);
+        a.push(H.getf('#for-set-and-get [name="tzar"]', 1.3));
+        return a;
+      })).to eq([
+        1.2, '1', 1
+      ])
+    end
   end
+
   describe '.geti' do
     it 'gets an integer'
     it 'gets an integer (default)'

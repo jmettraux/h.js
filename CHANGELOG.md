@@ -3,7 +3,7 @@
 
 ## h.js 1.1.1  not yet released
 
-* Introduce H.getb()
+* Introduce H.getb() and H.getf()
 * Introduce H.get() and H.set()
 * Introduce H.text()
 * Introduce H.getAtt(), .getAtti() and .getAttf()

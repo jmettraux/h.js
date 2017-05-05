@@ -1,6 +1,8 @@
 
 # h.js
 
+## h.js 1.1.2  not yet released
+
 ## h.js 1.1.1  released 2017/05/05
 
 * Introduce H.getb(), H.getf() and H.geti()

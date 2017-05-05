@@ -26,7 +26,7 @@ var H = (function() {
 
   var self = this;
 
-  this.VERSION = '1.1.1';
+  this.VERSION = '1.1.2';
 
   this.toArray = function(a) {
 

@@ -315,7 +315,9 @@ var H = (function() {
 
     var onok = callbacks.onok;
     callbacks.onok = function(res) {
-      elts.forEach(function(elt) { elt.value = ''; });
+      if (callbacks.clear === undefined || callbacks.clear === true) {
+        elts.forEach(function(elt) { elt.value = ''; });
+      }
       onok(res);
     };
 

@@ -1,7 +1,11 @@
 
 # h.js
 
+
 ## h.js 1.1.2  not yet released
+
+* Introduce H.upload() clear: false
+
 
 ## h.js 1.1.1  released 2017/05/05
 

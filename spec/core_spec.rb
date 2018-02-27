@@ -258,6 +258,32 @@ describe 'H' do
     end
   end
 
+  describe '.map' do
+
+    it 'works  .map(sel, fun)' do
+
+      expect(run(%{
+        return H.map('.train .europe > div', function(e) {
+          return e.textContent.trim();
+        });
+      })).to eq([
+        'ice', 'tgv', 'pendolino'
+      ])
+    end
+
+    it 'works  .map(start, sel, fun)' do
+
+      expect(run(%{
+        var s = H.elt('#list-of-trains');
+        return H.map(s, '.europe > div', function(e) {
+          return e.textContent.trim();
+        });
+      })).to eq([
+        'ice', 'tgv', 'pendolino'
+      ])
+    end
+  end
+
   describe '.hasClass' do
 
     it 'works  .hasClass(sel, "clas")' do

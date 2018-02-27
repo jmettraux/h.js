@@ -4,6 +4,7 @@
 
 ## h.js 1.1.2  not yet released
 
+* Introduce H.map()
 * Introduce H.upload() clear: false
 
 

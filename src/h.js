@@ -89,6 +89,13 @@ var H = (function() {
     return r;
   };
 
+  this.map = function(start, sel, fun) {
+
+    if ((typeof sel) === 'function') { fun = sel; sel = null; }
+
+    return toElts(start, sel).map(fun);
+  };
+
   this.tdim = function(start, sel) {
 
     var elt = toElt(start, sel); if ( ! elt) return null;

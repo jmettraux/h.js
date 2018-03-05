@@ -583,6 +583,8 @@ var H = (function() {
     var e = self.elt(as.sta, as.sel);
     if ( ! e) throw "elt not found, cannot read attributes";
 
+    if (as.nam && as.nam.substr(0, 1) === '-') as.nam = 'data' + as.nam;
+
     return e.getAttribute(as.nam) || as.las;
   };
 

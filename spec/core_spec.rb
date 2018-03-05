@@ -1779,7 +1779,7 @@ red mazda
 
       expect(run(%{
         var e = H.elt('#for-getAtt');
-        return (H.getAtt(e, '.gaa', 'data-hjs-omega'));
+        return H.getAtt(e, '.gaa', 'data-hjs-omega');
       })).to eq(
         nil
       )
@@ -1793,6 +1793,20 @@ red mazda
       })).to eq(%{
         omega
       }.strip)
+    end
+
+    it 'automatically prefixes "-x-y-z" into "data-x-y-z"' do
+
+      expect(run(%{
+        var e = H.elt('#for-getAtt');
+        return [
+          H.getAtt(e, '.gaa', '-hjs-alpha'),
+          H.getAtt(e, '.gaa', '-hjs-omega'),
+          H.getAtt(e, '.gaa', '-hjs-omega', 'omega')
+        ];
+      })).to eq([
+        'alpha', nil, 'omega'
+      ])
     end
   end
 
@@ -1833,6 +1847,23 @@ red mazda
         -12
       )
     end
+
+    it 'automatically prefixes "-x-y-z" into "data-x-y-z"' do
+
+      expect(run(%{
+        var e = H.elt('#for-getAtt');
+        return [
+          H.getAtti(e, '.gaa', '-hjs-alpha'),
+          H.getAtti(e, '.gab', '-hjs-bravo'),
+          H.getAtti(e, '.gac', '-hjs-charly'),
+          H.getAtti(e, '.gad', '-hjs-delta'),
+          H.getAtti(e, '.gaa', '-hjs-omega'),
+          H.getAtti(e, '.gaa', '-hjs-omega', 77)
+        ];
+      })).to eq([
+        nil, 2, 3, nil, nil, 77
+      ])
+    end
   end
 
   describe '.getAttf' do
@@ -1871,6 +1902,23 @@ red mazda
       })).to eq(
         -12.0
       )
+    end
+
+    it 'automatically prefixes "-x-y-z" into "data-x-y-z"' do
+
+      expect(run(%{
+        var e = H.elt('#for-getAtt');
+        return [
+          H.getAttf(e, '.gaa', '-hjs-alpha'),
+          H.getAttf(e, '.gab', '-hjs-bravo'),
+          H.getAttf(e, '.gac', '-hjs-charly'),
+          H.getAttf(e, '.gad', '-hjs-delta'),
+          H.getAttf(e, '.gaa', '-hjs-omega'),
+          H.getAttf(e, '.gaa', '-hjs-omega', 77)
+        ];
+      })).to eq([
+        nil, 2, 3.3, nil, nil, 77
+      ])
     end
   end
 

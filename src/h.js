@@ -33,12 +33,19 @@ var H = (function() {
     return Array.prototype.slice.call(a);
   };
 
+  var qs = function(start, sel, all) {
+
+    sel = sel.replace(/\[-/g, '[data-');
+
+    return all ? start.querySelectorAll(sel) : start.querySelector(sel);
+  };
+
   var toEltRefine = function(start, sel) {
 
     if ( ! sel) { sel = start; start = document; }
 
     if ( ! start) { start = document; }
-    if ((typeof start) === 'string') start = document.querySelector(start);
+    if ((typeof start) === 'string') start = qs(document, start);
 
     return [ start, sel ];
   };
@@ -53,7 +60,7 @@ var H = (function() {
     if (m) { sta = self.closest(sta, m[1]); sel = m[2].trim(); }
 
     if ( ! sta) return null;
-    if (sel) return sta.querySelector(sel);
+    if (sel) return qs(sta, sel);
     return sta;
   };
 
@@ -65,7 +72,7 @@ var H = (function() {
     if ((typeof sel) === 'string') {
       var m = sel.match(/^\^([^ ]+)(.*)$/);
       if (m) { sta = self.closest(sta, m[1]); sel = m[2].trim(); }
-      es = sel.length > 0 ? sta.querySelectorAll(sel) : [ sta ];
+      es = sel.length > 0 ? qs(sta, sel, true) : [ sta ];
     }
     else {
       es = [ sel ];

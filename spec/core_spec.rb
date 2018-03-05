@@ -71,6 +71,25 @@ describe 'H' do
         'shinkansen'
       )
     end
+
+    it 'works  .elt("[-xyz]")' do
+
+      expect(run(%{
+        return H.elt('[-hjs-alpha]').className;
+      })).to eq(
+        'gaa'
+      )
+    end
+
+    it 'works  .elt(start, "[-xyz]")' do
+
+      expect(run(%{
+        var s = H.elt('#for-getAtt');
+        return H.elt(s, '[-hjs-bravo]').className;
+      })).to eq(
+        'gab'
+      )
+    end
   end
 
   describe '.elts' do
@@ -137,6 +156,27 @@ describe 'H' do
           .map(function(e) { return e.className; });
       })).to eq([
         'car japan mazda', 'car bentley', 'car volkswagen'
+      ])
+    end
+
+    it 'works  .elts("[-xyz]")' do
+
+      expect(run(%{
+        return H.elts('[-hjs-data-prefix]')
+          .map(function(e) { return e.getAttribute('data-hjs-data-prefix'); });
+      })).to eq(%w[
+        alice bob charly
+      ])
+    end
+
+    it 'works  .elts(start, "[-xyz]")' do
+
+      expect(run(%{
+        var e = H.elt('#for-data-prefix');
+        return H.elts(e, '[-hjs-data-prefix]')
+          .map(function(e) { return e.getAttribute('data-hjs-data-prefix'); });
+      })).to eq(%w[
+        alice bob charly
       ])
     end
   end

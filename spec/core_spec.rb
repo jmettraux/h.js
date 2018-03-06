@@ -91,6 +91,15 @@ describe 'H' do
       )
     end
 
+    it 'works  .elt(start, >.option[-hjs-value="[-999,28]"]<)' do
+
+      expect(run(%{
+        return H.elt('.option[-hjs-value="[-999,28]"]').className;
+      })).to eq(
+        'option dash-data'
+      )
+    end
+
     it 'works  .elt(e, "^[-xyz]")  (closest)' do
 
       expect(run(%{

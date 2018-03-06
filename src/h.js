@@ -33,9 +33,14 @@ var H = (function() {
     return Array.prototype.slice.call(a);
   };
 
+  var dashData = function(s) {
+
+    return s.replace(/\[-([-_a-zA-Z0-9]+)(=|\])/g, '[data-$1$2');
+  };
+
   var qs = function(start, sel, all) {
 
-    sel = sel.replace(/\[-/g, '[data-');
+    sel = dashData(sel);
 
     return all ? start.querySelectorAll(sel) : start.querySelector(sel);
   };
@@ -357,7 +362,7 @@ var H = (function() {
     if ( ! sel1) { sel1 = sel; sel = start; start = null; }
     var elt = toElt(start, sel);
 
-    sel1 = sel1.replace(/\[-/g, '[data-');
+    sel1 = dashData(sel1);
 
     if (self.matches(elt, sel1)) return elt;
 

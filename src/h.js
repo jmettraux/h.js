@@ -357,6 +357,8 @@ var H = (function() {
     if ( ! sel1) { sel1 = sel; sel = start; start = null; }
     var elt = toElt(start, sel);
 
+    sel1 = sel1.replace(/\[-/g, '[data-');
+
     if (self.matches(elt, sel1)) return elt;
 
     return elt.parentElement ? self.closest(elt.parentElement, sel1) : null;

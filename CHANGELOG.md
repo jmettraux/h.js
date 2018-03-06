@@ -4,6 +4,7 @@
 
 ## h.js 1.1.2  not yet released
 
+* Turn `[-x]` into `[data-x]` in H.closest() and `H.elt('^[-x]')`
 * Turn `[-x]` into `[data-x]` in H.elt() and H.elts()
 * Prefix '-xyz' with 'data' in getAtt(), getAtti() and getAttf()
 * Introduce H.map()

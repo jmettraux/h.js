@@ -90,6 +90,16 @@ describe 'H' do
         'gab'
       )
     end
+
+    it 'works  .elt(e, "^[-xyz]")  (closest)' do
+
+      expect(run(%{
+        var e = H.elt('#in-charly');
+        return H.elt(e, '^[-hjs-data-prefix]').className;
+      })).to eq(
+        'cinnamon'
+      )
+    end
   end
 
   describe '.elts' do
@@ -264,6 +274,15 @@ describe 'H' do
         return H.closest(H.elt('body'), '.train', '.train').id;
       })).to eq(
         'list-of-trains'
+      )
+    end
+
+    it 'works with an implicit "data" prefix' do
+
+      expect(run(%{
+        return H.closest(H.elt('#in-charly'), '[-hjs-data-prefix]').className;
+      })).to eq(
+        'cinnamon'
       )
     end
   end

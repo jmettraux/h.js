@@ -589,22 +589,40 @@ var H = (function() {
 
     var as = rearg_sta_sel_nam_las(arguments, undefined);
 
+    var r = /(.*\[([-_a-zA-Z0-9]+)\].*)+/;
+    var ms = as.sel && as.sel.match(r);
+    var mn = as.nam && as.nam.match(r);
+
+    if ( ! as.sel && as.nam && mn) {
+      as.sel = as.nam; as.nam = mn[mn.length - 1];
+    }
+    else if (ms) {
+      as.las = as.nam; as.nam = ms[ms.length - 1];
+    }
+
     var e = self.elt(as.sta, as.sel);
-    if ( ! e) throw "elt not found, cannot read attributes";
+    //if ( ! e) throw "elt not found, cannot read attributes";
+    if ( ! e) return as.las;
 
     if (as.nam && as.nam.substr(0, 1) === '-') as.nam = 'data' + as.nam;
 
-    return e.getAttribute(as.nam) || as.las;
+    var av = e.getAttribute(as.nam)
+    return av === null ? as.las : av;
   };
+
+  var FALSIES = [ false, null, undefined, 0, NaN, '' ];
+  var isFalsy = function(v) { return FALSIES.indexOf(v) > -1; }
 
   this.getAtti = function(start, sel, aname/*, default*/) {
     var v = self.getAtt.apply(null, arguments);
-    return v ? parseInt(v, 10) : v;
+    v = parseInt('' + v, 10);
+    return isFalsy(v) ? null : v;
   };
 
   this.getAttf = function(start, sel, aname/*, default*/) {
     var v = self.getAtt.apply(null, arguments);
-    return v ? parseFloat(v) : v;
+    v = parseFloat('' + v);
+    return isFalsy(v) ? null : v;
   };
 
   this.text = function(start, sel/*, default*/) {

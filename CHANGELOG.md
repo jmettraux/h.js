@@ -4,6 +4,8 @@
 
 ## h.js 1.1.2  not yet released
 
+* Let getAtt() and friends derive attribute name from selector
+* Prevent getAtt() and friends from failing when no element
 * Turn `[-x]` into `[data-x]` in H.closest() and `H.elt('^[-x]')`
 * Turn `[-x]` into `[data-x]` in H.elt() and H.elts()
 * Prefix '-xyz' with 'data' in getAtt(), getAtti() and getAttf()

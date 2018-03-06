@@ -1867,6 +1867,46 @@ red mazda
         'alpha', nil, 'omega'
       ])
     end
+
+    it 'works  H.getAtt(sta, "[data-hjs-data-prefix]")' do
+
+      expect(run(%{
+        var e = H.elt('#for-getAtt');
+        return [
+          H.getAtt(e, '[data-hjs-alpha]'),
+          H.getAtt(e, '[data-hjs-alpha]', 'non-alpha'),
+          H.getAtt(e, '[data-hjs-omega]'),
+          H.getAtt(e, '[data-hjs-omega]', 'omega'),
+          H.getAtt(e, '[-hjs-alpha]'),
+          H.getAtt(e, '[-hjs-alpha]', 'non-alpha'),
+          H.getAtt(e, '[-hjs-omega]'),
+          H.getAtt(e, '[-hjs-omega]', 'omega'),
+        ];
+      })).to eq([
+        'alpha', 'alpha', nil, 'omega',
+        'alpha', 'alpha', nil, 'omega'
+      ])
+    end
+
+    it 'works  H.getAtt(sta, ".nest [data-hjs-data-prefix]")' do
+
+      expect(run(%{
+        var e = H.elt('#for-getAtt');
+        return [
+          H.getAtt(e, '.nest [data-hjs-gamma]'),
+          H.getAtt(e, '.nest [data-hjs-gamma]', 'non-gamma'),
+          H.getAtt(e, '.nest [data-hjs-omega]'),
+          H.getAtt(e, '.nest [data-hjs-omega]', 'omega'),
+          H.getAtt(e, '.nest [-hjs-gamma]'),
+          H.getAtt(e, '.nest [-hjs-gamma]', 'non-gamma'),
+          H.getAtt(e, '.nest [-hjs-omega]'),
+          H.getAtt(e, '.nest [-hjs-omega]', 'omega')
+        ];
+      })).to eq([
+        'gogo', 'gogo', nil, 'omega',
+        'gogo', 'gogo', nil, 'omega'
+      ])
+    end
   end
 
   describe '.getAtti' do

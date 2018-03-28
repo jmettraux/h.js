@@ -381,8 +381,10 @@ H.delay(milliseconds, function);
 // for example:
 
 H.on('input[name="amount"]', 'keyup', H.delay(1400, reformat));
-  // call `reformat` 1.4 seconds after the last keyup event on the amount
+  // Call `reformat` 1.4 seconds after the last keyup event on the amount
   // field
+  // Another keyup event cancels the current timeout, so it's really
+  // 1.4 seconds after the *last* keyup event on the target element.
 ```
 
 

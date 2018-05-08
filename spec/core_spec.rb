@@ -1806,6 +1806,18 @@ red mazda
     end
   end
 
+  describe '.decapitalize' do
+
+    it 'works' do
+
+      expect(run(%{
+        return H.decapitalize('JEFF');
+      })).to eq(
+        'jEFF'
+      )
+    end
+  end
+
   describe '.toCamelCase' do
 
     it 'works' do

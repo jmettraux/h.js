@@ -4,6 +4,7 @@
 
 ## h.js 1.1.2  not yet released
 
+* Introduce H.decapitalize()
 * Let getAtt() and friends derive attribute name from selector
 * Prevent getAtt() and friends from failing when no element
 * Turn `[-x]` into `[data-x]` in H.closest() and `H.elt('^[-x]')`

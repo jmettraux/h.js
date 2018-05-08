@@ -699,6 +699,11 @@ var H = (function() {
     return s.charAt(0).toUpperCase() + s.slice(1);
   };
 
+  this.decapitalize = function(s) {
+
+    return s.charAt(0).toLowerCase() + s.slice(1);
+  };
+
   this.toCamelCase = function(s, cap) {
 
     var s = s.replace(

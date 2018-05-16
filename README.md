@@ -353,6 +353,20 @@ worker.on('error', function(e) { console.log([ 'error in worker', e ]) });
 ```
 Caution: the function for the worker is stringified, its closure is thus lost.
 
+If the auto-wrapping of `makeWorker()` is getting in the way, passing false as a second argument disables it:
+```js
+var worker =
+  H.makeWorker(
+    function() {
+      var counter = 0;
+      onmessage = function(m) {
+        counter = counter + 1;
+        self.postMessage('worker called ' + count + ' times');
+      };
+    },
+    false); // <-- disables the wrapping
+```
+
 There is a function called `grow` to generate HTML elements:
 ```js
 H.grow(function() {

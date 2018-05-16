@@ -826,11 +826,12 @@ var H = (function() {
     };
   };
 
-  this.makeWorker = function(workerFunction) {
+  this.makeWorker = function(workerFunction/*, wrap=true*/) {
 
-    var s =
-      "self.addEventListener(" +
-      "'message', " + workerFunction.toString() + ", false);";
+    var s = workerFunction.toString();
+    var w = arguments[1]; w = (w === undefined) || ( !! w);
+    if (w) s = "self.addEventListener('message', " + s + ", false);";
+    else s = s.substring(s.indexOf('{') + 1, s.lastIndexOf('}'));
 
     var b = new Blob([ s ]);
 

@@ -828,8 +828,9 @@ var H = (function() {
 
   this.makeWorker = function(workerFunction) {
 
-    var s = workerFunction.toString();
-    s = s.substring(s.indexOf('{') + 1, s.lastIndexOf('}'));
+    var s =
+      "self.addEventListener(" +
+      "'message', " + workerFunction.toString() + ", false);";
 
     var b = new Blob([ s ]);
 

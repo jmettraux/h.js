@@ -344,10 +344,8 @@ The function `makeWorker` takes a function and create a [web worker](https://dev
 ```js
 var worker =
   H.makeWorker(
-    function() {
-      self.onmessage = function(m) {
-        self.postMessage('worker got ' + JSON.stringify(m.data));
-      };
+    function(m) {
+      self.postMessage('worker got ' + JSON.stringify(m.data));
     });
 
 worker.on('message', function(m) { console.log([ 'message from worker', m ]) });

@@ -826,6 +826,19 @@ var H = (function() {
     };
   };
 
+  this.makeWorker = function(workerFunction) {
+
+    var s = workerFunction.toString();
+    s = s.substring(s.indexOf('{') + 1, s.lastIndexOf('}'));
+
+    var b = new Blob([ s ]);
+
+    var w = new Worker(window.URL.createObjectURL(b));
+    w.on = function(t, cb) { w.addEventListener(t, cb, false); };
+
+    return w;
+  };
+
   //
   // done.
 

@@ -340,6 +340,21 @@ H.request(meth, uri, headers, data, callbacks);
 // TODO
 ```
 
+The function `makeWorker` takes a function and create a [web worker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers) out of it. It also adds an extra `on()` function to the worker.
+```js
+var worker =
+  H.makeWorker(
+    function() {
+      self.onmessage = function(m) {
+        self.postMessage('worker got ' + JSON.stringify(m.data));
+      };
+    });
+
+worker.on('message', function(m) { console.log([ 'message from worker', m ]) });
+worker.on('error', function(e) { console.log([ 'error in worker', e ]) });
+```
+Caution: the function for the worker is stringified, its closure is thus lost.
+
 There is a function called `grow` to generate HTML elements:
 ```js
 H.grow(function() {

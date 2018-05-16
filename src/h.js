@@ -833,6 +833,13 @@ var H = (function() {
     if (w) s = "self.addEventListener('message', " + s + ", false);";
     else s = s.substring(s.indexOf('{') + 1, s.lastIndexOf('}'));
 
+    var r = document && document.location && document.location.href;
+    if (r) {
+      var j = r.lastIndexOf('/'); if (j < 0) j = r.length - 1;
+      r = r.substring(0, j) + '/';
+      s = "var rootUrl = \"" + r + "\";" + s;
+    }
+
     var b = new Blob([ s ]);
 
     var w = new Worker(window.URL.createObjectURL(b));

@@ -345,7 +345,7 @@ The function `makeWorker` takes a function and create a [web worker](https://dev
 var worker =
   H.makeWorker(
     function(m) {
-      self.postMessage('worker got ' + JSON.stringify(m.data));
+      postMessage('worker got ' + JSON.stringify(m.data));
     });
 
 worker.on('message', function(m) { console.log([ 'message from worker', m ]) });
@@ -361,10 +361,20 @@ var worker =
       var counter = 0;
       onmessage = function(m) {
         counter = counter + 1;
-        self.postMessage('worker called ' + count + ' times');
+        postMessage('worker called ' + count + ' times');
       };
     },
     false); // <-- disables the wrapping
+```
+
+Please note that `makeWorker()` sets a `rootUrl` variable to make importing scripts easier:
+```js
+var worker =
+  H.makeWorker(
+    function(m) {
+      importScripts(rootUrl + 'scripts/a.js', rootUrl + 'scripts/b.js');
+      postMessage('worker ready');
+    });
 ```
 
 There is a function called `grow` to generate HTML elements:

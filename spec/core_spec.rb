@@ -2137,6 +2137,7 @@ red mazda
 
       expect(run(%{
         var a = [];
+        a.push(H.elt('#for-set-and-get [name="era"]').value);
         H.set('#for-set-and-get [name="era"]', 'napo');
         a.push(H.elt('#for-set-and-get [name="era"]').value);
         H.set('#for-set-and-get [name="era"]', 'NADA');
@@ -2145,7 +2146,7 @@ red mazda
         a.push(H.elt('#for-set-and-get [name="era"]').value);
         return a;
       })).to eq([
-        'napo', 'napo', ''
+        'rena', 'napo', '', ''
       ])
     end
 

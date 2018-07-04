@@ -1968,6 +1968,26 @@ red mazda
       )
     end
 
+    it "doesn't mind 0 as the returned value" do
+
+      expect(run(%{
+        var e = H.elt('#for-getAtti');
+        return H.getAtti(e, '.gati-one', 'data-hjs-nada');
+      })).to eq(
+        0
+      )
+    end
+
+    it "doesn't default when 0 is the value" do
+
+      expect(run(%{
+        var e = H.elt('#for-getAtti');
+        return H.getAtti(e, '.gati-one', 'data-hjs-nada', -99);
+      })).to eq(
+        0
+      )
+    end
+
     it 'automatically prefixes "-x-y-z" into "data-x-y-z"' do
 
       expect(run(%{
@@ -2039,6 +2059,26 @@ red mazda
       })).to eq([
         nil, 2, 3.3, nil, nil, 77
       ])
+    end
+
+    it "doesn't mind 0 as the returned value" do
+
+      expect(run(%{
+        var e = H.elt('#for-getAtti');
+        return H.getAttf(e, '.gati-one', 'data-hjs-nada');
+      })).to eq(
+        0
+      )
+    end
+
+    it "doesn't default when 0 is the value" do
+
+      expect(run(%{
+        var e = H.elt('#for-getAtti');
+        return H.getAttf(e, '.gati-one', 'data-hjs-nada', -99);
+      })).to eq(
+        0
+      )
     end
   end
 

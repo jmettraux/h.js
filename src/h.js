@@ -617,7 +617,7 @@ var H = (function() {
     return av === null ? as.las : av;
   };
 
-  var FALSIES = [ false, null, undefined, 0, NaN, '' ];
+  var FALSIES = [ false, null, undefined, NaN, '' ];
   var isFalsy = function(v) { return FALSIES.indexOf(v) > -1; }
 
   this.getAtti = function(start, sel, aname/*, default*/) {

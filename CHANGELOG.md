@@ -4,6 +4,7 @@
 
 ## h.js 1.1.2  not yet released
 
+* Fix H.getAtti() and H.getAttf() vs "0"
 * Introduce H.makeWorker()
 * Introduce H.decapitalize()
 * Let getAtt() and friends derive attribute name from selector

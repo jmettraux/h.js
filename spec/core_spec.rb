@@ -1686,7 +1686,7 @@ red mazda
       expect(run(%{
         return H.dim('#cars');
       }).collect { |k, v| "#{k}:#{v}" }.sort).to eq(%w{
-        bottom:98 height:90 left:8 right:392 top:8 width:384
+        bottom:88 height:80 left:8 right:392 top:8 width:384
       })
     end
   end
@@ -1698,7 +1698,7 @@ red mazda
       expect(run(%{
         return H.tdim('#cars');
       }).collect { |k, v| "#{k}:#{v}" }.sort).to eq(%w{
-        bottom:98 height:90 left:8 right:392 top:8 width:384
+        bottom:88 height:80 left:8 right:392 top:8 width:384
       })
     end
   end

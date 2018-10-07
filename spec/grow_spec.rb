@@ -91,17 +91,17 @@ describe 'H' do
 
   describe '.makeTemplate' do
 
-    it 'can be used for templating' do
+    it 'returns a templating function' do
 
       html = run(%{
         var template = H.makeTemplate(function(h) {
-          div('#id', '' + h.id);
+          return div('#id', '' + h.id, { style: 'display: inline-block;' });
         });
         return template({ id: 123 }).outerHTML;
       })
 
       expect(html).to eq(%{
-        <div id="id">123</div>
+        <div id="id" style="display: inline-block;">123</div>
       }.strip.gsub(/>\s+/, '>').gsub(/\s+</, '<'))
     end
   end

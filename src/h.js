@@ -814,7 +814,7 @@ var H = (function() {
     var f = fun.toString().trim();
     f = f.substring(f.indexOf('{') + 1, f.lastIndexOf('}'));
 
-    return eval(growers + ';' + f.toString());
+    return eval(growers + ';' + f);
   };
 
   this.delay = function(ms, fun) {

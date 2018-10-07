@@ -88,5 +88,22 @@ describe 'H' do
       }.strip.gsub(/>\s+/, '>').gsub(/\s+</, '<'))
     end
   end
+
+  describe '.makeTemplate' do
+
+    it 'can be used for templating' do
+
+      html = run(%{
+        var template = H.makeTemplate(function(h) {
+          div('#id', '' + h.id);
+        });
+        return template({ id: 123 }).outerHTML;
+      })
+
+      expect(html).to eq(%{
+        <div id="id">123</div>
+      }.strip.gsub(/>\s+/, '>').gsub(/\s+</, '<'))
+    end
+  end
 end
 

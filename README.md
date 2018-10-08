@@ -398,6 +398,18 @@ H.grow(function() {
   //   <span class="b">bravo</span>
   // </div>
 ```
+It has a `makeTemplate` sidekick:
+```js
+var templates = {}
+templates.execution = H.makeTemplate(function(e) {
+  div('.execution',
+    span('.exid', e.exid),
+    span('.actions',
+      input({ type: 'submit' })));
+});
+// ...
+H.elt('#executions').appendChild(templates.execution({ exid: 'abc-def' }));
+```
 
 Misc functions:
 ```js

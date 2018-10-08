@@ -87,6 +87,21 @@ describe 'H' do
         </div>
       }.strip.gsub(/>\s+/, '>').gsub(/\s+</, '<'))
     end
+
+    it 'nest correctly' do  # e.innerHTML !== undefined
+
+      html = run(%{
+        return H.grow(function() {
+
+          div(span(''));
+
+        }).outerHTML;
+      })
+
+      expect(html).to eq(%{
+        <div><span></span></div>
+      }.strip.gsub(/>\s+/, '>').gsub(/\s+</, '<'))
+    end
   end
 
   describe '.makeTemplate' do

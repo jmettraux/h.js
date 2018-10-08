@@ -4,6 +4,7 @@
 
 ## h.js 1.1.2  not yet released
 
+* Fix .grow()/.makeTemplate() against empty innerHTML
 * Implement H.makeTemplate(f)
 * Fix H.getAtti() and H.getAttf() vs "0"
 * Introduce H.makeWorker()

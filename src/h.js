@@ -775,16 +775,19 @@ var H = (function() {
         if (a === false) return null; // skip this subtree
         if (a === null) continue; // ignore null (skipped) children
         var s = (typeof a === 'string');
-        if (s && (a[0] === '.' || a[0] === '#') && ! a.match(/^\s*$/))
+        if (s && (a[0] === '.' || a[0] === '#') && ! a.match(/^\s*$/)) {
           scan(a).forEach(function(x) {
             if (x.k === '#') e.id = x.n; else e.classList.add(x.n);
           });
-        else if (s)
+        } else if (s) {
           e.appendChild(document.createTextNode(a));
-        else if (a.nodeType !== undefined && a.innerHTML !== undefined)
+        } else if (a.nodeType !== undefined && a.innerHTML !== undefined) {
           e.appendChild(a);
-        else if (typeof a === 'object')
+        } else if (typeof a === 'object') {
           for (var k in a) { e.setAttribute(k, a[k]); };
+        } else {
+          e.appendChild(document.createTextNode('' + a));
+        }
       }
       return e;
     };

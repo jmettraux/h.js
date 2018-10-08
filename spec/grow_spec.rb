@@ -110,7 +110,7 @@ describe 'H' do
 
       html = run(%{
         var template = H.makeTemplate(function(h) {
-          return div('#id', '' + h.id, { style: 'display: inline-block;' });
+          return div('#id', h.id, { style: 'display: inline-block;' });
         });
         return template({ id: 123 }).outerHTML;
       })

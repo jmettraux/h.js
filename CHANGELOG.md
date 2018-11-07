@@ -4,6 +4,7 @@
 
 ## h.js 1.1.2  not yet released
 
+* Introduce H.setAtt(start, sel, aname, value)
 * Fix .grow()/.makeTemplate() against non-strings
 * Fix .grow()/.makeTemplate() against empty innerHTML
 * Implement H.makeTemplate(f)

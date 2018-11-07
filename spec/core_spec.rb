@@ -1843,6 +1843,60 @@ red mazda
     end
   end
 
+  describe '.setAtt' do
+
+    it 'sets an attribute' do
+
+      expect(run(%{
+        var v = H.setAtt('#for-setAtt .saa', 'att0', 'vvv');
+        return [ v, H.getAtt('#for-setAtt .saa', 'att0') ];
+      })).to eq([
+        'vvv', 'vvv'
+      ])
+    end
+
+    it 'sets an attribute for all matching elements' do
+
+      expect(run(%{
+        var v = H.setAtt('#for-setAtt div', 'att0', 'vvv');
+        return [
+          v,
+          H.getAtt('#for-setAtt .saa', 'att0'),
+          H.getAtt('#for-setAtt .sab', 'att0') ];
+      })).to eq([
+        'vvv', 'vvv', 'vvv'
+      ])
+    end
+
+    it 'sets attributes as strings of course' do
+
+      expect(run(%{
+        var v = H.setAtt('#for-setAtt div', 'att0', 123);
+        return [
+          v,
+          H.getAtt('#for-setAtt .saa', 'att0'),
+          H.getAtt('#for-setAtt .sab', 'att0') ];
+      })).to eq([
+        123, '123', '123'
+      ])
+    end
+
+    it 'prefixes "data" to "-stuff"' do
+
+      expect(run(%{
+        var v = H.setAtt('#for-setAtt div', '-att0', 'xyz');
+        return [
+          v,
+          H.getAtt('#for-setAtt .saa', '-att0'),
+          H.getAtt('#for-setAtt .sab', '-att0'),
+          H.getAtt('#for-setAtt .saa', 'data-att0'),
+          H.getAtt('#for-setAtt .sab', 'data-att0') ];
+      })).to eq([
+        'xyz', 'xyz', 'xyz', 'xyz', 'xyz'
+      ])
+    end
+  end
+
   describe '.getAtt' do
 
     it 'returns an attribute value' do

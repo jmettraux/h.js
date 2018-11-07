@@ -592,6 +592,16 @@ var H = (function() {
     );
   };
 
+  this.setAtt = function(start, sel, aname, value) {
+
+    if (arguments.length < 4) { value = aname; aname = sel; sel = null; }
+    if (aname.match(/^-/)) aname = 'data' + aname;
+
+    toElts(start, sel).forEach(function(e) { e.setAttribute(aname, value); });
+
+    return value;
+  };
+
   this.getAtt = function(start, sel, aname/*, default*/) {
 
     var as = rearg_sta_sel_nam_las(arguments, undefined);

@@ -1895,6 +1895,24 @@ red mazda
         'xyz', 'xyz', 'xyz', 'xyz', 'xyz'
       ])
     end
+
+    it 'removes the attribute when the value is null' do
+
+      expect(run(%{
+        H.setAtt('#for-setAtt .saa', 'att0', 'xyz');
+        H.setAtt('#for-setAtt .sab', '-att1', 'xyz');
+        var a = [];
+        a.push(H.getAtt('#for-setAtt .saa', 'att0'));
+        a.push(H.getAtt('#for-setAtt .sab', '-att1'));
+        H.setAtt('#for-setAtt .saa', 'att0', null);
+        H.setAtt('#for-setAtt .sab', '-att1', null);
+        a.push(H.getAtt('#for-setAtt .saa', 'att0'));
+        a.push(H.getAtt('#for-setAtt .sab', '-att1'));
+        return a;
+      })).to eq([
+        'xyz', 'xyz', nil, nil
+      ])
+    end
   end
 
   describe '.getAtt' do

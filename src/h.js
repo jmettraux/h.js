@@ -597,7 +597,11 @@ var H = (function() {
     if (arguments.length < 4) { value = aname; aname = sel; sel = null; }
     if (aname.match(/^-/)) aname = 'data' + aname;
 
-    toElts(start, sel).forEach(function(e) { e.setAttribute(aname, value); });
+    toElts(start, sel)
+      .forEach(
+        value === null ?
+        function(e) { e.removeAttribute(aname); } :
+        function(e) { e.setAttribute(aname, value); });
 
     return value;
   };

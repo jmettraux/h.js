@@ -247,6 +247,11 @@ H.geti(sta, sel);
 H.geti(sta, sel, default);
 H.geti(sta, sel, false); // returns null if the trimmed value length is zero
 
+// Like get but attempts to parse as JSON the value
+H.getj(sta);
+H.getj(sta, sel);
+H.getj(sta, sel, default);
+
 // Short for H.elt(sta, sel).textContent.trim();
 H.text(sta);
 H.text(sta, sel);

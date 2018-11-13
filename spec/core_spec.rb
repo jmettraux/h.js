@@ -2422,6 +2422,28 @@ red mazda
     end
   end
 
+  describe '.getj' do
+
+    it 'gets and parses some JSON' do
+
+      expect(run(%{
+        var a = [];
+        a.push(H.getj('#for-getj [name="fgja"]'));
+        a.push(H.getj('#for-getj [name="fgja"]', -1));
+        a.push(H.getj('#for-getj [name="fgjz"]', -2));
+        a.push(H.getj('#for-getj', '[name="fgja"]'));
+        a.push(H.getj('#for-getj', '[name="fgjz"]'));
+        return a;
+      })).to eq([
+        { 'name' => 'Henri Gouraud' },
+        { 'name' => 'Henri Gouraud' },
+        -2,
+        { 'name' => 'Henri Gouraud' },
+        nil,
+      ])
+    end
+  end
+
   describe '.onDocumentReady' do
 
     it 'works (well...)' do

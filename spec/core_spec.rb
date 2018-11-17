@@ -803,6 +803,18 @@ describe 'H' do
         '<div class="cla" data-id="123">xzy</div>'
       )
     end
+
+    it 'works .create(parent, "x", atts, text)' do
+
+      expect(run(%{
+        var p = H.elt('#for-create');
+        H.create(p, '.aaa', { 'data-bbb': 345 }, 'ccc');
+        return p.outerHTML;
+      })).to eq(
+        '<div id="for-create">' + "\n" +
+        '<div class="aaa" data-bbb="345">ccc</div></div>'
+      )
+    end
   end
 
   describe '.toNode' do

@@ -818,14 +818,23 @@ var H = (function() {
     };
   };
 
-  this.create = function(tagname/*, rest */) {
+  this.create = function(/* parent, */tagname/*, rest */) {
 
-    var as = Array.prototype.slice.call(arguments, 1);
+    var par = null; var off = 1;
+    if (typeof tagname === 'object' && tagname.tagName) {
+      off = 2; par = tagname; tagname = arguments[1];
+    }
+
+    var as = Array.prototype.slice.call(arguments, off);
 
     var m = tagname.match(/^([a-zA-Z0-9]+)?([.#].+)$/)
     if (m) { tagname = m[1] || 'div'; as.unshift(m[2]); }
 
-    return self.makeGrower(tagname).apply(null, as);
+    var elt = self.makeGrower(tagname).apply(null, as);
+
+    if (par) par.appendChild(elt);
+
+    return elt;
   };
 
   var growers =

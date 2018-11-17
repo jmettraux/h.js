@@ -110,6 +110,9 @@ H.create(tagName, attributes, textContent);
   H.create('span#first.letter.nato', {}, 'bravo');
     // yields: <span id="first" class="letter nato">bravo</span>
 
+H.create(parent, tagName, attributes, textContent);
+  // creates an element, appends it to its parent and returns the element
+
 // Uses HTMLElement.innerHTML= to turn a string into an HTMLElement.
 // Handle with care.
 // Returns the argument if it's not a string.

@@ -260,6 +260,10 @@ H.text(sta);
 H.text(sta, sel);
 H.text(sta, sel, default);
 
+// Short for H.elt(sta, sel).textContent = text;
+H.setText(sta, text);
+H.setText(sta, sel, text);
+
 // Runs fev as soon as the Document is ready,
 // the evt passed to the function might be undefined
 H.onDocumentReady(fev);

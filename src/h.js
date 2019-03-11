@@ -721,6 +721,16 @@ var H = (function() {
     return v;
   };
 
+  this.setText = function(start, sel, text) {
+
+    var a = self.toArray(arguments);
+    var t = a.pop();
+    var e = self.elt.apply(null, a)
+    if (e) e.textContent = t;
+
+    return t;
+  };
+
   this.capitalize = function(s) {
 
     return s.charAt(0).toUpperCase() + s.slice(1);

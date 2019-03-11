@@ -2456,6 +2456,24 @@ red mazda
     end
   end
 
+  describe '.setText' do
+
+    it 'sets the .textContent' do
+
+      expect(run(%{
+        var a = [];
+        H.setText('#for-create', 'plus quam nada');
+        a.push(H.elt('#for-create').textContent.trim());
+        H.setText('body div', 'parasitoi');
+        a.push(H.elt('#test').textContent.trim());
+        return a;
+      })).to eq([
+        'plus quam nada',
+        'parasitoi'
+      ])
+    end
+  end
+
   describe '.onDocumentReady' do
 
     it 'works (well...)' do

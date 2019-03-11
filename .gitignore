@@ -13,4 +13,6 @@ bin/chromedriver
 *.swp
 .vimrc
 .viminfo
+.vimgrep
+.vimspec
 

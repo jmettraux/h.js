@@ -1715,6 +1715,18 @@ red mazda
     end
   end
 
+  describe '.bdim' do
+
+    it 'returns the brect-derived dim/pos of the target elt' do
+
+      expect(run(%{
+        return H.bdim('#cars');
+      }).collect { |k, v| "#{k}:#{v}" }.sort).to eq(%w{
+        bottom:382 height:80 left:0 right:0 top:0 width:384
+      })
+    end
+  end
+
   describe '.style' do
 
     it 'returns the style of the target elt' do

@@ -274,7 +274,7 @@ Three methods for inspecting style and dimensions of an element.
 ```js
 // Returns an object
 // { top: p, bottom: p, left: p, right: p, height: p, width: p }
-// where p are values in pixel
+// where p are values in pixel (seemingly int)
 //
 // Doesn't work for object inside of a table (use tdim() for those)
 //
@@ -283,13 +283,22 @@ H.dim(sta, sel);
 
 // Returns an object
 // { top: p, bottom: p, left: p, right: p, height: p, width: p }
-// where p are values in pixel
+// where p are values in pixel (seemingly int)
 //
 // Computes iteratively from offsetParent to offsetParent (OK with elements
 // inside of tables).
 //
 H.tdim(sta);
 H.tdim(sta, sel);
+
+// Returns an object
+// { top: p, bottom: p, left: p, right: p, height: p, width: p }
+// where p are values in pixel (seemingly float)
+//
+// Computes using Element#getBoundingRect() and comparing the elt with <body>.
+//
+H.bdim(sta);
+H.bdim(sta, sel);
 
 // Returns an object with the computed style of an element
 H.style(sta);

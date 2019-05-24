@@ -125,24 +125,34 @@ var H = (function() {
     return {
       top: top, bottom: top + elt.offsetHeight,
       left: left, right: left + elt.offsetWidth,
-      height: elt.offsetHeight, width: elt.offsetWidth
-    }
+      height: elt.offsetHeight, width: elt.offsetWidth };
   }
 
   this.dim = function(start, sel) {
 
-    var e = toElt(start, sel);
-
-    if ( ! e) return null;
+    var e = toElt(start, sel); if ( ! e) return null;
 
     return {
       top: e.offsetTop,
       bottom: e.offsetTop + e.offsetHeight,
       left: e.offsetLeft,
       right: e.offsetLeft + e.offsetWidth,
-      height: e.offsetHeight,
-      width: e.offsetWidth
-    }
+      height: e.offsetHeight, width: e.offsetWidth };
+  };
+
+  this.bdim = function(start, sel) {
+
+    var e = toElt(start, sel); if ( ! e) return null;
+
+    var er = e.getBoundingClientRect();
+    var br = self.elt('body').getBoundingClientRect();
+
+    return {
+      top: er.top - br.top,
+      bottom: br.bottom - er.bottom,
+      left: er.left - br.left,
+      right: br.right - er.right,
+      height: e.offsetHeight, width: e.offsetWidth };
   };
 
   this.path = function(start, sel) {

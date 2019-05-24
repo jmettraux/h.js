@@ -1,5 +1,5 @@
 //
-// Copyright (c) 2015-2018, John Mettraux, jmettraux@gmail.com
+// Copyright (c) 2015-2019, John Mettraux, jmettraux@gmail.com
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -28,7 +28,7 @@ var H = (function() {
 
   var self = this;
 
-  this.VERSION = '1.1.2';
+  this.VERSION = '1.2.0';
 
   this.toArray = function(a) {
 

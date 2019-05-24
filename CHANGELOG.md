@@ -2,7 +2,7 @@
 # h.js
 
 
-## h.js 1.1.2  not yet released
+## h.js 1.2.0  not yet released
 
 * Allow giving the parent as 1st argument to H.create()
 * Introduce H.getj(start, sel, default)

@@ -883,6 +883,12 @@ blue volkswagen
 <div class="yellow">
 yellow volkswagen
 </div>
+<div class="purple">
+1234
+</div>
+<div class="red">
+1234.09
+</div>
 </div>
       }.strip)
     end
@@ -902,6 +908,12 @@ blue volkswagen
 </div>
 <div class="yellow">
 yellow volkswagen
+</div>
+<div class="purple">
+1234
+</div>
+<div class="red">
+1234.09
 </div>
 </div>
       }.strip)
@@ -1698,7 +1710,7 @@ red mazda
       expect(run(%{
         return H.dim('#cars');
       }).collect { |k, v| "#{k}:#{v}" }.sort).to eq(%w{
-        bottom:88 height:80 left:8 right:392 top:8 width:384
+        bottom:120 height:112 left:8 right:392 top:8 width:384
       })
     end
   end
@@ -1710,7 +1722,7 @@ red mazda
       expect(run(%{
         return H.tdim('#cars');
       }).collect { |k, v| "#{k}:#{v}" }.sort).to eq(%w{
-        bottom:88 height:80 left:8 right:392 top:8 width:384
+        bottom:120 height:112 left:8 right:392 top:8 width:384
       })
     end
   end
@@ -1722,7 +1734,7 @@ red mazda
       expect(run(%{
         return H.bdim('#cars');
       }).collect { |k, v| "#{k}:#{v}" }.sort).to eq(%w{
-        bottom:382 height:80 left:0 right:0 top:0 width:384
+        bottom:382 height:112 left:0 right:0 top:0 width:384
       })
     end
   end
@@ -2205,6 +2217,32 @@ red mazda
         return H.text('#empty', '.nada');
       }) }.to raise_error(
         Selenium::WebDriver::Error::UnknownError
+      )
+    end
+  end
+
+  describe '.texti' do
+
+    it 'returns the textContent of the target turned into an integer' do
+
+      expect(run(%{
+        var e = H.elt('#cars');
+        return H.texti(e, '.volkswagen .purple');
+      })).to eq(
+        1234
+      )
+    end
+  end
+
+  describe '.textf' do
+
+    it 'returns the textContent of the target turned into a float' do
+
+      expect(run(%{
+        var e = H.elt('#cars');
+        return H.textf(e, '.volkswagen .red');
+      })).to eq(
+        1234.09
       )
     end
   end

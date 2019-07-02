@@ -657,14 +657,24 @@ var H = (function() {
   };
 
   this.text = function(start, sel/*, default*/) {
-
     var as = rearg_sta_sel_las(arguments);
-
-    var e = self.elt(as.sta, as.sel);
-    if ( ! e) throw "elt not found, cannot read text";
-
+    var e = self.elt(as.sta, as.sel); if ( ! e) throw "elt not found, no text";
     var t = e.textContent.trim();
     return (t === '' && as.las) ? as.las : t;
+  };
+
+  this.texti = function(start, sel/*, default*/) {
+    var as = rearg_sta_sel_las(arguments);
+    var e = self.elt(as.sta, as.sel); if ( ! e) throw "elt not found, no text";
+    var t = e.textContent;
+    return (t === '' && as.las) ? as.las : parseInt(t, 10);
+  };
+
+  this.textf = function(start, sel/*, default*/) {
+    var as = rearg_sta_sel_las(arguments);
+    var e = self.elt(as.sta, as.sel); if ( ! e) throw "elt not found, no text";
+    var t = e.textContent;
+    return (t === '' && as.las) ? as.las : parseFloat(t);
   };
 
   this.get = function(start, sel/*, false */) {

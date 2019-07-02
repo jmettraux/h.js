@@ -260,6 +260,14 @@ H.text(sta);
 H.text(sta, sel);
 H.text(sta, sel, default);
 
+// Parsing the textContent in an element
+H.texti(sta);
+H.texti(sta, sel);
+H.texti(sta, sel, default);
+H.textf(sta);
+H.textf(sta, sel);
+H.textf(sta, sel, default);
+
 // Short for H.elt(sta, sel).textContent = text;
 H.setText(sta, text);
 H.setText(sta, sel, text);

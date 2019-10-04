@@ -918,6 +918,22 @@ yellow volkswagen
 </div>
       }.strip)
     end
+
+    it 'works  .on(sel, [ evname0, evname1 ], fun)' do
+
+      expect(run(%{
+        var a = [];
+        H.on('#cars .europe .car', [ 'click', 'foo' ], function(ev) {
+          a.push(event.type);
+        });
+        H.elt('.car.bentley').click();
+        H.elt('.car.bentley').dispatchEvent(new Event('foo'));
+        H.elt('.car.bentley').dispatchEvent(new Event('bar'));
+        return a;
+      })).to eq(%w[
+        click foo
+      ])
+    end
   end
 
   describe '.enable' do

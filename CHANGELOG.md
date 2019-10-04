@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Allow for multiple ev names in H.on(start, sel, evnames, fun)
 * Introduce H.texti(start, sel) and H.textf(start, sel)
 * Introduce H.bdim(start, sel) (bounding rect derived position from body)
 * Allow giving the parent as 1st argument to H.create()

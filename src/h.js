@@ -187,11 +187,18 @@ var H = (function() {
       eventHandler = eventName; eventName = sel; sel = start; start = document;
     }
 
+    var ens = Array.isArray(eventName) ? eventName : [ eventName ];
+
     var es = toElts(start, sel);
+
     for (var i = 0; ; i++) {
+
       var e = es[i]; if ( ! e) break;
-      if (dir === 'on') e.addEventListener(eventName, eventHandler);
-      else /* off */ e.removeEventListener(eventName, eventHandler);
+
+      ens.forEach(function(en) {
+        if (dir === 'on') e.addEventListener(en, eventHandler);
+        else /* off */ e.removeEventListener(en, eventHandler);
+      });
     }
   };
 

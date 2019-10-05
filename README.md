@@ -125,6 +125,8 @@ H.toNode(string, sel);
 // Adds an event listener to an Element or a set of Element
 H.on(sta, evn, fev);
 H.on(sta, sel, evn, fev);
+H.on(sta, sel, [ evn0, evn1 ], fev);
+  // for example, bind 'change' and 'keyup' in one go
 
 // Sets disabled="disabled" on an Element or a set of Element.
 // If the bof is present and  yields false, disabled="disabled" will be removed.

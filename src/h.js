@@ -673,15 +673,15 @@ var H = (function() {
   this.texti = function(start, sel/*, default*/) {
     var as = rearg_sta_sel_las(arguments);
     var e = self.elt(as.sta, as.sel); if ( ! e) throw "elt not found, no text";
-    var t = e.textContent;
-    return (t === '' && as.las) ? as.las : parseInt(t, 10);
+    var t = e.textContent.trim(); if (t === '') t = '' + as.las;
+    return parseInt(t, 10);
   };
 
   this.textf = function(start, sel/*, default*/) {
     var as = rearg_sta_sel_las(arguments);
     var e = self.elt(as.sta, as.sel); if ( ! e) throw "elt not found, no text";
-    var t = e.textContent;
-    return (t === '' && as.las) ? as.las : parseFloat(t);
+    var t = e.textContent.trim(); if (t === '') t = '' + as.las;
+    return parseFloat(t);
   };
 
   this.get = function(start, sel/*, false */) {

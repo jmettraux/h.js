@@ -269,6 +269,7 @@ H.texti(sta, sel, default);
 H.textf(sta);
 H.textf(sta, sel);
 H.textf(sta, sel, default);
+  // the default values are forced into an int or a float respectively
 
 // Short for H.elt(sta, sel).textContent = text;
 H.setText(sta, text);

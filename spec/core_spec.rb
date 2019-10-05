@@ -2257,6 +2257,20 @@ red mazda
         Selenium::WebDriver::Error::UnknownError
       )
     end
+
+    it 'returns the last (default) value if the element is empty' do
+
+      expect(run(%{
+        return [
+          H.texti('#empty'),
+          H.texti('#empty', -99),
+          H.texti('#empty', 0),
+          H.texti('#empty', 12),
+          H.texti('#empty', 0.1) ];
+      })).to eq([
+        nil, -99, 0, 12, 0
+      ])
+    end
   end
 
   describe '.textf' do
@@ -2278,6 +2292,20 @@ red mazda
       }) }.to raise_error(
         Selenium::WebDriver::Error::UnknownError
       )
+    end
+
+    it 'returns the last (default) value if the element is empty' do
+
+      expect(run(%{
+        return [
+          H.textf('#empty'),
+          H.textf('#empty', -99),
+          H.textf('#empty', 0),
+          H.textf('#empty', 12),
+          H.textf('#empty', 0.1) ];
+      })).to eq([
+        nil, -99, 0, 12, 0.1
+      ])
     end
   end
 

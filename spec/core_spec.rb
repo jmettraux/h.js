@@ -2248,6 +2248,15 @@ red mazda
         1234
       )
     end
+
+    it 'fails if the elt does not exist' do
+
+      expect { run(%{
+        return H.texti('#empty', '.nada');
+      }) }.to raise_error(
+        Selenium::WebDriver::Error::UnknownError
+      )
+    end
   end
 
   describe '.textf' do
@@ -2259,6 +2268,15 @@ red mazda
         return H.textf(e, '.volkswagen .red');
       })).to eq(
         1234.09
+      )
+    end
+
+    it 'fails if the elt does not exist' do
+
+      expect { run(%{
+        return H.textf('#empty', '.nada');
+      }) }.to raise_error(
+        Selenium::WebDriver::Error::UnknownError
       )
     end
   end

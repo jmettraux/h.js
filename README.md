@@ -271,6 +271,23 @@ H.textf(sta, sel);
 H.textf(sta, sel, default);
   // the default values are forced into an int or a float respectively
 
+// Grabbing the value= or else, the textContent of an element
+H.textOrValue(sta);
+H.textOrValue(sta, sel);
+H.textOrValue(sta, sel, default);
+H.tov(sta);
+H.tov(sta, sel);
+H.tov(sta, sel, default); // string
+H.tovb(sta);
+H.tovb(sta, sel);
+H.tovb(sta, sel, default); // boolean
+H.tovi(sta);
+H.tovi(sta, sel);
+H.tovi(sta, sel, default); // integer
+H.tovf(sta);
+H.tovf(sta, sel);
+H.tovf(sta, sel, default); // float
+
 // Short for H.elt(sta, sel).textContent = text;
 H.setText(sta, text);
 H.setText(sta, sel, text);
@@ -466,6 +483,14 @@ H.on('input[name="amount"]', 'keyup', H.delay(1400, reformat));
   // field
   // Another keyup event cancels the current timeout, so it's really
   // 1.4 seconds after the *last* keyup event on the target element.
+```
+
+```
+H.isVoid(x)
+  // returns true if x === null or x === undefined
+
+H.isTrue(x)
+  // returns true if x === true, x === 'true', or x === 'yes', case-insensitive
 ```
 
 

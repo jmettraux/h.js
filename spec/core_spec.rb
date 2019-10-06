@@ -1750,7 +1750,7 @@ red mazda
       expect(run(%{
         return H.bdim('#cars');
       }).collect { |k, v| "#{k}:#{v}" }.sort).to eq(%w{
-        bottom:382 height:112 left:0 right:0 top:0 width:384
+        bottom:582 height:112 left:0 right:0 top:0 width:384
       })
     end
   end
@@ -2566,6 +2566,136 @@ red mazda
         nil,
       ])
     end
+  end
+
+  describe '.textOrValue' do
+
+    it 'fails if the elt does not exist' do
+
+      expect { run(%{
+        return H.textOrValue('#outthere');
+      }) }.to raise_error(
+        Selenium::WebDriver::Error::UnknownError
+      )
+    end
+
+    it 'returns the text or the value' do
+
+      expect(run(%{
+        return [
+          H.textOrValue('[name="ftov0"]'),
+          H.textOrValue('#ftov1'),
+          H.textOrValue('#empty') ];
+      })).to eq([
+        'alpha', 'bravo', ''
+      ])
+    end
+  end
+
+  describe '.tov' do
+
+    it 'fails if the elt does not exist' do
+
+      expect { run(%{
+        return H.tov('#outthere');
+      }) }.to raise_error(
+        Selenium::WebDriver::Error::UnknownError
+      )
+    end
+
+    it 'returns the text or the value' do
+
+      expect(run(%{
+        return [
+          H.tov('[name="ftov0"]'),
+          H.tov('#ftov1'),
+          H.tov('#empty') ];
+      })).to eq([
+        'alpha', 'bravo', ''
+      ])
+    end
+
+    it 'returns the default value when empty'
+  end
+
+  describe '.tovi' do
+
+    it 'fails if the elt does not exist' do
+
+      expect { run(%{
+        return H.tovi('#outthere');
+      }) }.to raise_error(
+        Selenium::WebDriver::Error::UnknownError
+      )
+    end
+
+    it 'returns the value or text as an integer' do
+
+      expect(run(%{
+        return [
+          H.tovi('[name="ftovi0"]'),
+          H.tovi('#ftovi1'),
+          H.tovi('#empty') ];
+      })).to eq([
+        123, 4321, nil
+      ])
+    end
+
+    it 'returns the default value when empty'
+  end
+
+  describe '.tovb' do
+
+    it 'fails if the elt does not exist' do
+
+      expect { run(%{
+        return H.tovb('#outthere');
+      }) }.to raise_error(
+        Selenium::WebDriver::Error::UnknownError
+      )
+    end
+
+    it 'returns the value or text as a float' do
+
+      expect(run(%{
+        return [
+          H.tovb('[name="ftovb0"]'),
+          H.tovb('#ftovb1'),
+          H.tovb('[name="ftovb2"]'),
+          H.tovb('#ftovb3'),
+          H.tovb('#empty') ];
+      })).to eq([
+        true, true, false, false, false
+      ])
+    end
+
+    it 'returns the default value when empty'
+  end
+
+  describe '.tovf' do
+
+    it 'fails if the elt does not exist' do
+
+      expect { run(%{
+        return H.tovf('#outthere');
+      }) }.to raise_error(
+        Selenium::WebDriver::Error::UnknownError
+      )
+    end
+
+    it 'returns the value or text as a float' do
+
+      expect(run(%{
+        return [
+          H.tovf('[name="ftovf0"]'),
+          H.tovf('#ftovf1'),
+          H.tovf('#empty') ];
+      })).to eq([
+        432.01, 41.01, nil
+      ])
+    end
+
+    it 'returns the default value when empty'
   end
 
   describe '.setText' do

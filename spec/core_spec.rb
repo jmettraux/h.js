@@ -1750,7 +1750,7 @@ red mazda
       expect(run(%{
         return H.bdim('#cars');
       }).collect { |k, v| "#{k}:#{v}" }.sort).to eq(%w{
-        bottom:582 height:112 left:0 right:0 top:0 width:384
+        bottom:606 height:112 left:0 right:0 top:0 width:384
       })
     end
   end
@@ -2615,33 +2615,17 @@ red mazda
       ])
     end
 
-    it 'returns the default value when empty'
-  end
-
-  describe '.tovi' do
-
-    it 'fails if the elt does not exist' do
-
-      expect { run(%{
-        return H.tovi('#outthere');
-      }) }.to raise_error(
-        Selenium::WebDriver::Error::UnknownError
-      )
-    end
-
-    it 'returns the value or text as an integer' do
+    it 'returns the default value when empty' do
 
       expect(run(%{
+        var s = H.elt('#for-tov');
         return [
-          H.tovi('[name="ftovi0"]'),
-          H.tovi('#ftovi1'),
-          H.tovi('#empty') ];
+          H.tov(s, '[name="ftovempty0"]', 'xxx'),
+          H.tov(s, '#ftovempty1', 'yyy') ];
       })).to eq([
-        123, 4321, nil
+        'xxx', 'yyy'
       ])
     end
-
-    it 'returns the default value when empty'
   end
 
   describe '.tovb' do
@@ -2669,7 +2653,55 @@ red mazda
       ])
     end
 
-    it 'returns the default value when empty'
+    it 'returns the default value when empty' do
+
+      expect(run(%{
+        var s = H.elt('#for-tov');
+        return [
+          H.tovb(s, '[name="ftovempty0"]', 'false'),
+          H.tovb(s, '#ftovempty1', false),
+          H.tovb(s, '[name="ftovempty0"]', true),
+          H.tovb(s, '#ftovempty1', 'yes') ];
+      })).to eq([
+        false, false, true, true
+      ])
+    end
+  end
+
+  describe '.tovi' do
+
+    it 'fails if the elt does not exist' do
+
+      expect { run(%{
+        return H.tovi('#outthere');
+      }) }.to raise_error(
+        Selenium::WebDriver::Error::UnknownError
+      )
+    end
+
+    it 'returns the value or text as an integer' do
+
+      expect(run(%{
+        return [
+          H.tovi('[name="ftovi0"]'),
+          H.tovi('#ftovi1'),
+          H.tovi('#empty') ];
+      })).to eq([
+        123, 4321, nil
+      ])
+    end
+
+    it 'returns the default value when empty' do
+
+      expect(run(%{
+        var s = H.elt('#for-tov');
+        return [
+          H.tovi(s, '[name="ftovempty0"]', 123),
+          H.tovi(s, '#ftovempty1', 1.2) ];
+      })).to eq([
+        123, 1
+      ])
+    end
   end
 
   describe '.tovf' do
@@ -2695,7 +2727,17 @@ red mazda
       ])
     end
 
-    it 'returns the default value when empty'
+    it 'returns the default value when empty' do
+
+      expect(run(%{
+        var s = H.elt('#for-tov');
+        return [
+          H.tovf(s, '[name="ftovempty0"]', 123),
+          H.tovf(s, '#ftovempty1', -1.2) ];
+      })).to eq([
+        123, -1.2
+      ])
+    end
   end
 
   describe '.setText' do

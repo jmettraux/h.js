@@ -565,6 +565,7 @@ var H = (function() {
       as.v = ('value' in as.elt) ? as.elt.value : undefined;
       if (as.v) as.v = as.v.trim();
       as.t = as.elt.textContent.trim();
+      as.tov = isVoid(as.v) ? as.t : as.v;
     }
 
     return as;
@@ -711,6 +712,10 @@ var H = (function() {
     if (typeof o === 'string') o = o.toLowerCase();
     return o === true || o === 'true' || o === 'yes';
   };
+  this.isTrue = isTrue;
+
+  var isVoid = function(o) { return o === null || o === undefined; };
+  this.isVoid = isVoid;
 
   this.getb = function(start, sel/*, default */) {
 
@@ -780,25 +785,24 @@ var H = (function() {
   this.textOrValue = function(start, sel/*, default */) {
     var as = resol_sta_sel_las(arguments);
     if ( ! as.elt) throw "elt not found, no text or value";
-    return (as.v !== undefined) ? as.v : as.t;
+    return (as.tov === '' && (typeof as.las === 'string')) ? as.las : as.tov;
   };
   this.tov = this.textOrValue;
 
   this.tovb = function(start, sel/*, default */) {
     var as = resol_sta_sel_las(arguments);
-    if ( ! as.elt) throw "elt not found, no text or value";
-    var v = (as.v !== undefined) ? as.v : as.t;
-    return isTrue(v);
+    if (as.elt) return isTrue(as.tov || '' + as.las);
+    throw "elt not found, no text or value";
   };
   this.tovi = function(start, sel/*, default */) {
     var as = resol_sta_sel_las(arguments);
-    if ( ! as.elt) throw "elt not found, no text or value";
-    return (as.v !== undefined) ? parseInt(as.v, 10) : parseInt(as.t);
+    if (as.elt) return parseInt(as.tov || '' + as.las, 10);
+    throw "elt not found, no text or value";
   };
   this.tovf = function(start, sel/*, default */) {
     var as = resol_sta_sel_las(arguments);
-    if ( ! as.elt) throw "elt not found, no text or value";
-    return (as.v !== undefined) ? parseFloat(as.v) : parseFloat(as.t);
+    if (as.elt) return parseFloat(as.tov || '' + as.las);
+    throw "elt not found, no text or value";
   };
 
   this.capitalize = function(s) {

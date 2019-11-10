@@ -43,6 +43,10 @@ H.elts(sta, sel);
   // H.js has this ^ "up above" operator, only works at the beginning of the
   // selector
 
+// Returns the count of matching elements
+H.count(sta);
+H.count(sta, sel);
+
 // Returns true if the elt matches the final sel
 H.matches(sta, sel);
 H.matches(sta, sel, sel);

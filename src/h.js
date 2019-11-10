@@ -93,6 +93,8 @@ var H = (function() {
   this.elt = function(start, sel) { return toElt(start, sel); };
   this.elts = function(start, sel) { return toElts(start, sel); };
 
+  this.count = function(start, sel) { return toElts(start, sel).length; };
+
   this.forEach = function(start, sel, fun) {
 
     if ((typeof sel) === 'function') { fun = sel; sel = null; }

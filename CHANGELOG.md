@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Implement H.count
 * Implement H.textOrValue, tov, tovb, tovi, and tovf
 * Allow for multiple ev names in H.on(start, sel, evnames, fun)
 * Introduce H.texti(start, sel) and H.textf(start, sel)

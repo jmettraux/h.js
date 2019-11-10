@@ -200,6 +200,22 @@ describe 'H' do
     end
   end
 
+  describe '.count' do
+
+    it 'returns 0 if there are no such elements' do
+
+      expect(run(%{ return H.count('.nada'); })).to eq(0)
+    end
+
+    it 'returns the count of matching elements' do
+
+      expect(run(%{
+        var e = H.elt('#for-data-prefix');
+        return H.count(e, '[-hjs-data-prefix]');
+      })).to eq(3)
+    end
+  end
+
   describe '.matches' do
 
     it 'returns true when it matches' do

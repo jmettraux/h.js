@@ -446,6 +446,7 @@ var H = (function() {
       return false;
     }
   };
+  this.hasc = this.hasClass;
 
   this.isHidden = function(start, sel) {
 
@@ -503,10 +504,14 @@ var H = (function() {
     var as = rearg_sta_sel_nam_las(arguments, true);
     toggle(as.sta, as.sel, as.nam, as.las, 'a');
   }
+  this.addc = this.addClass;
+
   this.removeClass = function(start, sel, cla, bof) {
     var as = rearg_sta_sel_nam_las(arguments, true);
     toggle(as.sta, as.sel, as.nam, as.las, 'r');
   };
+  this.remClass = this.removeClass;
+  this.remc = this.removeClass;
 
   this.toggleClass = function(start, sel, cla) {
 
@@ -516,11 +521,13 @@ var H = (function() {
     toggle(start, sel, cla, bof, 'ar');
   };
   this.toggle = this.toggleClass;
+  this.togc = this.toggleClass;
 
   this.setClass = function(start, sel, cla, bof) {
     var as = rearg_sta_sel_nam_las(arguments, true);
     toggle(as.sta, as.sel, as.nam, as.las, 'ar');
   };
+  this.setc = this.setClass;
 
   this.renameClass = function(start, sel, cla0, cla1) {
 

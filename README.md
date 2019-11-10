@@ -64,11 +64,14 @@ H.forEach(sta, sel, fun);
 // Returns true if the Element pointed at by (sta[, sel]) has the class cla
 H.hasClass(sta, cla);
 H.hasClass(sta, sel, cla);
+H.hasc // alias
 
 // Sets a class on a set of Element instances of removes the class if already
 // present
 H.toggleClass(sta, cla);
 H.toggleClass(sta, sel, cla);
+H.toggle  // aliases
+H.togc    //
 
 // Adds a class to an Element or a set of Element. If a bof is given, will
 // only add if the bof evals to true
@@ -76,6 +79,7 @@ H.addClass(sta, cla);
 H.addClass(sta, sel, cla);
 H.addClass(sta, cla, bof);
 H.addClass(sta, sel, cla, bof);
+H.addc // alias
 
 // Removes a class to an Element or a set of Element. If a bof is given, will
 // only remove if the bof evals to true
@@ -83,12 +87,15 @@ H.removeClass(sta, cla);
 H.removeClass(sta, sel, cla);
 H.removeClass(sta, cla, bof);
 H.removeClass(sta, sel, cla, bof);
+H.remClass  // aliases
+H.remc      //
 
 // Similar to H.addClass() but if the bof evals to false will remove the class
 H.setClass(sta, cla);
 H.setClass(sta, sel, cla);
 H.setClass(sta, cla, bof);
 H.setClass(sta, sel, cla, bof);
+H.setc // alias
 
 // Iterates a set of Element, when it finds class cla0, it removes it and
 // replaces it with cla1

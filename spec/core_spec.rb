@@ -811,6 +811,15 @@ describe 'H' do
       )
     end
 
+    it 'is OK with -id instead of data-id for attributes' do
+
+      expect(run(%{
+        return H.create('span#xyz', { '-id': 123 }, 'xzy').outerHTML;
+      })).to eq(
+        '<span id="xyz" data-id="123">xzy</span>'
+      )
+    end
+
     it 'works  .create(.class, atts, text)' do
 
       expect(run(%{

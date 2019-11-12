@@ -902,7 +902,8 @@ var H = (function() {
         } else if (a.nodeType !== undefined && a.innerHTML !== undefined) {
           e.appendChild(a);
         } else if (typeof a === 'object') {
-          for (var k in a) { e.setAttribute(k, a[k]); };
+          for (var k in a) {
+            e.setAttribute(k.slice(0, 1) === '-' ? 'data' + k : k, a[k]); };
         } else {
           e.appendChild(document.createTextNode('' + a));
         }

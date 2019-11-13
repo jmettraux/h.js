@@ -6,6 +6,27 @@ my Javascript foolbox.
 Owes a great deal to http://youmightnotneedjquery.com/
 
 
+## the "^" caret prefix to selectors
+
+```js
+H.elt(start, '^.tune');
+  // is equivalent to
+H.closest(start, '.tune');
+
+H.elt(start, '^.tune .note');
+  // is equivalent to
+H.elt(H.closest(start, '.tune'), '.note');
+
+H.enable(start, '^.tune');
+  // is equivalent to
+H.enable(H.closest(start, '.tune'));
+
+// and so on...
+```
+
+The caret can only be placed at the beginning of a selector though.
+
+
 ## signatures
 
 ```js

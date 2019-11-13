@@ -636,7 +636,7 @@ var H = (function() {
   this.setAtt = function(start, sel, aname, value) {
 
     if (arguments.length < 4) { value = aname; aname = sel; sel = null; }
-    if (aname.match(/^-/)) aname = 'data' + aname;
+    if (aname.slice(0, 1) === '-') { aname = 'data' + aname; }
 
     toElts(start, sel)
       .forEach(
@@ -645,6 +645,14 @@ var H = (function() {
         function(e) { e.setAttribute(aname, value); });
 
     return value;
+  };
+
+  this.remAtt = function(start, sel, aname) {
+
+    var as = rearg_sta_sel_nam_las(arguments, undefined);
+    if (as.nam.slice(0, 1) === '-') as.nam = 'data' + as.nam;
+
+    toElts(as.sta, as.sel).forEach(function(e) { e.removeAttribute(as.nam); });
   };
 
   this.getAtt = function(start, sel, aname/*, default*/) {

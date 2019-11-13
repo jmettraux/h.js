@@ -1992,6 +1992,35 @@ red mazda
     end
   end
 
+  describe '.remAtt' do
+
+    it 'removes an attribute' do
+
+      expect(run(%{
+        H.setAtt('#for-setAtt .saa', 'att0', 'xyz');
+        H.setAtt('#for-setAtt .sab', '-att1', 'xyz');
+        H.setAtt('#for-setAtt .sab', 'att2', 'xyz');
+        H.setAtt('#for-setAtt .sab', 'att3', 'xyz');
+        var a = [];
+        a.push(H.getAtt('#for-setAtt .saa', 'att0'));
+        a.push(H.getAtt('#for-setAtt .sab', '-att1'));
+        a.push(H.getAtt('#for-setAtt .sab', 'att2'));
+        a.push(H.getAtt('#for-setAtt .sab', 'att3'));
+        H.remAtt('#for-setAtt .saa', 'att0');
+        H.remAtt('#for-setAtt .sab', '-att1');
+        H.remAtt(H.elt('#for-setAtt'), '.sab', 'att2');
+        H.remAtt('#for-setAtt', '.sab', 'att3');
+        a.push(H.getAtt('#for-setAtt .saa', 'att0'));
+        a.push(H.getAtt('#for-setAtt .sab', '-att1'));
+        a.push(H.getAtt('#for-setAtt .sab', 'att2'));
+        a.push(H.getAtt('#for-setAtt .sab', 'att3'));
+        return a;
+      })).to eq([
+        'xyz', 'xyz', 'xyz', 'xyz', nil, nil, nil, nil
+      ])
+    end
+  end
+
   describe '.getAtt' do
 
     it 'returns an attribute value' do

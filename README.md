@@ -236,6 +236,10 @@ H.getAtti(sta, sel, name/*, default*/);
 H.getAttf(sta, sel, name);
 H.getAttf(sta, sel, name/*, default*/);
 
+// Short for H.forEach(sta, sel, function(e) { e.setAttribute(name, value); });
+H.setAtt(sta, name, value);
+H.setAtt(sta, sel, name, value);
+
 // Sets the value of an input, select or textarea
 H.set(sta, val);
 H.set(sta, sel, val);

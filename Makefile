@@ -1,5 +1,8 @@
 
-VERSION:=$(shell grep VERSION src/h.js | ruby -e "puts gets.match(/VERSION = '([\d\.]+)/)[1]")
+N:=h
+LICENSE:=https://github.com/jmettraux/$(N).js/LICENSE.txt
+
+VERSION:=$(shell grep VERSION src/$(N).js | ruby -e "puts gets.match(/VERSION = '([\d\.]+)/)[1]")
 
 #SHA:=$(shell git log -1 --format="%H")
 SHA:=$(shell git log -1 --format="%h")
@@ -14,29 +17,29 @@ spec:
 
 pkg_plain:
 	mkdir -p pkg
-	cp src/h.js pkg/h-$(VERSION).js
-	echo "/* from commit $(SHA) on $(NOW) */" >> pkg/h-$(VERSION).js
-	cp pkg/h-$(VERSION).js pkg/h-$(VERSION)-$(SHA).js
+	cp src/$(N).js pkg/$(N)-$(VERSION).js
+	echo "/* from commit $(SHA) on $(NOW) */" >> pkg/$(N)-$(VERSION).js
+	cp pkg/$(N)-$(VERSION).js pkg/$(N)-$(VERSION)-$(SHA).js
 
 pkg_mini:
 	mkdir -p pkg
-	printf "/* h-$(VERSION).min.js | MIT license: http://github.com/jmettraux/h.js/LICENSE.txt */" > pkg/h-$(VERSION).min.js
-	java -jar tools/closure-compiler.jar --js src/h.js >> pkg/h-$(VERSION).min.js
-	echo "/* minified from commit $(SHA) on $(NOW) */" >> pkg/h-$(VERSION).min.js
-	cp pkg/h-$(VERSION).min.js pkg/h-$(VERSION)-$(SHA).min.js
+	printf "/* $(N)-$(VERSION).min.js | MIT license: $(LICENSE) */" > pkg/$(N)-$(VERSION).min.js
+	java -jar tools/closure-compiler.jar --js src/$(N).js >> pkg/$(N)-$(VERSION).min.js
+	echo "/* minified from commit $(SHA) on $(NOW) */" >> pkg/$(N)-$(VERSION).min.js
+	cp pkg/$(N)-$(VERSION).min.js pkg/$(N)-$(VERSION)-$(SHA).min.js
 
 pkg_comp:
 	mkdir -p pkg
-	printf "/* h-$(VERSION).com.js | MIT license: http://github.com/jmettraux/h.js/LICENSE.txt */\n" > pkg/h-$(VERSION).com.js
-	cat src/h.js | ruby tools/compactor.rb >> pkg/h-$(VERSION).com.js
-	echo "/* compacted from commit $(SHA) on $(NOW) */" >> pkg/h-$(VERSION).com.js
-	cp pkg/h-$(VERSION).com.js pkg/h-$(VERSION)-$(SHA).com.js
+	printf "/* $(N)-$(VERSION).com.js | MIT $(LICENSE) */\n" > pkg/$(N)-$(VERSION).com.js
+	cat src/$(N).js | ruby tools/compactor.rb >> pkg/$(N)-$(VERSION).com.js
+	echo "/* compacted from commit $(SHA) on $(NOW) */" >> pkg/$(N)-$(VERSION).com.js
+	cp pkg/$(N)-$(VERSION).com.js pkg/$(N)-$(VERSION)-$(SHA).com.js
 
 pkg: pkg_plain pkg_mini pkg_comp
 #pkg: pkg_plain pkg_comp
 
 clean-sha:
-	find pkg -name "h-*-*js" | xargs rm
+	find pkg -name "$(N)-*-*js" | xargs rm
 clean:
 	rm -fR pkg/
 

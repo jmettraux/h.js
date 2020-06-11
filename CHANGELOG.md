@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Alias H.getAtti() and .getAttf() to .atti() and .attf()
 * Accept H.create('div', { '-id': 3 }) for data-id
 * Implement H.count
 * Implement H.textOrValue, tov, tovb, tovi, and tovf

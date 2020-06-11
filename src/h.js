@@ -695,6 +695,9 @@ var H = (function() {
     return isFalsy(v) ? null : v;
   };
 
+  this.atti = this.getAtti;
+  this.attf = this.getAttf;
+
   this.text = function(start, sel/*, default*/) {
     var as = resol_sta_sel_las(arguments);
     if ( ! as.elt) throw "elt not found, no text";

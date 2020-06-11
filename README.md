@@ -252,10 +252,14 @@ H.getAtt(sta, sel, name/*, default*/);
 // Short for parseInt(H.elt(sta, sel).getAttribute(name), 10);
 H.getAtti(sta, sel, name);
 H.getAtti(sta, sel, name/*, default*/);
+H.atti(sta, sel, name);
+H.atti(sta, sel, name/*, default*/);
   //
 // Short for parseFloat(H.elt(sta, sel).getAttribute(name));
 H.getAttf(sta, sel, name);
 H.getAttf(sta, sel, name/*, default*/);
+H.attf(sta, sel, name);
+H.attf(sta, sel, name/*, default*/);
 
 // Short for H.forEach(sta, sel, function(e) { e.setAttribute(name, value); });
 H.setAtt(sta, name, value);

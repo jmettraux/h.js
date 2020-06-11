@@ -1,5 +1,6 @@
 
-RUBY:=$(shell find ~/.rubies -maxdepth 1 | grep "ruby-2" | head -1)/bin/ruby
+RUBY:=ruby
+#RUBY:=$(shell find ~/.rubies -maxdepth 1 | grep "ruby-2" | head -1)/bin/ruby
 
 N:=h
 LICENSE:=https://github.com/jmettraux/$(N).js/LICENSE.txt

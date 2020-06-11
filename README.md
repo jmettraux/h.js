@@ -248,6 +248,9 @@ H.clean(sta, sel, cla);
 H.getAtt(sta, name/*, default*/);
 H.getAtt(sta, sel, name);
 H.getAtt(sta, sel, name/*, default*/);
+H.att(sta, name/*, default*/);
+H.att(sta, sel, name);
+H.att(sta, sel, name/*, default*/);
   //
 // Short for parseInt(H.elt(sta, sel).getAttribute(name), 10);
 H.getAtti(sta, sel, name);

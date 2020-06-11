@@ -680,9 +680,6 @@ var H = (function() {
     return av === null ? as.las : av;
   };
 
-  var FALSIES = [ false, null, undefined, NaN, '' ];
-  var isFalsy = function(v) { return FALSIES.indexOf(v) > -1; }
-
   this.getAtti = function(start, sel, aname/*, default*/) {
     var v = self.getAtt.apply(null, arguments);
     v = parseInt('' + v, 10);
@@ -695,8 +692,12 @@ var H = (function() {
     return isFalsy(v) ? null : v;
   };
 
+  this.att = this.getAtt;
   this.atti = this.getAtti;
   this.attf = this.getAttf;
+
+  var FALSIES = [ false, null, undefined, NaN, '' ];
+  var isFalsy = function(v) { return FALSIES.indexOf(v) > -1; }
 
   this.text = function(start, sel/*, default*/) {
     var as = resol_sta_sel_las(arguments);

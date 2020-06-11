@@ -1,8 +1,10 @@
 
+RUBY:=$(shell find ~/.rubies -maxdepth 1 | grep "ruby-2" | head -1)/bin/ruby
+
 N:=h
 LICENSE:=https://github.com/jmettraux/$(N).js/LICENSE.txt
 
-VERSION:=$(shell grep VERSION src/$(N).js | ruby -e "puts gets.match(/VERSION = '([\d\.]+)/)[1]")
+VERSION:=$(shell grep VERSION src/$(N).js | $(RUBY) -e "puts gets.match(/VERSION = '([\d\.]+)/)[1]")
 
 #SHA:=$(shell git log -1 --format="%H")
 SHA:=$(shell git log -1 --format="%h")
@@ -31,7 +33,7 @@ pkg_mini:
 pkg_comp:
 	mkdir -p pkg
 	printf "/* $(N)-$(VERSION).com.js | MIT $(LICENSE) */\n" > pkg/$(N)-$(VERSION).com.js
-	cat src/$(N).js | ruby tools/compactor.rb >> pkg/$(N)-$(VERSION).com.js
+	cat src/$(N).js | $(RUBY) tools/compactor.rb >> pkg/$(N)-$(VERSION).com.js
 	echo "/* compacted from commit $(SHA) on $(NOW) */" >> pkg/$(N)-$(VERSION).com.js
 	cp pkg/$(N)-$(VERSION).com.js pkg/$(N)-$(VERSION)-$(SHA).com.js
 
@@ -44,7 +46,7 @@ clean:
 	rm -fR pkg/
 
 serve: # just for test.html
-	ruby -run -ehttpd . -p7001
+	$(RUBY) -run -ehttpd . -p7001
 
 
 .PHONY: spec pkg clean serve

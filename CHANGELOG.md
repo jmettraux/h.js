@@ -4,6 +4,8 @@
 
 ## h.js 1.2.0  not yet released
 
+* Alias H.setAtt() to .satt()
+* Alias H.remAtt() to .ratt()
 * Alias H.getAtt() to .att()
 * Alias H.getAtti() and .getAttf() to .atti() and .attf()
 * Accept H.create('div', { '-id': 3 }) for data-id

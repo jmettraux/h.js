@@ -647,6 +647,8 @@ var H = (function() {
     return value;
   };
 
+  this.satt = this.setAtt;
+
   this.remAtt = function(start, sel, aname) {
 
     var as = rearg_sta_sel_nam_las(arguments, undefined);
@@ -654,6 +656,8 @@ var H = (function() {
 
     toElts(as.sta, as.sel).forEach(function(e) { e.removeAttribute(as.nam); });
   };
+
+  this.ratt = this.remAtt;
 
   this.getAtt = function(start, sel, aname/*, default*/) {
 

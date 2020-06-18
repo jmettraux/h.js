@@ -267,13 +267,18 @@ H.attf(sta, sel, name/*, default*/);
 // Short for H.forEach(sta, sel, function(e) { e.setAttribute(name, value); });
 H.setAtt(sta, name, value);
 H.setAtt(sta, sel, name, value);
+H.satt(sta, name, value);
+H.satt(sta, sel, name, value);
   //
 // setting to null actually removes the attribute
 H.setAtt('#this-or-that', 'att-x', null);
+H.satt('#this-or-that', 'att-x', null);
 
 // Short for H.forEach(sta, sel, function(e) { e.removeAttribute(name); });
 H.remAtt(sta, name);
 H.remAtt(sta, sel, name);
+H.ratt(sta, name);
+H.ratt(sta, sel, name);
 
 // Sets the value of an input, select or textarea
 H.set(sta, val);

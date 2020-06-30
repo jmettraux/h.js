@@ -235,6 +235,14 @@ H.remove(sta);
 H.remove(sta, sel);
 H.remove(sta, bof);
 H.remove(sta, sel, bof);
+H.rem(sta);
+H.rem(sta, sel);
+H.rem(sta, bof);
+H.rem(sta, sel, bof);
+H.del(sta);
+H.del(sta, sel);
+H.del(sta, bof);
+H.del(sta, sel, bof);
 
 // Given an element (the first to match (sta, sel)) removes all its children.
 // If a classname is given, removes only those children that sport the

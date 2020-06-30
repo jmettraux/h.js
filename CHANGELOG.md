@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Alias H.remove() to .rem() and .del()
 * Alias H.setAtt() to .satt()
 * Alias H.remAtt() to .ratt()
 * Alias H.getAtt() to .att()

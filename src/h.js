@@ -874,6 +874,8 @@ var H = (function() {
       }
     });
   };
+  this.rem = this.remove;
+  this.del = this.remove;
 
   this.clean = function(start, sel, cla) {
 

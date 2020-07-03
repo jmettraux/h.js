@@ -244,6 +244,12 @@ H.del(sta, sel);
 H.del(sta, bof);
 H.del(sta, sel, bof);
 
+// Replaces an element with another
+H.replace(sta, elt);
+H.replace(sta, sel, elt);
+H.rep(sta, elt);
+H.rep(sta, sel, elt);
+
 // Given an element (the first to match (sta, sel)) removes all its children.
 // If a classname is given, removes only those children that sport the
 // classname.

@@ -877,6 +877,17 @@ var H = (function() {
   this.rem = this.remove;
   this.del = this.remove;
 
+  this.replace = function(start, sel, elt) {
+
+    if ( ! elt) { elt = sel; sel = start; start = null; }
+    var e = toElt(start, sel);
+    var p = e.parentNode;
+
+    p.insertBefore(elt, e);
+    p.removeChild(e);
+  };
+  this.rep = this.replace;
+
   this.clean = function(start, sel, cla) {
 
     var elt = toElt(start, sel);

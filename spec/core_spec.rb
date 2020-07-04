@@ -14,7 +14,7 @@ describe 'H' do
 
     it 'works  .elt(selector)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.elt('.car.bentley .blue').textContent;
       })).to eq(
         'blue bentley'
@@ -23,7 +23,7 @@ describe 'H' do
 
     it 'works  .elt(start, selector)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var t = H.elt('.train');
         return H.elt(t, '.japan').textContent;
       })).to eq(
@@ -33,7 +33,7 @@ describe 'H' do
 
     it 'works  .elt(sel, sel)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.elt('.train', '.japan').textContent;
       })).to eq(
         'shinkansen'
@@ -42,14 +42,14 @@ describe 'H' do
 
     it 'works  .elt(start, "^x")  (closest)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var t = H.elt('.japan');
         return H.elt(t, '^#cars').id;
       })).to eq(
         'cars'
       )
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.elt('.japan', '^#cars').id;
       })).to eq(
         'cars'
@@ -58,14 +58,14 @@ describe 'H' do
 
     it 'works  .elt(start, "^x y")  (closest then)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('.germany');
         return H.elt(e, '^.train .japan').textContent;
       })).to eq(
         'shinkansen'
       )
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.elt('.germany', '^.train .japan').textContent;
       })).to eq(
         'shinkansen'
@@ -74,7 +74,7 @@ describe 'H' do
 
     it 'works  .elt("[-xyz]")' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.elt('[-hjs-alpha]').className;
       })).to eq(
         'gaa'
@@ -83,7 +83,7 @@ describe 'H' do
 
     it 'works  .elt(start, "[-xyz]")' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var s = H.elt('#for-getAtt');
         return H.elt(s, '[-hjs-bravo]').className;
       })).to eq(
@@ -93,7 +93,7 @@ describe 'H' do
 
     it 'works  .elt(start, >.option[-hjs-value="[-999,28]"]<)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.elt('.option[-hjs-value="[-999,28]"]').className;
       })).to eq(
         'option dash-data'
@@ -102,7 +102,7 @@ describe 'H' do
 
     it 'works  .elt(e, "^[-xyz]")  (closest)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#in-charly');
         return H.elt(e, '^[-hjs-data-prefix]').className;
       })).to eq(
@@ -115,7 +115,7 @@ describe 'H' do
 
     it 'works  .elts(selector)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.elts('.car .blue')
           .map(function(e) { return e.textContent.trim(); });
       })).to eq([
@@ -125,7 +125,7 @@ describe 'H' do
 
     it 'works  .elts(start, selector)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var t = H.elt('.train');
         return H.elts(t, '.europe > div')
           .map(function(e) { return e.textContent.trim(); });
@@ -136,7 +136,7 @@ describe 'H' do
 
     it 'works  .elts(sel, sel)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.elts('.train', '.europe > div')
           .map(function(e) { return e.textContent.trim(); });
       })).to eq([
@@ -146,14 +146,14 @@ describe 'H' do
 
     it 'works  .elts(start, "^x")  (closest)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var t = H.elt('.japan');
         return H.elts(t, '^.asia').map(function(e) { return e.className; });
       })).to eq([
         'asia'
       ])
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.elt('.bentley', '^[id]').id;
       })).to eq(
         'cars'
@@ -162,7 +162,7 @@ describe 'H' do
 
     it 'works  .elts(start, "^x y")  (closest then)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('.japan.mazda');
         return H.elts(e, '^[id] .car')
           .map(function(e) { return e.className; });
@@ -170,7 +170,7 @@ describe 'H' do
         'car japan mazda', 'car bentley', 'car volkswagen'
       ])
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.elts('.bentley', '^[id] .car')
           .map(function(e) { return e.className; });
       })).to eq([
@@ -180,7 +180,7 @@ describe 'H' do
 
     it 'works  .elts("[-xyz]")' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.elts('[-hjs-data-prefix]')
           .map(function(e) { return e.getAttribute('data-hjs-data-prefix'); });
       })).to eq(%w[
@@ -190,7 +190,7 @@ describe 'H' do
 
     it 'works  .elts(start, "[-xyz]")' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#for-data-prefix');
         return H.elts(e, '[-hjs-data-prefix]')
           .map(function(e) { return e.getAttribute('data-hjs-data-prefix'); });
@@ -204,12 +204,12 @@ describe 'H' do
 
     it 'returns 0 if there are no such elements' do
 
-      expect(run(%{ return H.count('.nada'); })).to eq(0)
+      expect(evaluate(%{ return H.count('.nada'); })).to eq(0)
     end
 
     it 'returns the count of matching elements' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#for-data-prefix');
         return H.count(e, '[-hjs-data-prefix]');
       })).to eq(3)
@@ -220,7 +220,7 @@ describe 'H' do
 
     it 'returns true when it matches' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#list-of-trains');
         return H.matches(e, '.train');
       })).to eq(
@@ -230,7 +230,7 @@ describe 'H' do
 
     it 'returns false else' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#list-of-trains');
         return H.matches(e, '.car');
       })).to eq(
@@ -240,7 +240,7 @@ describe 'H' do
 
     it 'works  .matches(e, sel, sel)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('.train');
         return [
           H.matches(e, '.europe', '.europe'),
@@ -256,7 +256,7 @@ describe 'H' do
 
     it 'works  .closest(start, selector)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var t = H.elt('.japan');
         return H.closest(t, '#cars').id;
       })).to eq(
@@ -266,7 +266,7 @@ describe 'H' do
 
     it 'works  .closest(start, selector, selector)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var t = H.elt('#list-of-trains');
         return H.closest(t, '.asia', '.train').id;
       })).to eq(
@@ -276,7 +276,7 @@ describe 'H' do
 
     it 'returns start if it matches' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.closest('#list-of-trains', '.train').id;
       })).to eq(
         'list-of-trains'
@@ -285,7 +285,7 @@ describe 'H' do
 
     it 'returns start if it matches (2)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var t = H.elt('#list-of-trains');
         return H.closest(t, '.train').id;
       })).to eq(
@@ -295,7 +295,7 @@ describe 'H' do
 
     it 'returns start + selector if it matches' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.closest(H.elt('body'), '.train', '.train').id;
       })).to eq(
         'list-of-trains'
@@ -304,7 +304,7 @@ describe 'H' do
 
     it 'works with an implicit "data" prefix' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.closest(H.elt('#in-charly'), '[-hjs-data-prefix]').className;
       })).to eq(
         'cinnamon'
@@ -316,7 +316,7 @@ describe 'H' do
 
     it 'works  .forEach(sel, fun)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var r = [];
         H.forEach('.train .europe > div', function(e) {
           r.push(e.textContent.trim());
@@ -329,7 +329,7 @@ describe 'H' do
 
     it 'works  .forEach(start, sel, fun)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var s = H.elt('#list-of-trains');
         var r = [];
         H.forEach(s, '.europe > div', function(e) {
@@ -346,7 +346,7 @@ describe 'H' do
 
     it 'works  .map(sel, fun)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.map('.train .europe > div', function(e) {
           return e.textContent.trim();
         });
@@ -357,7 +357,7 @@ describe 'H' do
 
     it 'works  .map(start, sel, fun)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var s = H.elt('#list-of-trains');
         return H.map(s, '.europe > div', function(e) {
           return e.textContent.trim();
@@ -372,7 +372,7 @@ describe 'H' do
 
     it 'works  .hasClass(sel, "clas")' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return [
           H.hasClass('.bentley', 'train'),
           H.hasClass('.bentley', 'car')
@@ -384,7 +384,7 @@ describe 'H' do
 
     it 'works  .hasClass(sel, ".clas")' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return [
           H.hasClass('.bentley', '.train'),
           H.hasClass('.bentley', '.car')
@@ -396,7 +396,7 @@ describe 'H' do
 
     it 'works  .hasClass(start, sel, "clas")' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var s = H.elt('#cars');
         return [
           H.hasClass(s, '.bentley', 'train'),
@@ -409,7 +409,7 @@ describe 'H' do
 
     it 'works  .hasClass(start, sel, ".clas")' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var s = H.elt('#cars');
         return [
           H.hasClass(s, '.bentley', '.train'),
@@ -425,12 +425,12 @@ describe 'H' do
 
     before :each do
 
-      run(%{ H.removeClass('#test', '.klass'); })
+      $browser.execute(%{ H.removeClass('#test', '.klass'); })
     end
 
     it 'works  .toggleClass(sel, "cla")' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var r = [];
         r.push(H.hasClass('#test', '.klass'));
         H.toggleClass('#test', 'klass');
@@ -445,7 +445,7 @@ describe 'H' do
 
     it 'works  .toggleClass(sel, ".cla")' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var r = [];
         r.push(H.hasClass('#test', '.klass'));
         H.toggleClass('#test', '.klass');
@@ -460,7 +460,7 @@ describe 'H' do
 
     it 'works  .toggleClass(start, sel, "cla")' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('.train');
         var r = [];
         r.push(H.hasClass(e, '.japan', '.klass'));
@@ -479,7 +479,7 @@ describe 'H' do
 
     it 'works  .toggleClass(start, sel, ".cla")' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('.train');
         var r = [];
         r.push(H.hasClass(e, '.japan', '.klass'));
@@ -504,17 +504,17 @@ describe 'H' do
 
     it 'works  .addClass(sel, "cla")' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.addClass('.car.japan', 'vehicle');
         return H.elt('.car.japan').classList;
-      })).to eq(%w[
-        car japan mazda vehicle
-      ])
+      })).to eq(
+        class_list(%w[ car japan mazda vehicle ])
+      )
     end
 
     it 'works  .addClass(sel, "cla", boo)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.addClass('.car.mazda', 'vehicle', false);
         H.addClass('.car.bentley', 'vehicle', true);
         return [
@@ -522,14 +522,14 @@ describe 'H' do
           H.elt('.car.bentley').classList
         ];
       })).to eq([
-        %w[ car japan mazda ],
-        %w[ car bentley vehicle ]
+        class_list(%w[ car japan mazda ]),
+        class_list(%w[ car bentley vehicle ])
       ])
     end
 
     it 'works  .addClass(sel, "cla", fun)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.addClass('.car.mazda', 'vehicle', function(e) { return false; });
         H.addClass('.car.bentley', 'vehicle', function(e) { return true; });
         return [
@@ -537,35 +537,35 @@ describe 'H' do
           H.elt('.car.bentley').classList
         ];
       })).to eq([
-        %w[ car japan mazda ],
-        %w[ car bentley vehicle ]
+        class_list(%w[ car japan mazda ]),
+        class_list(%w[ car bentley vehicle ])
       ])
     end
 
     it 'works  .addClass(sel, ".cla")' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.addClass('.car.japan', '.vehicle');
         return H.elt('.car.japan').classList;
-      })).to eq(%w[
-        car japan mazda vehicle
-      ])
+      })).to eq(
+        class_list(%w[ car japan mazda vehicle ])
+      )
     end
 
     it 'works  .addClass(start, sel, "cla")' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#cars');
         H.addClass(e, '.car.japan', 'vehicle');
         return H.elt(e, '.car.japan').classList;
-      })).to eq(%w[
-        car japan mazda vehicle
-      ])
+      })).to eq(
+        class_list(%w[ car japan mazda vehicle ])
+      )
     end
 
     it 'works  .addClass(start, sel, "cla", boo)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#cars');
         H.addClass(e, '.car.mazda', 'vehicle', false);
         H.addClass(e, '.car.bentley', 'vehicle', true);
@@ -574,14 +574,14 @@ describe 'H' do
           H.elt('.car.bentley').classList
         ];
       })).to eq([
-        %w[ car japan mazda ],
-        %w[ car bentley vehicle ]
+        class_list(%w[ car japan mazda ]),
+        class_list(%w[ car bentley vehicle ])
       ])
     end
 
     it 'works  .addClass(start, sel, "cla", fun)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#cars');
         H.addClass(e, '.car.mazda', 'vehicle', function(e) { return false; });
         H.addClass(e, '.car.bentley', 'vehicle', function(e) { return true; });
@@ -590,20 +590,20 @@ describe 'H' do
           H.elt('.car.bentley').classList
         ];
       })).to eq([
-        %w[ car japan mazda ],
-        %w[ car bentley vehicle ]
+        class_list(%w[ car japan mazda ]),
+        class_list(%w[ car bentley vehicle ])
       ])
     end
 
     it 'works  .addClass(start, sel, ".cla")' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#cars');
         H.addClass(e, '.car.japan', '.vehicle');
         return H.elt(e, '.car.japan').classList;
-      })).to eq(%w[
-        car japan mazda vehicle
-      ])
+      })).to eq(
+        class_list(%w[ car japan mazda vehicle ])
+      )
     end
   end
 
@@ -614,44 +614,44 @@ describe 'H' do
 
     it 'works  .removeClass(sel, "cla")' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.removeClass('.car.japan', 'japan');
         return H.elt('.car.mazda').classList;
-      })).to eq(%w[
-        car mazda
-      ])
+      })).to eq(
+        class_list(%w[ car mazda ])
+      )
     end
 
     it 'works  .removeClass(sel, ".cla")' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.removeClass('.car.japan', '.japan');
         return H.elt('.car.mazda').classList;
-      })).to eq(%w[
-        car mazda
-      ])
+      })).to eq(
+        class_list(%w[ car mazda ])
+      )
     end
 
     it 'works  .removeClass(start, sel, "cla")' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#cars');
         H.removeClass(e, '.car.japan', 'japan');
         return H.elt(e, '.car.mazda').classList;
-      })).to eq(%w[
-        car mazda
-      ])
+      })).to eq(
+        class_list(%w[ car mazda ])
+      )
     end
 
     it 'works  .removeClass(start, sel, ".cla")' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#cars');
         H.removeClass(e, '.car.japan', '.japan');
         return H.elt(e, '.car.mazda').classList;
-      })).to eq(%w[
-        car mazda
-      ])
+      })).to eq(
+        class_list(%w[ car mazda ])
+      )
     end
   end
 
@@ -659,58 +659,63 @@ describe 'H' do
 
     it 'works  .setClass(sel, ".cla")' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.setClass('#sc > div', '.b');
         var a = [];
         H.forEach('#sc > div', function(e) { a.push(e.classList); });
         return a;
       })).to eq([
-        %w[ b ], %w[ b ], %w[ a b ], %w[ a b ]
+        class_list(%w[ b ]), class_list(%w[ b ]), class_list(%w[ a b ]),
+        class_list(%w[ a b ])
       ])
     end
 
     it 'works  .setClass(sel, ".cla", boo)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.setClass('#sc > div', '.b', false);
         var a = [];
         H.forEach('#sc > div', function(e) { a.push(e.classList); });
         return a;
       })).to eq([
-        %w[ ], %w[ ], %w[ a ], %w[ a ]
+        class_list(%w[ ]), class_list(%w[ ]), class_list(%w[ a ]),
+        class_list(%w[ a ])
       ])
-      expect(run(%{
+      expect(evaluate(%{
         H.setClass('#sc > div', '.b', true);
         var a = [];
         H.forEach('#sc > div', function(e) { a.push(e.classList); });
         return a;
       })).to eq([
-        %w[ b ], %w[ b ], %w[ a b ], %w[ a b ]
+        class_list(%w[ b ]), class_list(%w[ b ]), class_list(%w[ a b ]),
+        class_list(%w[ a b ])
       ])
     end
 
     it 'works  .setClass(sel, ".cla", fun)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var fun = function(e) { return ! H.hasClass(e, 'a'); };
         H.setClass('#sc > div', '.b', fun);
         var a = [];
         H.forEach('#sc > div', function(e) { a.push(e.classList); });
         return a;
       })).to eq([
-        %w[ b ], %w[ b ], %w[ a ], %w[ a ]
+        class_list(%w[ b ]), class_list(%w[ b ]), class_list(%w[ a ]),
+        class_list(%w[ a ])
       ])
     end
 
     it 'works  .setClass(sel, ".cla", undefined)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.setClass('#sc > div', '.b', undefined);
         var a = [];
         H.forEach('#sc > div', function(e) { a.push(e.classList); });
         return a;
       })).to eq([
-        %w[ ], %w[ ], %w[ a ], %w[ a ]
+        class_list(%w[ ]), class_list(%w[ ]), class_list(%w[ a ]),
+        class_list(%w[ a ])
       ])
     end
   end
@@ -722,7 +727,7 @@ describe 'H' do
 
     it 'works  .renameClass(sel, cla0, cla1)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.renameClass('.europe', '.europe', '.old-europe');
         H.renameClass('.japan', 'japan', 'crazy-japan');
         return [
@@ -738,7 +743,7 @@ describe 'H' do
 
     it 'works  .renameClass(sta, sel, cla0, cla1)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var c = H.elt('#cars');
         H.renameClass(c, '.europe', '.europe', '.old-europe');
         H.renameClass(c, '.japan', 'japan', 'crazy-japan');
@@ -758,7 +763,7 @@ describe 'H' do
 
     it 'returns the classList but as an array' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var c = H.elt('.car.bentley');
         return [
           H.classArray(c),
@@ -777,7 +782,7 @@ describe 'H' do
 
     it 'works  .create(tag, atts, text)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.create('span', { 'data-id': 123 }, 'hello').outerHTML;
       })).to eq(
         '<span data-id="123">hello</span>'
@@ -786,7 +791,7 @@ describe 'H' do
 
     it 'works  .create(tag#id, atts, text)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.create('span#xyz', { 'data-id': 123 }, 'hello').outerHTML;
       })).to eq(
         '<span id="xyz" data-id="123">hello</span>'
@@ -795,7 +800,7 @@ describe 'H' do
 
     it 'works  .create(tag#id.class, atts, text)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.create('span#xyz.ab.cd', { 'data-id': 123 }, 'xzy').outerHTML;
       })).to eq(
         '<span id="xyz" class="ab cd" data-id="123">xzy</span>'
@@ -804,7 +809,7 @@ describe 'H' do
 
     it 'works  .create(#id, atts, text)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.create('span#xyz', { 'data-id': 123 }, 'xzy').outerHTML;
       })).to eq(
         '<span id="xyz" data-id="123">xzy</span>'
@@ -813,7 +818,7 @@ describe 'H' do
 
     it 'is OK with -id instead of data-id for attributes' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.create('span#xyz', { '-id': 123 }, 'xzy').outerHTML;
       })).to eq(
         '<span id="xyz" data-id="123">xzy</span>'
@@ -822,7 +827,7 @@ describe 'H' do
 
     it 'works  .create(.class, atts, text)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.create('.cla', { 'data-id': 123 }, 'xzy').outerHTML;
       })).to eq(
         '<div class="cla" data-id="123">xzy</div>'
@@ -831,14 +836,15 @@ describe 'H' do
 
     it 'works .create(parent, "x", atts, text)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var p = H.elt('#for-create');
         H.create(p, '.aaa', { 'data-bbb': 345 }, 'ccc');
         return p.outerHTML;
-      })).to eq(
-        '<div id="for-create">' + "\n" +
-        '<div class="aaa" data-bbb="345">ccc</div></div>'
-      )
+      })).to eqh(%{
+        <div id="for-create">
+        <div class="aaa" data-bbb="345">ccc</div>
+        </div>
+      })
     end
   end
 
@@ -846,7 +852,7 @@ describe 'H' do
 
     it 'works' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.toNode('<span id="x" class="y z">hello</span>').outerHTML;
       })).to eq(
         '<span id="x" class="y z">hello</span>'
@@ -855,19 +861,19 @@ describe 'H' do
 
     it 'leaves element untouched' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.toNode(H.elt('#list-of-trains .asia')).outerHTML;
-      })).to eq(%{
-<div class="asia">
-<div class="japan">shinkansen</div>
-<div class="russia mongolia">transsiberian</div>
-</div>
-      }.strip)
+      })).to eqh(%{
+        <div class="asia">
+          <div class="japan">shinkansen</div>
+          <div class="russia mongolia">transsiberian</div>
+        </div>
+      })
     end
 
     it 'creates a node and applies sel' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.toNode(
           '<div class="k"><span id="x" class="y z">hello</span></div>',
           'span'
@@ -879,7 +885,7 @@ describe 'H' do
 
     it 'leaves element untouched and applies sel' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.toNode(H.elt('#list-of-trains .asia'), '.japan').outerHTML;
       })).to eq(
         '<div class="japan">shinkansen</div>'
@@ -894,59 +900,43 @@ describe 'H' do
 
     it 'works  .on(sta, sel, ev, fun)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.on('#cars', '.europe .car', 'click', function(ev) {
           ev.target.remove();
         });
         H.elt('.car.bentley').click();
         return H.elt('#cars .europe').innerHTML;
-      })).to eq(%{
-<div class="car volkswagen">
-<div class="blue">
-blue volkswagen
-</div>
-<div class="yellow">
-yellow volkswagen
-</div>
-<div class="purple">
-1234
-</div>
-<div class="red">
-1234.09
-</div>
-</div>
-      }.strip)
+      })).to eqh(%{
+        <div class="car volkswagen">
+          <div class="blue">blue volkswagen</div>
+          <div class="yellow">yellow volkswagen</div>
+          <div class="purple">1234</div>
+          <div class="red">1234.09</div>
+        </div>
+      })
     end
 
     it 'works  .on(sel, ev, fun)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.on('#cars .europe .car', 'click', function(ev) {
           ev.target.remove();
         });
         H.elt('.car.bentley').click();
         return H.elt('#cars .europe').innerHTML;
-      })).to eq(%{
-<div class="car volkswagen">
-<div class="blue">
-blue volkswagen
-</div>
-<div class="yellow">
-yellow volkswagen
-</div>
-<div class="purple">
-1234
-</div>
-<div class="red">
-1234.09
-</div>
-</div>
-      }.strip)
+      })).to eqh(%{
+        <div class="car volkswagen">
+          <div class="blue">blue volkswagen</div>
+          <div class="yellow">yellow volkswagen</div>
+          <div class="purple">1234</div>
+          <div class="red">1234.09</div>
+        </div>
+      })
     end
 
     it 'works  .on(sel, [ evname0, evname1 ], fun)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var a = [];
         H.on('#cars .europe .car', [ 'click', 'foo' ], function(ev) {
           a.push(event.type);
@@ -968,7 +958,7 @@ yellow volkswagen
 
     it 'works  .enable(sel)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.enable('input[name="first-name"]');
         return H.elt('input[name="first-name"]').outerHTML;
       })).to eq(%{
@@ -978,7 +968,7 @@ yellow volkswagen
 
     it 'works  .enable(sel, bool)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.enable('input[name="name"]', false);
         H.enable('input[name="first-name"]', true);
         H.enable(H.elt('input[name="last-name"]'), false);
@@ -996,7 +986,7 @@ yellow volkswagen
 
     it 'works  .enable(elt, undefined)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.enable(H.elt('input[name="last-name"]'), "".match(/nada/));
         return [
           H.elt('input[name="last-name"]').outerHTML
@@ -1008,26 +998,25 @@ yellow volkswagen
 
     it 'works  .enable(sel, fun)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.enable('#input input', function(e) {
           return e.getAttribute('name').match(/name/);
         });
         return H.elt('#input form').innerHTML;
-      })).to eq(%{
-<input type="text" name="name">
-<input type="text" name="first-name">
-<input type="text" name="last-name">
-<input type="number" name="age" disabled="disabled">
-
-<input class="i" type="text" name="alpha" disabled="disabled">
-<input class="i disabled" type="text" name="bravo" disabled="disabled">
-<input class="i disabled" type="text" name="charly" disabled="disabled">
-      }.strip)
+      })).to eqh(%{
+        <input type="text" name="name">
+        <input type="text" name="first-name">
+        <input type="text" name="last-name">
+        <input type="number" name="age" disabled="disabled">
+        <input class="i" type="text" name="alpha" disabled="disabled">
+        <input class="i disabled" type="text" name="bravo" disabled="disabled">
+        <input class="i disabled" type="text" name="charly" disabled="disabled">
+      })
     end
 
     it 'works  .enable(start, sel)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var i = H.elt('#input');
         H.enable(i, 'input[name="first-name"]');
         return H.elt(i, 'input[name="first-name"]').outerHTML;
@@ -1038,7 +1027,7 @@ yellow volkswagen
 
     it 'works  .enable(start, sel, bool)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var i = H.elt('#input');
         H.enable(i, 'input[name="name"]', false);
         H.enable(i, 'input[name="first-name"]', true);
@@ -1057,21 +1046,20 @@ yellow volkswagen
 
     it 'works  .disable(sel, fun)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.disable('#input input', function(e) {
           return ! e.getAttribute('name').match(/name/);
         });
         return H.elt('#input form').innerHTML;
-      })).to eq(%{
-<input type="text" name="name">
-<input type="text" name="first-name">
-<input type="text" name="last-name">
-<input type="number" name="age" disabled="disabled">
-
-<input class="i" type="text" name="alpha" disabled="disabled">
-<input class="i disabled" type="text" name="bravo" disabled="disabled">
-<input class="i disabled" type="text" name="charly" disabled="disabled">
-      }.strip)
+      })).to eqh(%{
+        <input type="text" name="name">
+        <input type="text" name="first-name">
+        <input type="text" name="last-name">
+        <input type="number" name="age" disabled="disabled">
+        <input class="i" type="text" name="alpha" disabled="disabled">
+        <input class="i disabled" type="text" name="bravo" disabled="disabled">
+        <input class="i disabled" type="text" name="charly" disabled="disabled">
+      })
     end
   end
 
@@ -1082,7 +1070,7 @@ yellow volkswagen
 
     it 'works  .show(sel)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.show('#test0');
         return H.elts('.t').map(function(e) { return e.idAndClasses(); });
       })).to eq(%w[
@@ -1095,7 +1083,7 @@ yellow volkswagen
 
     it 'works  .show(sel, something_undefined)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var h = {};
         H.show('#test1', h.something);
         return H.elts('.t').map(function(e) { return e.idAndClasses(); });
@@ -1109,7 +1097,7 @@ yellow volkswagen
 
     it 'works  .show(sel, bool)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.show('#test0', true);
         return H.elts('.t').map(function(e) { return e.idAndClasses(); });
       })).to eq(%w{
@@ -1122,7 +1110,7 @@ yellow volkswagen
 
     it 'works  .show(start, sel)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var has = H.elt('#hide_and_show');
         H.show(has, '#test0');
         return H.elts('.t').map(function(e) { return e.idAndClasses(); });
@@ -1136,7 +1124,7 @@ yellow volkswagen
 
     it 'works  .show(sel, fun)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.show('.t', function(e) {
           return parseInt(e.id.substring(4, 5), 10) % 2 == 0;
         });
@@ -1151,7 +1139,7 @@ yellow volkswagen
 
     it 'works  .show(start, sel, fun)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var has = H.elt('#hide_and_show');
         H.show(has, '.t', function(e) {
           return parseInt(e.id.substring(4, 5), 10) % 2 == 1;
@@ -1167,7 +1155,7 @@ yellow volkswagen
 
     it 'works  .show(sel, bool)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.show('.t', true);
         return H.elts('.t').map(function(e) { return e.idAndClasses(); });
       })).to eq(%w[
@@ -1177,7 +1165,7 @@ yellow volkswagen
         #test3.t.hidden.shown
       ])
 
-      expect(run(%{
+      expect(evaluate(%{
         H.show('.t', false);
         return H.elts('.t').map(function(e) { return e.idAndClasses(); });
       })).to eq(%w[
@@ -1190,7 +1178,7 @@ yellow volkswagen
 
     it 'works  .show(start, sel, bool)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var has = H.elt('#hide_and_show');
         H.show(has, '.t', true);
         return H.elts('.t').map(function(e) { return e.idAndClasses(); });
@@ -1201,7 +1189,7 @@ yellow volkswagen
         #test3.t.hidden.shown
       ])
 
-      expect(run(%{
+      expect(evaluate(%{
         var has = H.elt('#hide_and_show');
         H.show(has, '.t', false);
         return H.elts('.t').map(function(e) { return e.idAndClasses(); });
@@ -1221,7 +1209,7 @@ yellow volkswagen
 
     it 'works  .show(sel)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.unshow('#test1');
         return H.elts('.t').map(function(e) { return e.idAndClasses(); });
       })).to eq(%w[
@@ -1240,7 +1228,7 @@ yellow volkswagen
 
     it 'works  .hide(sel)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.hide('#test0');
         return H.elts('.t').map(function(e) { return e.idAndClasses(); });
       })).to eq(%w[
@@ -1253,7 +1241,7 @@ yellow volkswagen
 
     it 'works  .hide(sel, bool)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.hide('#test0', true);
         return H.elts('.t').map(function(e) { return e.idAndClasses(); });
       })).to eq(%w{
@@ -1266,7 +1254,7 @@ yellow volkswagen
 
     it 'works  .hide(start, sel)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var has = H.elt('#hide_and_show');
         H.hide(has, '#test0');
         return H.elts('.t').map(function(e) { return e.idAndClasses(); });
@@ -1280,7 +1268,7 @@ yellow volkswagen
 
     it 'works  .hide(sel, fun)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.hide('.t', function(e) {
           return parseInt(e.id.substring(4, 5), 10) % 2 == 0;
         });
@@ -1295,7 +1283,7 @@ yellow volkswagen
 
     it 'works  .hide(start, sel, fun)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var has = H.elt('#hide_and_show');
         H.hide(has, '.t', function(e) {
           return parseInt(e.id.substring(4, 5), 10) % 2 == 1;
@@ -1311,7 +1299,7 @@ yellow volkswagen
 
     it 'works  .hide(sel, bool)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.hide('.t', true);
         return H.elts('.t').map(function(e) { return e.idAndClasses(); });
       })).to eq(%w[
@@ -1321,7 +1309,7 @@ yellow volkswagen
         #test3.t.hidden
       ])
 
-      expect(run(%{
+      expect(evaluate(%{
         H.hide('.t', false);
         return H.elts('.t').map(function(e) { return e.idAndClasses(); });
       })).to eq(%w[
@@ -1334,7 +1322,7 @@ yellow volkswagen
 
     it 'works  .hide(start, sel, bool)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var has = H.elt('#hide_and_show');
         H.hide(has, '.t', true);
         return H.elts('.t').map(function(e) { return e.idAndClasses(); });
@@ -1345,7 +1333,7 @@ yellow volkswagen
         #test3.t.hidden
       ])
 
-      expect(run(%{
+      expect(evaluate(%{
         var has = H.elt('#hide_and_show');
         H.hide(has, '.t', false);
         return H.elts('.t').map(function(e) { return e.idAndClasses(); });
@@ -1365,7 +1353,7 @@ yellow volkswagen
 
     it 'works  .unhide(sel)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.unhide('#test2');
         return H.elts('.t').map(function(e) { return e.idAndClasses(); });
       })).to eq(%w[
@@ -1378,7 +1366,7 @@ yellow volkswagen
 
     it 'works  .unhide(start, sel)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var has = H.elt('#hide_and_show');
         H.unhide(has, '#test2');
         return H.elts('.t').map(function(e) { return e.idAndClasses(); });
@@ -1395,7 +1383,7 @@ yellow volkswagen
 
     it 'works  .isHidden(sel)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return [
           H.isHidden('#test0'),
           H.isHidden('#test2'),
@@ -1407,7 +1395,7 @@ yellow volkswagen
 
     it 'works  .isHidden(start, sel)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var s = H.elt('#hide_and_show');
         return [
           H.isHidden(s, '.t'),
@@ -1426,7 +1414,7 @@ yellow volkswagen
 
     it 'works .cenable(sel)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.cenable('input.i');
         return H.elts('input.i')
           .map(function(e) { return e.outerHTML.trim(); })
@@ -1440,7 +1428,7 @@ yellow volkswagen
 
     it 'works .cenable(sel, bool)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.cenable('input.i', true);
         return H.elts('input.i')
           .map(function(e) { return e.outerHTML.trim(); })
@@ -1454,7 +1442,7 @@ yellow volkswagen
 
     it 'works .cenable(sel, fun)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.cenable('#input input', function(e) {
           return e.getAttribute('name') === 'charly';
         });
@@ -1470,7 +1458,7 @@ yellow volkswagen
 
     it 'works .cenable(start, sel)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var i = H.elt('#input');
         H.cenable(i, 'input.i');
         return H.elts('input.i')
@@ -1485,7 +1473,7 @@ yellow volkswagen
 
     it 'works .cenable(start, sel, bool)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var i = H.elt('#input');
         H.cenable(i, 'input.i', false);
         return H.elts('input.i')
@@ -1503,7 +1491,7 @@ yellow volkswagen
 
     it 'works .cdisable(start, sel, bool)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var i = H.elt('#input');
         H.cdisable(i, 'input.i', true);
         return H.elts('input.i')
@@ -1521,7 +1509,7 @@ yellow volkswagen
 
     it 'works .isDisabled(start)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return [
           H.isDisabled('#input input[name="name"]'),
           H.isDisabled('#input input[name="age"]'),
@@ -1535,7 +1523,7 @@ yellow volkswagen
 
     it 'works .isDisabled(start, sel)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var f = H.elt('#input');
         return [
           H.isDisabled(f, 'input[name="name"]'),
@@ -1556,7 +1544,7 @@ yellow volkswagen
 
     it 'works  .prepend(sel, elt)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.create('div.america', {}, '');
         H.prepend('#cars .europe', e);
         return H.elt('#cars').innerHTML;
@@ -1567,7 +1555,7 @@ yellow volkswagen
 
     it 'works  .prepend(start, sel, elt)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var cars = H.elt('#cars');
         var e = H.create('div.america', {}, '');
         H.prepend(cars, '.europe', e);
@@ -1585,7 +1573,7 @@ yellow volkswagen
 
     it 'works  .postpend(sel, elt)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.create('div.america', {}, '');
         H.postpend('#cars .asia', e);
         return H.elt('#cars').innerHTML;
@@ -1596,7 +1584,7 @@ yellow volkswagen
 
     it 'works  .postpend(start, sel, elt)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var cars = H.elt('#cars');
         var e = H.create('div.america', {}, '');
         H.postpend(cars, '.asia', e);
@@ -1614,57 +1602,53 @@ yellow volkswagen
 
     it 'works  .clean(sel)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.clean('#cars .europe');
         return H.elt('#cars').innerHTML;
-      })).to eq(%{
-<div class="asia">
-<div class="car japan mazda">
-<div class="red">
-red mazda
-</div>
-</div>
-</div>
-<div class="europe"></div>
-      }.strip)
+      })).to eqh(%{
+        <div class="asia">
+          <div class="car japan mazda">
+            <div class="red">red mazda</div>
+          </div>
+        </div>
+        <div class="europe"></div>
+      })
     end
 
     it 'works  .clean(start, sel)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#cars');
         H.clean(e, '.europe');
         return H.elt('#cars').innerHTML;
-      })).to eq(%{
-<div class="asia">
-<div class="car japan mazda">
-<div class="red">
-red mazda
-</div>
-</div>
-</div>
-<div class="europe"></div>
-      }.strip)
+      })).to eqh(%{
+        <div class="asia">
+          <div class="car japan mazda">
+            <div class="red">red mazda</div>
+          </div>
+        </div>
+        <div class="europe"></div>
+      })
     end
 
     it 'works  .clean(start, sel, "cla")' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.clean('#cars', '.europe', 'car');
         return H.elt('#cars .europe').outerHTML;
-      }).gsub(/\n+/, '')).to eq(%{
-<div class="europe"></div>
-      }.strip)
+      })).to eqh(%{
+        <div class="europe"></div>
+      })
     end
 
     it 'works  .clean(start, sel, ".cla")' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.clean('#cars', '.europe', '.car');
         return H.elt('#cars .europe').outerHTML;
-      }).gsub(/\n+/, '')).to eq(%{
-<div class="europe"></div>
-      }.strip)
+      })).to eqh(%{
+        <div class="europe"></div>
+      })
     end
   end
 
@@ -1675,69 +1659,69 @@ red mazda
 
     it 'works  .remove(sta)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.remove('#cars > div');
         return H.elt('#cars').outerHTML;
-      }).gsub(/\n+/, '')).to eq(%{
-<div id="cars"></div>
-      }.strip)
+      })).to eqh(%{
+        <div id="cars"></div>
+      })
     end
 
     it 'works  .remove(sta, sel)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.remove('#hide_and_show', '.t');
         return H.elt('#hide_and_show').outerHTML;
-      }).gsub(/\n+/, '')).to eq(%{
-<div id="hide_and_show"></div>
-      }.strip)
+      })).to eqh(%{
+        <div id="hide_and_show"></div>
+      })
     end
 
     it 'works  .remove(sta, boo)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.remove('#sc > div', false);
         return H.elt('#sc').outerHTML;
-      })).to eq(%{
-<div id="sc">
-<div id="sc-test-0"></div>
-<div id="sc-test-1"></div>
-<div id="sc-test-2" class="a"></div>
-<div id="sc-test-3" class="a"></div>
-</div>
-      }.strip)
+      })).to eqh(%{
+        <div id="sc">
+          <div id="sc-test-0"></div>
+          <div id="sc-test-1"></div>
+          <div id="sc-test-2" class="a"></div>
+          <div id="sc-test-3" class="a"></div>
+        </div>
+      })
 
-      expect(run(%{
+      expect(evaluate(%{
         H.remove('#sc > div', true);
         return H.elt('#sc').outerHTML;
-      }).gsub(/\n+/, '')).to eq(%{
-<div id="sc"></div>
-      }.strip)
+      })).to eqh(%{
+        <div id="sc"></div>
+      })
     end
 
     it 'works  .remove(sta, bof)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.remove('#sc > div', function(e) { return H.hasClass(e, 'a'); });
         return H.elt('#sc').outerHTML;
-      }).gsub(/\n+/, '')).to eq(%{
-<div id="sc"><div id="sc-test-0"></div><div id="sc-test-1"></div></div>
-      }.strip)
+      })).to eqh(%{
+        <div id="sc"><div id="sc-test-0"></div><div id="sc-test-1"></div></div>
+      })
     end
 
     it 'works  .remove(sta, sel, bof)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.remove('#sc', 'div', function(e) { return H.hasClass(e, 'a'); });
         return H.elt('#sc').outerHTML;
-      }).gsub(/\n+/, '')).to eq(%{
-<div id="sc"><div id="sc-test-0"></div><div id="sc-test-1"></div></div>
-      }.strip)
+      })).to eqh(%{
+        <div id="sc"><div id="sc-test-0"></div><div id="sc-test-1"></div></div>
+      })
     end
 
     it 'works  .remove("#gone")' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.remove('#gone');
         return 1;
       })).to eq(1)
@@ -1748,11 +1732,14 @@ red mazda
 
     it 'returns the dimensions of the target elt' do
 
-      expect(run(%{
-        return H.dim('#cars');
-      }).collect { |k, v| "#{k}:#{v}" }.sort).to eq(%w{
-        bottom:120 height:112 left:8 right:392 top:8 width:384
-      })
+      expect(
+        evaluate(%{ return H.dim('#cars'); })
+          .collect { |k, v| "#{k}:#{v}" }
+          .sort
+          .join(' ')
+      ).to match(
+        /\Abottom:\d+ height:\d+ left:\d right:\d+ top:\d width:\d+\z/
+      )
     end
   end
 
@@ -1760,11 +1747,14 @@ red mazda
 
     it 'returns the dimensions of the target elt' do
 
-      expect(run(%{
-        return H.tdim('#cars');
-      }).collect { |k, v| "#{k}:#{v}" }.sort).to eq(%w{
-        bottom:120 height:112 left:8 right:392 top:8 width:384
-      })
+      expect(
+        evaluate(%{ return H.tdim('#cars'); })
+          .collect { |k, v| "#{k}:#{v}" }
+          .sort
+          .join(' ')
+      ).to match(
+        /\Abottom:\d+ height:\d+ left:\d right:\d+ top:\d width:\d+\z/
+      )
     end
   end
 
@@ -1772,11 +1762,14 @@ red mazda
 
     it 'returns the brect-derived dim/pos of the target elt' do
 
-      expect(run(%{
-        return H.bdim('#cars');
-      }).collect { |k, v| "#{k}:#{v}" }.sort).to eq(%w{
-        bottom:606 height:112 left:0 right:0 top:0 width:384
-      })
+      expect(
+        evaluate(%{ return H.bdim('#cars'); })
+          .collect { |k, v| "#{k}:#{v}" }
+          .sort
+          .join(' ')
+      ).to match(
+        /\Abottom:\d+ height:\d+ left:\d right:\d+ top:\d width:\d+\z/
+      )
     end
   end
 
@@ -1784,7 +1777,7 @@ red mazda
 
     it 'returns the style of the target elt' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var s = H.style('#list-of-trains');
         return [ s.fontSize, s.marginLeft ];
       })).to eq([
@@ -1797,7 +1790,7 @@ red mazda
 
     it 'returns null if the elt cannot be found' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return [ H.path('#nada'), H.path(document.body, '.nada') ];
       })).to eq([
         nil, nil
@@ -1806,27 +1799,27 @@ red mazda
 
     it 'returns a #path for an element' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.path('#list-of-trains');
       })).to eq('#list-of-trains')
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.path(document, 'body > div');
       })).to eq('#test')
-      expect(run(%{
+      expect(evaluate(%{
         return H.path('body > div');
       })).to eq('#test')
     end
 
     it 'returns a pa.t.h for an element' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.path('#cars .bentley .blue');
       })).to eq(
         '#cars > div.europe > div.car.bentley > div.blue'
       )
 
-      expect(run(%{
+      expect(evaluate(%{
         return (
           H.elt('#cars .bentley .blue').innerHTML ===
           H.elt('#cars > div.europe > div.car.bentley > div.blue').innerHTML)
@@ -1835,7 +1828,7 @@ red mazda
 
     it 'returns a pa[name="th"] for an element' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.path('input[type="number"]');
       })).to eq(%{
         #input > form[name="our-form"] > input[name="age"]
@@ -1844,13 +1837,13 @@ red mazda
 
     it 'returns a :nth-child(x) path for an element' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.path('.container > span');
       })).to eq(%{
         #for-path > :nth-child(1) > div.container > :nth-child(1)
       }.strip)
 
-      expect(run(%{
+      expect(evaluate(%{
         return [
           H.elt(
             '.container > span'
@@ -1862,7 +1855,7 @@ red mazda
         c c
       ])
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elts('.container')[1];
         return H.path(e, 'span');
       })).to eq(%{
@@ -1875,7 +1868,7 @@ red mazda
 
     it 'works' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.capitalize('jeff');
       })).to eq(
         'Jeff'
@@ -1887,7 +1880,7 @@ red mazda
 
     it 'works' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.decapitalize('JEFF');
       })).to eq(
         'jEFF'
@@ -1899,7 +1892,7 @@ red mazda
 
     it 'works' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return [
           H.toCamelCase('ab-cd-ef'), H.toCamelCase('gh_ij-kl')
         ];
@@ -1910,7 +1903,7 @@ red mazda
 
     it 'capitalizes if requested' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return [
           H.toCamelCase('ab-cd-ef', true), H.toCamelCase('gh_ij-kl', true)
         ];
@@ -1924,7 +1917,7 @@ red mazda
 
     it 'sets an attribute' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var v = H.setAtt('#for-setAtt .saa', 'att0', 'vvv');
         return [ v, H.getAtt('#for-setAtt .saa', 'att0') ];
       })).to eq([
@@ -1934,7 +1927,7 @@ red mazda
 
     it 'sets an attribute for all matching elements' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var v = H.setAtt('#for-setAtt div', 'att0', 'vvv');
         return [
           v,
@@ -1947,7 +1940,7 @@ red mazda
 
     it 'sets attributes as strings of course' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var v = H.setAtt('#for-setAtt div', 'att0', 123);
         return [
           v,
@@ -1960,7 +1953,7 @@ red mazda
 
     it 'prefixes "data" to "-stuff"' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var v = H.setAtt('#for-setAtt div', '-att0', 'xyz');
         return [
           v,
@@ -1975,7 +1968,7 @@ red mazda
 
     it 'removes the attribute when the value is null' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.setAtt('#for-setAtt .saa', 'att0', 'xyz');
         H.setAtt('#for-setAtt .sab', '-att1', 'xyz');
         var a = [];
@@ -1996,7 +1989,7 @@ red mazda
 
     it 'removes an attribute' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.setAtt('#for-setAtt .saa', 'att0', 'xyz');
         H.setAtt('#for-setAtt .sab', '-att1', 'xyz');
         H.setAtt('#for-setAtt .sab', 'att2', 'xyz');
@@ -2025,7 +2018,7 @@ red mazda
 
     it 'returns an attribute value' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#for-getAtt');
         return H.getAtt(e, '.gaa', 'data-hjs-alpha');
       })).to eq(%{
@@ -2035,7 +2028,7 @@ red mazda
 
     it 'returns null else' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#for-getAtt');
         return H.getAtt(e, '.gaa', 'data-hjs-omega');
       })).to eq(
@@ -2045,7 +2038,7 @@ red mazda
 
     it 'returns the given default else' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#for-getAtt');
         return H.getAtt(e, '.gaa', 'data-hjs-omega', 'omega');
       })).to eq(%{
@@ -2055,7 +2048,7 @@ red mazda
 
     it 'automatically prefixes "-x-y-z" into "data-x-y-z"' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#for-getAtt');
         return [
           H.getAtt(e, '.gaa', '-hjs-alpha'),
@@ -2069,7 +2062,7 @@ red mazda
 
     it 'works  H.getAtt(sta, "[data-hjs-data-prefix]")' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#for-getAtt');
         return [
           H.getAtt(e, '[data-hjs-alpha]'),
@@ -2089,7 +2082,7 @@ red mazda
 
     it 'works  H.getAtt(sta, ".nest [data-hjs-data-prefix]")' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#for-getAtt');
         return [
           H.getAtt(e, '.nest [data-hjs-gamma]'),
@@ -2112,13 +2105,13 @@ red mazda
 
     it 'returns an attribute value as an integer' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#for-getAtt');
         return H.getAtti(e, '.gab', 'data-hjs-bravo');
       })).to eq(
         2
       )
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#for-getAtt');
         return H.getAtti(e, '.gac', 'data-hjs-charly');
       })).to eq(
@@ -2128,7 +2121,7 @@ red mazda
 
     it 'returns null else' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#for-getAtt');
         return H.getAtti(e, '.gaa', 'data-hjs-omega');
       })).to eq(
@@ -2138,7 +2131,7 @@ red mazda
 
     it 'returns the given default else' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#for-getAtt');
         return H.getAtti(e, '.gaa', 'data-hjs-omega', -12);
       })).to eq(
@@ -2148,7 +2141,7 @@ red mazda
 
     it "doesn't mind 0 as the returned value" do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#for-getAtti');
         return H.getAtti(e, '.gati-one', 'data-hjs-nada');
       })).to eq(
@@ -2158,7 +2151,7 @@ red mazda
 
     it "doesn't default when 0 is the value" do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#for-getAtti');
         return H.getAtti(e, '.gati-one', 'data-hjs-nada', -99);
       })).to eq(
@@ -2168,7 +2161,7 @@ red mazda
 
     it 'automatically prefixes "-x-y-z" into "data-x-y-z"' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#for-getAtt');
         return [
           H.getAtti(e, '.gaa', '-hjs-alpha'),
@@ -2188,13 +2181,13 @@ red mazda
 
     it 'returns an attribute value as a float' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#for-getAtt');
         return H.getAttf(e, '.gab', 'data-hjs-bravo');
       })).to eq(
         2.0
       )
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#for-getAtt');
         return H.getAttf(e, '.gac', 'data-hjs-charly');
       })).to eq(
@@ -2204,7 +2197,7 @@ red mazda
 
     it 'returns null else' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#for-getAtt');
         return H.getAttf(e, '.gaa', 'data-hjs-omega');
       })).to eq(
@@ -2214,7 +2207,7 @@ red mazda
 
     it 'returns the given default else' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#for-getAtt');
         return H.getAttf(e, '.gaa', 'data-hjs-omega', -12);
       })).to eq(
@@ -2224,7 +2217,7 @@ red mazda
 
     it 'automatically prefixes "-x-y-z" into "data-x-y-z"' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#for-getAtt');
         return [
           H.getAttf(e, '.gaa', '-hjs-alpha'),
@@ -2241,7 +2234,7 @@ red mazda
 
     it "doesn't mind 0 as the returned value" do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#for-getAtti');
         return H.getAttf(e, '.gati-one', 'data-hjs-nada');
       })).to eq(
@@ -2251,7 +2244,7 @@ red mazda
 
     it "doesn't default when 0 is the value" do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#for-getAtti');
         return H.getAttf(e, '.gati-one', 'data-hjs-nada', -99);
       })).to eq(
@@ -2264,7 +2257,7 @@ red mazda
 
     it 'returns the textContent of the target' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#cars');
         return H.text(e, '.volkswagen .blue');
       })).to eq(%{
@@ -2274,7 +2267,7 @@ red mazda
 
     it 'returns the default if the textContent is empty' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return H.text('#empty', null, 'not empty');
       })).to eq(
         'not empty'
@@ -2283,10 +2276,10 @@ red mazda
 
     it 'fails if the elt does not exist' do
 
-      expect { run(%{
+      expect { evaluate(%{
         return H.text('#empty', '.nada');
       }) }.to raise_error(
-        Selenium::WebDriver::Error::UnknownError
+        'elt not found, no text'
       )
     end
   end
@@ -2295,7 +2288,7 @@ red mazda
 
     it 'returns the textContent of the target turned into an integer' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#cars');
         return H.texti(e, '.volkswagen .purple');
       })).to eq(
@@ -2305,16 +2298,16 @@ red mazda
 
     it 'fails if the elt does not exist' do
 
-      expect { run(%{
+      expect { evaluate(%{
         return H.texti('#empty', '.nada');
       }) }.to raise_error(
-        Selenium::WebDriver::Error::UnknownError
+        'elt not found, no text'
       )
     end
 
     it 'returns the last (default) value if the element is empty' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return [
           H.texti('#empty'),
           H.texti('#empty', -99),
@@ -2331,7 +2324,7 @@ red mazda
 
     it 'returns the textContent of the target turned into a float' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var e = H.elt('#cars');
         return H.textf(e, '.volkswagen .red');
       })).to eq(
@@ -2341,16 +2334,16 @@ red mazda
 
     it 'fails if the elt does not exist' do
 
-      expect { run(%{
+      expect { evaluate(%{
         return H.textf('#empty', '.nada');
       }) }.to raise_error(
-        Selenium::WebDriver::Error::UnknownError
+        'elt not found, no text'
       )
     end
 
     it 'returns the last (default) value if the element is empty' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return [
           H.textf('#empty'),
           H.textf('#empty', -99),
@@ -2367,7 +2360,7 @@ red mazda
 
     it 'sets <input>' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var a = [];
         H.set('#for-set-and-get [name="tzar"]', 'Nicolas II');
         a.push(H.elt('#for-set-and-get [name="tzar"]').value);
@@ -2385,7 +2378,7 @@ red mazda
 
     it 'sets <select>' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var a = [];
         a.push(H.elt('#for-set-and-get [name="era"]').value);
         H.set('#for-set-and-get [name="era"]', 'napo');
@@ -2402,7 +2395,7 @@ red mazda
 
     it 'sets <textarea>' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var a = [];
         H.set('#for-set-and-get [name="bio"]', "a and b");
         a.push(H.elt('#for-set-and-get [name="bio"]').value);
@@ -2419,7 +2412,7 @@ red mazda
 
     it 'gets from <input>' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.set('#for-set-and-get [name="tzar"]', 'Ivan IV Vasilyevich');
         return H.get('#for-set-and-get [name="tzar"]');
       })).to eq(
@@ -2429,7 +2422,7 @@ red mazda
 
     it 'gets from <select>' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.set('#for-set-and-get [name="era"]', 'vict');
         return H.get('#for-set-and-get [name="era"]');
       })).to eq(
@@ -2439,7 +2432,7 @@ red mazda
 
     it 'gets from <textarea>' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.set('#for-set-and-get [name="bio"]', "a and b and c");
         return H.get('#for-set-and-get [name="bio"]');
       })).to eq(
@@ -2449,7 +2442,7 @@ red mazda
 
     it 'gets from <input> (false)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var start = H.elt('#for-set-and-get');
         H.set('#for-set-and-get [name="tzar"]', '');
         return H.get(start, '[name="tzar"]', false);
@@ -2460,7 +2453,7 @@ red mazda
 
     it 'gets from <select> (false)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.set('#for-set-and-get [name="era"]', '');
         return H.get('#for-set-and-get [name="era"]', false);
       })).to eq(
@@ -2470,7 +2463,7 @@ red mazda
 
     it 'gets from <textarea> (false)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         H.set('#for-set-and-get [name="bio"]', '');
         return H.get('#for-set-and-get [name="bio"]', false);
       })).to eq(
@@ -2483,7 +2476,7 @@ red mazda
 
     it 'gets a boolean' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var a = [];
         H.set('#for-set-and-get [name="bio"]', 'true');
         a.push(H.getb('#for-set-and-get [name="bio"]'));
@@ -2503,7 +2496,7 @@ red mazda
 
     it 'gets a boolean (default)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var a = [];
         H.set('#for-set-and-get [name="bio"]', '');
         a.push(H.getb('#for-set-and-get [name="bio"]', true));
@@ -2524,7 +2517,7 @@ red mazda
 
     it 'gets a float' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var a = [];
         H.set('#for-set-and-get [name="tzar"]', '1.1');
         a.push(H.getf('#for-set-and-get [name="tzar"]'));
@@ -2546,7 +2539,7 @@ red mazda
 
     it 'gets a float (default)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var a = [];
         H.set('#for-set-and-get [name="tzar"]', null);
         a.push(H.getf('#for-set-and-get [name="tzar"]', 1.2));
@@ -2564,7 +2557,7 @@ red mazda
 
     it 'gets an integer' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var a = [];
         H.set('#for-set-and-get [name="tzar"]', '1.1');
         a.push(H.geti('#for-set-and-get [name="tzar"]'));
@@ -2586,7 +2579,7 @@ red mazda
 
     it 'gets an integer (default)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var a = [];
         H.set('#for-set-and-get [name="tzar"]', null);
         a.push(H.geti('#for-set-and-get [name="tzar"]', 1.2));
@@ -2604,7 +2597,7 @@ red mazda
 
     it 'gets and parses some JSON' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var a = [];
         a.push(H.getj('#for-getj [name="fgja"]'));
         a.push(H.getj('#for-getj [name="fgja"]', -1));
@@ -2626,16 +2619,16 @@ red mazda
 
     it 'fails if the elt does not exist' do
 
-      expect { run(%{
+      expect { evaluate(%{
         return H.textOrValue('#outthere');
       }) }.to raise_error(
-        Selenium::WebDriver::Error::UnknownError
+        'elt not found, no text or value'
       )
     end
 
     it 'returns the text or the value' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return [
           H.textOrValue('[name="ftov0"]'),
           H.textOrValue('#ftov1'),
@@ -2650,16 +2643,16 @@ red mazda
 
     it 'fails if the elt does not exist' do
 
-      expect { run(%{
+      expect { evaluate(%{
         return H.tov('#outthere');
       }) }.to raise_error(
-        Selenium::WebDriver::Error::UnknownError
+        'elt not found, no text or value'
       )
     end
 
     it 'returns the text or the value' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return [
           H.tov('[name="ftov0"]'),
           H.tov('#ftov1'),
@@ -2671,7 +2664,7 @@ red mazda
 
     it 'returns the default value when empty' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var s = H.elt('#for-tov');
         return [
           H.tov(s, '[name="ftovempty0"]', 'xxx'),
@@ -2686,16 +2679,16 @@ red mazda
 
     it 'fails if the elt does not exist' do
 
-      expect { run(%{
+      expect { evaluate(%{
         return H.tovb('#outthere');
       }) }.to raise_error(
-        Selenium::WebDriver::Error::UnknownError
+        'elt not found, no text or value'
       )
     end
 
     it 'returns the value or text as a float' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return [
           H.tovb('[name="ftovb0"]'),
           H.tovb('#ftovb1'),
@@ -2709,7 +2702,7 @@ red mazda
 
     it 'returns the default value when empty' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var s = H.elt('#for-tov');
         return [
           H.tovb(s, '[name="ftovempty0"]', 'false'),
@@ -2726,16 +2719,16 @@ red mazda
 
     it 'fails if the elt does not exist' do
 
-      expect { run(%{
+      expect { evaluate(%{
         return H.tovi('#outthere');
       }) }.to raise_error(
-        Selenium::WebDriver::Error::UnknownError
+        'elt not found, no text or value'
       )
     end
 
     it 'returns the value or text as an integer' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return [
           H.tovi('[name="ftovi0"]'),
           H.tovi('#ftovi1'),
@@ -2747,7 +2740,7 @@ red mazda
 
     it 'returns the default value when empty' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var s = H.elt('#for-tov');
         return [
           H.tovi(s, '[name="ftovempty0"]', 123),
@@ -2762,16 +2755,16 @@ red mazda
 
     it 'fails if the elt does not exist' do
 
-      expect { run(%{
+      expect { evaluate(%{
         return H.tovf('#outthere');
       }) }.to raise_error(
-        Selenium::WebDriver::Error::UnknownError
+        'elt not found, no text or value'
       )
     end
 
     it 'returns the value or text as a float' do
 
-      expect(run(%{
+      expect(evaluate(%{
         return [
           H.tovf('[name="ftovf0"]'),
           H.tovf('#ftovf1'),
@@ -2783,7 +2776,7 @@ red mazda
 
     it 'returns the default value when empty' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var s = H.elt('#for-tov');
         return [
           H.tovf(s, '[name="ftovempty0"]', 123),
@@ -2798,7 +2791,7 @@ red mazda
 
     it 'sets the .textContent' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var a = [];
         H.setText('#for-create', 'plus quam nada');
         a.push(H.elt('#for-create').textContent.trim());
@@ -2816,7 +2809,7 @@ red mazda
 
     it 'works (well...)' do
 
-      expect(run(%{
+      expect(evaluate(%{
         var s = 'not ready';
         H.onDocumentReady(function() { s = document.readyState; });
         return s;

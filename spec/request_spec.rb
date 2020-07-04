@@ -15,7 +15,7 @@ describe 'H and xhr requests' do
     it 'gets 200' do
 
       req, (ok, lo, er) =
-        run(%{
+        evaluate(%{
           var r = [ null, null, null ];
 
           var onok = function(res) { r[0] = res; };
@@ -45,7 +45,7 @@ describe 'H and xhr requests' do
     it 'gets 400' do
 
       req, (ok, lo, er) =
-        run(%{
+        evaluate(%{
           var r = [ null, null, null ];
 
           var onok = function(res) { r[0] = res; };
@@ -79,7 +79,7 @@ describe 'H and xhr requests' do
     it 'posts 200' do
 
       req =
-        run(%{
+        evaluate(%{
           var onok = function(res) {};
           H.request('POST', 'http://www.example.org', { a: 1 }, onok);
           return window._req;
@@ -94,7 +94,7 @@ describe 'H and xhr requests' do
     it 'posts text/plain' do
 
       req =
-        run(%{
+        evaluate(%{
           var onok = function(res) {};
           H.request(
             'POST',

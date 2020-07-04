@@ -6,43 +6,95 @@
 #
 
 require 'pp'
-require 'selenium-webdriver'
+require 'ferrum'
+require 'webrick'
+
+WPORT = 9090
+
+server = WEBrick::HTTPServer.new(
+  Port: WPORT, DocumentRoot: Dir.pwd,
+  Logger: WEBrick::Log.new('/dev/null'), AccessLog: [])
+Thread.new {
+  server.start }
 
 
-def run(s)
+module Helpers
 
-  $driver ||=
+  def evaluate(s)
+
+    $browser ||=
+      begin
+
+        opts = {}
+        opts[:headless] = (ENV['HEADLESS'] != 'false')
+
+        b = Ferrum::Browser.new(opts)
+
+        b.goto("http://127.0.0.1:#{WPORT}/spec/test.html")
+        b.execute('window._src = document.body.innerHTML;')
+
+        b
+      end
+
+    r = $browser.evaluate("JSON.stringify((function() {#{s};})())");
+
     begin
-      d = Selenium::WebDriver.for :phantomjs
-      #d = Selenium::WebDriver.for :chrome
-      d.navigate.to('file://' + File.absolute_path('spec/test.html'))
-      d.execute_script('window._src = document.body.innerHTML;');
-      d
-    end
+      r = JSON.parse(r)
+    rescue
+      fail RuntimeError.new(r)
+    end if r.is_a?(String)
 
-  r = $driver.execute_script(s)
+    r = r.strip if r.is_a?(String)
 
-  r = r.strip if r.is_a?(String)
-  r = r.gsub(/\n( *)/, "\n") if r.is_a?(String)
+    r
+  end
 
-  r
+  def reset_dom
+
+    $browser.execute('document.body.innerHTML = window._src;') \
+      if $browser
+  end
+
+  def class_list(a)
+    a.each_with_index.inject({}) { |h, (c, i)| h[i.to_s] = c; h }
+  end
 end
 
-def reset_dom
+RSpec.configure do |c|
 
-  $driver.execute_script('document.body.innerHTML = window._src;') \
-    if $driver
+  c.alias_example_to(:they)
+  c.alias_example_to(:so)
+  c.include(Helpers)
 end
 
-#def reload
-#  $driver.navigate.to('file://' + File.absolute_path('spec/test.html')) \
-#    if $driver
-#end
 
-def read_console
+class ::String
 
-  #$driver.manage.logs.get(:browser)
-  #  .collect { |e| "#{e.level} #{e.time} #{e.message}" }
-  $driver.manage.logs.get(:browser).collect(&:message)
+  def htrip
+    self
+      .gsub(/^( +)/, '')
+      .gsub(/>\s+(.)/) { |m| ">#{$1}" }
+      .gsub(/\s+</, '<')
+      .strip
+  end
+
+  def huntrip
+    '  ' + htrip.gsub(/>/, ">\n  ")
+  end
+end
+
+
+RSpec::Matchers.define :eqh do |expected|
+
+  match do |actual|
+
+    expected.htrip == actual.htrip
+  end
+
+  failure_message do |actual|
+
+    "expected:\n#{expected.huntrip}\n" +
+    "actual:\n#{actual.huntrip}"
+  end
 end
 

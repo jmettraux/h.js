@@ -14,7 +14,7 @@ describe 'H' do
 
     it 'grows trees' do
 
-      html = run(%{
+      html = evaluate(%{
         return H.grow(function() {
 
           div('toto');
@@ -22,14 +22,12 @@ describe 'H' do
         }).outerHTML;
       })
 
-      expect(html).to eq(%{
-        <div>toto</div>
-      }.strip)
+      expect(html).to eqh(%{ <div>toto</div> })
     end
 
     it 'grows trees with ids and classes' do
 
-      html = run(%{
+      html = evaluate(%{
         return H.grow(function() {
 
           div('#nada.surf', 'toto', '.hell');
@@ -37,14 +35,12 @@ describe 'H' do
         }).outerHTML;
       })
 
-      expect(html).to eq(%{
-        <div id="nada" class="surf hell">toto</div>
-      }.strip)
+      expect(html).to eqh(%{ <div id="nada" class="surf hell">toto</div> })
     end
 
     it 'grows trees with subtrees' do
 
-      html = run(%{
+      html = evaluate(%{
         return H.grow(function() {
 
           div('#nada.surf',
@@ -55,18 +51,20 @@ describe 'H' do
         }).outerHTML;
       })
 
-      expect(html).to eq(%{
+      expect(
+        html
+      ).to eqh(%{
         <div id="nada" class="surf">
           <span class="a">alpha</span>
           toto
           <span class="b">bravo</span>
         </div>
-      }.strip.gsub(/>\s+/, '>').gsub(/\s+</, '<'))
+      })
     end
 
     it 'skips subtrees when `false`' do
 
-      html = run(%{
+      html = evaluate(%{
         return H.grow(function() {
 
           div('#nada.surf',
@@ -80,17 +78,19 @@ describe 'H' do
         }).outerHTML;
       })
 
-      expect(html).to eq(%{
+      expect(
+        html
+      ).to eqh(%{
         <div id="nada" class="surf">
           <span class="a">alpha</span>
           <span class="b">bravo</span>
         </div>
-      }.strip.gsub(/>\s+/, '>').gsub(/\s+</, '<'))
+      })
     end
 
     it 'nest correctly' do  # e.innerHTML !== undefined
 
-      html = run(%{
+      html = evaluate(%{
         return H.grow(function() {
 
           div(span(''));
@@ -98,9 +98,7 @@ describe 'H' do
         }).outerHTML;
       })
 
-      expect(html).to eq(%{
-        <div><span></span></div>
-      }.strip.gsub(/>\s+/, '>').gsub(/\s+</, '<'))
+      expect(html).to eqh(%{ <div><span></span></div> })
     end
   end
 
@@ -108,16 +106,18 @@ describe 'H' do
 
     it 'returns a templating function' do
 
-      html = run(%{
+      html = evaluate(%{
         var template = H.makeTemplate(function(h) {
           return div('#id', h.id, { style: 'display: inline-block;' });
         });
         return template({ id: 123 }).outerHTML;
       })
 
-      expect(html).to eq(%{
+      expect(
+        html
+      ).to eqh(%{
         <div id="id" style="display: inline-block;">123</div>
-      }.strip.gsub(/>\s+/, '>').gsub(/\s+</, '<'))
+      })
     end
   end
 end

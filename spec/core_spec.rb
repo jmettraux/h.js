@@ -1728,6 +1728,22 @@ describe 'H' do
     end
   end
 
+  describe '.replace' do
+
+    it 'replaces an elt' do
+
+      expect(evaluate(%{
+        var e = H.create('.blue', '', 'blue honda');
+        H.replace('#cars .car.japan .red', e);
+        return H.elt('#cars .car.japan').innerHTML;
+      })).to eqh(%{
+        <div class="blue">blue honda</div>
+      })
+    end
+
+    it 'fails if the target elt cannot be found'
+  end
+
   describe '.dim' do
 
     it 'returns the dimensions of the target elt' do

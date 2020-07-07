@@ -554,7 +554,7 @@ H.on('input[name="amount"]', 'keyup', H.delay(1400, reformat));
   // 1.4 seconds after the *last* keyup event on the target element.
 ```
 
-```
+```js
 H.isVoid(x)
   // returns true if x === null or x === undefined
 

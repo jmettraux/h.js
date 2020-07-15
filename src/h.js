@@ -302,7 +302,9 @@ var H = (function() {
 
     r.onload = function() {
       var o = {
-        status: r.status, request: r, duration: performance.now() - t0 };
+        status: r.status,
+        request: r,
+        duration: (performance.now() - t0) / 1000 }; // seconds
       o.data = null; try {
         o.data = JSON.parse(r.responseText); } catch (ex) {};
       if (as.cbs.onok && r.status === 200)

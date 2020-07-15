@@ -314,6 +314,11 @@ var H = (function() {
     };
     r.onerror = as.cbs.onerror || defaultOn('error', as.met, as.uri);
 
+    if (as.cbs.ontimeout || as.cbs.timeout) {
+      r.timeout = as.cbs.timeout || 10 * 1000; // milliseconds
+      r.ontimeout = as.cbs.ontimeout;
+    }
+
     // request
 
     r.send(as.dat);

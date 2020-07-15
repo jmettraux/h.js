@@ -443,6 +443,8 @@ H.js also sports a few functions wrapping XMLHttpRequest.
 //   As seen above, "onok" is called for responses with status code 200 OK.
 //   "onload" is called for any non-200 status code responses.
 //   "onerror" is called when the request failed (no response).
+//   "ontimeout" is called when the request times out (default timeout 10s)
+//   "timeout" sets the timeout (milliseconds)
 //
 H.request(meth, uri, onok);
 H.request(meth, uri, headers, onok);

@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Add duration to request onok result
 * Implement H.replace(start, sel, elt)
 * Alias H.remove() to .rem() and .del()
 * Alias H.setAtt() to .satt()

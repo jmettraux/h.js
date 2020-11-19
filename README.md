@@ -68,6 +68,10 @@ H.elts(sta, sel);
 H.count(sta);
 H.count(sta, sel);
 
+// Returns true if the argument is a DOM Element
+H.isElement(o);
+H.isElt(o);
+
 // Returns true if the elt matches the final sel
 H.matches(sta, sel);
 H.matches(sta, sel, sel);

@@ -90,6 +90,15 @@ var H = (function() {
     return r;
   };
 
+  this.isElement = function(o) {
+
+    return (
+      (typeof o === 'object') &&
+      (typeof o.tagName === 'string') &&
+      (typeof o.getElementsByClassName === 'function'));
+  };
+  this.isElt = this.isElement;
+
   this.elt = function(start, sel) { return toElt(start, sel); };
   this.elts = function(start, sel) { return toElts(start, sel); };
 
@@ -468,12 +477,12 @@ var H = (function() {
 
   this.isInvalid = function(start, sel) {
 
-    self.matches(toElt(start, sel), ':invalid');
+    return self.matches(toElt(start, sel), ':invalid');
   };
 
   this.isValid = function(start, sel) {
 
-    ! self.matches(toElt(start, sel), ':invalid');
+    return ! self.matches(toElt(start, sel), ':invalid');
   };
 
   var visit = function(start, sel, bof, onTrue, onFalse) {

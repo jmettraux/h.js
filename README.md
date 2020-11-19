@@ -218,6 +218,12 @@ H.unhide(sta, sel, bof);
 H.isHidden(sta);
 H.isHidden(sta, sel);
 
+// Returns true if the elt has the pseudo-class ':invalid' (or not)
+H.isInvalid(sta);
+H.isInvalid(sta, sel);
+H.isValid(sta);
+H.isValid(sta, sel);
+
 // Turns 'jeff' into 'Jeff'
 H.capitalize(str);
 

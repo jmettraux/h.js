@@ -466,6 +466,16 @@ var H = (function() {
     return self.hasClass.apply(null, a);
   };
 
+  this.isInvalid = function(start, sel) {
+
+    self.matches(toElt(start, sel), ':invalid');
+  };
+
+  this.isValid = function(start, sel) {
+
+    ! self.matches(toElt(start, sel), ':invalid');
+  };
+
   var visit = function(start, sel, bof, onTrue, onFalse) {
 
     self.forEach(start, sel, function(e) {

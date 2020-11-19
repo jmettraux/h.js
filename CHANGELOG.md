@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Introduce H.isInvalid() and .isValid()
 * Unlock timeouts for H.request
 * Add duration to request onok result
 * Implement H.replace(start, sel, elt)

@@ -46,8 +46,12 @@ clean-sha:
 clean:
 	rm -fR pkg/
 
-serve: # just for test.html
+serve: # just for spec/test.html
+	@echo "##"
+	@echo "## head for http://localhost:7001/spec/test.html"
+	@echo "##"
 	$(RUBY) -run -ehttpd . -p7001
+s: serve
 
 
 .PHONY: spec pkg clean serve

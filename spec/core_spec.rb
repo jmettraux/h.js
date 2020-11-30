@@ -2115,6 +2115,23 @@ describe 'H' do
         'gogo', 'gogo', nil, 'omega'
       ])
     end
+
+    it 'works with ^' do
+
+# var e = H.elt('#mandates span.target'); H.getAtt(e, '^div[-xx-uri]', '-xx-module')
+      expect(evaluate(%{
+        var b = window.body;
+        var e = H.elt('#mandates span.target');
+        return [
+          H.getAtt('div[-xx-uri]', '-xx-module'),
+          H.getAtt(b, 'div[-xx-uri]', '-xx-module'),
+          H.getAtt(e, '^div', '-xx-module'),
+          H.getAtt(e, '^div[-xx-uri]', '-xx-module'),
+        ];
+      })).to eq([
+        'module', 'module', 'module', 'module'
+      ])
+    end
   end
 
   describe '.getAtti' do

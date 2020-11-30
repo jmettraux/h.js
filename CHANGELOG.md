@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Revise H.getAtt() when double square brackets
 * Introduce H.isElement() and .isElt()
 * Introduce H.isInvalid() and .isValid()
 * Unlock timeouts for H.request

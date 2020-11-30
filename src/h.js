@@ -700,17 +700,21 @@ var H = (function() {
     if ( ! as.sel && as.nam && mn) {
       as.sel = as.nam; as.nam = mn[mn.length - 1];
     }
-    else if (ms) {
-      as.las = as.nam; as.nam = ms[ms.length - 1];
+    else if (ms) { as.las = as.nam; as.nam = ms[ms.length - 1];
     }
 
     var e = self.elt(as.sta, as.sel);
+
     //if ( ! e) throw "elt not found, cannot read attributes";
     if ( ! e) return as.las;
 
     if (as.nam && as.nam.substr(0, 1) === '-') as.nam = 'data' + as.nam;
 
-    var av = e.getAttribute(as.nam)
+    var l = as.las;
+    if ((typeof l === 'string') && l.substr(0, 1) === '-') l = 'data' + l;
+
+    var av = e.getAttribute((ms && e.hasAttribute(l)) ? l : as.nam);
+
     return av === null ? as.las : av;
   };
 

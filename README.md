@@ -350,6 +350,13 @@ H.textf(sta, sel);
 H.textf(sta, sel, default);
   // the default values are forced into an int or a float respectively
 
+// returns text or undefined, doesn't fail
+H.getText(sta);
+H.getText(sta, sel);
+H.getText(sta, sel, default);
+  // returns the trimmed textContext of an element
+  // returns undefined or default if the element is not found or the text is ''
+
 // Grabbing the value= or else, the textContent of an element
 H.textOrValue(sta);
 H.textOrValue(sta, sel);

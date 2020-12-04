@@ -2317,6 +2317,23 @@ describe 'H' do
     end
   end
 
+  describe '.getText' do
+
+    it 'returns undefined if there is no elt' do
+
+      expect(evaluate(%{
+        return '' + H.getText('#empty', '.nada');
+      })).to eq('undefined')
+    end
+
+    it 'returns the default if there is no elt' do
+
+      expect(evaluate(%{
+        return H.getText('#empty', '.nada', "role'n play");
+      })).to eq("role'n play")
+    end
+  end
+
   describe '.texti' do
 
     it 'returns the textContent of the target turned into an integer' do

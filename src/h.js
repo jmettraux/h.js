@@ -744,7 +744,7 @@ var H = (function() {
     return (t === '' && as.las) ? as.las : t;
   };
 
-  this.getText = function(start, sel, /*, default*/) {
+  this.getText = function(start, sel/*, default*/) {
     var as = resol_sta_sel_las(arguments);
     if ( ! as.elt) return as.las;
     var t = as.elt.textContent.trim();

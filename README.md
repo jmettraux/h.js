@@ -239,6 +239,10 @@ H.toCamelCase(str, cap); // when cap is true, capitalizes the first char
 H.prepend(sta, elt);
 H.prepend(sta, sel, elt);
 
+// Inserts an Element after another one
+H.postpend(sta, elt);
+H.postpend(sta, sel, elt);
+
 // Removes an Element or a set of Element. If bof is present, removes only
 // if bof yields true.
 H.remove(sta);

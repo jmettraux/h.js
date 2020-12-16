@@ -1595,6 +1595,36 @@ describe 'H' do
     end
   end
 
+  describe '.appendAsFirstChild' do
+
+    before(:each) { reset_dom }
+    after(:all) { reset_dom }
+
+    it 'works  .appc(sel, elt)' do
+
+      expect(evaluate(%{
+        var e = H.create('div.america', {}, '');
+        H.appc('#cars', e);
+        return H.elt('#cars').innerHTML;
+      })).to match(
+        /<div class="america"><\/div><div class="asia">/
+      )
+    end
+
+    it 'works  .appc(start, sel, elt)' do
+
+      expect(evaluate(%{
+        var cars = H.elt('#cars');
+        var e = H.create('div.america', {}, '');
+        H.appc(cars, '.europe', e);
+        //return H.elt('#cars').innerHTML;
+        return H.elt('#cars .europe').innerHTML;
+      })).to match(
+        /<div class="america"><\/div><div class="car bentley">/
+      )
+    end
+  end
+
   describe '.clean' do
 
     before(:each) { reset_dom }

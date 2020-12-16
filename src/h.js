@@ -929,6 +929,17 @@ var H = (function() {
   };
   this.rep = this.replace;
 
+  this.appendAsFirstChild = function(start, sel, elt) {
+
+    if ( ! elt) { elt = sel; sel = start; start = null; }
+    var e = toElt(start, sel);
+
+    if (e.children.length < 1) e.appendChild(e);
+    else e.insertBefore(elt, e.children[0]);
+  };
+  this.appendFirst = this.appendAsFirstChild;
+  this.appc = this.appendFirst;
+
   this.clean = function(start, sel, cla) {
 
     var elt = toElt(start, sel);

@@ -243,6 +243,12 @@ H.prepend(sta, sel, elt);
 H.postpend(sta, elt);
 H.postpend(sta, sel, elt);
 
+// Append elt as the first child of (sta, elt)
+H.appendAsFirstChild(sta, elt);
+H.appendAsFirstChild(sta, sel, elt);
+H.appc(sta, elt);
+H.appc(sta, sel, elt);
+
 // Removes an Element or a set of Element. If bof is present, removes only
 // if bof yields true.
 H.remove(sta);

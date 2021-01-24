@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Allow for [ elt0, elt1 ].forEach(H.hide)  :-)
 * Introduce H.appendAsFirstChild(sta, sel, elt) H.appc()
 * Revise H.getAtt() when double square brackets
 * Introduce H.isElement() and .isElt()

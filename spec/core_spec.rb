@@ -1344,6 +1344,21 @@ describe 'H' do
         #test3.t
       ])
     end
+
+    it 'works when called by forEach' do
+
+      expect(evaluate(%{
+        var es = H.elts('#hide_and_show .t');
+//return es.map(function(e) { return e.className; });
+        es.forEach(H.hide);
+        return H.elts('.t').map(function(e) { return e.idAndClasses(); });
+      })).to eq(%w[
+        #test0.t.hidden
+        #test1.t.shown.hidden
+        #test2.t.hidden
+        #test3.t.hidden
+      ])
+    end
   end
 
   describe '.unhide' do

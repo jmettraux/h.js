@@ -584,8 +584,14 @@ var H = (function() {
 
     var a = args[0], b = args[1], c = args[2];
 
-    if (args.length === 1) return { sta: a, sel: null, las: las };
-    if (args.length > 2) return { sta: a, sel: b, las: c };
+    if (Number.isInteger(b) && b > -1 && Array.isArray(c)) {
+      return { sta: a, sel: null, las: las }; }
+        // to enable things like [ elt0, elt1 ].forEach(H.hide);  :-)
+
+    if (args.length === 1) {
+      return { sta: a, sel: null, las: las }; }
+    if (args.length > 2) {
+      return { sta: a, sel: b, las: c }; }
 
     if (args.length === 2) {
       if ((typeof b) === 'string') return { sta: a, sel: b, las: las };

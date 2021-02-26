@@ -949,6 +949,23 @@ describe 'H' do
         click foo
       ])
     end
+
+    it 'fails if there is no event handler' do
+
+      expect(evaluate(%{
+        var a = [];
+        try {
+          H.on('#cars .europe .car', function(ev) {});
+          a.push('ok');
+        }
+        catch(err) {
+          a.push(err);
+        }
+        return a;
+      })).to eq([ %{
+        eventHandler is missing
+      }.strip ])
+    end
   end
 
   describe '.enable' do

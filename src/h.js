@@ -198,6 +198,8 @@ var H = (function() {
       eventHandler = eventName; eventName = sel; sel = start; start = document;
     }
 
+    if (typeof eventHandler !== 'function') throw "eventHandler is missing";
+
     var ens = Array.isArray(eventName) ? eventName : [ eventName ];
 
     var es = toElts(start, sel);

@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Fail on missing eventHandler H.on
 * Allow for [ elt0, elt1 ].forEach(H.hide)  :-)
 * Introduce H.appendAsFirstChild(sta, sel, elt) H.appc()
 * Revise H.getAtt() when double square brackets

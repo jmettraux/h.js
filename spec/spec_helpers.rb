@@ -26,7 +26,12 @@ module Helpers
       begin
 
         opts = {}
+
         opts[:headless] = (ENV['HEADLESS'] != 'false')
+        if opts[:headless]
+          opts[:xvfb] = true
+          opts[:headless] = false
+        end
 
         b = Ferrum::Browser.new(opts)
 

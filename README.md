@@ -346,6 +346,13 @@ H.getj(sta);
 H.getj(sta, sel);
 H.getj(sta, sel, default);
 
+// getX methods are aliased to valX...
+H.val(sta);
+H.valb(sta);
+H.vali(sta);
+H.valf(sta);
+H.valj(sta);
+
 // Short for H.elt(sta, sel).textContent.trim();
 H.text(sta);
 H.text(sta, sel);

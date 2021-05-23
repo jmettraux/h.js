@@ -835,6 +835,12 @@ var H = (function() {
     try { return JSON.parse(v); } catch(e) { return d; }
   };
 
+  this.valb = this.getb;
+  this.valf = this.getf;
+  this.val = this.get;
+  this.vali = this.geti;
+  this.valj = this.getj;
+
   this.set = function(start, sel, value) {
 
     var a = self.toArray(arguments);

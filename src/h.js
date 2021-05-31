@@ -1009,12 +1009,14 @@ var H = (function() {
 
   this.create = function(/* parent, */tagname/*, rest */) {
 
-    var par = null; var off = 1;
-    if (typeof tagname === 'object' && tagname.tagName) {
-      off = 2; par = tagname; tagname = arguments[1];
-    }
+    var as = self.toArray(arguments); var par = null; var off = 1;
+    if (self.isElt(tagname)) { off = 2; par = tagname; tagname = as[1]; }
+    as = as.slice(off);
 
-    var as = Array.prototype.slice.call(arguments, off);
+    if (typeof tagname !== 'string') {
+      throw(
+        "parent probably null or undefined, args:" +
+        JSON.stringify(self.toArray(arguments))); }
 
     var m = tagname.match(/^([a-zA-Z0-9]+)?([.#].+)$/)
     if (m) { tagname = m[1] || 'div'; as.unshift(m[2]); }

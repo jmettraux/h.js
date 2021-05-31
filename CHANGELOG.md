@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* throw error when H.create(null, 'div', ...)
 * Alias H.getX to H.valX
 * Fail on missing eventHandler H.on
 * Allow for [ elt0, elt1 ].forEach(H.hide)  :-)

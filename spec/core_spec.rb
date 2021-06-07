@@ -2029,6 +2029,20 @@ describe 'H' do
       ])
     end
 
+    it 'sets attributes for elt, string, att' do
+
+      expect(evaluate(%{
+        var e = H.elt('#for-setAtt');
+        var v = H.setAtt(e, '.sac .sac1', 'att0', 456);
+        return [
+          v,
+          H.getAtt('#for-setAtt .sac1', 'att0'),
+          H.getAtt('#for-setAtt .sac1', 'att0') ];
+      })).to eq([
+        456, '456', '456'
+      ])
+    end
+
     it 'prefixes "data" to "-stuff"' do
 
       expect(evaluate(%{

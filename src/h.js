@@ -498,8 +498,11 @@ var H = (function() {
 
   var reClass = function(elt, cla, dir) {
 
-    if (cla[0] === '.') cla = cla.substring(1);
-    elt.classList[dir === 'r' ? 'remove' : 'add'](cla);
+    cla
+      .split(/[ .]+/)
+      .forEach(function(c) {
+        if (c.length < 1) return;
+        elt.classList[dir === 'r' ? 'remove' : 'add'](c); });
   };
 
   var rearg_sta_sel_nam_las = function(args, las) {

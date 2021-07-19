@@ -121,6 +121,13 @@ var H = (function() {
     return toElts(start, sel).map(fun);
   };
 
+  this.filter = function(start, sel, fun) {
+
+    if ((typeof sel) === 'function') { fun = sel; sel = null; }
+
+    return toElts(start, sel).filter(fun);
+  };
+
   this.find = function(start, sel, fun) {
 
     if ((typeof sel) === 'function') { fun = sel; sel = null; }

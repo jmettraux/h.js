@@ -394,6 +394,32 @@ describe 'H' do
     end
   end
 
+  describe '.filter' do
+
+    it 'works  .filter(sel, fun)' do
+
+      expect(evaluate(%{
+        return H.filter('.train .europe > div', function(e) {
+          return e.textContent.match(/i/);
+        }).map(function(e) { return e.textContent.trim(); });
+      })).to eq([
+        'ice', 'pendolino'
+      ])
+    end
+
+    it 'works  .filter(start, sel, fun)' do
+
+      expect(evaluate(%{
+        var s = H.elt('#list-of-trains');
+        return H.filter(s, '.europe > div', function(e) {
+          return e.textContent.match(/i/);
+        }).map(function(e) { return e.textContent.trim(); });
+      })).to eq([
+        'ice', 'pendolino'
+      ])
+    end
+  end
+
   describe '.hasClass' do
 
     it 'works  .hasClass(sel, "clas")' do

@@ -96,6 +96,11 @@ H.find(sta, sel, fun);
   // Shorter form of
   H.elts(sta, sel).find(fun);
 
+H.filter(sta, fun);
+H.filter(sta, sel, fun);
+  // Shorter form of
+  H.elts(sta, sel).filter(fun);
+
 // Returns true if the Element pointed at by (sta[, sel]) has the class cla
 H.hasClass(sta, cla);
 H.hasClass(sta, sel, cla);

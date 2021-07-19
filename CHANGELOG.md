@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Introduce H.filter(start, sel, function)
 * Introduce H.find(start, sel, function)
 * Let H.addc and H.remc accept '.class0.class1'
 * Throw error when H.create(null, 'div', ...)

@@ -86,6 +86,16 @@ H.forEach(sta, sel, fun);
   // Shorter form of
   H.elts(sta, sel).forEach(fun);
 
+H.map(sta, fun);
+H.map(sta, sel, fun);
+  // Shorter form of
+  H.elts(sta, sel).map(fun);
+
+H.find(sta, fun);
+H.find(sta, sel, fun);
+  // Shorter form of
+  H.elts(sta, sel).find(fun);
+
 // Returns true if the Element pointed at by (sta[, sel]) has the class cla
 H.hasClass(sta, cla);
 H.hasClass(sta, sel, cla);

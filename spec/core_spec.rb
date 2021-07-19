@@ -368,6 +368,32 @@ describe 'H' do
     end
   end
 
+  describe '.find' do
+
+    it 'works  .find(sel, fun)' do
+
+      expect(evaluate(%{
+        return H.find('.train .europe > div', function(e) {
+          return e.textContent.trim() === 'tgv';
+        }).textContent.trim();
+      })).to eq(
+        'tgv'
+      )
+    end
+
+    it 'works  .find(start, sel, fun)' do
+
+      expect(evaluate(%{
+        var s = H.elt('#list-of-trains');
+        return H.find(s, '.europe > div', function(e) {
+          return e.textContent.match(/pendolino/);
+        }).textContent.trim();
+      })).to eq(
+        'pendolino'
+      )
+    end
+  end
+
   describe '.hasClass' do
 
     it 'works  .hasClass(sel, "clas")' do

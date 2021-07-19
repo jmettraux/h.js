@@ -121,6 +121,13 @@ var H = (function() {
     return toElts(start, sel).map(fun);
   };
 
+  this.find = function(start, sel, fun) {
+
+    if ((typeof sel) === 'function') { fun = sel; sel = null; }
+
+    return toElts(start, sel).find(fun);
+  };
+
   this.tdim = function(start, sel) {
 
     var elt = toElt(start, sel); if ( ! elt) return null;

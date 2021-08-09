@@ -1044,6 +1044,7 @@ var H = (function() {
 
     return elt;
   };
+  this.c = this.create;
 
   var growers =
     'var ' +

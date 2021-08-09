@@ -151,6 +151,7 @@ H.classArray(sta, sel);
 
 // Creates an HTMLElement
 H.create(tagName, attributes, textContent);
+H.c(tagName, attributes, textContent);
   //
   // for example:
 

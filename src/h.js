@@ -878,6 +878,7 @@ var H = (function() {
 
     return t;
   };
+  this.sett = this.setText;
 
   this.textOrValue = function(start, sel/*, default */) {
     var as = resol_sta_sel_las(arguments);

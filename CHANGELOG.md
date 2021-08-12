@@ -4,6 +4,8 @@
 
 ## h.js 1.2.0  not yet released
 
+* Alias H.setText to H.sett
+* Alias H.create to H.c
 * Introduce H.filter(start, sel, function)
 * Introduce H.find(start, sel, function)
 * Let H.addc and H.remc accept '.class0.class1'

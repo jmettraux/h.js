@@ -412,6 +412,8 @@ H.tovf(sta, sel, default); // float
 // Short for H.elt(sta, sel).textContent = text;
 H.setText(sta, text);
 H.setText(sta, sel, text);
+H.sett(sta, text);
+H.sett(sta, sel, text);
 
 // Runs fev as soon as the Document is ready,
 // the evt passed to the function might be undefined

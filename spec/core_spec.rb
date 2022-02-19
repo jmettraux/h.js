@@ -1022,6 +1022,25 @@ describe 'H' do
       ])
     end
 
+    it 'works  .on(sel, "change, keyup", fun)' do
+
+      expect(evaluate(%{
+        var a = [];
+        H.on('#cars .europe .car', 'click,foo/baz hoge', function(ev) {
+          a.push(event.type);
+        });
+        H.elt('.car.bentley').click();
+        H.elt('.car.bentley').dispatchEvent(new Event('foo'));
+        H.elt('.car.bentley').dispatchEvent(new Event('bar'));
+        H.elt('.car.bentley').dispatchEvent(new Event('baz'));
+        H.elt('.car.bentley').dispatchEvent(new Event('hogo'));
+        H.elt('.car.bentley').dispatchEvent(new Event('hoge'));
+        return a;
+      })).to eq(%w[
+        click foo baz hoge
+      ])
+    end
+
     it 'fails if there is no event handler' do
 
       expect(evaluate(%{

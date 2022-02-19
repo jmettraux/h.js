@@ -181,6 +181,8 @@ H.on(sta, evn, fev);
 H.on(sta, sel, evn, fev);
 H.on(sta, sel, [ evn0, evn1 ], fev);
   // for example, bind 'change' and 'keyup' in one go
+H.on(sta, sel, "evn0, evn1 / evn2", fev);
+  // instead of an array of event names, list them in a string
 
 // Sets disabled="disabled" on an Element or a set of Element.
 // If the bof is present and  yields false, disabled="disabled" will be removed.

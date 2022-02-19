@@ -214,7 +214,9 @@ var H = (function() {
 
     if (typeof eventHandler !== 'function') throw "eventHandler is missing";
 
-    var ens = Array.isArray(eventName) ? eventName : [ eventName ];
+    var ens =
+      (Array.isArray(eventName) ? eventName : eventName.split(/[,\/ ]+/))
+        .map(function(e) { return e.trim(); });
 
     var es = toElts(start, sel);
 

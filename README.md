@@ -43,6 +43,8 @@ The caret can only be placed at the beginning of a selector though.
 // sta: start point, either a DOM Element, either a CSS selector
 // str: a String
 
+// sta and sel may be arrays of DOM elements or CSS selectors (2022-02-24)
+
 
 // Returns a single Element
 H.elt(sta);

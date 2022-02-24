@@ -109,6 +109,33 @@ describe 'H' do
         'cinnamon'
       )
     end
+
+    it 'works  .elt(null, sel)' do
+
+      expect(evaluate(%{
+        return H.elt(null, '.car.bentley .blue').textContent;
+      })).to eq(
+        'blue bentley'
+      )
+    end
+
+    it 'works  .elt(null, elt)' do
+
+      expect(evaluate(%{
+        return H.elt(null, H.elt('.car.bentley .blue')).textContent.trim();
+      })).to eq(
+        'blue bentley'
+      )
+    end
+
+    it 'works  .elt(null, null)' do
+
+      expect(evaluate(%{
+        return H.elt(null, null);
+      })).to eq(
+        nil
+      )
+    end
   end
 
   describe '.elts' do
@@ -196,6 +223,19 @@ describe 'H' do
           .map(function(e) { return e.getAttribute('data-hjs-data-prefix'); });
       })).to eq(%w[
         alice bob charly
+      ])
+    end
+
+    it 'works  .elts(elements, selectors)' do
+
+      expect(evaluate(%{
+        var es = H.elts([ '#cars > div ', '#list-of-trains > div' ]);
+        return es.map(function(e) { return H.path(e); });
+      })).to eq([
+        '#cars > div.asia',
+        '#cars > div.europe',
+        '#list-of-trains > div.asia',
+        '#list-of-trains > div.europe',
       ])
     end
   end

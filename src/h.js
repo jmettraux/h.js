@@ -40,59 +40,69 @@ var H = (function() {
     return s.replace(/\[-([-_a-zA-Z0-9]+)(=|\])/g, '[data-$1$2');
   };
 
-  var qs = function(start, sel, all) {
+  var aconcat = function(a, a1) { a1.forEach(function(e) { a.push(e); }); };
+
+  var qs = function(start, sel, limit) {
+
+    if (start === null && sel === null) return [];
+
+    start = start || document;
+
+    if ((typeof sel) !== 'string') return [ start ];
 
     sel = dashData(sel);
 
-    return all ? start.querySelectorAll(sel) : start.querySelector(sel);
-  };
-
-  var toEltRefine = function(start, sel) {
-
-    if ( ! sel) { sel = start; start = document; }
-
-    if ( ! start) { start = document; }
-    if ((typeof start) === 'string') start = qs(document, start);
-
-    return [ start, sel ];
-  };
-
-  var toElt = function(start, sel) {
-
-    var se = toEltRefine(start, sel); var sta = se[0], sel = se[1];
-
-    if ((typeof sel) !== 'string') return sel;
-
-    var m = sel.match(/^\^([^ ]+)(.*)$/);
-    if (m) { sta = self.closest(sta, m[1]); sel = m[2].trim(); }
-
-    if ( ! sta) return null;
-    if (sel) return qs(sta, sel);
-    return sta;
-  };
-
-  var toElts = function(start, sel) {
-
-    var se = toEltRefine(start, sel); var sta = se[0], sel = se[1];
-
-    var es = null;
-    if ((typeof sel) === 'string') {
-      var m = sel.match(/^\^([^ ]+)(.*)$/);
-      if (m) { sta = self.closest(sta, m[1]); sel = m[2].trim(); }
-      es = sel.length > 0 ? qs(sta, sel, true) : [ sta ];
-    }
-    else {
-      es = [ sel ];
+    if (sel.substr(0, 1) === '^') {
+      var m = sel.match(/^\^([^\s]+)(.*)$/);
+      start = start.closest(m[1]); sel = m[2];
     }
 
-    var r = []; for (var i = 0, l = es.length; i < l; i++) { r.push(es[i]); };
+    if (sel.trim() === '') return [ start ];
+    if (limit) return [ start.querySelector(sel) ];
+    return start.querySelectorAll(sel);
+  };
+
+  var resolveSels = function(sel, limit) {
+
+    if (sel === undefined || sel === null) return [ null ];
+    return Array.isArray(sel) ? sel : [ sel ];
+  };
+
+  var resolveStarts = function(start, limit) {
+
+    var r = [];
+      (Array.isArray(start) ? start : [ start ])
+        .forEach(function(e) {
+          if ((typeof e) === 'string') aconcat(r, qs(document, e, limit));
+          else r.push(e);
+        });
 
     return r;
   };
 
+  var toElts = function(start, sel, limit) {
+
+    var starts = resolveStarts(start, limit);
+    var sels = resolveSels(sel, limit);
+
+    var r = [];
+      starts.forEach(function(start) {
+        sels.forEach(function(sel) {
+          if (limit && r.length >= limit) return;
+          if (self.isElt(sel)) r.push(sel);
+          else aconcat(r, qs(start, sel, limit));
+        });
+      });
+
+    return r;
+  };
+
+  var toElt = function(start, sel) { return toElts(start, sel, 1)[0]; };
+
   this.isElement = function(o) {
 
     return (
+      (o !== null) &&
       (typeof o === 'object') &&
       (typeof o.tagName === 'string') &&
       (typeof o.getElementsByClassName === 'function'));
@@ -396,8 +406,7 @@ var H = (function() {
       if (callbacks.clear !== false) {
         elts.forEach(function(elt) { elt.value = ''; });
       }
-      onok(res);
-    };
+      onok(res); };
 
     self.request('POST', uri, fd, callbacks);
 
@@ -409,9 +418,9 @@ var H = (function() {
     if ( ! pat) { pat = sel; sel = start; start = null; }
     var elt = toElt(start, sel);
 
-    if (elt.matches) return elt.matches(pat);
-    if (elt.matchesSelector) return elt.matchesSelector(pat);
-    if (elt.msMatchesSelector) return elt.msMatchesSelector(pat);
+    if (elt && elt.matches) return elt.matches(pat);
+    if (elt && elt.matchesSelector) return elt.matchesSelector(pat);
+    if (elt && elt.msMatchesSelector) return elt.msMatchesSelector(pat);
 
     throw "H.js got fed something that doesn't respond to .matches() or .matchesSelector()";
   };
@@ -711,7 +720,6 @@ var H = (function() {
     if (arguments.length < 3) { attributes = sel; sel = null; }
 
     Object.keys(attributes).forEach(function(k) {
-console.log(k, attributes[k]);
       self.setAtt(start, sel, k, attributes[k]);
     });
 

@@ -328,6 +328,12 @@ H.satt(sta, sel, name, value);
 H.setAtt('#this-or-that', 'att-x', null);
 H.satt('#this-or-that', 'att-x', null);
 
+// setting multiple attributes by passing a dict
+H.setAtts(sta, object);
+H.setAtts(sta, sel, object);
+  //
+H.setAtts('#this-or-that', { att0: 'zero', att1: 1, att2: null /* to remove */ })
+
 // Short for H.forEach(sta, sel, function(e) { e.removeAttribute(name); });
 H.remAtt(sta, name);
 H.remAtt(sta, sel, name);

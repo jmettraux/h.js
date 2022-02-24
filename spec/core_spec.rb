@@ -2168,6 +2168,40 @@ describe 'H' do
     end
   end
 
+  describe '.setAtts' do
+
+    before(:each) { reset_dom }
+
+    it 'sets attributes' do
+
+      expect(evaluate(%{
+        var h0 = H.elt('#for-setAtt .saa').outerHTML;
+        H.setAtts('#for-setAtt .saa', { att0: 'x', att1: 1, '-b': 'b' });
+        var h1 = H.elt('#for-setAtt .saa').outerHTML;
+        return [ h0, h1 ];
+      })).to eq([
+        '<div class="saa"></div>',
+        '<div class="saa" att0="x" att1="1" data-b="b"></div>'
+      ])
+    end
+
+    it 'unsets attributes when null' do
+
+      expect(evaluate(%{
+        var h0 = H.elt('#for-setAtt .saa').outerHTML;
+        H.setAtts('#for-setAtt .saa', { att0: 'x', att1: 1 });
+        var h1 = H.elt('#for-setAtt .saa').outerHTML;
+        H.setAtts('#for-setAtt .saa', { att1: null, att2: 2 });
+        var h2 = H.elt('#for-setAtt .saa').outerHTML;
+        return [ h0, h1, h2 ];
+      })).to eq([
+        '<div class="saa"></div>',
+        '<div class="saa" att0="x" att1="1"></div>',
+        '<div class="saa" att0="x" att2="2"></div>'
+      ])
+    end
+  end
+
   describe '.remAtt' do
 
     it 'removes an attribute' do

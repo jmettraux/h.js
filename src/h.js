@@ -706,6 +706,18 @@ var H = (function() {
 
   this.satt = this.setAtt;
 
+  this.setAtts = function(start, sel, attributes) {
+
+    if (arguments.length < 3) { attributes = sel; sel = null; }
+
+    Object.keys(attributes).forEach(function(k) {
+console.log(k, attributes[k]);
+      self.setAtt(start, sel, k, attributes[k]);
+    });
+
+    return attributes;
+  };
+
   this.remAtt = function(start, sel, aname) {
 
     var as = rearg_sta_sel_nam_las(arguments, undefined);

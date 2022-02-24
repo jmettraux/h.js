@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Introduce H.setAtts(start, sel, attributes)
 * Allow H.elt('.that', 'keyup,change/this orthat', function(ev) {})
 * Alias H.setText to H.sett
 * Alias H.create to H.c

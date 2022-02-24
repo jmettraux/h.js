@@ -14,8 +14,14 @@ WPORT = 9090
 server = WEBrick::HTTPServer.new(
   Port: WPORT, DocumentRoot: Dir.pwd,
   Logger: WEBrick::Log.new('/dev/null'), AccessLog: [])
-Thread.new {
-  server.start }
+    #
+Thread.new { server.start }
+    #
+10.times do
+  u = URI.parse("http://127.0.0.1:#{WPORT}/spec/test.html")
+  r = Net::HTTP.start(u.host, u.port) { |http| http.get(u.path) }
+  break if r.code == '200'
+end
 
 
 module Helpers
@@ -32,8 +38,12 @@ module Helpers
           opts[:xvfb] = true
           opts[:headless] = false
         end
+        opts[:timeout] = 15
+        #opts[:process_timeout] = 15
 
         b = Ferrum::Browser.new(opts)
+
+        sleep 1
 
         b.goto("http://127.0.0.1:#{WPORT}/spec/test.html")
         b.execute('window._src = document.body.innerHTML;')

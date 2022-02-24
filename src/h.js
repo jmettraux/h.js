@@ -99,8 +99,8 @@ var H = (function() {
   };
   this.isElt = this.isElement;
 
-  this.elt = function(start, sel) { return toElt(start, sel); };
-  this.elts = function(start, sel) { return toElts(start, sel); };
+  this.elt = toElt;
+  this.elts = toElts;
 
   this.count = function(start, sel) { return toElts(start, sel).length; };
 

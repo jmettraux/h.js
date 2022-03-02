@@ -186,6 +186,12 @@ H.on(sta, sel, [ evn0, evn1 ], fev);
 H.on(sta, sel, "evn0, evn1 / evn2", fev);
   // instead of an array of event names, list them in a string
 
+// If an event name is followed by "." (dot), then it will not trigger
+// for children of the elements it is bound to.
+H.on(sta, sel, 'click.', fev);
+  // short for
+H.on(sta, sel, 'click', function(ev) { if (this === ev.target) fev(ev); });
+
 // Sets disabled="disabled" on an Element or a set of Element.
 // If the bof is present and  yields false, disabled="disabled" will be removed.
 // (behaviour similar to H.setClass() above).

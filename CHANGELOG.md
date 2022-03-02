@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Restrict event handler to elt (not its children) when H.on(x, 'click.', f)
 * Accept arrays of elt and selectors as start or sel
 * Introduce H.setAtts(start, sel, attributes)
 * Allow H.elt('.that', 'keyup,change/this orthat', function(ev) {})

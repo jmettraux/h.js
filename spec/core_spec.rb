@@ -1097,6 +1097,22 @@ describe 'H' do
         eventHandler is missing
       }.strip ])
     end
+
+    it 'works  .on(sel, "click.", fun) (do not trigger for children elts)' do
+
+      expect(evaluate(%{
+        var a = [];
+        H.on('#cars .europe', 'click', function(ev) { a.push(0); });
+        H.on('#cars .europe', 'click.', function(ev) { a.push(1); });
+        H.elt('#cars').click();
+        H.elt('#cars .europe').click();
+        H.elt('#cars .europe .bentley').click();
+        H.elt('#cars .europe').click();
+        return a;
+      })).to eq([
+        0, 1, 0, 0, 1
+      ])
+    end
   end
 
   describe '.enable' do

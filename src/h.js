@@ -216,6 +216,18 @@ var H = (function() {
     return pp + ' > ' + ':nth-child(' + n + ')';
   };
 
+  // ensure that the eventHandler is called only if the event
+  // directly targets the element to which it is bound
+  //
+  // used by
+  //
+  //   H.on(start, sel, 'click!', function(ev) {});
+  //
+  var restrictEventHandler = function(eh) {
+
+    return function(ev) { if (this === ev.target) eh(ev); };
+  }
+
   var onOrOff = function(dir, start, sel, eventName, eventHandler) {
 
     if ( ! eventHandler) {
@@ -235,6 +247,10 @@ var H = (function() {
       var e = es[i]; if ( ! e) break;
 
       ens.forEach(function(en) {
+
+        var m = en.match(/^(.+)\.$/);
+        if (m) { en = m[1]; eventHandler = restrictEventHandler(eventHandler); }
+
         if (dir === 'on') e.addEventListener(en, eventHandler);
         else /* off */ e.removeEventListener(en, eventHandler);
       });

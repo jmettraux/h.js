@@ -84,7 +84,7 @@ var H = (function() {
 
       // lets function pass their arguments pseudo-array directly to h.js
       //
-    if (self.isH(start) && typeof start.callee === 'function') {
+    if (self.isArgs(start)) {
       var a = Array.from(start);
       start = a[0]; sel = a[1]; limit = a[2];
     }
@@ -124,6 +124,15 @@ var H = (function() {
     return true;
   }
   this.isH = this.isHash;
+
+  this.isArguments = function(o) {
+
+    return(
+      self.isHash(o) &&
+      Object.prototype.hasOwnProperty.call(o, 'callee') &&
+      ! Object.prototype.propertyIsEnumerable.call(o, 'callee'));
+  }
+  this.isArgs = this.isArguments;
 
   this.elt = toElt;
   this.elts = toElts;

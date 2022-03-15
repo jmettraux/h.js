@@ -79,6 +79,10 @@ H.isElt(o);
 H.isHash(o);
 H.isH(o);
 
+// Returns true if the argument is a js Arguments instance
+H.isArguments(o);
+H.isArgs(o);
+
 // Returns true if the elt matches the final sel
 H.matches(sta, sel);
 H.matches(sta, sel, sel);

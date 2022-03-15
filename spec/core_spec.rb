@@ -3166,11 +3166,7 @@ describe 'H' do
 
       it "returns #{v} for #{k}" do
 
-        expect(evaluate(%{
-          return H.isElement(#{k});
-        })).to eq(
-          v
-        )
+        expect(evaluate(%{ return H.isElement(#{k}); })).to eq(v)
       end
     end
   end
@@ -3188,11 +3184,27 @@ describe 'H' do
 
       it "returns #{v} for #{k}" do
 
-        expect(evaluate(%{
-          return H.isHash(#{k});
-        })).to eq(
-          v
-        )
+        expect(evaluate(%{ return H.isHash(#{k}); })).to eq(v)
+      end
+    end
+  end
+
+  describe '.isArguments' do
+
+    {
+      '(function() { return arguments; })()' => true,
+      '(function() { return {}; })()' => false,
+      '{}' => false,
+      '[]' => false,
+      'null' => false,
+      'undefined' => false,
+      '0' => false,
+
+    }.each do |k, v|
+
+      it "returns #{v} for #{k}" do
+
+        expect(evaluate(%{ return H.isArguments(#{k}); })).to eq(v)
       end
     end
   end

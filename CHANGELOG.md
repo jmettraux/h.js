@@ -4,6 +4,8 @@
 
 ## h.js 1.2.0  not yet released
 
+* Introduce H.isObject(o) (false for null and arrays)
+* Allow H.elt(arguments) and more
 * Restrict event handler to elt (not its children) when H.on(x, 'click.', f)
 * Accept arrays of elt and selectors as start or sel
 * Introduce H.setAtts(start, sel, attributes)

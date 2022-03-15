@@ -82,6 +82,13 @@ var H = (function() {
 
   var toElts = function(start, sel, limit) {
 
+      // lets function pass their arguments pseudo-array directly to h.js
+      //
+    if (self.isH(start) && typeof start.callee === 'function') {
+      var a = Array.from(start);
+      start = a[0]; sel = a[1]; limit = a[2];
+    }
+
     var starts = resolveStarts(start, limit);
     var sels = resolveSels(sel, limit);
 
@@ -108,6 +115,15 @@ var H = (function() {
       (typeof o.getElementsByClassName === 'function'));
   };
   this.isElt = this.isElement;
+
+  this.isHash = function(o) {
+
+    if (typeof o !== 'object') return false;
+    if (o === null || Array.isArray(o)) return false;
+
+    return true;
+  }
+  this.isH = this.isHash;
 
   this.elt = toElt;
   this.elts = toElts;

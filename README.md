@@ -44,6 +44,7 @@ The caret can only be placed at the beginning of a selector though.
 // str: a String
 
 // sta and sel may be arrays of DOM elements or CSS selectors (2022-02-24)
+// sta may be a Javascript arguments instance (2022-03-15)
 
 
 // Returns a single Element
@@ -73,6 +74,10 @@ H.count(sta, sel);
 // Returns true if the argument is a DOM Element
 H.isElement(o);
 H.isElt(o);
+
+// Returns true if the argument is an object but not null and not an array
+H.isHash(o);
+H.isH(o);
 
 // Returns true if the elt matches the final sel
 H.matches(sta, sel);

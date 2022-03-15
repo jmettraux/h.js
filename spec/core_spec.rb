@@ -136,6 +136,23 @@ describe 'H' do
         nil
       )
     end
+
+    it 'works  .elt(arguments)' do
+
+      expect(evaluate(%{
+        var e = H.elt('.car.volkswagen');
+        var f = function() { return H.elt(arguments); };
+        return [
+          f('.car.bentley .blue').textContent.trim(),
+          f('.car', '.blue').textContent.trim(),
+          f(e, '.yellow').textContent.trim()
+        ];
+      })).to eq([
+        'blue bentley',
+        'blue bentley',
+        'yellow volkswagen'
+      ])
+    end
   end
 
   describe '.elts' do
@@ -236,6 +253,17 @@ describe 'H' do
         '#cars > div.europe',
         '#list-of-trains > div.asia',
         '#list-of-trains > div.europe',
+      ])
+    end
+
+    it 'works  .elts(arguments)' do
+
+      expect(evaluate(%{
+        var f = function() { return H.elts(arguments); };
+        return f('#cars > div').map(function(e) { return H.path(e); });
+      })).to eq([
+        '#cars > div.asia',
+        '#cars > div.europe',
       ])
     end
   end
@@ -3123,6 +3151,49 @@ describe 'H' do
       })).to eq(
         'complete'
       )
+    end
+  end
+
+  describe '.isElement' do
+
+    {
+      'H.elt("div.europe")' => true,
+      'document.body' => true,
+      '[]' => false,
+      '{}' => false,
+
+    }.each do |k, v|
+
+      it "returns #{v} for #{k}" do
+
+        expect(evaluate(%{
+          return H.isElement(#{k});
+        })).to eq(
+          v
+        )
+      end
+    end
+  end
+
+  describe '.isHash' do
+
+    {
+      '{}' => true,
+      '[]' => false,
+      'null' => false,
+      'undefined' => false,
+      '0' => false,
+
+    }.each do |k, v|
+
+      it "returns #{v} for #{k}" do
+
+        expect(evaluate(%{
+          return H.isHash(#{k});
+        })).to eq(
+          v
+        )
+      end
     end
   end
 end

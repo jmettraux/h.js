@@ -682,6 +682,16 @@ describe 'H' do
       )
     end
 
+    it 'works  .addClass(sel, [ ".cla0", "cla1" ])' do
+
+      expect(evaluate(%{
+        H.addClass('.car.japan', [ '.vhc1', 'vhc2' ]);
+        return H.elt('.car.japan').classList;
+      })).to eq(
+        class_list(%w[ car japan mazda vhc1 vhc2 ])
+      )
+    end
+
     it 'works  .addClass(start, sel, "cla")' do
 
       expect(evaluate(%{
@@ -756,6 +766,16 @@ describe 'H' do
 
       expect(evaluate(%{
         H.removeClass('.car.japan', '.car.japan');
+        return H.elt('.mazda').classList;
+      })).to eq(
+        class_list(%w[ mazda ])
+      )
+    end
+
+    it 'works  .removeClass(sel, [ ".cla0", "cla1" ])' do
+
+      expect(evaluate(%{
+        H.removeClass('.car.japan', [ '.car', 'japan' ]);
         return H.elt('.mazda').classList;
       })).to eq(
         class_list(%w[ mazda ])

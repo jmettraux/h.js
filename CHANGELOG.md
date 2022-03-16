@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Let addClass and removeClass accept arrays of class names
 * Introduce H.isObject(o) (false for null and arrays)
 * Allow H.elt(arguments) and more
 * Restrict event handler to elt (not its children) when H.on(x, 'click.', f)

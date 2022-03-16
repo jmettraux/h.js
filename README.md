@@ -132,6 +132,7 @@ H.addClass(sta, cla, bof);
 H.addClass(sta, sel, cla, bof);
 H.addc // alias
 // cla can be "class0", ".class0", or even ".class0.class1"...
+// cla can also be an array, like [ '.class0', 'class1' ]
 
 // Removes a class to an Element or a set of Element. If a bof is given, will
 // only remove if the bof evals to true
@@ -142,6 +143,7 @@ H.removeClass(sta, sel, cla, bof);
 H.remClass  // aliases
 H.remc      //
 // cla can be "class0", ".class0", or even ".class0.class1"...
+// cla can also be an array, like [ '.class0', 'class1' ]
 
 // Similar to H.addClass() but if the bof evals to false will remove the class
 H.setClass(sta, cla);

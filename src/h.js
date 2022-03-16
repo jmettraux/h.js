@@ -564,9 +564,9 @@ var H = (function() {
 
   var reClass = function(elt, cla, dir) {
 
-    cla
-      .split(/[ .]+/)
+    (Array.isArray(cla) ? cla : cla.split(/[ .]+/))
       .forEach(function(c) {
+        c = c.replace('.', '');
         if (c.length < 1) return;
         elt.classList[dir === 'r' ? 'remove' : 'add'](c); });
   };

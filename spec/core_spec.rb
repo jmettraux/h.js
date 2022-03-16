@@ -940,6 +940,9 @@ describe 'H' do
 
   describe '.create' do
 
+    before(:each) { reset_dom }
+    after(:all) { reset_dom }
+
     it 'works  .create(tag, atts, text)' do
 
       expect(evaluate(%{
@@ -1003,6 +1006,19 @@ describe 'H' do
       })).to eqh(%{
         <div id="for-create">
         <div class="aaa" data-bbb="345">ccc</div>
+        </div>
+      })
+    end
+
+    it 'works .create(parent, "x", undefined)' do
+
+      expect(evaluate(%{
+        var p = H.elt('#for-create');
+        H.create(p, '.zzz', undefined);
+        return p.outerHTML;
+      })).to eqh(%{
+        <div id="for-create">
+        <div class="zzz"></div>
         </div>
       })
     end

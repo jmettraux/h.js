@@ -1067,7 +1067,7 @@ var H = (function() {
       for (var i = 0, l = arguments.length; i < l; i++) {
         var a = arguments[i];
         if (a === false) return null; // skip this subtree
-        if (a === null) continue; // ignore null (skipped) children
+        if (a === null || a === undefined) continue; // ignore skipped children
         var s = (typeof a === 'string');
         if (s && (a[0] === '.' || a[0] === '#') && ! a.match(/^\s*$/)) {
           scan(a).forEach(function(x) {

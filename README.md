@@ -3,7 +3,7 @@
 
 my Javascript foolbox.
 
-Owes a great deal to http://youmightnotneedjquery.com/
+Owes a great deal to http://youmightnotneedjquery.com/ and to the fall of IE.
 
 
 ## the "^" caret prefix to selectors

@@ -40,7 +40,7 @@ The caret can only be placed at the beginning of a selector though.
 // fev: a classical event function, function(evt) {}
 // fun: a function, function(elt) {}
 // sel: css selector
-// sta: start point, either a DOM Element, either a CSS selector
+// sta: start point: a DOM Element, a CSS selector (string), or an Event
 // str: a String
 
 // sta and sel may be arrays of DOM elements or CSS selectors (2022-02-24)
@@ -51,7 +51,7 @@ The caret can only be placed at the beginning of a selector though.
 H.elt(sta);
 H.elt(sta, sel);
 
-  // note the equivalencies:
+  // note the equivalences:
   //   H.elt(japan, '^.asia') <--> H.closest(japan, '.asia')
   //   H.elt(japan, '^.asia .korea') <--> H.elt(H.closest(japan, '.asia'), '.korea')
   // H.js has this ^ "up above" operator, only works at the beginning of the
@@ -61,7 +61,7 @@ H.elt(sta, sel);
 H.elts(sta);
 H.elts(sta, sel);
 
-  // note the equivalencies:
+  // note the equivalences:
   //   H.elts(japan, '^.continent') <--> H.closest(japan, '.continent')
   //   H.elts(japan, '^.continent .country') <--> H.elt(H.closest(japan, '.continent'), '.country')
   // H.js has this ^ "up above" operator, only works at the beginning of the

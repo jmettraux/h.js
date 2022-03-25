@@ -153,6 +153,32 @@ describe 'H' do
         'yellow volkswagen'
       ])
     end
+
+    it 'works  .elt(ev)' do
+
+      expect(evaluate(%{
+        return [
+          H.elt({ target: H.elt('.car .blue') }).textContent.trim(),
+          H.text({ target: H.elt('.car .blue') }),
+        ];
+      })).to eq([
+        'blue bentley',
+        'blue bentley',
+      ])
+    end
+
+    it 'works  .elt(ev, sel)' do
+
+      expect(evaluate(%{
+        return [
+          H.elt({ target: H.elt('.car') }, '.red').textContent.trim(),
+          H.text({ target: H.elt('.car') }, '.red'),
+        ];
+      })).to eq([
+        'red mazda',
+        'red mazda',
+      ])
+    end
   end
 
   describe '.elts' do

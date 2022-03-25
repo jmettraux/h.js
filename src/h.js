@@ -74,6 +74,7 @@ var H = (function() {
       (Array.isArray(start) ? start : [ start ])
         .forEach(function(e) {
           if ((typeof e) === 'string') aconcat(r, qs(document, e, limit));
+          else if (H.isEv(e)) r.push(e.target);
           else r.push(e);
         });
 
@@ -122,17 +123,23 @@ var H = (function() {
     if (o === null || Array.isArray(o)) return false;
 
     return true;
-  }
+  };
   this.isH = this.isHash;
 
   this.isArguments = function(o) {
 
     return(
-      self.isHash(o) &&
+      self.isH(o) &&
       Object.prototype.hasOwnProperty.call(o, 'callee') &&
       ! Object.prototype.propertyIsEnumerable.call(o, 'callee'));
-  }
+  };
   this.isArgs = this.isArguments;
+
+  this.isEvent = function(o) {
+
+    return self.isH(o) && self.isElt(o.target);
+  };
+  this.isEv = this.isEvent;
 
   this.elt = toElt;
   this.elts = toElts;

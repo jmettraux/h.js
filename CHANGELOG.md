@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Accept an Event as `sta` (start)
 * Stop failing on H.create(e, '.cla', undefined)
 * Let addClass and removeClass accept arrays of class names
 * Introduce H.isObject(o) (false for null and arrays)

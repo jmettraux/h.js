@@ -3193,6 +3193,9 @@ describe 'H' do
   describe '.isElement' do
 
     {
+      '0' => false,
+      'null' => false,
+      'undefined' => false,
       'H.elt("div.europe")' => true,
       'document.body' => true,
       '[]' => false,

@@ -336,6 +336,12 @@ H.getAttf(sta, sel, name);
 H.getAttf(sta, sel, name/*, default*/);
 H.attf(sta, sel, name);
 H.attf(sta, sel, name/*, default*/);
+  //
+// Short for JSON.parse(H.elt(sta, sel).getAttribute(name));
+H.getAttj(sta, sel, name);
+H.getAttj(sta, sel, name/*, default*/);
+H.attj(sta, sel, name);
+H.attj(sta, sel, name/*, default*/);
 
 // Short for H.forEach(sta, sel, function(e) { e.setAttribute(name, value); });
 H.setAtt(sta, name, value);

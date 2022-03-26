@@ -825,9 +825,16 @@ var H = (function() {
     return isFalsy(v) ? null : v;
   };
 
+  this.getAttj = function(start, sel, aname/*, default*/) {
+    var v = self.getAtt.apply(null, arguments);
+    try { v = JSON.parse(v); } catch(err) { v = undefined; }
+    return v;
+  };
+
   this.att = this.getAtt;
   this.atti = this.getAtti;
   this.attf = this.getAttf;
+  this.attj = this.getAttj;
 
   var FALSIES = [ false, null, undefined, NaN, '' ];
   var isFalsy = function(v) { return FALSIES.indexOf(v) > -1; }

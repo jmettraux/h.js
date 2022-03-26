@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Introduce H.attj(start, sel, attname)
 * Accept an Event as `sta` (start)
 * Stop failing on H.create(e, '.cla', undefined)
 * Let addClass and removeClass accept arrays of class names

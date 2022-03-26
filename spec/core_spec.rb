@@ -2633,6 +2633,23 @@ describe 'H' do
     end
   end
 
+  describe '.getAttj' do
+
+    it 'returns the JSON parsed content of the attribute' do
+
+      expect(evaluate(%{
+        var e = H.elt('#for-getAttj');
+        return [
+          H.getAttj(e, '.gatj-one', '-hjs-nada'),
+          H.getAttj(e, '.gatj-two', '-hjs-nada'),
+        ];
+      })).to eq([
+        [ 1, 2, { 'a' => 1 } ],
+        nil
+      ])
+    end
+  end
+
   describe '.text' do
 
     it 'returns the textContent of the target' do

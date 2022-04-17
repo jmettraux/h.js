@@ -514,6 +514,38 @@ describe 'H' do
     end
   end
 
+  describe '.reduce' do
+
+    it 'works  .reduce(sel, fun, [])' do
+
+      expect(evaluate(%{
+        return H.reduce(
+          '.train .europe > div',
+          function(a, e) {
+            if (e.textContent.match(/i/)) a.push(e.textContent.trim());
+            return a; },
+          []);
+      })).to eq([
+        'ice', 'pendolino'
+      ])
+    end
+
+    it 'works  .reduce(start, sel, fun, [])' do
+
+      expect(evaluate(%{
+        var s = H.elt('#list-of-trains');
+        return H.reduce(
+          s, '.europe > div',
+          function(a, e) {
+            if (e.textContent.match(/i/)) a.push(e.textContent.trim());
+            return a; },
+          []);
+      })).to eq([
+        'ice', 'pendolino'
+      ])
+    end
+  end
+
   describe '.hasClass' do
 
     it 'works  .hasClass(sel, "clas")' do

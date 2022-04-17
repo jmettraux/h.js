@@ -177,6 +177,13 @@ var H = (function() {
     return toElts(start, sel).find(fun);
   };
 
+  this.reduce = function(start, sel, fun, initial) {
+
+    if ((typeof sel) === 'function') { initial = fun; fun = sel; sel = null; }
+
+    return toElts(start, sel).reduce(fun, initial);
+  };
+
   this.tdim = function(start, sel) {
 
     var elt = toElt(start, sel); if ( ! elt) return null;

@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Introduce H.reduce(start, sel, fun, initial)
 * Introduce H.attj(start, sel, attname)
 * Accept an Event as `sta` (start)
 * Stop failing on H.create(e, '.cla', undefined)

@@ -1011,6 +1011,8 @@ var H = (function() {
     var e = toElt(start, sel);
 
     e.parentNode.insertBefore(elt, e);
+
+    return elt;
   };
 
   this.postpend = function(start, sel, elt) {
@@ -1019,6 +1021,8 @@ var H = (function() {
     var e = toElt(start, sel);
 
     e.parentNode.insertBefore(elt, e.nextSibling);
+
+    return elt;
   };
 
   this.remove = function(start, sel, bof) {

@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Relax H.upload when no files and allow method other than POST
 * Let prepend and postpend return the appended element
 * Introduce H.reduce(start, sel, fun, initial)
 * Introduce H.attj(start, sel, attname)

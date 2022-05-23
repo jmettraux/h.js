@@ -454,7 +454,8 @@ var H = (function() {
       }
     });
 
-    if (fcount < 1) return 0;
+    //if (fcount < 1) return 0;
+      // allow no posting any file, just data...
 
     var onok = callbacks.onok;
     callbacks.onok = function(res) {
@@ -463,7 +464,7 @@ var H = (function() {
       }
       onok(res); };
 
-    self.request('POST', uri, fd, callbacks);
+    self.request(data._method || 'POST', uri, fd, callbacks);
 
     return fcount;
   };

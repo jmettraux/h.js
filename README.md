@@ -129,6 +129,11 @@ H.toggleClass(sta, sel, cla);
 H.toggle  // aliases
 H.togc    //
 
+// Shortcut for H.toggleClass(sta, sel, '.hidden');
+H.toggleHidden(sta);
+H.toggleHidden(sta, sel);
+H.togh // alias
+
 // Adds a class to an Element or a set of Element. If a bof is given, will
 // only add if the bof evals to true
 H.addClass(sta, cla);

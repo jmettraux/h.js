@@ -639,6 +639,14 @@ var H = (function() {
   this.toggle = this.toggleClass;
   this.togc = this.toggleClass;
 
+  this.toggleHidden = function(start, sel) {
+
+    var a = Array.from(arguments); a.push('.hidden');
+
+    self.toggleClass.apply(null, a);
+  };
+  this.togh = this.toggleHidden;
+
   this.setClass = function(start, sel, cla, bof) {
     var as = rearg_sta_sel_nam_las(arguments, true);
     toggle(as.sta, as.sel, as.nam, as.las, 'ar');

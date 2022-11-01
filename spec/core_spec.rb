@@ -597,6 +597,19 @@ describe 'H' do
         false, true
       ])
     end
+
+    it 'works  .hasClass(ev, ".clas")' do
+
+      expect(evaluate(%{
+        var ev = { target: H.elt('#cars .bentley') };
+        return [
+          H.hasClass(ev, '.train'),
+          H.hasClass(ev, '.car')
+        ];
+      })).to eq([
+        false, true
+      ])
+    end
   end
 
   describe '.toggleClass' do

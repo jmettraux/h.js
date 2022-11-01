@@ -98,6 +98,7 @@ var H = (function() {
         sels.forEach(function(sel) {
           if (limit && r.length >= limit) return;
           if (self.isElt(sel)) r.push(sel);
+          else if (self.isEvent(sel)) r.push(sel.target);
           else aconcat(r, qs(start, sel, limit));
         });
       });

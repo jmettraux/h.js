@@ -420,6 +420,7 @@ var H = (function() {
   this.upload = function(uri, inputFileElt_s, data, callbacks) {
 
     if ( ! callbacks) { callbacks = data; data = {}; }
+    if ( ! data) data = {};
 
     var fd = new FormData();
 

@@ -1009,6 +1009,39 @@ describe 'H' do
     end
   end
 
+  describe '.classFrom' do
+
+    it 'returns undefined when no match' do
+
+      expect(evaluate(%{
+        var cs = H.elt('.cars');
+        var c = H.elt('.car.bentley');
+        return [
+          H.classFrom(c, [ 'mazda', 'ford' ]),
+          H.classFrom('.car.bentley', [ 'mazda', 'ford' ]),
+          H.classFrom(cs, '.bentley', [ 'mazda', 'ford' ]),
+        ];
+      })).to eq([
+        nil, nil, nil
+      ])
+    end
+
+    it 'returns the first classname included in the array' do
+
+      expect(evaluate(%{
+        var cs = H.elt('.cars');
+        var c = H.elt('.car.bentley');
+        return [
+          H.classFrom(c, [ 'mazda', 'ford', 'bentley' ]),
+          H.classFrom('.car.bentley', [ 'mazda', 'ford', 'bentley' ]),
+          H.classFrom(cs, '.bentley', [ 'mazda', 'ford', 'bentley' ]),
+        ];
+      })).to eq([
+        'bentley', 'bentley', 'bentley'
+      ])
+    end
+  end
+
   describe '.create' do
 
     before(:each) { reset_dom }

@@ -172,6 +172,11 @@ H.renameClass(sta, sel, cla0, cla1);
 H.classArray(sta);
 H.classArray(sta, sel);
 
+// Returns the first class name of the element that is also in classNameArray
+// Returns undefined else
+H.classFrom(sta, classNameArray);
+H.classFrom(sta, sel, classNameArray);
+
 // Creates an HTMLElement
 H.create(tagName, attributes, textContent);
 H.c(tagName, attributes, textContent);

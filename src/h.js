@@ -668,12 +668,26 @@ var H = (function() {
   this.classArray = function(start, sel) {
 
     var e = self.elt(start, sel);
-    var l = e.classList || e.className.split(' ');
+    var cs = e.classList || e.className.split(' ');
 
-    var a = [];
-    for (var i = 0, l = e.classList.length; i < l; i++) a.push(e.classList[i]);
+    var a = []; for (var i = 0, l = cs.length; i < l; i++) a.push(cs[i]);
 
     return a;
+  };
+
+  this.classFrom = function(/*start, sel, classNames*/) {
+
+    var as = Array.from(arguments);
+    var ns = as.pop();
+    var e = self.elt.apply(null, as);
+
+    var cs = e.classList || e.className.split(' ');
+    for (var i = 0, l = cs.length; i < l; i++) {
+      var c = cs[i];
+      if (ns.includes(c)) return c;
+    }
+
+    return undefined;
   };
 
   var rearg_sta_sel_las = function(args, las) {

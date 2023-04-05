@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Introduce H.classFrom(start, sel, classNameArray)
 * Ensure H.hasClass() and toElts work with an event as start
 * Introduce H.toggleHidden(start, sel)
 * Relax H.upload when no files and allow method other than POST

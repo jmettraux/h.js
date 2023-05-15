@@ -1,8 +1,10 @@
 
+pkg/
+
 .rspec
 #.ruby-version
-bin/phantomjs
-bin/chromedriver
+#bin/phantomjs
+#bin/chromedriver
 
 .errors
 .rspec.out
@@ -15,4 +17,7 @@ bin/chromedriver
 .viminfo
 .vimgrep
 .vimspec
+
+.chat.md
+.openai.*.py
 

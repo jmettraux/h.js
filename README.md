@@ -522,6 +522,8 @@ H.style(sta, sel, { filter: keys });
   { position: 'absolute', display: 'none', color: 'rgb(0, 0, 0)' }
 ```
 
+`H.styles` is an alias to `H.style`.
+
 The `.path` method returns a "sure" path to an element.
 (I use it mostly in my Selenium helper libraries).
 

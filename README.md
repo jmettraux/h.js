@@ -502,6 +502,24 @@ H.bdim(sta, sel);
 // Returns an object with the computed style of an element
 H.style(sta);
 H.style(sta, sel);
+  # it returns a dictionary (hash) of all the computed style of the element
+  #
+  { // ...
+    bottom: 'auto', boxShadow: 'none', boxSizing: 'content-box',
+    breakAfter: 'auto', breakBefore: 'auto', breakInside: 'auto',
+    bufferedRendering: 'auto', captionSide: 'top',
+    caretColor: 'rgb(0, 0, 0)', clear: 'none', clip: 'auto', // ...
+      }
+
+H.style(sta, { filter: keys });
+H.style(sta, sel, { filter: keys });
+  # where keys is an array of keys [ 'position', 'display', 'color' ]
+  #               or a comma sep list of keys 'position,display,color'
+  #
+  # will return only the "filter" keys, useful when debugging CSS and
+  # focusing on a range of CSS properties...
+  #
+  { position: 'absolute', display: 'none', color: 'rgb(0, 0, 0)' }
 ```
 
 The `.path` method returns a "sure" path to an element.

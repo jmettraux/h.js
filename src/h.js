@@ -497,12 +497,26 @@ var H = (function() {
 
   // adapted from http://upshots.org/javascript/jquery-copy-style-copycss
   //
-  this.style = function(start, sel) {
+  this.style = function(start, sel/*, opts */) {
 
     var elt = toElt(start, sel);
 
+    var opts = Array.from(arguments).reverse()[0];
+    opts = this.isHash(opts) ? opts : {};
+
     var r = {};
     var style = null;
+
+    var f = function(h) {
+      var keys = opts.filter; if ( ! keys) return h;
+      keys =
+        (typeof keys === 'string') ?
+          keys.split(',').map(function(e) { return e.trim(); }) :
+        keys;
+      return Object.keys(h)
+        .reduce(
+          function(hh, k) { if (keys.includes(k)) hh[k] = h[k]; return hh; },
+          {}); };
 
     if (window.getComputedStyle) {
 
@@ -515,13 +529,13 @@ var H = (function() {
         r[n] = style.getPropertyValue(p);
       }
 
-      return r;
+      return f(r);
     }
 
     if (style = elt.currentStyle) {
 
       for (var p in style) r[p] = style[p];
-      return r;
+      return f(r);
     }
 
     if (style = elt.style) {
@@ -530,11 +544,12 @@ var H = (function() {
         var s = style[p];
         if ((typeof s) !== 'function') r[p] = s;
       }
-      //return r;
+      //return f(r);
     }
 
-    return r;
+    return f(r);
   };
+  this.styles = this.style;
 
   this.hasClass = function(start, sel, cla) {
 

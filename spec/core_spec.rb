@@ -2177,6 +2177,29 @@ describe 'H' do
         '16px', '45px'
       ])
     end
+
+    it 'accepts a filter: array of keys option listing the keys to return' do
+
+      expect(evaluate(%{
+        return H.style(
+          '#list-of-trains', { filter: [ 'position', 'display' ] });
+      })).to eq({
+        'display' => 'block',
+        'position' => 'static'
+      })
+    end
+
+    it 'accepts a filter: string comma sep list of keys' do
+
+      expect(evaluate(%{
+        return H.style(
+          '#list-of-trains', { filter: 'position,display, color' });
+      })).to eq({
+        'display' => 'block',
+        'position' => 'static',
+        'color' => 'rgb(0, 0, 0)'
+      })
+    end
   end
 
   describe '.path' do

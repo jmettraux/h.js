@@ -260,10 +260,10 @@ var H = (function() {
 
     var e = self.elt(sta, sel);
 
-    var s = `<${e.tagName}`
+    var s = '<' + e.tagName;
     for (var i = 0, l = e.attributes.length; i < l; i++) {
       var a = e.attributes[i];
-      s = s + ` ${a.name}=${JSON.stringify(a.value)}`;
+      s = s + ' ' + a.name + '=' + JSON.stringify(a.value);
     }
 
     return s + '>';
@@ -280,12 +280,12 @@ var H = (function() {
       .map(function(c) { return '.' + c; })
       .join('');
 
-    var i = e.id; if (i) i = `#${i}`;
+    var i = e.id; if (i) i = '#' + i;
 
     if (t === 'div' && (c || i)) t = '';
     if (i) c = '';
 
-    return `${t}${i}${c}`;
+    return t + i + c;
   };
 
   var eltPath = function(s, e) {

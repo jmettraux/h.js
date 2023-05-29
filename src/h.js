@@ -256,6 +256,56 @@ var H = (function() {
     return pp + ' > ' + ':nth-child(' + n + ')';
   };
 
+  this.eltTagSignature = function(sta, sel) {
+
+    var e = self.elt(sta, sel);
+
+    var s = `<${e.tagName}`
+    for (var i = 0, l = e.attributes.length; i < l; i++) {
+      var a = e.attributes[i];
+      s = s + ` ${a.name}=${JSON.stringify(a.value)}`;
+    }
+
+    return s + '>';
+  };
+
+  this.eltSignature = function(sta, sel) {
+
+    var e = self.elt(sta, sel);
+
+    var t = e.tagName.toLowerCase();
+    if (t === 'body') return t;
+
+    var c = Array.from(e.classList)
+      .map(function(c) { return '.' + c; })
+      .join('');
+
+    var i = e.id; if (i) i = `#${i}`;
+
+    if (t === 'div' && (c || i)) t = '';
+    if (i) c = '';
+
+    return `${t}${i}${c}`;
+  };
+
+  var eltPath = function(s, e) {
+
+    if ( ! e) return undefined;
+    if ( ! e.parentElement) return s.trim();
+
+    var s0 = self.eltSignature(e);
+    s = s ? s0 + ' > ' + s : s0;
+
+    if (s.slice(0, 1) === '#') return s;
+
+    return eltPath(s, e.parentElement);
+  };
+
+  this.eltPath = function(sta, sel) {
+
+    return eltPath('', self.elt(sta, sel));
+  }
+
   // ensure that the eventHandler is called only if the event
   // directly targets the element to which it is bound
   //

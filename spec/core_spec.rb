@@ -2280,6 +2280,25 @@ describe 'H' do
     end
   end
 
+  describe '.eltPath' do
+
+    {
+
+      '#nada' => nil,
+      '#list-of-trains' => '#list-of-trains',
+      '.container > span' => '#for-path > div > .container > span',
+
+    }.each do |k, v|
+
+      it "returns #{v.inspect} for eltPath(#{k.inspect})" do
+
+        expect(evaluate(%{
+          return H.eltPath(#{k.inspect});
+        })).to eq(v);
+      end
+    end
+  end
+
   describe '.capitalize' do
 
     it 'works' do

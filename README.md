@@ -537,6 +537,23 @@ H.path(sta);
 H.path(sta, sel);
 ```
 
+`H.eltPath` returns a similar path but less "sure".
+
+```js
+// less "sure" than H.path, but indicative enough...
+//
+// example output "#for-path > div > .container > span"
+//
+H.eltPath(sta);
+H.eltPath(sta, sel);
+```
+
+`H.eltSignature` returns a signature for an element, it's used by `H.eltPath`
+for the component of each of its answers.
+
+`H.eltTagSignature` returns, well, the outerHTML minus the innerHTML of the
+targetted element. For example `<div id="nada" class="surf board">`.
+
 H.js also sports a few functions wrapping XMLHttpRequest.
 
 ```js

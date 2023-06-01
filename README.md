@@ -468,7 +468,7 @@ H.sett(sta, sel, text);
 H.onDocumentReady(fev);
 ```
 
-Three methods for inspecting style and dimensions of an element.
+Four methods for inspecting style and dimensions of an element.
 
 ```js
 // Returns an object
@@ -523,6 +523,9 @@ H.style(sta, sel, { filter: keys });
 ```
 
 `H.styles` is an alias to `H.style`.
+
+`H.height(sta, sel)` returns the height (in pixel of an element).
+It's equivalent to `H.elt(sta, sel).offsetHeight`.
 
 The `.path` method returns a "sure" path to an element.
 (I use it mostly in my Selenium helper libraries).

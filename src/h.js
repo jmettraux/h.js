@@ -203,6 +203,14 @@ var H = (function() {
       height: elt.offsetHeight, width: elt.offsetWidth };
   }
 
+  this.height = function(start, sel) {
+
+    var e = toElt(start, sel);
+
+    return e ? e.offsetHeight : null;
+  }
+  this.h = this.height;
+
   this.dim = function(start, sel) {
 
     var e = toElt(start, sel); if ( ! e) return null;

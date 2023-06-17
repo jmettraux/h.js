@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Introduce H.e and H.es aliases to H.elt and H.elts
 * Introduce H.classFrom(start, sel, classNameArray)
 * Ensure H.hasClass() and toElts work with an event as start
 * Introduce H.toggleHidden(start, sel)

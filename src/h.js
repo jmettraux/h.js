@@ -144,6 +144,8 @@ var H = (function() {
 
   this.elt = toElt;
   this.elts = toElts;
+  this.e = toElt;
+  this.es = toElts;
 
   this.count = function(start, sel) { return toElts(start, sel).length; };
 

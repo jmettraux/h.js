@@ -50,6 +50,8 @@ The caret can only be placed at the beginning of a selector though.
 // Returns a single Element
 H.elt(sta);
 H.elt(sta, sel);
+H.e(sta);
+H.e(sta, sel);
 
   // note the equivalences:
   //   H.elt(japan, '^.asia') <--> H.closest(japan, '.asia')
@@ -60,6 +62,8 @@ H.elt(sta, sel);
 // Returns a javascript array of elements
 H.elts(sta);
 H.elts(sta, sel);
+H.es(sta);
+H.es(sta, sel);
 
   // note the equivalences:
   //   H.elts(japan, '^.continent') <--> H.closest(japan, '.continent')

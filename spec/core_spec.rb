@@ -2121,6 +2121,38 @@ describe 'H' do
     it 'fails if the target elt cannot be found'
   end
 
+  describe '.width' do
+
+    it 'returns null if the element cannot be found' do
+
+      expect(evaluate(%{ return H.width('#pure-nothing'); })).to eq(nil)
+    end
+
+    it 'returns the width (in px) of its element' do
+
+      r = evaluate(%{ return H.width('#cars'); })
+
+      expect(r).to be_an(Integer)
+      expect(r).to be_between(900, 1900)
+    end
+  end
+
+  describe '.height' do
+
+    it 'returns null if the element cannot be found' do
+
+      expect(evaluate(%{ return H.height('#pure-nothing'); })).to eq(nil)
+    end
+
+    it 'returns the height (in px) of its element' do
+
+      r = evaluate(%{ return H.height('#cars'); })
+
+      expect(r).to be_an(Integer)
+      expect(r).to be_between(64, 256)
+    end
+  end
+
   describe '.dim' do
 
     it 'returns the dimensions of the target elt' do

@@ -208,12 +208,15 @@ var H = (function() {
       height: elt.offsetHeight, width: elt.offsetWidth };
   }
 
+  this.width = function(start, sel) {
+
+    var e = toElt(start, sel); return e ? e.offsetWidth : null;
+  }
   this.height = function(start, sel) {
 
-    var e = toElt(start, sel);
-
-    return e ? e.offsetHeight : null;
+    var e = toElt(start, sel); return e ? e.offsetHeight : null;
   }
+  this.w = this.width;
   this.h = this.height;
 
   this.dim = function(start, sel) {

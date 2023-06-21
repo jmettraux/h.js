@@ -509,9 +509,22 @@ H.tdim(sta, sel);
 H.bdim(sta);
 H.bdim(sta, sel);
 
+// Return the offsetHeight, respectively offsetWidth of an element. Returns
+// null if the element cannot be found. Returns an integer (px).
+H.height(sta);
+H.height(sta, sel);
+H.width(sta);
+H.width(sta, sel);
+H.h(sta);
+H.h(sta, sel);
+H.w(sta);
+H.w(sta, sel);
+
 // Returns an object with the computed style of an element
 H.style(sta);
 H.style(sta, sel);
+H.styles(sta);
+H.styles(sta, sel);
   # it returns a dictionary (hash) of all the computed style of the element
   #
   { // ...
@@ -523,6 +536,8 @@ H.style(sta, sel);
 
 H.style(sta, { filter: keys });
 H.style(sta, sel, { filter: keys });
+H.styles(sta, { filter: keys });
+H.styles(sta, sel, { filter: keys });
   # where keys is an array of keys [ 'position', 'display', 'color' ]
   #               or a comma sep list of keys 'position,display,color'
   #
@@ -531,11 +546,6 @@ H.style(sta, sel, { filter: keys });
   #
   { position: 'absolute', display: 'none', color: 'rgb(0, 0, 0)' }
 ```
-
-`H.styles` is an alias to `H.style`.
-
-`H.height(sta, sel)` returns the height (in pixel of an element).
-It's equivalent to `H.elt(sta, sel).offsetHeight`.
 
 The `.path` method returns a "sure" path to an element.
 (I use it mostly in my Selenium helper libraries).

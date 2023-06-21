@@ -149,6 +149,9 @@ var H = (function() {
 
   this.count = function(start, sel) { return toElts(start, sel).length; };
 
+  this.click = function(start, sel) { toElt(start, sel).click(); };
+  this.k = this.click;
+
   this.forEach = function(start, sel, fun) {
 
     if ((typeof sel) === 'function') { fun = sel; sel = null; }

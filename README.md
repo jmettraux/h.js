@@ -222,6 +222,12 @@ H.on(sta, sel, 'click.', fev);
   // short for
 H.on(sta, sel, 'click', function(ev) { if (this === ev.target) fev(ev); });
 
+// Clicks on an element
+H.click(sta);
+H.click(sta, sel);
+H.k(sta);
+H.k(sta, sel);
+
 // Sets disabled="disabled" on an Element or a set of Element.
 // If the bof is present and  yields false, disabled="disabled" will be removed.
 // (behaviour similar to H.setClass() above).

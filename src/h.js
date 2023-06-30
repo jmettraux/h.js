@@ -640,11 +640,13 @@ var H = (function() {
 
     return self.hasClass.apply(null, a);
   };
+  this.hidden = this.isHidden;
 
   this.isHiddenUp = function(start, sel) {
 
     return !! self.elt(toElt(start, sel), '^.hidden');
   };
+  this.hiddenUp = this.isHiddenUp;
 
   this.isInvalid = function(start, sel) {
 

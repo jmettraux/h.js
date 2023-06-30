@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Introduce H.isHiddenUp(start, sel)
 * Introduce H.width and its alias H.w (for e.offsetWidth)
 * Introduce H.click and its alias H.k
 * Introduce H.e and H.es aliases to H.elt and H.elts

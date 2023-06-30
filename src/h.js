@@ -641,6 +641,11 @@ var H = (function() {
     return self.hasClass.apply(null, a);
   };
 
+  this.isHiddenUp = function(start, sel) {
+
+    return !! self.elt(toElt(start, sel), '^.hidden');
+  };
+
   this.isInvalid = function(start, sel) {
 
     return self.matches(toElt(start, sel), ':invalid');

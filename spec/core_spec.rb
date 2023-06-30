@@ -1754,6 +1754,35 @@ describe 'H' do
     end
   end
 
+    #<div id="hidden" class="hidden">
+    #  <div id="hup-test-0"></div>
+    #</div>
+    #<div id="not-hidden" class="">
+    #  <div id="hup-test-1"></div>
+    #</div>
+    #
+  describe '.isHiddenUp' do
+
+    it 'works  .isHidden(sel)' do
+
+      expect(evaluate(%{
+        return [
+          H.isHidden('#hidden'),
+          H.isHidden('#not-hidden'),
+          H.isHidden('#hup-test-0'),
+          H.isHidden('#hup-test-1'),
+          H.isHiddenUp('#hidden'),
+          H.isHiddenUp('#not-hidden'),
+          H.isHiddenUp('#hup-test-0'),
+          H.isHiddenUp('#hup-test-1'),
+        ];
+      })).to eq([
+        true, false, false, false,
+        true, false, true, false,
+      ])
+    end
+  end
+
   describe '.cenable' do
 
     before(:each) { reset_dom }

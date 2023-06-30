@@ -286,6 +286,11 @@ H.unhide(sta, sel, bof);
 H.isHidden(sta);
 H.isHidden(sta, sel);
 
+// Returns true if the elt has the class 'hidden' or is the child of
+// an element with the 'hidden' class.
+H.isHiddenUp(sta);
+H.isHiddenUp(sta, sel);
+
 // Returns true if the elt has the pseudo-class ':invalid' (or not)
 H.isInvalid(sta);
 H.isInvalid(sta, sel);

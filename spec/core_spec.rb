@@ -1783,6 +1783,27 @@ describe 'H' do
     end
   end
 
+  describe '.isNotDisplayed' do
+
+    it 'works  .isNotDisplayed(sel)' do
+
+      expect(evaluate(%{
+        return [
+          H.notDisplayed('#not-displayed'),
+          H.isNotDisplayed('#not-displayed'),
+          H.isNotDisplayed('#not-displayed-1'),
+          H.isNotDisplayed('#not-displayed-2'),
+          H.isNotDisplayed('#hidden'),
+          H.isNotDisplayed('#test'),
+          H.isNotDisplayed('#cars'),
+        ];
+      })).to eq([
+        true, true, true, true, true,
+        false, false,
+      ])
+    end
+  end
+
   describe '.cenable' do
 
     before(:each) { reset_dom }

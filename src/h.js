@@ -648,6 +648,19 @@ var H = (function() {
   };
   this.hiddenUp = this.isHiddenUp;
 
+  var notDisplayed = function(e) {
+    if ( ! e) return false;
+    //if (e.style && e.style.display === 'none') return true;
+    if (window.getComputedStyle(e).display === 'none') return true;
+    return notDisplayed(e.parentElement);
+  };
+    //
+  this.isNotDisplayed = function(start, sel) {
+
+    return notDisplayed(self.elt(toElt(start, sel)));
+  };
+  this.notDisplayed = this.isNotDisplayed;
+
   this.isInvalid = function(start, sel) {
 
     return self.matches(toElt(start, sel), ':invalid');

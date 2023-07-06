@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Introduce H.isNotDisplayed(start, sel)
 * Alias H.isHidden to .hidden and H.isHiddenUp to H.hiddenUp
 * Introduce H.isHiddenUp(start, sel)
 * Introduce H.width and its alias H.w (for e.offsetWidth)

@@ -295,6 +295,12 @@ H.isHiddenUp(sta, sel);
 H.hiddenUp(sta);
 H.hiddenUp(sta, sel);
 
+// Returns true if the elt has display: 'none' or if one of its parent has it.
+H.isNotDisplayed(sta);
+H.isNotDisplayed(sta, sel);
+H.notDisplayed(sta);
+H.notDisplayed(sta, sel);
+
 // Returns true if the elt has the pseudo-class ':invalid' (or not)
 H.isInvalid(sta);
 H.isInvalid(sta, sel);

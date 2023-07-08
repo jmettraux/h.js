@@ -2398,10 +2398,10 @@ describe 'H' do
     it 'works' do
 
       expect(evaluate(%{
-        return H.decapitalize('JEFF');
-      })).to eq(
-        'jEFF'
-      )
+        return [ H.decapitalize('JEFF'), H.decapitalize('Jeff') ];
+      })).to eq([
+        'jEFF', 'jeff'
+      ])
     end
   end
 

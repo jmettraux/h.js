@@ -1117,11 +1117,13 @@ var H = (function() {
 
     return s.charAt(0).toUpperCase() + s.slice(1);
   };
+  this.cap = this.capitalize;
 
   this.decapitalize = function(s) {
 
     return s.charAt(0).toLowerCase() + s.slice(1);
   };
+  this.decap = this.decapitalize;
 
   this.toCamelCase = function(s, cap) {
 

@@ -309,6 +309,11 @@ H.isValid(sta, sel);
 
 // Turns 'jeff' into 'Jeff'
 H.capitalize(str);
+H.cap(str);
+
+// Turns 'Jeff' into 'jeff'
+H.decapitalize(str);
+H.decap(str);
 
 // Turns "my_old-donkey" into "myOldDonkey"
 H.toCamelCase(str);

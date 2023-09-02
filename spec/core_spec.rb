@@ -1283,6 +1283,47 @@ describe 'H' do
     end
   end
 
+  describe '.on' do
+
+    before(:each) { reset_dom }
+    after(:all) { reset_dom }
+
+    it 'works  .onc(sta, sel, fun)' do
+
+      expect(evaluate(%{
+        var e = H.e('#cars');
+        H.onc(e, '.europe .car', function(ev) {
+          ev.target.remove();
+        });
+        H.elt('.car.volkswagen').click();
+        return H.elt('#cars .europe').innerHTML;
+      })).to eqh(%{
+        <div class="car bentley">
+          <div class="blue">blue bentley</div>
+          <div class="yellow">yellow bentley</div>
+        </div>
+      })
+    end
+
+    it 'works  .onc(sel, fun)' do
+
+      expect(evaluate(%{
+        H.onc('#cars .europe .car', function(ev) {
+          ev.target.remove();
+        });
+        H.elt('.car.bentley').click();
+        return H.elt('#cars .europe').innerHTML;
+      })).to eqh(%{
+        <div class="car volkswagen">
+          <div class="blue">blue volkswagen</div>
+          <div class="yellow">yellow volkswagen</div>
+          <div class="purple">1234</div>
+          <div class="red">1234.09</div>
+        </div>
+      })
+    end
+  end
+
   describe '.enable' do
 
     before(:each) { reset_dom }

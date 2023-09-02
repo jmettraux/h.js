@@ -222,6 +222,8 @@ H.on(sta, sel, 'click.', fev);
   // short for
 H.on(sta, sel, 'click', function(ev) { if (this === ev.target) fev(ev); });
 
+H.onClick(sta, fun);
+H.onClick(sta, sel, fun);
 H.onc(sta, fun);
 H.onc(sta, sel, fun);
   // are shortcuts for

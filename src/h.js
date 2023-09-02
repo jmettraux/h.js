@@ -371,12 +371,13 @@ var H = (function() {
     onOrOff('off', start, sel, eventName, eventHandler);
   };
 
-  this.onc = function(start, sel, eventHandler) {
+  this.onClick = function(start, sel, eventHandler) {
     var as = Array.from(arguments);
     as.splice(as.length - 1, 0, 'click');
     as.unshift('on');
     onOrOff.apply(null, as);
   };
+  this.onc = this.onClick;
 
   var indexNext = function(sel) {
 

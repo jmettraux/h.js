@@ -136,6 +136,13 @@ var H = (function() {
   };
   this.isArgs = this.isArguments;
 
+  //this.isEvent = function(o) {
+  //  var c = o.constructor;
+  //  return(
+  //    H.isElt(o.target) &&
+  //    H.isS(o.type) &&
+  //    c && c.toString().match(/Event\(\)/))
+  //};
   this.isEvent = function(o) {
 
     return self.isH(o) && self.isElt(o.target);

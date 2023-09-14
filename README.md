@@ -309,6 +309,10 @@ H.isNotDisplayed(sta, sel);
 H.notDisplayed(sta);
 H.notDisplayed(sta, sel);
 
+// Returns true if the elt is displayed and is not off-screen
+H.isVisible(sta);
+H.isVisible(sta, sel);
+
 // Returns true if the elt has the pseudo-class ':invalid' (or not)
 H.isInvalid(sta);
 H.isInvalid(sta, sel);

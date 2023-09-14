@@ -676,6 +676,28 @@ var H = (function() {
   };
   this.notDisplayed = this.isNotDisplayed;
 
+  this.isVisible = function(start, sel) {
+
+    var e = toElt(start, sel);
+
+    if (e.offsetParent === null) return false;
+
+    var r = e.getBoundingClientRect();
+
+    if (
+      r.width === 0 || r.height === 0
+    ) return false;
+    if (
+      r.bottom < 0 || r.right < 0 ||
+      r.left > window.innerWidth || r.top > window.innerHeight
+    ) return false;
+
+    var s = window.getComputedStyle(e);
+    if (s.visibility === 'hidden' || s.opacity == '0') return false;
+
+    return true;
+  };
+
   this.isInvalid = function(start, sel) {
 
     return self.matches(toElt(start, sel), ':invalid');

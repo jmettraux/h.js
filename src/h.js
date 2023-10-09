@@ -965,7 +965,8 @@ var H = (function() {
     if ( ! as.sel && as.nam && mn) {
       as.sel = as.nam; as.nam = mn[mn.length - 1];
     }
-    else if (ms) { as.las = as.nam; as.nam = ms[ms.length - 1];
+    else if (ms) {
+      as.las = as.nam; as.nam = ms[ms.length - 1];
     }
 
     var e = self.elt(as.sta, as.sel);
@@ -1001,13 +1002,24 @@ var H = (function() {
     return v;
   };
 
+  this.getAttb = function(start, sel, aname/*, default*/) {
+    var v = self.getAtt.apply(null, arguments);
+    if (typeof v === 'string') v = v.toLowerCase();
+    if (TRUES.indexOf(v) > -1) return true;
+    if (FALSES.indexOf(v) > -1) return false;
+    return undefined;
+  };
+
   this.att = this.getAtt;
   this.atti = this.getAtti;
   this.attf = this.getAttf;
   this.attj = this.getAttj;
+  this.attb = this.getAttb;
 
   var FALSIES = [ false, null, undefined, NaN, '' ];
   var isFalsy = function(v) { return FALSIES.indexOf(v) > -1; }
+  var TRUES = 'true yes on'.split(' ');
+  var FALSES = 'false no off'.split(' ');
 
   this.text = function(start, sel/*, default*/) {
     var as = resol_sta_sel_las(arguments);

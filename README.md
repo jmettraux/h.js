@@ -400,6 +400,12 @@ H.getAttj(sta, sel, name/*, default*/);
 H.attj(sta, sel, name);
 H.attj(sta, sel, name/*, default*/);
 
+// returns `true` if the attribute contains 'true', 'yes', or 'on';
+// returns `false` if the attribute contains 'false', 'no', or 'off';
+// returns undefined else.
+H.getAttb(sta, sel, name);
+H.attb(sta, sel, name);
+
 // Short for H.forEach(sta, sel, function(e) { e.setAttribute(name, value); });
 H.setAtt(sta, name, value);
 H.setAtt(sta, sel, name, value);

@@ -2893,6 +2893,31 @@ describe 'H' do
     end
   end
 
+  describe '.getAttb' do
+
+    it 'returns true, false, or undefined' do
+
+      expect(evaluate(%{
+        return H.reduce(
+          '#for-getAttb div',
+          function(h, e) {
+            h[e.className] = H.getAttb(e, '-foo');
+            return h; },
+          {});
+      })).to eq({
+        "gatb-true" => true,
+        "gatb-yes" => true,
+        "gatb-on" => true,
+        "gatb-false" => false,
+        "gatb-no" => false,
+        "gatb-off" => false,
+        #"gatb-empty" => nil,
+        #"gatb-other" => nil,
+        #"gatb-none" => nil,
+      })
+    end
+  end
+
   describe '.text' do
 
     it 'returns the textContent of the target' do

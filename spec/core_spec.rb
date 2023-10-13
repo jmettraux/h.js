@@ -3558,5 +3558,26 @@ describe 'H' do
       end
     end
   end
+
+  describe '.validateEmail' do
+
+    {
+
+      'toto@foobar.com' => true,
+      'Toto <toto@foobar.com>' => true,
+
+      'foo' => false,
+      'foobar.com' => false,
+      '@foobar.com' => false,
+      'Toto <toto@foobar.com' => false,
+
+    }.each do |k, v|
+
+      it "returns #{v} for #{k}" do
+
+        expect(evaluate(%{ return H.validateEmail(#{k.inspect}); })).to eq(v)
+      end
+    end
+  end
 end
 

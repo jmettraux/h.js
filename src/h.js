@@ -1366,6 +1366,27 @@ var H = (function() {
     return w;
   };
 
+  this.validateEmail = function(s) {
+
+    if (s.indexOf("@") < 0) return false;
+    if (s.indexOf("\n") > -1 || s.indexOf("\r") > -1) return false;
+
+    var m = s.match(/^[^<]+<([^>]+)>\s*$/);
+    if (m) s = m[1];
+
+    var id =
+      '__h_js_email_validation_input_elt';
+    var ie =
+      document.getElementById(id) ||
+      H.c(
+        document.body,
+        'input.' + id, { style: 'display: none;', type: 'email' });
+
+    ie.value = s;
+
+    return ie.validity.valid;
+  };
+
   //
   // done.
 

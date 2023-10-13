@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Introduce H.validateEmail(s)
 * Introduce H.isVisible(sta, sel)
 * Introduce short H.onc(sta, sel, fun)
 * Alias H.cap to H.capitalize(string)

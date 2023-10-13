@@ -618,6 +618,15 @@ targetted element. For example `<div id="nada" class="surf board">`.
 H.js also sports a few functions wrapping XMLHttpRequest.
 
 ```js
+H.validateEmail('foo@example.com') // ==> true
+H.validateEmail('foo@') // ==> false
+H.validateEmail('Toto Du Ruissea <foo@example.com>') // ==> true
+```
+
+`H.validateEmail()` relies on `<input type="email" />` to validate emails.
+It accepts email addresses in the `Toto Du Ruissea <foo@example.com>` format.
+
+```js
 // H.request()
 //
 // meth: 'GET', 'POST', 'PUT', 'HEAD', 'DELETE', ...

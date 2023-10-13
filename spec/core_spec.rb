@@ -3561,21 +3561,40 @@ describe 'H' do
 
   describe '.validateEmail' do
 
-    {
+    { 'toto@foobar.com' => 'toto@foobar.com',
+      'Toto <toto@foobar.com>' => 'toto@foobar.com',
 
-      'toto@foobar.com' => true,
+      'foo' => nil,
+      'foobar.com' => nil,
+      '@foobar.com' => nil,
+      'Toto <toto@foobar.com' => nil,
+      "Toto\n<toto@foobar.com>" => nil,
+
+    }.each do |k, v|
+
+      it "returns #{v.inspect} for #{k.inspect}" do
+
+        expect(evaluate(%{ return H.validateEmail(#{k.inspect}); })).to eq(v)
+      end
+    end
+  end
+
+  describe '.isValidEmail' do
+
+    { 'toto@foobar.com' => true,
       'Toto <toto@foobar.com>' => true,
 
       'foo' => false,
       'foobar.com' => false,
       '@foobar.com' => false,
       'Toto <toto@foobar.com' => false,
+      "Toto\n<toto@foobar.com>" => false,
 
     }.each do |k, v|
 
-      it "returns #{v} for #{k}" do
+      it "returns #{v.inspect} for #{k.inspect}" do
 
-        expect(evaluate(%{ return H.validateEmail(#{k.inspect}); })).to eq(v)
+        expect(evaluate(%{ return H.isValidEmail(#{k.inspect}); })).to eq(v)
       end
     end
   end

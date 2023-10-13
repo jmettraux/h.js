@@ -1368,8 +1368,8 @@ var H = (function() {
 
   this.validateEmail = function(s) {
 
-    if (s.indexOf("@") < 0) return false;
-    if (s.indexOf("\n") > -1 || s.indexOf("\r") > -1) return false;
+    if (s.indexOf("@") < 0) return null;
+    if (s.indexOf("\n") > -1 || s.indexOf("\r") > -1) return null;
 
     var m = s.match(/^[^<]+<([^>]+)>\s*$/);
     if (m) s = m[1];
@@ -1384,7 +1384,12 @@ var H = (function() {
 
     ie.value = s;
 
-    return ie.validity.valid;
+    return ie.validity.valid ? s : null;
+  };
+
+  this.isValidEmail = function(s) {
+
+    return (typeof self.validateEmail(s) === 'string');
   };
 
   //

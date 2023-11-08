@@ -230,6 +230,14 @@ H.onc(sta, sel, fun);
 H.on(sta, 'click', fun);
 H.on(sta, sel, 'click', fun);
 
+H.onChange(sta, fun);
+H.onChange(sta, sel, fun);
+H.onh(sta, fun);
+H.onh(sta, sel, fun);
+  // are shortcuts for
+H.on(sta, 'change', fun);
+H.on(sta, sel, 'change', fun);
+
 // Clicks on an element
 H.click(sta);
 H.click(sta, sel);

@@ -380,11 +380,17 @@ var H = (function() {
 
   this.onClick = function(start, sel, eventHandler) {
     var as = Array.from(arguments);
-    as.splice(as.length - 1, 0, 'click');
-    as.unshift('on');
+    as.splice(as.length - 1, 0, 'click'); as.unshift('on');
     onOrOff.apply(null, as);
   };
   this.onc = this.onClick;
+
+  this.onChange = function(start, sel, eventHandler) {
+    var as = Array.from(arguments);
+    as.splice(as.length - 1, 0, 'change'); as.unshift('on');
+    onOrOff.apply(null, as);
+  };
+  this.onh = this.onChange;
 
   var indexNext = function(sel) {
 

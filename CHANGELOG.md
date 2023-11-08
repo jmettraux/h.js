@@ -4,10 +4,11 @@
 
 ## h.js 1.2.0  not yet released
 
+* Introduce short H.onChange H.onh(sta, sel, fun)
 * Introduce H.isValidEmail(s)
 * Introduce H.validateEmail(s)
 * Introduce H.isVisible(sta, sel)
-* Introduce short H.onc(sta, sel, fun)
+* Introduce short H.onClick H.onc(sta, sel, fun)
 * Alias H.cap to H.capitalize(string)
 * Introduce H.isNotDisplayed(start, sel)
 * Alias H.isHidden to .hidden and H.isHiddenUp to H.hiddenUp

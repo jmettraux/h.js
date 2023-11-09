@@ -430,14 +430,18 @@ var H = (function() {
 
   var splitResponseHeaders = function(req) {
 
+    var tok = function(s) { return s.toLowerCase().replaceAll(/-/g, '_'); };
+
     return req.getAllResponseHeaders()
       .split(/\r\n/)
       .reduce(
         function(h, l) {
-          if (l.indexOf(':') > 0) { var x = l.split(/:\s*/); h[x[0]] = x[1]; }
+          if (l.indexOf(':') > 0) {
+            var x = l.split(/:\s*/);
+            h[tok(x[0])] = x[1]; }
           return h; },
         {});
-  }
+  };
 
   this.request = function(method, uri, headers, data, callbacks) {
 

@@ -74,6 +74,9 @@ XMLHttpRequest.prototype.open = function(meth, uri, bool) {
 XMLHttpRequest.prototype.setRequestHeader = function(key, val) {
   this.headers[key] = val;
 };
+XMLHttpRequest.prototype.getAllResponseHeaders = function() {
+  return "content-encoding: gzip\r\n";
+};
 XMLHttpRequest.prototype.send = function(data) {
   this.data = data;
   this.sent = true;

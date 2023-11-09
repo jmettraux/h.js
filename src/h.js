@@ -428,6 +428,17 @@ var H = (function() {
     return true;
   };
 
+  var splitResponseHeaders = function(req) {
+
+    return req.getAllResponseHeaders()
+      .split(/\r\n/)
+      .reduce(
+        function(h, l) {
+          if (l.indexOf(':') > 0) { var x = l.split(/:\s*/); h[x[0]] = x[1]; }
+          return h; },
+        {});
+  }
+
   this.request = function(method, uri, headers, data, callbacks) {
 
     // shuffle args
@@ -484,7 +495,8 @@ var H = (function() {
       var o = {
         status: r.status,
         request: r,
-        duration: (performance.now() - t0) / 1000 }; // seconds
+        duration: (performance.now() - t0) / 1000, // seconds
+        headers: splitResponseHeaders(r) };
       o.data = null; try {
         o.data = JSON.parse(r.responseText); } catch (ex) {};
       if (as.cbs.onok && r.status === 200)

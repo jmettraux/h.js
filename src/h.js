@@ -938,6 +938,8 @@ var H = (function() {
       self.hasClass(elt, '.disabled')
     );
   };
+  this.disabled = this.isDisabled;
+  this.dised = this.isDisabled;
 
   this.setAtt = function(start, sel, aname, value) {
 

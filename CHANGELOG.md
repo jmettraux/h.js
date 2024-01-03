@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Alias H.disabled() H.dised() to H.isDisabled()
 * Split headers in res out of H.request()
 * Introduce short H.onChange H.onh(sta, sel, fun)
 * Introduce H.isValidEmail(s)

@@ -273,6 +273,10 @@ H.cenable(sta, sel, bof);
 // if the elt has the class "disabled".
 H.isDisabled(sta);
 H.isDisabled(sta, sel);
+H.disabled(sta);
+H.disabled(sta, sel);
+H.dised(sta);
+H.dised(sta, sel);
 
 // Like H.cenable() but toggles the 'shown' class
 H.show(sta);

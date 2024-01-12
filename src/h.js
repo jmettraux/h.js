@@ -1086,7 +1086,7 @@ var H = (function() {
     if (typeof o === 'string') o = o.toLowerCase();
     return o === true || o === 'true' || o === 'yes';
   };
-  this.isTrue = isTrue;
+  this.true = isTrue;
 
   var isVoid = function(o) { return o === null || o === undefined; };
   this.isVoid = isVoid;

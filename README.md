@@ -787,7 +787,6 @@ H.isVoid(x)
   // returns true if x === null or x === undefined
 
 H.isTrue(x)
-H.true(x)
   // returns true if x === true, x === 'true', or x === 'yes', case-insensitive
 ```
 

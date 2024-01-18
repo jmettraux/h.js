@@ -95,6 +95,14 @@ H.matches(sta, sel, sel);
 H.closest(sta, up-sel);
 H.closest(sta, sel, up-sel);
 
+// Returns the first direct child element matching sel
+H.child(sta, sel);
+H.child(sta, sel0, sel);
+
+// Returns an array of direct child elements matching sel
+H.children(sta, sel);
+H.children(sta, sel0, sel);
+
 // Calls fun on each Element
 H.forEach(sta, fun);
 H.forEach(sta, sel, fun);

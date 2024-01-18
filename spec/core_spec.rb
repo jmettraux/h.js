@@ -406,6 +406,71 @@ describe 'H' do
     end
   end
 
+  # <div id="for-children">
+  #   <div class="track alpha"></div>
+  #   <div class="labels" />
+  #   <div class="bounds">
+  #     <div class="track bravo"></div>
+  #   </div>
+  # </div>
+
+  describe '.children' do
+
+    it 'returns the direct children' do
+
+      expect(evaluate(%{
+        return H.count(H.elt('#for-children'), '.track');
+      })).to eq(
+        2
+      )
+
+      expect(evaluate(%{
+        return H.elts(H.elt('#for-children'), '.track')
+          .map(function(e) { return e.className; });
+      })).to eq([
+        'track alpha', 'track bravo'
+      ])
+
+      expect(evaluate(%{
+        return H.children(H.elt('#for-children'), '.track')
+          .map(function(e) { return e.className; });
+      })).to eq([
+        'track alpha'
+      ])
+    end
+
+    it 'returns the direct children' do
+
+      expect(evaluate(%{
+        return H.children(H.elt('body'), '#for-children', '.track')
+          .map(function(e) { return e.className; });
+      })).to eq([
+        'track alpha'
+      ])
+    end
+  end
+
+  describe '.child' do
+
+    it 'returns a direct child' do
+
+      expect(evaluate(%{
+        return H.child(H.elt('#for-children'), '.track').className;
+      })).to eq(
+        'track alpha'
+      )
+    end
+
+    it 'returns a direct child' do
+
+      expect(evaluate(%{
+        return H.child(H.elt('body'), '#for-children', '.track').className;
+      })).to eq(
+        'track alpha'
+      )
+    end
+  end
+
   describe '.forEach' do
 
     it 'works  .forEach(sel, fun)' do

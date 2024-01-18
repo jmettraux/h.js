@@ -598,6 +598,24 @@ var H = (function() {
     return elt.parentElement ? self.closest(elt.parentElement, sel1) : null;
   };
 
+  this.children = function(start, sel, sel1) {
+
+    if ( ! sel1) { sel1 = sel; sel = start; start = null; }
+    var elt = toElt(start, sel);
+
+    return Array.from(elt.children)
+      .filter(function(e) { return e.matches(sel1); });
+  };
+
+  this.child = function(start, sel, sel1) {
+
+    if ( ! sel1) { sel1 = sel; sel = start; start = null; }
+    var elt = toElt(start, sel);
+
+    return Array.from(elt.children)
+      .find(function(e) { return e.matches(sel1); });
+  };
+
   // adapted from http://upshots.org/javascript/jquery-copy-style-copycss
   //
   this.style = function(start, sel/*, opts */) {

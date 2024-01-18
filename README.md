@@ -534,6 +534,10 @@ H.sett(sta, sel, text);
 // Runs fev as soon as the Document is ready,
 // the evt passed to the function might be undefined
 H.onDocumentReady(fev);
+
+// Returns the length of an array, the count of entries, in an object, -1 else
+H.len(x);
+H.size(x);
 ```
 
 Four methods for inspecting style and dimensions of an element.

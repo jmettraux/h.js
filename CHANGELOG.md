@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Introduce H.len() and its H.size() alias
 * Introduce H.children() and H.child()
 * Alias H.disabled() H.dised() to H.isDisabled()
 * Split headers in res out of H.request()

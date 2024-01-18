@@ -3663,5 +3663,28 @@ describe 'H' do
       end
     end
   end
+
+  describe '.len' do
+
+    { '"abcdef g"' => 8,
+      '[]' => 0,
+      '[ "a", "b", "d" ]' => 3,
+      '{}' => 0,
+      '{ "abc": 1, "def": 2 }' => 2,
+      '123' => -1,
+      '123.456' => -1,
+      'null' => -1,
+      'undefined' => -1,
+      'true' => -1,
+      'false' => -1,
+
+    }.each do |k, v|
+
+      it "returns #{v} for #{k}" do
+
+        expect(evaluate(%{ return H.len(#{k}); })).to eq(v)
+      end
+    end
+  end
 end
 

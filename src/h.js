@@ -1435,6 +1435,16 @@ var H = (function() {
     return (typeof self.validateEmail(s) === 'string');
   };
 
+  this.len = function(x) {
+
+    if (x === null) return -1;
+    if (Array.isArray(x)) return x.length;
+    if (typeof x === 'string') return x.length;
+    if (typeof x === 'object') return Object.keys(x).length;
+    return -1;
+  };
+  this.size = this.len;
+
   //
   // done.
 

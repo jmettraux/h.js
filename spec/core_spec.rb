@@ -344,6 +344,23 @@ describe 'H' do
         true, false
       ])
     end
+
+    it 'matches [-sg-nik]' do
+
+      expect(evaluate(%{
+        var e = H.elt('[-sg-nik]');
+        return [
+          H.matches(e, '[-sg-nik]'),
+          H.matches(e, '[data-sg-nik]'),
+          H.matches(e, '[-sg-nik="ok"]'),
+          H.matches(e, '[data-sg-nik="ok"]'),
+          H.matches(e, '[-sg-nik="ng"]'),
+          H.matches(e, '[data-sg-nik="ng"]'),
+        ];
+      })).to eq([
+        true, true, true, true, false, false
+      ])
+    end
   end
 
   describe '.closest' do

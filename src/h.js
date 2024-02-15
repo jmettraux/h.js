@@ -577,13 +577,17 @@ var H = (function() {
   this.matches = function(start, sel, pat) {
 
     if ( ! pat) { pat = sel; sel = start; start = null; }
+
     var elt = toElt(start, sel);
+    if ( ! elt) throw "H.matches() couldn't locate elt pre-matching";
 
-    if (elt && elt.matches) return elt.matches(pat);
-    if (elt && elt.matchesSelector) return elt.matchesSelector(pat);
-    if (elt && elt.msMatchesSelector) return elt.msMatchesSelector(pat);
+    var pat1 = dashData(pat);
 
-    throw "H.js got fed something that doesn't respond to .matches() or .matchesSelector()";
+    if (elt.matches) return elt.matches(pat1);
+    if (elt.matchesSelector) return elt.matchesSelector(pat1);
+    if (elt.msMatchesSelector) return elt.msMatchesSelector(pat1);
+
+    throw "H.js elt doesn't respond to .matches() or .matchesSelector()";
   };
 
   this.closest = function(start, sel, sel1) {

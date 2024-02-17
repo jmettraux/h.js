@@ -179,6 +179,8 @@ var H = (function() {
   this.click = function(start, sel) { toElt(start, sel).click(); };
   this.k = this.click;
 
+  // Warning: there is a H.each(array_or_hash, fun) below...
+  //
   this.forEach = function(start, sel, fun) {
 
     if ((typeof sel) === 'function') { fun = sel; sel = null; }
@@ -1472,6 +1474,8 @@ var H = (function() {
     return (typeof self.validateEmail(s) === 'string');
   };
 
+  // Warning: this is not equivalent to H.forEach(sta, sel, fun)
+  //
   this.each = function(array_or_hash, fun) {
 
     if (Array.isArray(array_or_hash)) {

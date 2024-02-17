@@ -4,7 +4,6 @@
 
 ## h.js 1.2.0  not yet released
 
-* Unify H.count .size .len (sta, sel) or (array_or_hash)
 * Introduce H.each()
 * Ensure H.matches() accepts [-x] for [data-x]
 * Introduce H.len() and its H.size() alias

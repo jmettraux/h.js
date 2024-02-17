@@ -154,27 +154,7 @@ var H = (function() {
   this.e = toElt;
   this.es = toElts;
 
-  this.count = function(start, sel) {
-
-    if (start === null) return -1;
-    if (start === undefined) return -1;
-
-    if (Array.isArray(start)) return start.length;
-
-    var s0 = (typeof start === 'string');
-    var s1 = (typeof sel === 'string');
-    var e0 = self.isElement(start);
-    var n1 = (sel === null || sel === undefined);
-
-    if (e0 && (s1 || n1)) return toElts(start, sel).length;
-    if (s0 && n1) return toElts(start, sel).length;
-
-    if (this.isHash(start)) return Object.keys(start).length;
-
-    return -1;
-  };
-  this.len = this.count
-  this.size = this.count;
+  this.count = function(start, sel) { return toElts(start, sel).length; };
 
   this.click = function(start, sel) { toElt(start, sel).click(); };
   this.k = this.click;
@@ -1473,6 +1453,17 @@ var H = (function() {
 
     return (typeof self.validateEmail(s) === 'string');
   };
+
+  this.length = function(x) {
+
+    if (x === null) return -1;
+    if (Array.isArray(x)) return x.length;
+    if (typeof x === 'string') return x.length;
+    if (typeof x === 'object') return Object.keys(x).length;
+    return -1;
+  };
+  this.len = this.length;
+  this.size = this.length;
 
   // Warning: this is not equivalent to H.forEach(sta, sel, fun)
   //

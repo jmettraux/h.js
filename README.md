@@ -74,10 +74,6 @@ H.es(sta, sel);
 // Returns the count of matching elements
 H.count(sta);
 H.count(sta, sel);
-H.len(sta);
-H.len(sta, sel);
-H.size(sta);
-H.size(sta, sel);
 
 // Returns true if the argument is a DOM Element
 H.isElement(o);
@@ -542,18 +538,20 @@ H.onDocumentReady(fev);
 
 Here are a few functions about arrays and hashes:
 ```js
-// Returns the length of an array, the count of entries, in an object, -1 else
-// Nota bene: doesn't work with strings (goes into .count(sta, sel) mode...)
-H.count(x);
+// Returns the length of an array, the count of entries in an object,
+// the length of a string, -1 else
+H.length(x);
 H.len(x);
 H.size(x);
 
 H.each({ abc: 'def', ghi: 'jkl' }, function(k, v, i) { /* ... */ });
 H.each([ 'ab', 'cd', 'ef' ], function(e, i) { /* ... */ });
+
+// Nota bene: H.each(array_or_hash, fun) is not the same as
+//            H.forEach(sta, sel, fun)
 ```
 
-Four methods for inspecting style and dimensions of an element.
-
+Four methods for inspecting style and dimensions of an element:
 ```js
 // Returns an object
 // { top: p, bottom: p, left: p, right: p, height: p, width: p }

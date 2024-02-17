@@ -534,10 +534,16 @@ H.sett(sta, sel, text);
 // Runs fev as soon as the Document is ready,
 // the evt passed to the function might be undefined
 H.onDocumentReady(fev);
+```
 
+Here are a few functions about arrays and hashes:
+```js
 // Returns the length of an array, the count of entries, in an object, -1 else
 H.len(x);
 H.size(x);
+
+H.each({ abc: 'def', ghi: 'jkl' }, function(k, v, i) { /* ... */ });
+H.each([ 'ab', 'cd', 'ef' ], function(e, i) { /* ... */ });
 ```
 
 Four methods for inspecting style and dimensions of an element.

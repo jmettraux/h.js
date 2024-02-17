@@ -1449,6 +1449,20 @@ var H = (function() {
   };
   this.size = this.len;
 
+  this.each = function(array_or_hash, fun) {
+
+    if (Array.isArray(array_or_hash)) {
+      return array_or_hash
+        .forEach(fun);
+    }
+    if (Sg.isH(array_or_hash)) {
+      return Object.entries(array_or_hash)
+        .forEach(function([ k, v ], i) { fun(k, v, i); });
+    }
+
+    throw new Error(`Cannot iterate over >${array_or_hash}<`);
+  };
+
   //
   // done.
 

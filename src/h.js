@@ -1379,17 +1379,17 @@ var H = (function() {
   };
   this.c = this.create;
 
-  var TAGS = `
-    a abbr address area article aside audio b base bdi bdo blockquote body br
-    button canvas caption cite code col colgroup data datalist dd del details
-    dfn dialog div dl dt em embed fieldset figcaption figure footer form h1 h2
-    h3 h4 h5 h6 head header hr html i iframe img input ins kbd keygen label
-    legend li link main map mark menu menuitem meta meter nav noscript object
-    ol optgroup option output p param picture pre progress q rp rt ruby s samp
-    script section select small source span strong style sub summary sup table
-    tbody td textarea tfoot th thead time title tr track u ul video wbr`
-      .split(/\s+/)
-      .filter(function(e) { return e.length > 0; })
+  var TAGS = (
+    'a abbr address area article aside audio b base bdi bdo blockquote body ' +
+    'br button canvas caption cite code col colgroup data datalist dd del ' +
+    'details dfn dialog div dl dt em embed fieldset figcaption figure footer ' +
+    'form h1 h2 h3 h4 h5 h6 head header hr html i iframe img input ins kbd ' +
+    'keygen label legend li link main map mark menu menuitem meta meter nav ' +
+    'noscript object ol optgroup option output p param picture pre progress ' +
+    'q rp rt ruby s samp script section select small source span strong ' +
+    'style sub summary sup table tbody td textarea tfoot th thead time title ' +
+    'tr track u ul video wbr'
+      ).split(' ');
         //
         // removed the "var" tagname...
 
@@ -1480,10 +1480,11 @@ var H = (function() {
     }
     if (Sg.isH(array_or_hash)) {
       return Object.entries(array_or_hash)
-        .forEach(function([ k, v ], i) { fun(k, v, i); });
+        .forEach(function(kv, i) { fun(kv[0], kv[1], i); });
+        //.forEach(function([ k, v ], i) { fun(k, v, i); });
     }
 
-    throw new Error(`Cannot iterate over >${array_or_hash}<`);
+    throw new Error('Cannot iterate over >' + JSON.dump(array_or_hash) + '<');
   };
 
   //

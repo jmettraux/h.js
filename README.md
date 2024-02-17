@@ -74,6 +74,10 @@ H.es(sta, sel);
 // Returns the count of matching elements
 H.count(sta);
 H.count(sta, sel);
+H.len(sta);
+H.len(sta, sel);
+H.size(sta);
+H.size(sta, sel);
 
 // Returns true if the argument is a DOM Element
 H.isElement(o);
@@ -539,6 +543,8 @@ H.onDocumentReady(fev);
 Here are a few functions about arrays and hashes:
 ```js
 // Returns the length of an array, the count of entries, in an object, -1 else
+// Nota bene: doesn't work with strings (goes into .count(sta, sel) mode...)
+H.count(x);
 H.len(x);
 H.size(x);
 

@@ -3683,7 +3683,7 @@ describe 'H' do
 
   describe '.len' do
 
-    { '"abcdef g"' => 8,
+    { #'"abcdef g"' => 8,
       '[]' => 0,
       '[ "a", "b", "d" ]' => 3,
       '{}' => 0,

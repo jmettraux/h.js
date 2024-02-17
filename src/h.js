@@ -154,7 +154,27 @@ var H = (function() {
   this.e = toElt;
   this.es = toElts;
 
-  this.count = function(start, sel) { return toElts(start, sel).length; };
+  this.count = function(start, sel) {
+
+    if (start === null) return -1;
+    if (start === undefined) return -1;
+
+    if (Array.isArray(start)) return start.length;
+
+    var s0 = (typeof start === 'string');
+    var s1 = (typeof sel === 'string');
+    var e0 = self.isElement(start);
+    var n1 = (sel === null || sel === undefined);
+
+    if (e0 && (s1 || n1)) return toElts(start, sel).length;
+    if (s0 && n1) return toElts(start, sel).length;
+
+    if (this.isHash(start)) return Object.keys(start).length;
+
+    return -1;
+  };
+  this.len = this.count
+  this.size = this.count;
 
   this.click = function(start, sel) { toElt(start, sel).click(); };
   this.k = this.click;
@@ -1359,10 +1379,23 @@ var H = (function() {
   };
   this.c = this.create;
 
+  var TAGS = `
+    a abbr address area article aside audio b base bdi bdo blockquote body br
+    button canvas caption cite code col colgroup data datalist dd del details
+    dfn dialog div dl dt em embed fieldset figcaption figure footer form h1 h2
+    h3 h4 h5 h6 head header hr html i iframe img input ins kbd keygen label
+    legend li link main map mark menu menuitem meta meter nav noscript object
+    ol optgroup option output p param picture pre progress q rp rt ruby s samp
+    script section select small source span strong style sub summary sup table
+    tbody td textarea tfoot th thead time title tr track u ul video wbr`
+      .split(/\s+/)
+      .filter(function(e) { return e.length > 0; })
+        //
+        // removed the "var" tagname...
+
   var growers =
     'var ' +
-    'a abbr address area article aside audio b base bdi bdo blockquote br button canvas caption cite code col colgroup datalist dd del details dfn dialog div dl dt em embed fieldset figcaption figure footer form h1 h2 h3 h4 h5 h6 header hr i iframe img input ins kbd keygen label legend li main map mark menu menuitem meta meter nav noscript object ol optgroup option output p param picture pre progress q rp rt ruby s samp script section select small source span strong style sub summary sup table tbody td textarea tfoot th thead time title tr track u ul video wbr'
-      .split(' ')
+    TAGS
       .map(function(t) { return t + '=H.makeGrower("' + t + '")' })
       .join(',') +
     ';';
@@ -1438,16 +1471,6 @@ var H = (function() {
 
     return (typeof self.validateEmail(s) === 'string');
   };
-
-  this.len = function(x) {
-
-    if (x === null) return -1;
-    if (Array.isArray(x)) return x.length;
-    if (typeof x === 'string') return x.length;
-    if (typeof x === 'object') return Object.keys(x).length;
-    return -1;
-  };
-  this.size = this.len;
 
   this.each = function(array_or_hash, fun) {
 

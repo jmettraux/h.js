@@ -559,12 +559,17 @@ H.reject([ 'ab', 'cd', 'ef' ], function(e, i) { /* ... */ });
 H.reject({ abc: 'def', ghi: 'jkl' }, function(k, v, i) { /* ... */ });
   // returns a new array or a new hash...
 
+H.inject([ 'ab', 'cd', 'ef' ], function(e, i) { /* ... */ }, acc);
+H.inject({ abc: 'def', ghi: 'jkl' }, function(k, v, i) { /* ... */ }, acc);
+
 // Nota bene: H.each(array_or_hash, fun) is not the same as
 //            H.forEach(sta, sel, fun)
 // and        H.collect(array_or_hash, fun) is not the same as
 //            H.map(sta, sel, fun)
 // and        H.select(array_or_hash, fun) is not the same as
 //            H.filter(sta, sel, fun)
+// and        H.inject(array_or_hash, fun, acc) is not the same as
+//            H.reduce(sta, sel, fun, acc)
 ```
 
 Four methods for inspecting style and dimensions of an element:

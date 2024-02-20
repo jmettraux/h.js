@@ -136,5 +136,36 @@ describe 'H and iterating over array or hash/dict/object' do
       )
     end
   end
+
+  describe '.inject' do
+
+    it 'injects over arrays (acc, e, i)' do
+
+      expect(evaluate(%{
+        return H.inject(
+          [ 1, 2, 'three', 4, 'five', 6 ],
+          function(acc, e, i) { acc.push([ i, e ]); return acc; },
+          [ 'zero' ]);
+      })).to eq(
+        [ 'zero', [ 0, 1 ], [ 1, 2 ], [ 2, 'three' ], [ 3, 4 ],
+          [ 4, 'five' ], [ 5, 6 ] ]
+      )
+    end
+
+    it 'injects over hashes (acc, k, v, i)' do
+
+      expect(evaluate(%{
+        return H.inject(
+          { abc: 123, def: 'bar', ghi: 789, jkl: 'foo' },
+          function(acc, k, v, i) {
+            acc.push([ i, k, v ]);
+            return acc; },
+          [ 'toto' ]);
+      })).to eq(
+        [ 'toto', [ 0, 'abc', 123 ], [ 1, 'def', 'bar' ], [ 2, 'ghi', 789 ],
+          [ 3, 'jkl', 'foo' ] ]
+      )
+    end
+  end
 end
 

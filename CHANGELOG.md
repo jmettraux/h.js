@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Introduce H.inject(array_or_hash, fun, acc)
 * Introduce H.reject(array_or_hash, fun)
 * Introduce H.select(array_or_hash, fun)
 * Introduce H.collect(array_or_hash, fun)

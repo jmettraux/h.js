@@ -1514,6 +1514,20 @@ var H = (function() {
   this.reject = function(array_or_hash, fun) {
     return _elect(false, array_or_hash, fun); };
 
+  this.inject = function(array_or_hash, fun, acc) {
+
+    if (Array.isArray(array_or_hash)) {
+      return array_or_hash.reduce(fun, acc);
+    }
+    if (self.isHash(array_or_hash)) {
+      Object.entries(array_or_hash)
+        .forEach(function(kv, i) { acc = fun(acc, kv[0], kv[1], i); });
+      return acc;
+    }
+
+    throw new Error('Cannot iterate over >' + JSON.dump(array_or_hash) + '<');
+  };
+
   //
   // done.
 

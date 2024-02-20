@@ -1475,11 +1475,26 @@ var H = (function() {
     }
     if (self.isHash(array_or_hash)) {
       return Object.entries(array_or_hash)
-        .forEach(function(kv, i) { fun(kv[0], kv[1], i); });
-        //.forEach(function([ k, v ], i) { fun(k, v, i); });
+        .forEach(function(kv, i) { return fun(kv[0], kv[1], i); });
     }
 
     throw new Error('Cannot iterate over >' + JSON.dump(array_or_hash) + '<');
+  };
+
+  // Use Ruby's collect to differentatiate from H.map...
+  //
+  this.collect = function(array_or_hash, fun) {
+
+    if (Array.isArray(array_or_hash)) {
+      return array_or_hash
+        .map(fun);
+    }
+    if (self.isHash(array_or_hash)) {
+      return Object.entries(array_or_hash)
+        .map(function(kv, i) { return fun(kv[0], kv[1], i); });
+    }
+
+    throw new Error('Cannot collect over >' + JSON.dump(array_or_hash) + '<');
   };
 
   //

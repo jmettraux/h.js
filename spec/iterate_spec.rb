@@ -61,5 +61,30 @@ describe 'H and iterating over array or hash/dict/object' do
       )
     end
   end
+
+  describe '.collect' do
+
+    it 'collects over arrays (e, i)' do
+
+      expect(evaluate(%{
+        return H.collect(
+          [ 1, 2, 'three', 4 ],
+          function(e, i) { return [ i, e ]; });
+      })).to eq(
+        [ [ 0, 1 ], [ 1, 2 ], [ 2, 'three' ], [ 3, 4 ] ]
+      )
+    end
+
+    it 'collects over hashes (k, v, i)' do
+
+      expect(evaluate(%{
+        return H.collect(
+          { abc: 123, def: 456, ghi: 789 },
+          function(k, v, i) { return [ i, k, v ]; });
+      })).to eq(
+        [ [ 0, 'abc', 123 ], [ 1, 'def', 456 ], [ 2, 'ghi', 789 ] ]
+      )
+    end
+  end
 end
 

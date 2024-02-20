@@ -1465,37 +1465,30 @@ var H = (function() {
   this.len = this.length;
   this.size = this.length;
 
-  // Warning: this is not equivalent to H.forEach(sta, sel, fun)
-  //
-  this.each = function(array_or_hash, fun) {
+  var _iterate = function(iterator, array_or_hash, fun) {
 
     if (Array.isArray(array_or_hash)) {
-      return array_or_hash
-        .forEach(fun);
+      return array_or_hash[iterator].bind(array_or_hash)(
+        fun);
     }
     if (self.isHash(array_or_hash)) {
-      return Object.entries(array_or_hash)
-        .forEach(function(kv, i) { return fun(kv[0], kv[1], i); });
+      var es = Object.entries(array_or_hash);
+      return es[iterator].bind(es)(
+        function(kv, i) { return fun(kv[0], kv[1], i); });
     }
 
     throw new Error('Cannot iterate over >' + JSON.dump(array_or_hash) + '<');
   };
 
+  // Warning: this is not equivalent to H.forEach(sta, sel, fun)
+  //
+  this.each = function(array_or_hash, fun) {
+    return _iterate('forEach', array_or_hash, fun); };
+
   // Use Ruby's collect to differentatiate from H.map...
   //
   this.collect = function(array_or_hash, fun) {
-
-    if (Array.isArray(array_or_hash)) {
-      return array_or_hash
-        .map(fun);
-    }
-    if (self.isHash(array_or_hash)) {
-      return Object.entries(array_or_hash)
-        .map(function(kv, i) { return fun(kv[0], kv[1], i); });
-    }
-
-    throw new Error('Cannot collect over >' + JSON.dump(array_or_hash) + '<');
-  };
+    return _iterate('map', array_or_hash, fun); };
 
   //
   // done.

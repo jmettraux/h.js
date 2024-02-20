@@ -1473,7 +1473,7 @@ var H = (function() {
       return array_or_hash
         .forEach(fun);
     }
-    if (Sg.isH(array_or_hash)) {
+    if (self.isHash(array_or_hash)) {
       return Object.entries(array_or_hash)
         .forEach(function(kv, i) { fun(kv[0], kv[1], i); });
         //.forEach(function([ k, v ], i) { fun(k, v, i); });

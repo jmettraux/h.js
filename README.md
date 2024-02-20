@@ -550,10 +550,15 @@ H.each({ abc: 'def', ghi: 'jkl' }, function(k, v, i) { /* ... */ });
 H.collect([ 'ab', 'cd', 'ef' ], function(e, i) { /* ... */ });
 H.collect({ abc: 'def', ghi: 'jkl' }, function(k, v, i) { /* ... */ });
 
+H.select([ 'ab', 'cd', 'ef' ], function(e, i) { /* ... */ });
+H.select({ abc: 'def', ghi: 'jkl' }, function(k, v, i) { /* ... */ });
+
 // Nota bene: H.each(array_or_hash, fun) is not the same as
 //            H.forEach(sta, sel, fun)
 // and        H.collect(array_or_hash, fun) is not the same as
 //            H.map(sta, sel, fun)
+// and        H.select(array_or_hash, fun) is not the same as
+//            H.filter(sta, sel, fun)
 ```
 
 Four methods for inspecting style and dimensions of an element:

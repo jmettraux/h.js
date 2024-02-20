@@ -86,5 +86,30 @@ describe 'H and iterating over array or hash/dict/object' do
       )
     end
   end
+
+  describe '.select' do
+
+    it 'selects over arrays (e, i)' do
+
+      expect(evaluate(%{
+        return H.select(
+          [ 1, 2, 'three', 4, 'five' ],
+          function(e, i) { return (i === 2) || (typeof e === 'number'); });
+      })).to eq(
+        [ 1, 2, 'three', 4 ]
+      )
+    end
+
+    it 'selects over hashes (k, v, i)' do
+
+      expect(evaluate(%{
+        return H.select(
+          { abc: 123, def: 456, ghi: 789, jkl: 'nada' },
+          function(k, v, i) { return (typeof v === 'string') || (i === 2); });
+      })).to eq(
+        { 'ghi' => 789, 'jkl' => 'nada' }
+      )
+    end
+  end
 end
 

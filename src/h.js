@@ -1490,6 +1490,23 @@ var H = (function() {
   this.collect = function(array_or_hash, fun) {
     return _iterate('map', array_or_hash, fun); };
 
+  this.select = function(array_or_hash, fun) {
+
+    if (Array.isArray(array_or_hash)) {
+      return array_or_hash.filter(fun);
+    }
+    if (self.isHash(array_or_hash)) {
+      var h = {};
+      Object.entries(array_or_hash).forEach(function(kv, i) {
+        var k = kv[0], v = kv[1];
+        if (fun(k, v, i)) h[k] = v;
+      });
+      return h;
+    }
+
+    throw new Error('Cannot iterate over >' + JSON.dump(array_or_hash) + '<');
+  };
+
   //
   // done.
 

@@ -4,7 +4,8 @@
 
 ## h.js 1.2.0  not yet released
 
-* Implement H.collect(array_or_hash, fun)
+* Introduce H.select(array_or_hash, fun)
+* Introduce H.collect(array_or_hash, fun)
 * Introduce H.each(array_or_hash, fun)
 * Ensure H.matches() accepts [-x] for [data-x]
 * Introduce H.len() and its H.size() alias

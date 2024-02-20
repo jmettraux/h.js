@@ -1484,61 +1484,35 @@ var H = (function() {
   this.each = function(array_or_hash, fun) {
     return _iterate('forEach', array_or_hash, fun); };
 
-  // Use Ruby's collect to differentatiate from H.map...
-  //
+  // Steal Ruby's "collect" and friends to differentiate from map/filter/...
+
   this.collect = function(array_or_hash, fun) {
     return _iterate('map', array_or_hash, fun); };
 
-//  var _elect = function(positive, array_or_hash, fun) {
-//
-//    if (Array.isArray(array_or_hash)) {
-//      return array_or_hash.filter(fun);
-//    }
-//    if (self.isHash(array_or_hash)) {
-//      var h = {};
-//      Object.entries(array_or_hash).forEach(function(kv, i) {
-//        var k = kv[0], v = kv[1];
-//        if (fun(k, v, i)) h[k] = v;
-//      });
-//      return h;
-//    }
-//
-//    throw new Error('Cannot iterate over >' + JSON.dump(array_or_hash) + '<');
-//  };
+  var _elect = function(positive, array_or_hash, fun) {
+
+    if (Array.isArray(array_or_hash)) {
+      return array_or_hash.filter(function(e, i) {
+        return ( !! fun(e, i)) === positive;
+      });
+    }
+    if (self.isHash(array_or_hash)) {
+      var h = {};
+      Object.entries(array_or_hash).forEach(function(kv, i) {
+        var k = kv[0], v = kv[1];
+        if (( !! fun(k, v, i)) === positive) h[k] = v;
+      });
+      return h;
+    }
+
+    throw new Error('Cannot iterate over >' + JSON.dump(array_or_hash) + '<');
+  };
 
   this.select = function(array_or_hash, fun) {
-
-    if (Array.isArray(array_or_hash)) {
-      return array_or_hash.filter(fun);
-    }
-    if (self.isHash(array_or_hash)) {
-      var h = {};
-      Object.entries(array_or_hash).forEach(function(kv, i) {
-        var k = kv[0], v = kv[1];
-        if (fun(k, v, i)) h[k] = v;
-      });
-      return h;
-    }
-
-    throw new Error('Cannot iterate over >' + JSON.dump(array_or_hash) + '<');
-  };
+    return _elect(true, array_or_hash, fun); };
 
   this.reject = function(array_or_hash, fun) {
-
-    if (Array.isArray(array_or_hash)) {
-      return array_or_hash.filter(function(e, i) { return ! fun(e, i); });
-    }
-    if (self.isHash(array_or_hash)) {
-      var h = {};
-      Object.entries(array_or_hash).forEach(function(kv, i) {
-        var k = kv[0], v = kv[1];
-        if ( ! fun(k, v, i)) h[k] = v;
-      });
-      return h;
-    }
-
-    throw new Error('Cannot iterate over >' + JSON.dump(array_or_hash) + '<');
-  };
+    return _elect(false, array_or_hash, fun); };
 
   //
   // done.

@@ -1468,12 +1468,11 @@ var H = (function() {
   var _iterate = function(iterator, array_or_hash, fun) {
 
     if (Array.isArray(array_or_hash)) {
-      return array_or_hash[iterator].bind(array_or_hash)(
+      return array_or_hash[iterator](
         fun);
     }
     if (self.isHash(array_or_hash)) {
-      var es = Object.entries(array_or_hash);
-      return es[iterator].bind(es)(
+      return Object.entries(array_or_hash)[iterator](
         function(kv, i) { return fun(kv[0], kv[1], i); });
     }
 
@@ -1490,6 +1489,23 @@ var H = (function() {
   this.collect = function(array_or_hash, fun) {
     return _iterate('map', array_or_hash, fun); };
 
+//  var _elect = function(positive, array_or_hash, fun) {
+//
+//    if (Array.isArray(array_or_hash)) {
+//      return array_or_hash.filter(fun);
+//    }
+//    if (self.isHash(array_or_hash)) {
+//      var h = {};
+//      Object.entries(array_or_hash).forEach(function(kv, i) {
+//        var k = kv[0], v = kv[1];
+//        if (fun(k, v, i)) h[k] = v;
+//      });
+//      return h;
+//    }
+//
+//    throw new Error('Cannot iterate over >' + JSON.dump(array_or_hash) + '<');
+//  };
+
   this.select = function(array_or_hash, fun) {
 
     if (Array.isArray(array_or_hash)) {
@@ -1500,6 +1516,23 @@ var H = (function() {
       Object.entries(array_or_hash).forEach(function(kv, i) {
         var k = kv[0], v = kv[1];
         if (fun(k, v, i)) h[k] = v;
+      });
+      return h;
+    }
+
+    throw new Error('Cannot iterate over >' + JSON.dump(array_or_hash) + '<');
+  };
+
+  this.reject = function(array_or_hash, fun) {
+
+    if (Array.isArray(array_or_hash)) {
+      return array_or_hash.filter(function(e, i) { return ! fun(e, i); });
+    }
+    if (self.isHash(array_or_hash)) {
+      var h = {};
+      Object.entries(array_or_hash).forEach(function(kv, i) {
+        var k = kv[0], v = kv[1];
+        if ( ! fun(k, v, i)) h[k] = v;
       });
       return h;
     }

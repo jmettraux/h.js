@@ -111,5 +111,30 @@ describe 'H and iterating over array or hash/dict/object' do
       )
     end
   end
+
+  describe '.reject' do
+
+    it 'rejects over arrays (e, i)' do
+
+      expect(evaluate(%{
+        return H.reject(
+          [ 1, 2, 'three', 4, 'five' ],
+          function(e, i) { return (i === 2) || (typeof e === 'number'); });
+      })).to eq(
+        [ 'five' ]
+      )
+    end
+
+    it 'rejects over hashes (k, v, i)' do
+
+      expect(evaluate(%{
+        return H.reject(
+          { abc: 123, def: 456, ghi: 789, jkl: 'nada' },
+          function(k, v, i) { return (typeof v === 'string') || (i === 2); });
+      })).to eq(
+        { 'abc' => 123, 'def' => 456 }
+      )
+    end
+  end
 end
 

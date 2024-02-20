@@ -12,7 +12,7 @@ describe 'H and iterating over array or hash/dict/object' do
 
   describe '.each' do
 
-    it 'iterates over arrays' do
+    it 'iterates over arrays (e)' do
 
       expect(evaluate(%{
         var s = 10;
@@ -23,7 +23,18 @@ describe 'H and iterating over array or hash/dict/object' do
       )
     end
 
-    it 'iterates over hashes' do
+    it 'iterates over arrays (e, i)' do
+
+      expect(evaluate(%{
+        var a = [];
+        H.each([ 'a', 'bc', 'def' ], function(e, i) { a.push(i); a.push(e); });
+        return a;
+      })).to eq(
+        [ 0, 'a', 1, 'bc', 2, 'def' ]
+      )
+    end
+
+    it 'iterates over hashes (k, v)' do
 
       expect(evaluate(%{
         var s = 11;
@@ -34,6 +45,19 @@ describe 'H and iterating over array or hash/dict/object' do
         return [ ks, s ];
       })).to eq(
         [ %w[ a b c ], 17 ]
+      )
+    end
+
+    it 'iterates over hashes (k, v, i)' do
+
+      expect(evaluate(%{
+        var a = [];
+        H.each(
+          { a: 1, b: 2, c: 3 },
+          function(k, v, i) { a.push([ k, v, i ]); });
+        return a;
+      })).to eq(
+        [ [ 'a', 1, 0 ], [ 'b', 2, 1 ], [ 'c', 3, 2 ] ]
       )
     end
   end

@@ -3000,6 +3000,49 @@ describe 'H' do
     end
   end
 
+    # <div id="for-getAtta">
+    #   <div class="a" data-a=","></div>
+    #   <div class="b" data-a=",abc,"></div>
+    #   <div class="c" data-a="abc,de f,h i j "></div>
+    # </div>
+    #
+  describe '.getAtta' do
+
+    it 'returns an array of string values' do
+
+      expect(evaluate(%{
+        var e = H.elt('#for-getAtta');
+        return {
+
+          10: H.getAtta(e, '.a', '-a'),
+          11: H.atta(e, '.b', 'data-a'),
+          12: H.atta(e, '.c', '-a'),
+          13: H.atta(e, '.c', '-A'),
+
+          20: H.atta(e, '.z', '-a') || 'x',
+          21: H.atta(e, '.a', '-A'),
+          22: H.atta(e, '.a', '-Z') || 'x',
+
+          30: H.atta(e, '.z', '-a', '1,deux,3'),
+          31: H.atta(e, '.z', '-A', [ 1, 2, 'trois' ]),
+        };
+      })).to eq({
+
+        '10' => [],
+        '11' => [ 'abc' ],
+        '12' => [ 'abc', 'de f', 'h i j' ],
+        '13' => [ 'abc', 'de f', 'h i j' ],
+
+        '20' => 'x',
+        '21' => [],
+        '22' => 'x',
+
+        '30' => [ '1', 'deux', '3' ],
+        '31' => [ '1', '2', 'trois' ],
+      })
+    end
+  end
+
   describe '.text' do
 
     it 'returns the textContent of the target' do

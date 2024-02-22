@@ -396,35 +396,43 @@ H.clean(sta, sel, cla);
 
 // Short for H.elt(sta, sel).getAttribute(name);
 H.getAtt(sta, name/*, default*/);
-H.getAtt(sta, sel, name);
 H.getAtt(sta, sel, name/*, default*/);
 H.att(sta, name/*, default*/);
-H.att(sta, sel, name);
 H.att(sta, sel, name/*, default*/);
   //
 // Short for parseInt(H.elt(sta, sel).getAttribute(name), 10);
-H.getAtti(sta, sel, name);
+H.getAtti(sta, name/*, default*/);
 H.getAtti(sta, sel, name/*, default*/);
-H.atti(sta, sel, name);
+H.atti(sta, name/*, default*/);
 H.atti(sta, sel, name/*, default*/);
   //
 // Short for parseFloat(H.elt(sta, sel).getAttribute(name));
-H.getAttf(sta, sel, name);
+H.getAttf(sta, name/*, default*/);
 H.getAttf(sta, sel, name/*, default*/);
-H.attf(sta, sel, name);
+H.attf(sta, name/*, default*/);
 H.attf(sta, sel, name/*, default*/);
   //
 // Short for JSON.parse(H.elt(sta, sel).getAttribute(name));
-H.getAttj(sta, sel, name);
+H.getAttj(sta, name/*, default*/);
 H.getAttj(sta, sel, name/*, default*/);
-H.attj(sta, sel, name);
+H.attj(sta, name/*, default*/);
 H.attj(sta, sel, name/*, default*/);
 
 // returns `true` if the attribute contains 'true', 'yes', or 'on';
 // returns `false` if the attribute contains 'false', 'no', or 'off';
 // returns undefined else.
-H.getAttb(sta, sel, name);
-H.attb(sta, sel, name);
+H.getAttb(sta, name/*, default*/);
+H.getAttb(sta, sel, name/*, default*/);
+H.attb(sta, name/*, default*/);
+H.attb(sta, sel, name/*, default*/);
+
+// expects the attribute to contained a comma-separated list of strings
+// eliminates zero-length elements, ie ``` "a,,bc,2," => [ 'a', 'bc', '2' ] ```
+// returns undefined else.
+H.getAtta(sta, name/*, default*/);
+H.getAtta(sta, sel, name/*, default*/);
+H.atta(sta, name/*, default*/);
+H.atta(sta, sel, name/*, default*/);
 
 // Short for H.forEach(sta, sel, function(e) { e.setAttribute(name, value); });
 H.setAtt(sta, name, value);

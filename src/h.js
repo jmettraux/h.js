@@ -1058,11 +1058,22 @@ var H = (function() {
     return undefined;
   };
 
+  this.getAtta = function(start, sel, aname/*, default*/) {
+    var v = self.getAtt.apply(null, arguments);
+    if (v === undefined) return v;
+    return(('' + v)
+      .split(',')
+      .reduce(
+        function(a, e) { e = e.trim(); if (e.length > 0) a.push(e); return a; },
+        []));
+  };
+
   this.att = this.getAtt;
   this.atti = this.getAtti;
   this.attf = this.getAttf;
   this.attj = this.getAttj;
   this.attb = this.getAttb;
+  this.atta = this.getAtta;
 
   var FALSIES = [ false, null, undefined, NaN, '' ];
   var isFalsy = function(v) { return FALSIES.indexOf(v) > -1; }

@@ -2834,6 +2834,16 @@ describe 'H' do
       )
     end
 
+    it 'returns null else (take 2)' do
+
+      expect(evaluate(%{
+        var e = H.elt('#for-getAtt');
+        return JSON.stringify(H.getAtti(e, '.gaa', 'data-hjs-omegaX'));
+      })).to eq(
+        'null'
+      )
+    end
+
     it 'returns the given default else' do
 
       expect(evaluate(%{

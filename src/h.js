@@ -1075,8 +1075,8 @@ var H = (function() {
   this.attb = this.getAttb;
   this.atta = this.getAtta;
 
-  var FALSIES = [ false, null, undefined, NaN, '' ];
-  var isFalsy = function(v) { return FALSIES.indexOf(v) > -1; }
+  var FALSIES = [ false, null, undefined, '' ];
+  var isFalsy = function(v) { return isNaN(v) || FALSIES.indexOf(v) > -1; }
   var TRUES = 'true yes on'.split(' ');
   var FALSES = 'false no off'.split(' ');
 

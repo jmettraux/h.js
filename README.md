@@ -71,6 +71,15 @@ H.es(sta, sel);
   // H.js has this ^ "up above" operator, only works at the beginning of the
   // selector
 
+H.eltv(sta);
+H.eltv(sta, sel);
+H.ev(sta);
+H.ev(sta, sel);
+  //
+  for (e of H.eltv('.cars')) { console.log('e', e); }
+  // is equivalent to
+  for (e of H.elts('.cars').values()) { console.log('e', e); }
+
 // Returns the count of matching elements
 H.count(sta);
 H.count(sta, sel);

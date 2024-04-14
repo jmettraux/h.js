@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Introduce H.eltv(sta, sel) and H.ev(sta, sel)
 * Refine isFalsy() vs NaN
 * Introduce H.getAtta(sta, sel, att) and H.atta()
 * Introduce H.inject(array_or_hash, fun, acc)

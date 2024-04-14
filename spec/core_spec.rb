@@ -294,6 +294,22 @@ describe 'H' do
     end
   end
 
+  describe '.eltv' do
+
+    it 'is equivalent to .elts().values()' do
+
+      expect(evaluate(%{
+        var a = [];
+        for (e of H.eltv('.train', '.europe > div')) {
+          a.push(e.textContent.trim());
+        }
+        return a;
+      })).to eq([
+        'ice', 'tgv', 'pendolino'
+      ])
+    end
+  end
+
   describe '.count' do
 
     it 'returns 0 if there are no such elements' do

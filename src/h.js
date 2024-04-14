@@ -106,6 +106,8 @@ var H = (function() {
     return r;
   };
 
+  var toEltv = function(start, sel) { return toElts(start, sel).values(); };
+
   var toElt = function(start, sel) { return toElts(start, sel, 1)[0]; };
 
   this.isElement = function(o) {
@@ -151,8 +153,10 @@ var H = (function() {
 
   this.elt = toElt;
   this.elts = toElts;
+  this.eltv = toEltv;
   this.e = toElt;
   this.es = toElts;
+  this.ev = toEltv;
 
   this.count = function(start, sel) { return toElts(start, sel).length; };
 

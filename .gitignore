@@ -18,6 +18,8 @@ pkg/
 .vimgrep
 .vimspec
 
+chrome.core
+
 .chat.md
 .openai.*.py
 

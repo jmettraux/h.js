@@ -60,6 +60,20 @@ describe 'H and iterating over array or hash/dict/object' do
         [ [ 'a', 1, 0 ], [ 'b', 2, 1 ], [ 'c', 3, 2 ] ]
       )
     end
+
+    it 'iterates over hashes (k, v) #2' do
+
+      expect(evaluate(%{
+        var a = [];
+        H.each(
+          { "ntac": "no", "fib": "gfi", "fid": "hou", "sl": "imm" },
+          //{ ntac: "no", fib: "gfi", fid: "hou", sl: "imm" },
+          function(k, v) { a.push([ k, v ]); });
+        return a;
+      })).to eq([
+        [ 'ntac', 'no' ], [ 'fib', 'gfi' ], [ 'fid', 'hou' ], [ 'sl', 'imm' ]
+      ])
+    end
   end
 
   describe '.collect' do

@@ -866,13 +866,34 @@ var H = (function() {
   this.classFrom = function(/*start, sel, classNames*/) {
 
     var as = Array.from(arguments);
-    var ns = as.pop();
-    var e = self.elt.apply(null, as);
 
+    var ns = as.pop().map(function(c) {
+      return (c.substr(0, 1) === '.') ? c.slice(1) : c; });
+
+    var e = self.elt.apply(null, as);
     var cs = e.classList || e.className.split(' ');
+
     for (var i = 0, l = cs.length; i < l; i++) {
       var c = cs[i];
       if (ns.includes(c)) return c;
+    }
+
+    return undefined;
+  };
+
+  this.classNot = function(/*start, sel, classNames*/) {
+
+    var as = Array.from(arguments);
+
+    var ns = as.pop().map(function(c) {
+      return (c.substr(0, 1) === '.') ? c.slice(1) : c; });
+
+    var e = self.elt.apply(null, as);
+    var cs = e.classList || e.className.split(' ');
+
+    for (var i = 0, l = cs.length; i < l; i++) {
+      var c = cs[i];
+      if ( ! ns.includes(c)) return c;
     }
 
     return undefined;

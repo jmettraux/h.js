@@ -198,6 +198,11 @@ H.classArray(sta, sel);
 H.classFrom(sta, classNameArray);
 H.classFrom(sta, sel, classNameArray);
 
+// Returns the first class name of the element that is not in classNameArray
+// Returns undefined else
+H.classNot(sta, classNameArray);
+H.classNot(sta, sel, classNameArray);
+
 // Creates an HTMLElement
 H.create(tagName, attributes, textContent);
 H.c(tagName, attributes, textContent);

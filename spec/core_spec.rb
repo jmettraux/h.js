@@ -1118,9 +1118,12 @@ describe 'H' do
           H.classFrom(c, [ 'mazda', 'ford' ]),
           H.classFrom('.car.bentley', [ 'mazda', 'ford' ]),
           H.classFrom(cs, '.bentley', [ 'mazda', 'ford' ]),
+          H.classFrom(c, [ '.mazda', '.ford' ]),
+          H.classFrom('.car.bentley', [ '.mazda', '.ford' ]),
+          H.classFrom(cs, '.bentley', [ '.mazda', '.ford' ]),
         ];
       })).to eq([
-        nil, nil, nil
+        nil, nil, nil, nil, nil, nil
       ])
     end
 
@@ -1133,10 +1136,48 @@ describe 'H' do
           H.classFrom(c, [ 'mazda', 'ford', 'bentley' ]),
           H.classFrom('.car.bentley', [ 'mazda', 'ford', 'bentley' ]),
           H.classFrom(cs, '.bentley', [ 'mazda', 'ford', 'bentley' ]),
+          H.classFrom(c, [ '.mazda', '.ford', '.bentley' ]),
+          H.classFrom('.car.bentley', [ '.mazda', '.ford', '.bentley' ]),
+          H.classFrom(cs, '.bentley', [ '.mazda', '.ford', '.bentley' ]),
         ];
       })).to eq([
-        'bentley', 'bentley', 'bentley'
+        'bentley', 'bentley', 'bentley', 'bentley', 'bentley', 'bentley'
       ])
+    end
+  end
+
+  describe '.classNot' do
+
+    it 'returns undefined when no match' do
+
+      expect(evaluate(%{
+        var cs = H.elt('.cars');
+        var c = H.elt('.car.volkswagen');
+        return [
+          H.classNot(c, [ 'car', 'volkswagen' ]),
+          H.classNot(c, [ '.car', '.volkswagen' ]),
+          H.classNot(cs, '.volkswagen', [ 'car', 'volkswagen' ]),
+          H.classNot(cs, '.volkswagen', [ '.car', '.volkswagen' ]),
+        ];
+      })).to eq([
+        nil, nil, nil, nil
+      ]);
+    end
+
+    it 'returns the first classname NOT included in the array' do
+
+      expect(evaluate(%{
+        var cs = H.elt('.cars');
+        var c = H.elt('.car.volkswagen');
+        return [
+          H.classNot(c, [ 'car' ]),
+          H.classNot(c, [ '.car' ]),
+          H.classNot(cs, '.volkswagen', [ 'car' ]),
+          H.classNot(cs, '.volkswagen', [ '.car' ]),
+        ];
+      })).to eq([
+        'volkswagen', 'volkswagen', 'volkswagen', 'volkswagen'
+      ]);
     end
   end
 

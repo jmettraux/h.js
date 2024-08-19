@@ -143,7 +143,7 @@ H.hasClass(sta, cla);
 H.hasClass(sta, sel, cla);
 H.hasc // alias
 
-// Sets a class on a set of Element instances of removes the class if already
+// Sets a class on a set of Element instances or removes the class if already
 // present
 H.toggleClass(sta, cla);
 H.toggleClass(sta, sel, cla);
@@ -697,16 +697,16 @@ H.js also sports a few functions wrapping XMLHttpRequest.
 ```js
 H.validateEmail('foo@example.com') // ==> "foo@example.com"
 H.validateEmail('foo@') // ==> null
-H.validateEmail('Toto Du Ruissea <foo@example.com>') // ==> "foo@example.com"
+H.validateEmail('Toto Du Ruisseau <foo@example.com>') // ==> "foo@example.com"
 
 H.isValidEmail('foo@example.com') // ==> true
 H.isValidEmail('foo@') // ==> false
-H.isValidEmail('Toto Du Ruissea <foo@example.com>') // ==> true
+H.isValidEmail('Toto Du Ruisseau <foo@example.com>') // ==> true
 ```
 
 `H.validateEmail()` and `H.isValidEmail()` rely on `<input type="email" />`
 to validate emails. They accept email addresses in the
-`Toto Du Ruissea <foo@example.com>` format as well.
+`Toto Du Ruisseau <foo@example.com>` format as well.
 
 ```js
 // H.request()

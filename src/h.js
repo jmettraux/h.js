@@ -1446,7 +1446,7 @@ var H = (function() {
   this.makeWorker = function(workerFunction/*, wrap=true*/) {
 
     let s = workerFunction.toString();
-    let x = arguments[1]; w = (w === undefined) || ( !! w);
+    let x = arguments[1]; x = (x === undefined) || ( !! x);
     if (x) s = "self.addEventListener('message', " + s + ", false);";
     else s = s.substring(s.indexOf('{') + 1, s.lastIndexOf('}'));
 

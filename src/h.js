@@ -26,7 +26,7 @@ var H = (function() {
 
   "use strict";
 
-  var self = this;
+  let self = this;
 
   this.VERSION = '1.2.0';
 
@@ -35,14 +35,14 @@ var H = (function() {
     return Array.prototype.slice.call(a);
   };
 
-  var dashData = function(s) {
+  let dashData = function(s) {
 
     return s.replace(/\[-([-_a-zA-Z0-9]+)(=|\])/g, '[data-$1$2');
   };
 
-  var aconcat = function(a, a1) { a1.forEach(function(e) { a.push(e); }); };
+  let aconcat = function(a, a1) { a1.forEach(function(e) { a.push(e); }); };
 
-  var qs = function(start, sel, limit) {
+  let qs = function(start, sel, limit) {
 
     if (start === null && sel === null) return [];
 
@@ -53,7 +53,7 @@ var H = (function() {
     sel = dashData(sel);
 
     if (sel.substr(0, 1) === '^') {
-      var m = sel.match(/^\^([^\s]+)(.*)$/);
+      let m = sel.match(/^\^([^\s]+)(.*)$/);
       start = start.closest(m[1]); sel = m[2];
     }
 
@@ -62,15 +62,15 @@ var H = (function() {
     return start.querySelectorAll(sel);
   };
 
-  var resolveSels = function(sel, limit) {
+  let resolveSels = function(sel, limit) {
 
     if (sel === undefined || sel === null) return [ null ];
     return Array.isArray(sel) ? sel : [ sel ];
   };
 
-  var resolveStarts = function(start, limit) {
+  let resolveStarts = function(start, limit) {
 
-    var r = [];
+    let r = [];
       (Array.isArray(start) ? start : [ start ])
         .forEach(function(e) {
           if ((typeof e) === 'string') aconcat(r, qs(document, e, limit));
@@ -81,19 +81,19 @@ var H = (function() {
     return r;
   };
 
-  var toElts = function(start, sel, limit) {
+  let toElts = function(start, sel, limit) {
 
       // lets function pass their arguments pseudo-array directly to h.js
       //
     if (self.isArgs(start)) {
-      var a = Array.from(start);
+      let a = Array.from(start);
       start = a[0]; sel = a[1]; limit = a[2];
     }
 
-    var starts = resolveStarts(start, limit);
-    var sels = resolveSels(sel, limit);
+    let starts = resolveStarts(start, limit);
+    let sels = resolveSels(sel, limit);
 
-    var r = [];
+    let r = [];
       starts.forEach(function(start) {
         sels.forEach(function(sel) {
           if (limit && r.length >= limit) return;
@@ -106,9 +106,9 @@ var H = (function() {
     return r;
   };
 
-  var toEltv = function(start, sel) { return toElts(start, sel).values(); };
+  let toEltv = function(start, sel) { return toElts(start, sel).values(); };
 
-  var toElt = function(start, sel) { return toElts(start, sel, 1)[0]; };
+  let toElt = function(start, sel) { return toElts(start, sel, 1)[0]; };
 
   this.isElement = function(o) {
 
@@ -139,7 +139,7 @@ var H = (function() {
   this.isArgs = this.isArguments;
 
   //this.isEvent = function(o) {
-  //  var c = o.constructor;
+  //  let c = o.constructor;
   //  return(
   //    H.isElt(o.target) &&
   //    H.isS(o.type) &&
@@ -169,7 +169,7 @@ var H = (function() {
 
     if ((typeof sel) === 'function') { fun = sel; sel = null; }
 
-    var r = toElts(start, sel);
+    let r = toElts(start, sel);
     r.forEach(fun);
 
     return r;
@@ -205,10 +205,10 @@ var H = (function() {
 
   this.tdim = function(start, sel) {
 
-    var elt = toElt(start, sel); if ( ! elt) return null;
+    let elt = toElt(start, sel); if ( ! elt) return null;
 
-    var left = 0; var top = 0;
-    var e = elt;
+    let left = 0; let top = 0;
+    let e = elt;
 
     while (e) {
       left += e.offsetLeft; top += e.offsetTop;
@@ -223,18 +223,18 @@ var H = (function() {
 
   this.width = function(start, sel) {
 
-    var e = toElt(start, sel); return e ? e.offsetWidth : null;
+    let e = toElt(start, sel); return e ? e.offsetWidth : null;
   }
   this.height = function(start, sel) {
 
-    var e = toElt(start, sel); return e ? e.offsetHeight : null;
+    let e = toElt(start, sel); return e ? e.offsetHeight : null;
   }
   this.w = this.width;
   this.h = this.height;
 
   this.dim = function(start, sel) {
 
-    var e = toElt(start, sel); if ( ! e) return null;
+    let e = toElt(start, sel); if ( ! e) return null;
 
     return {
       top: e.offsetTop,
@@ -246,10 +246,10 @@ var H = (function() {
 
   this.bdim = function(start, sel) {
 
-    var e = toElt(start, sel); if ( ! e) return null;
+    let e = toElt(start, sel); if ( ! e) return null;
 
-    var er = e.getBoundingClientRect();
-    var br = self.elt('body').getBoundingClientRect();
+    let er = e.getBoundingClientRect();
+    let br = self.elt('body').getBoundingClientRect();
 
     return {
       top: er.top - br.top,
@@ -261,22 +261,22 @@ var H = (function() {
 
   this.path = function(start, sel) {
 
-    var e = toElt(start, sel);
+    let e = toElt(start, sel);
     if ( ! e) return null;
 
     if (e.id) return '#' + e.id;
 
-    var pp = self.path(e.parentElement);
+    let pp = self.path(e.parentElement);
       // >
-    var nn = e.nodeName.toLowerCase();
-    var cs = self.classArray(e); cs = cs.length > 0 ? '.' + cs.join('.') : '';
-    var an = e.getAttribute('name'); an = an ? '[name="' + an + '"]' : '';
+    let nn = e.nodeName.toLowerCase();
+    let cs = self.classArray(e); cs = cs.length > 0 ? '.' + cs.join('.') : '';
+    let an = e.getAttribute('name'); an = an ? '[name="' + an + '"]' : '';
 
     if (cs !== '' || an !== '') return pp + ' > ' + nn + cs + an;
 
-    //var sb = e; var n = 0;
+    //var sb = e; let n = 0;
     //while (sb.nodeType === Node.ELEMENT_NODE && (sb = sb.previousSibling)) n++;
-    var sb = e; var n = 0;
+    let sb = e; let n = 0;
     while (sb) {
       if (sb.nodeType === 1) n++;
       sb = sb.previousSibling;
@@ -287,11 +287,11 @@ var H = (function() {
 
   this.eltTagSignature = function(sta, sel) {
 
-    var e = self.elt(sta, sel);
+    let e = self.elt(sta, sel);
 
-    var s = '<' + e.tagName;
+    let s = '<' + e.tagName;
     for (var i = 0, l = e.attributes.length; i < l; i++) {
-      var a = e.attributes[i];
+      let a = e.attributes[i];
       s = s + ' ' + a.name + '=' + JSON.stringify(a.value);
     }
 
@@ -300,16 +300,16 @@ var H = (function() {
 
   this.eltSignature = function(sta, sel) {
 
-    var e = self.elt(sta, sel);
+    let e = self.elt(sta, sel);
 
-    var t = e.tagName.toLowerCase();
+    let t = e.tagName.toLowerCase();
     if (t === 'body') return t;
 
-    var c = Array.from(e.classList)
+    let c = Array.from(e.classList)
       .map(function(c) { return '.' + c; })
       .join('');
 
-    var i = e.id; if (i) i = '#' + i;
+    let i = e.id; if (i) i = '#' + i;
 
     if (t === 'div' && (c || i)) t = '';
     if (i) c = '';
@@ -317,12 +317,12 @@ var H = (function() {
     return t + i + c;
   };
 
-  var eltPath = function(s, e) {
+  let eltPath = function(s, e) {
 
     if ( ! e) return undefined;
     if ( ! e.parentElement) return s.trim();
 
-    var s0 = self.eltSignature(e);
+    let s0 = self.eltSignature(e);
     s = s ? s0 + ' > ' + s : s0;
 
     if (s.slice(0, 1) === '#') return s;
@@ -342,12 +342,12 @@ var H = (function() {
   //
   //   H.on(start, sel, 'click!', function(ev) {});
   //
-  var restrictEventHandler = function(eh) {
+  let restrictEventHandler = function(eh) {
 
     return function(ev) { if (this === ev.target) eh(ev); };
   }
 
-  var onOrOff = function(dir, start, sel, eventName, eventHandler) {
+  let onOrOff = function(dir, start, sel, eventName, eventHandler) {
 
     if ( ! eventHandler) {
       eventHandler = eventName; eventName = sel; sel = start; start = document;
@@ -355,19 +355,19 @@ var H = (function() {
 
     if (typeof eventHandler !== 'function') throw "eventHandler is missing";
 
-    var ens =
+    let ens =
       (Array.isArray(eventName) ? eventName : eventName.split(/[,\/ ]+/))
         .map(function(e) { return e.trim(); });
 
-    var es = toElts(start, sel);
+    let es = toElts(start, sel);
 
     for (var i = 0; ; i++) {
 
-      var e = es[i]; if ( ! e) break;
+      let e = es[i]; if ( ! e) break;
 
       ens.forEach(function(en) {
 
-        var m = en.match(/^(.+)\.$/);
+        let m = en.match(/^(.+)\.$/);
         if (m) { en = m[1]; eventHandler = restrictEventHandler(eventHandler); }
 
         if (dir === 'on') e.addEventListener(en, eventHandler);
@@ -385,22 +385,22 @@ var H = (function() {
   };
 
   this.onClick = function(start, sel, eventHandler) {
-    var as = Array.from(arguments);
+    let as = Array.from(arguments);
     as.splice(as.length - 1, 0, 'click'); as.unshift('on');
     onOrOff.apply(null, as);
   };
   this.onc = this.onClick;
 
   this.onChange = function(start, sel, eventHandler) {
-    var as = Array.from(arguments);
+    let as = Array.from(arguments);
     as.splice(as.length - 1, 0, 'change'); as.unshift('on');
     onOrOff.apply(null, as);
   };
   this.onh = this.onChange;
 
-  var indexNext = function(sel) {
+  let indexNext = function(sel) {
 
-    var d = sel.indexOf('.'); var s = sel.indexOf('#');
+    let d = sel.indexOf('.'); let s = sel.indexOf('#');
     if (d < 0) return s; if (s < 0) return d;
     return d < s ? d : s;
   };
@@ -409,14 +409,14 @@ var H = (function() {
 
     if ((typeof html) !== 'string') return sel ? self.elt(html, sel) : html;
 
-    var e = document.createElement('div');
+    let e = document.createElement('div');
     e.innerHTML = html; // :-(
     e = e.children[0];
 
     return sel ? self.elt(e, sel) : e;
   };
 
-  var defaultOn = function(type, method, uri) {
+  let defaultOn = function(type, method, uri) {
 
     return function(res) {
       if (type === 'load') console.log([ method + ' ' + uri, res ]);
@@ -424,7 +424,7 @@ var H = (function() {
     }
   };
 
-  var isHeaders = function(o) {
+  let isHeaders = function(o) {
 
     if ((typeof o) !== 'object') return false;
     for (var k in o) {
@@ -434,16 +434,16 @@ var H = (function() {
     return true;
   };
 
-  var splitResponseHeaders = function(req) {
+  let splitResponseHeaders = function(req) {
 
-    var tok = function(s) { return s.toLowerCase().replaceAll(/-/g, '_'); };
+    let tok = function(s) { return s.toLowerCase().replaceAll(/-/g, '_'); };
 
     return req.getAllResponseHeaders()
       .split(/\r\n/)
       .reduce(
         function(h, l) {
           if (l.indexOf(':') > 0) {
-            var x = l.split(/:\s*/);
+            let x = l.split(/:\s*/);
             h[tok(x[0])] = x[1]; }
           return h; },
         {});
@@ -453,7 +453,7 @@ var H = (function() {
 
     // shuffle args
 
-    var as = { met: method, uri: uri };
+    let as = { met: method, uri: uri };
     if (arguments.length >= 5) {
       as.hds = headers; as.dat = data; as.cbs = callbacks;
     }
@@ -474,16 +474,16 @@ var H = (function() {
 
     // prepare request
 
-    var r = new XMLHttpRequest();
+    let r = new XMLHttpRequest();
     r.open(as.met, as.uri, true);
 
     for (var k in as.hds) r.setRequestHeader(k, as.hds[k]);
 
     if (as.dat) {
 
-      var con = as.dat.constructor.toString();
-      var typ = typeof as.dat;
-      var cot = as.hds['Content-Type'] || '/json';
+      let con = as.dat.constructor.toString();
+      let typ = typeof as.dat;
+      let cot = as.hds['Content-Type'] || '/json';
 
       if (con.match(/FormData/)) {
         //r.setRequestHeader('Content-Type', 'application/form-data');
@@ -499,10 +499,10 @@ var H = (function() {
 
     // prepare callbacks
 
-    var t0 = performance.now();
+    let t0 = performance.now();
 
     r.onload = function() {
-      var o = {
+      let o = {
         status: r.status,
         request: r,
         duration: (performance.now() - t0) / 1000, // seconds
@@ -531,32 +531,32 @@ var H = (function() {
     if ( ! callbacks) { callbacks = data; data = {}; }
     if ( ! data) data = {};
 
-    var fd = new FormData();
+    let fd = new FormData();
 
     for (var k in data) fd.append(k, data[k]);
 
-    var isMulti = Array.isArray(inputFileElt_s);
-    var elts = isMulti ? inputFileElt_s : [ inputFileElt_s ];
+    let isMulti = Array.isArray(inputFileElt_s);
+    let elts = isMulti ? inputFileElt_s : [ inputFileElt_s ];
 
-    var fcount = 0;
+    let fcount = 0;
 
     elts.forEach(function(elt) {
 
-      var files = elt.files;
+      let files = elt.files;
 
       for (var i = 0, l = files.length; i < l; i++) {
 
         fcount = fcount + 1;
 
-        var f = files[i];
+        let f = files[i];
 
-        var l = null;
+        let l = null;
         for (var j = 0, al = elt.attributes.length; j < al; j++) {
-          var a = elt.attributes.item(j);
+          let a = elt.attributes.item(j);
           if (a.name.match(/^data-(.*-)?lang$/)) { l = a.value; break; }
         }
 
-        var k = 'file-';
+        let k = 'file-';
         if (l || isMulti) k = k + elt.name + '-';
         if (l) k = k + l + '-';
         k = k + i;
@@ -568,7 +568,7 @@ var H = (function() {
     //if (fcount < 1) return 0;
       // allow no posting any file, just data...
 
-    var onok = callbacks.onok;
+    let onok = callbacks.onok;
     callbacks.onok = function(res) {
       if (callbacks.clear !== false) {
         elts.forEach(function(elt) { elt.value = ''; });
@@ -584,10 +584,10 @@ var H = (function() {
 
     if ( ! pat) { pat = sel; sel = start; start = null; }
 
-    var elt = toElt(start, sel);
+    let elt = toElt(start, sel);
     if ( ! elt) throw "H.matches() couldn't locate elt pre-matching";
 
-    var pat1 = dashData(pat);
+    let pat1 = dashData(pat);
 
     if (elt.matches) return elt.matches(pat1);
     if (elt.matchesSelector) return elt.matchesSelector(pat1);
@@ -599,7 +599,7 @@ var H = (function() {
   this.closest = function(start, sel, sel1) {
 
     if ( ! sel1) { sel1 = sel; sel = start; start = null; }
-    var elt = toElt(start, sel);
+    let elt = toElt(start, sel);
 
     sel1 = dashData(sel1);
 
@@ -611,7 +611,7 @@ var H = (function() {
   this.children = function(start, sel, sel1) {
 
     if ( ! sel1) { sel1 = sel; sel = start; start = null; }
-    var elt = toElt(start, sel);
+    let elt = toElt(start, sel);
 
     return Array.from(elt.children)
       .filter(function(e) { return e.matches(sel1); });
@@ -620,7 +620,7 @@ var H = (function() {
   this.child = function(start, sel, sel1) {
 
     if ( ! sel1) { sel1 = sel; sel = start; start = null; }
-    var elt = toElt(start, sel);
+    let elt = toElt(start, sel);
 
     return Array.from(elt.children)
       .find(function(e) { return e.matches(sel1); });
@@ -630,16 +630,16 @@ var H = (function() {
   //
   this.style = function(start, sel/*, opts */) {
 
-    var elt = toElt(start, sel);
+    let elt = toElt(start, sel);
 
-    var opts = Array.from(arguments).reverse()[0];
+    let opts = Array.from(arguments).reverse()[0];
     opts = this.isHash(opts) ? opts : {};
 
-    var r = {};
-    var style = null;
+    let r = {};
+    let style = null;
 
-    var f = function(h) {
-      var keys = opts.filter; if ( ! keys) return h;
+    let f = function(h) {
+      let keys = opts.filter; if ( ! keys) return h;
       keys =
         (typeof keys === 'string') ?
           keys.split(',').map(function(e) { return e.trim(); }) :
@@ -654,8 +654,8 @@ var H = (function() {
       style = window.getComputedStyle(elt, null);
 
       for (var i = 0, l = style.length; i < l; i++) {
-        var p = style[i];
-        var n = p.replace(
+        let p = style[i];
+        let n = p.replace(
           /-([a-za])/g, function(a, b) { return b.toUpperCase(); })
         r[n] = style.getPropertyValue(p);
       }
@@ -672,7 +672,7 @@ var H = (function() {
     if (style = elt.style) {
 
       for (var p in style) {
-        var s = style[p];
+        let s = style[p];
         if ((typeof s) !== 'function') r[p] = s;
       }
       //return f(r);
@@ -686,7 +686,7 @@ var H = (function() {
 
     if ( ! cla) { cla = sel; sel = start; start = null; }
 
-    var elt = toElt(start, sel);
+    let elt = toElt(start, sel);
     if (cla[0] === '.') cla = cla.substring(1);
 
     try {
@@ -701,7 +701,7 @@ var H = (function() {
 
   this.isHidden = function(start, sel) {
 
-    var a = self.toArray(arguments); a.push('.hidden');
+    let a = self.toArray(arguments); a.push('.hidden');
 
     return self.hasClass.apply(null, a);
   };
@@ -713,7 +713,7 @@ var H = (function() {
   };
   this.hiddenUp = this.isHiddenUp;
 
-  var notDisplayed = function(e) {
+  let notDisplayed = function(e) {
     if ( ! e) return false;
     //if (e.style && e.style.display === 'none') return true;
     if (window.getComputedStyle(e).display === 'none') return true;
@@ -728,11 +728,11 @@ var H = (function() {
 
   this.isVisible = function(start, sel) {
 
-    var e = toElt(start, sel);
+    let e = toElt(start, sel);
 
     if (e.offsetParent === null) return false;
 
-    var r = e.getBoundingClientRect();
+    let r = e.getBoundingClientRect();
 
     if (
       r.width === 0 || r.height === 0
@@ -742,7 +742,7 @@ var H = (function() {
       r.left > window.innerWidth || r.top > window.innerHeight
     ) return false;
 
-    var s = window.getComputedStyle(e);
+    let s = window.getComputedStyle(e);
     if (s.visibility === 'hidden' || s.opacity == '0') return false;
 
     return true;
@@ -758,16 +758,16 @@ var H = (function() {
     return ! self.matches(toElt(start, sel), ':invalid');
   };
 
-  var visit = function(start, sel, bof, onTrue, onFalse) {
+  let visit = function(start, sel, bof, onTrue, onFalse) {
 
     self.forEach(start, sel, function(e) {
 
-      var b = (typeof bof === 'function') ? bof(e) : bof;
-      var fun = b ? onTrue : onFalse; if (fun) fun(e);
+      let b = (typeof bof === 'function') ? bof(e) : bof;
+      let fun = b ? onTrue : onFalse; if (fun) fun(e);
     });
   };
 
-  var reClass = function(elt, cla, dir) {
+  let reClass = function(elt, cla, dir) {
 
     (Array.isArray(cla) ? cla : cla.split(/[ .]+/))
       .forEach(function(c) {
@@ -776,9 +776,9 @@ var H = (function() {
         elt.classList[dir === 'r' ? 'remove' : 'add'](c); });
   };
 
-  var rearg_sta_sel_nam_las = function(args, las) {
+  let rearg_sta_sel_nam_las = function(args, las) {
 
-    var a = args[0], b = args[1], c = args[2], d = args[3];
+    let a = args[0], b = args[1], c = args[2], d = args[3];
 
     if (args.length < 2) throw "at least 2 arguments required";
 
@@ -793,12 +793,12 @@ var H = (function() {
     return { sta: a, sel: null, nam: b, las: c };
   };
 
-  var toggle = function(start, sel, cla, bof, mod) {
+  let toggle = function(start, sel, cla, bof, mod) {
 
-    var add = function(e) { reClass(e, cla, 'a'); };
-    var rem = function(e) { reClass(e, cla, 'r'); };
+    let add = function(e) { reClass(e, cla, 'a'); };
+    let rem = function(e) { reClass(e, cla, 'r'); };
 
-    var pos = add, neg = rem;
+    let pos = add, neg = rem;
     if (mod === 'ra') { pos = rem; neg = add; }
     else if (mod === 'a') { neg = null; }
     else if (mod === 'r') { pos = rem; neg = null; }
@@ -807,13 +807,13 @@ var H = (function() {
   };
 
   this.addClass = function(start, sel, cla, bof) {
-    var as = rearg_sta_sel_nam_las(arguments, true);
+    let as = rearg_sta_sel_nam_las(arguments, true);
     toggle(as.sta, as.sel, as.nam, as.las, 'a');
   }
   this.addc = this.addClass;
 
   this.removeClass = function(start, sel, cla, bof) {
-    var as = rearg_sta_sel_nam_las(arguments, true);
+    let as = rearg_sta_sel_nam_las(arguments, true);
     toggle(as.sta, as.sel, as.nam, as.las, 'r');
   };
   this.remClass = this.removeClass;
@@ -822,7 +822,7 @@ var H = (function() {
   this.toggleClass = function(start, sel, cla) {
 
     if ( ! cla) { cla = sel; sel = start; start = null; }
-    var bof = function(e) { return ! self.hasClass(e, cla); };
+    let bof = function(e) { return ! self.hasClass(e, cla); };
 
     toggle(start, sel, cla, bof, 'ar');
   };
@@ -831,14 +831,14 @@ var H = (function() {
 
   this.toggleHidden = function(start, sel) {
 
-    var a = Array.from(arguments); a.push('.hidden');
+    let a = Array.from(arguments); a.push('.hidden');
 
     self.toggleClass.apply(null, a);
   };
   this.togh = this.toggleHidden;
 
   this.setClass = function(start, sel, cla, bof) {
-    var as = rearg_sta_sel_nam_las(arguments, true);
+    let as = rearg_sta_sel_nam_las(arguments, true);
     toggle(as.sta, as.sel, as.nam, as.las, 'ar');
   };
   this.setc = this.setClass;
@@ -847,34 +847,34 @@ var H = (function() {
 
     if ( ! cla1) { cla1 = cla0; cla0 = sel; sel = start; start = null; }
 
-    var bof = function(e) { return self.hasClass(e, cla0); };
-    var fun = function(e) { self.removeClass(e, cla0); self.addClass(e, cla1); };
+    let bof = function(e) { return self.hasClass(e, cla0); };
+    let fun = function(e) { self.removeClass(e, cla0); self.addClass(e, cla1); };
 
     visit(start, sel, bof, fun, null);
   };
 
   this.classArray = function(start, sel) {
 
-    var e = self.elt(start, sel);
-    var cs = e.classList || e.className.split(' ');
+    let e = self.elt(start, sel);
+    let cs = e.classList || e.className.split(' ');
 
-    var a = []; for (var i = 0, l = cs.length; i < l; i++) a.push(cs[i]);
+    let a = []; for (var i = 0, l = cs.length; i < l; i++) a.push(cs[i]);
 
     return a;
   };
 
   this.classFrom = function(/*start, sel, classNames*/) {
 
-    var as = Array.from(arguments);
+    let as = Array.from(arguments);
 
-    var ns = as.pop().map(function(c) {
+    let ns = as.pop().map(function(c) {
       return (c.substr(0, 1) === '.') ? c.slice(1) : c; });
 
-    var e = self.elt.apply(null, as);
-    var cs = e.classList || e.className.split(' ');
+    let e = self.elt.apply(null, as);
+    let cs = e.classList || e.className.split(' ');
 
     for (var i = 0, l = cs.length; i < l; i++) {
-      var c = cs[i];
+      let c = cs[i];
       if (ns.includes(c)) return c;
     }
 
@@ -883,25 +883,25 @@ var H = (function() {
 
   this.classNot = function(/*start, sel, classNames*/) {
 
-    var as = Array.from(arguments);
+    let as = Array.from(arguments);
 
-    var ns = as.pop().map(function(c) {
+    let ns = as.pop().map(function(c) {
       return (c.substr(0, 1) === '.') ? c.slice(1) : c; });
 
-    var e = self.elt.apply(null, as);
-    var cs = e.classList || e.className.split(' ');
+    let e = self.elt.apply(null, as);
+    let cs = e.classList || e.className.split(' ');
 
     for (var i = 0, l = cs.length; i < l; i++) {
-      var c = cs[i];
+      let c = cs[i];
       if ( ! ns.includes(c)) return c;
     }
 
     return undefined;
   };
 
-  var rearg_sta_sel_las = function(args, las) {
+  let rearg_sta_sel_las = function(args, las) {
 
-    var a = args[0], b = args[1], c = args[2];
+    let a = args[0], b = args[1], c = args[2];
 
     if (Number.isInteger(b) && b > -1 && Array.isArray(c)) {
       return { sta: a, sel: null, las: las }; }
@@ -920,9 +920,9 @@ var H = (function() {
     throw "called without arguments";
   };
 
-  var resol_sta_sel_las = function(args, las) {
+  let resol_sta_sel_las = function(args, las) {
 
-    var as = rearg_sta_sel_las(args, las);
+    let as = rearg_sta_sel_las(args, las);
 
     as.elt = self.elt(as.sta, as.sel);
     if (as.elt) {
@@ -936,51 +936,51 @@ var H = (function() {
   };
 
   this.show = function(start, sel, bof) {
-    var as = rearg_sta_sel_las(arguments, true);
+    let as = rearg_sta_sel_las(arguments, true);
     toggle(as.sta, as.sel, '.shown', as.las, 'ar');
   };
   this.unshow = function(start, sel, bof) {
-    var as = rearg_sta_sel_las(arguments, true);
+    let as = rearg_sta_sel_las(arguments, true);
     toggle(as.sta, as.sel, '.shown', as.las, 'ra');
   };
   this.hide = function(start, sel, bof) {
-    var as = rearg_sta_sel_las(arguments, true);
+    let as = rearg_sta_sel_las(arguments, true);
     toggle(as.sta, as.sel, '.hidden', as.las, 'ar');
   };
   this.unhide = function(start, sel, bof) {
-    var as = rearg_sta_sel_las(arguments, true);
+    let as = rearg_sta_sel_las(arguments, true);
     toggle(as.sta, as.sel, '.hidden', as.las, 'ra');
   };
 
-  var able = function(start, sel, bof, dir) {
+  let able = function(start, sel, bof, dir) {
 
-    var en = function(e) { e.removeAttribute('disabled') };
-    var dis = function(e) { e.setAttribute('disabled', 'disabled'); };
+    let en = function(e) { e.removeAttribute('disabled') };
+    let dis = function(e) { e.setAttribute('disabled', 'disabled'); };
 
     visit(start, sel, bof, dir === 'e' ? en : dis, dir === 'e' ? dis : en);
   };
 
   this.enable = function(start, sel, bof) {
-    var as = rearg_sta_sel_las(arguments, true);
+    let as = rearg_sta_sel_las(arguments, true);
     able(as.sta, as.sel, as.las, 'e');
   };
   this.disable = function(start, sel, bof) {
-    var as = rearg_sta_sel_las(arguments, true);
+    let as = rearg_sta_sel_las(arguments, true);
     able(as.sta, as.sel, as.las, 'd');
   };
 
   this.cenable = function(start, sel, bof) {
-    var as = rearg_sta_sel_las(arguments, true);
+    let as = rearg_sta_sel_las(arguments, true);
     toggle(as.sta, as.sel, '.disabled', as.las, 'ra');
   };
   this.cdisable = function(start, sel, bof) {
-    var as = rearg_sta_sel_las(arguments, true);
+    let as = rearg_sta_sel_las(arguments, true);
     toggle(as.sta, as.sel, '.disabled', as.las, 'ar');
   };
 
   this.isDisabled = function(start, sel) {
 
-    var elt = toElt(start, sel);
+    let elt = toElt(start, sel);
 
     return (
       (typeof elt.getAttribute('disabled')) === 'string' ||
@@ -1019,7 +1019,7 @@ var H = (function() {
 
   this.remAtt = function(start, sel, aname) {
 
-    var as = rearg_sta_sel_nam_las(arguments, undefined);
+    let as = rearg_sta_sel_nam_las(arguments, undefined);
     if (as.nam.slice(0, 1) === '-') as.nam = 'data' + as.nam;
 
     toElts(as.sta, as.sel).forEach(function(e) { e.removeAttribute(as.nam); });
@@ -1029,11 +1029,11 @@ var H = (function() {
 
   this.getAtt = function(start, sel, aname/*, default*/) {
 
-    var as = rearg_sta_sel_nam_las(arguments, undefined);
+    let as = rearg_sta_sel_nam_las(arguments, undefined);
 
-    var r = /(.*\[([-_a-zA-Z0-9]+)\].*)+/;
-    var ms = as.sel && as.sel.match(r);
-    var mn = as.nam && as.nam.match(r);
+    let r = /(.*\[([-_a-zA-Z0-9]+)\].*)+/;
+    let ms = as.sel && as.sel.match(r);
+    let mn = as.nam && as.nam.match(r);
 
     if ( ! as.sel && as.nam && mn) {
       as.sel = as.nam; as.nam = mn[mn.length - 1];
@@ -1042,41 +1042,41 @@ var H = (function() {
       as.las = as.nam; as.nam = ms[ms.length - 1];
     }
 
-    var e = self.elt(as.sta, as.sel);
+    let e = self.elt(as.sta, as.sel);
 
     //if ( ! e) throw "elt not found, cannot read attributes";
     if ( ! e) return as.las;
 
     if (as.nam && as.nam.substr(0, 1) === '-') as.nam = 'data' + as.nam;
 
-    var l = as.las;
+    let l = as.las;
     if ((typeof l === 'string') && l.substr(0, 1) === '-') l = 'data' + l;
 
-    var av = e.getAttribute((ms && e.hasAttribute(l)) ? l : as.nam);
+    let av = e.getAttribute((ms && e.hasAttribute(l)) ? l : as.nam);
 
     return av === null ? as.las : av;
   };
 
   this.getAtti = function(start, sel, aname/*, default*/) {
-    var v = self.getAtt.apply(null, arguments);
+    let v = self.getAtt.apply(null, arguments);
     v = parseInt('' + v, 10);
     return isFalsy(v) ? null : v;
   };
 
   this.getAttf = function(start, sel, aname/*, default*/) {
-    var v = self.getAtt.apply(null, arguments);
+    let v = self.getAtt.apply(null, arguments);
     v = parseFloat('' + v);
     return isFalsy(v) ? null : v;
   };
 
   this.getAttj = function(start, sel, aname/*, default*/) {
-    var v = self.getAtt.apply(null, arguments);
+    let v = self.getAtt.apply(null, arguments);
     try { v = JSON.parse(v); } catch(err) { v = undefined; }
     return v;
   };
 
   this.getAttb = function(start, sel, aname/*, default*/) {
-    var v = self.getAtt.apply(null, arguments);
+    let v = self.getAtt.apply(null, arguments);
     if (typeof v === 'string') v = v.toLowerCase();
     if (TRUES.indexOf(v) > -1) return true;
     if (FALSES.indexOf(v) > -1) return false;
@@ -1084,7 +1084,7 @@ var H = (function() {
   };
 
   this.getAtta = function(start, sel, aname/*, default*/) {
-    var v = self.getAtt.apply(null, arguments);
+    let v = self.getAtt.apply(null, arguments);
     if (v === undefined) return v;
     return(('' + v)
       .split(',')
@@ -1100,99 +1100,99 @@ var H = (function() {
   this.attb = this.getAttb;
   this.atta = this.getAtta;
 
-  var FALSIES = [ false, null, undefined, '' ];
-  var isFalsy = function(v) { return isNaN(v) || FALSIES.indexOf(v) > -1; }
-  var TRUES = 'true yes on'.split(' ');
-  var FALSES = 'false no off'.split(' ');
+  let FALSIES = [ false, null, undefined, '' ];
+  let isFalsy = function(v) { return isNaN(v) || FALSIES.indexOf(v) > -1; }
+  let TRUES = 'true yes on'.split(' ');
+  let FALSES = 'false no off'.split(' ');
 
   this.text = function(start, sel/*, default*/) {
-    var as = resol_sta_sel_las(arguments);
+    let as = resol_sta_sel_las(arguments);
     if ( ! as.elt) throw "elt not found, no text";
-    var t = as.elt.textContent.trim();
+    let t = as.elt.textContent.trim();
     return (t === '' && as.las) ? as.las : t;
   };
 
   this.getText = function(start, sel/*, default*/) {
-    var as = resol_sta_sel_las(arguments);
+    let as = resol_sta_sel_las(arguments);
     if ( ! as.elt) return as.las;
-    var t = as.elt.textContent.trim();
+    let t = as.elt.textContent.trim();
     return (t === '' && as.las) ? as.las : t;
   };
 
   this.texti = function(start, sel/*, default*/) {
-    var as = resol_sta_sel_las(arguments);
+    let as = resol_sta_sel_las(arguments);
     if ( ! as.elt) throw "elt not found, no text";
-    var t = as.elt.textContent.trim(); if (t === '') t = '' + as.las;
+    let t = as.elt.textContent.trim(); if (t === '') t = '' + as.las;
     return parseInt(t, 10);
   };
 
   this.textf = function(start, sel/*, default*/) {
-    var as = resol_sta_sel_las(arguments);
+    let as = resol_sta_sel_las(arguments);
     if ( ! as.elt) throw "elt not found, no text";
-    var t = as.elt.textContent.trim(); if (t === '') t = '' + as.las;
+    let t = as.elt.textContent.trim(); if (t === '') t = '' + as.las;
     return parseFloat(t);
   };
 
   this.get = function(start, sel/*, false */) {
 
-    var a = self.toArray(arguments);
-    var l = true; if (typeof a[a.length - 1] === 'boolean') l = a.pop();
-    var e = self.elt.apply(null, a);
-    var v = e ? e.value : null; v = v ? v.trim() : '';
+    let a = self.toArray(arguments);
+    let l = true; if (typeof a[a.length - 1] === 'boolean') l = a.pop();
+    let e = self.elt.apply(null, a);
+    let v = e ? e.value : null; v = v ? v.trim() : '';
     return l === false && v.length === 0 ? null : v;
   };
 
-  var isTrue = function(o) {
+  let isTrue = function(o) {
     if (typeof o === 'string') o = o.toLowerCase();
     return o === true || o === 'true' || o === 'yes';
   };
   this.isTrue = isTrue;
   this.trueish = isTrue;
 
-  var isVoid = function(o) { return o === null || o === undefined; };
+  let isVoid = function(o) { return o === null || o === undefined; };
   this.isVoid = isVoid;
 
   this.getb = function(start, sel/*, default */) {
 
-    var a = self.toArray(arguments);
-    var d = null; if (typeof a[a.length - 1] === 'boolean') d = a.pop();
-    var v = self.get.apply(null, a).toLowerCase();
+    let a = self.toArray(arguments);
+    let d = null; if (typeof a[a.length - 1] === 'boolean') d = a.pop();
+    let v = self.get.apply(null, a).toLowerCase();
     if (d !== null && v === '') return d;
     return isTrue(v);
   };
 
   this.getf = function(start, sel/*, default */) {
 
-    var a = self.toArray(arguments);
-    var l = a[a.length - 1];
-    var d = null;
+    let a = self.toArray(arguments);
+    let l = a[a.length - 1];
+    let d = null;
     if (typeof l === 'number') d = a.pop();
     if (d !== null) a.push(false);
-    var v = self.get.apply(null, a);
+    let v = self.get.apply(null, a);
     if (v === null) { if (l === false) return v; if (d) return d; v = '0.0' }
     return parseFloat(v);
   };
 
   this.geti = function(start, sel/*, default */) {
 
-    var a = self.toArray(arguments);
-    var l = a[a.length - 1];
-    var d = null;
+    let a = self.toArray(arguments);
+    let l = a[a.length - 1];
+    let d = null;
     if (typeof l === 'number') d = a.pop();
     if (d !== null) a.push(false);
-    var v = self.get.apply(null, a);
+    let v = self.get.apply(null, a);
     if (v === null) { if (l === false) return v; v = d ? '' + d : '0' }
     return parseInt(v, 10);
   };
 
   this.getj = function(start, sel/*, default */) {
 
-    var d = undefined;
-    var a = self.toArray(arguments);
-    var l = a[a.length - 1];
+    let d = undefined;
+    let a = self.toArray(arguments);
+    let l = a[a.length - 1];
     if (a.length > 2) { d = a[2]; }
     else if (a.length > 1 && (typeof l) !== 'string') { d = a.pop(); }
-    var v = self.get.apply(null, a);
+    let v = self.get.apply(null, a);
     try { return JSON.parse(v); } catch(e) { return d; }
   };
 
@@ -1204,10 +1204,10 @@ var H = (function() {
 
   this.set = function(start, sel, value) {
 
-    var a = self.toArray(arguments);
-    var v = a.pop(); v = (v === null || v === undefined) ? '' : '' + v;
+    let a = self.toArray(arguments);
+    let v = a.pop(); v = (v === null || v === undefined) ? '' : '' + v;
 
-    var e = self.elt.apply(null, a);
+    let e = self.elt.apply(null, a);
     if (e) e.value = v;
 
     return v;
@@ -1215,9 +1215,9 @@ var H = (function() {
 
   this.setText = function(start, sel, text) {
 
-    var a = self.toArray(arguments);
-    var t = a.pop();
-    var e = self.elt.apply(null, a)
+    let a = self.toArray(arguments);
+    let t = a.pop();
+    let e = self.elt.apply(null, a)
     if (e) e.textContent = t;
 
     return t;
@@ -1225,24 +1225,24 @@ var H = (function() {
   this.sett = this.setText;
 
   this.textOrValue = function(start, sel/*, default */) {
-    var as = resol_sta_sel_las(arguments);
+    let as = resol_sta_sel_las(arguments);
     if ( ! as.elt) throw "elt not found, no text or value";
     return (as.tov === '' && (typeof as.las === 'string')) ? as.las : as.tov;
   };
   this.tov = this.textOrValue;
 
   this.tovb = function(start, sel/*, default */) {
-    var as = resol_sta_sel_las(arguments);
+    let as = resol_sta_sel_las(arguments);
     if (as.elt) return isTrue(as.tov || '' + as.las);
     throw "elt not found, no text or value";
   };
   this.tovi = function(start, sel/*, default */) {
-    var as = resol_sta_sel_las(arguments);
+    let as = resol_sta_sel_las(arguments);
     if (as.elt) return parseInt(as.tov || '' + as.las, 10);
     throw "elt not found, no text or value";
   };
   this.tovf = function(start, sel/*, default */) {
-    var as = resol_sta_sel_las(arguments);
+    let as = resol_sta_sel_las(arguments);
     if (as.elt) return parseFloat(as.tov || '' + as.las);
     throw "elt not found, no text or value";
   };
@@ -1261,8 +1261,9 @@ var H = (function() {
 
   this.toCamelCase = function(s, cap) {
 
-    var s = s.replace(
-      /([_-][a-z])/g, function(x) { return x.substring(1).toUpperCase(); });
+    s = s.replace(
+      /([_-][a-z])/g,
+      function(x) { return x.substring(1).toUpperCase(); });
 
     return cap ? self.capitalize(s) : s;
   };
@@ -1270,7 +1271,7 @@ var H = (function() {
   this.prepend = function(start, sel, elt) {
 
     if ( ! elt) { elt = sel; sel = start; start = null; }
-    var e = toElt(start, sel);
+    let e = toElt(start, sel);
 
     e.parentNode.insertBefore(elt, e);
 
@@ -1280,7 +1281,7 @@ var H = (function() {
   this.postpend = function(start, sel, elt) {
 
     if ( ! elt) { elt = sel; sel = start; start = null; }
-    var e = toElt(start, sel);
+    let e = toElt(start, sel);
 
     e.parentNode.insertBefore(elt, e.nextSibling);
 
@@ -1289,7 +1290,7 @@ var H = (function() {
 
   this.remove = function(start, sel, bof) {
 
-    var as = rearg_sta_sel_las(arguments, true);
+    let as = rearg_sta_sel_las(arguments, true);
 
     toElts(as.sta, as.sel).forEach(function(e) {
       if ((typeof as.las === 'function') ? as.las(e) : as.las) {
@@ -1303,8 +1304,8 @@ var H = (function() {
   this.replace = function(start, sel, elt) {
 
     if ( ! elt) { elt = sel; sel = start; start = null; }
-    var e = toElt(start, sel);
-    var p = e.parentNode;
+    let e = toElt(start, sel);
+    let p = e.parentNode;
 
     p.insertBefore(elt, e);
     p.removeChild(e);
@@ -1314,7 +1315,7 @@ var H = (function() {
   this.appendAsFirstChild = function(start, sel, elt) {
 
     if ( ! elt) { elt = sel; sel = start; start = null; }
-    var e = toElt(start, sel);
+    let e = toElt(start, sel);
 
     if (e.children.length < 1) e.appendChild(e);
     else e.insertBefore(elt, e.children[0]);
@@ -1324,7 +1325,7 @@ var H = (function() {
 
   this.clean = function(start, sel, cla) {
 
-    var elt = toElt(start, sel);
+    let elt = toElt(start, sel);
     if (cla && cla[0] !== '.') cla = '.' + cla;
 
     if (cla)
@@ -1342,20 +1343,20 @@ var H = (function() {
   };
 
   this.makeGrower = function(name) {
-    var scan = function(s) {
-      var m, r = [];
+    let scan = function(s) {
+      let m, r = [];
       s.replace(/([#.][^#.]+)/g, function(x) {
         r.push({ k: x[0], n: x.substring(1, x.length) });
       });
       return r;
     };
     return function() {
-      var e = document.createElement(name);
+      let e = document.createElement(name);
       for (var i = 0, l = arguments.length; i < l; i++) {
-        var a = arguments[i];
+        let a = arguments[i];
         if (a === false) return null; // skip this subtree
         if (a === null || a === undefined) continue; // ignore skipped children
-        var s = (typeof a === 'string');
+        let s = (typeof a === 'string');
         if (s && (a[0] === '.' || a[0] === '#') && ! a.match(/^\s*$/)) {
           scan(a).forEach(function(x) {
             if (x.k === '#') e.id = x.n; else e.classList.add(x.n);
@@ -1377,7 +1378,7 @@ var H = (function() {
 
   this.create = function(/* parent, */tagname/*, rest */) {
 
-    var as = self.toArray(arguments); var par = null; var off = 1;
+    let as = self.toArray(arguments); let par = null; let off = 1;
     if (self.isElt(tagname)) { off = 2; par = tagname; tagname = as[1]; }
     as = as.slice(off);
 
@@ -1386,10 +1387,10 @@ var H = (function() {
         "parent probably null or undefined, args:" +
         JSON.stringify(self.toArray(arguments))); }
 
-    var m = tagname.match(/^([a-zA-Z0-9]+)?([.#].+)$/)
+    let m = tagname.match(/^([a-zA-Z0-9]+)?([.#].+)$/)
     if (m) { tagname = m[1] || 'div'; as.unshift(m[2]); }
 
-    var elt = self.makeGrower(tagname).apply(null, as);
+    let elt = self.makeGrower(tagname).apply(null, as);
 
     if (par) par.appendChild(elt);
 
@@ -1397,7 +1398,7 @@ var H = (function() {
   };
   this.c = this.create;
 
-  var TAGS = (
+  let TAGS = (
     'a abbr address area article aside audio b base bdi bdo blockquote body ' +
     'br button canvas caption cite code col colgroup data datalist dd del ' +
     'details dfn dialog div dl dt em embed fieldset figcaption figure footer ' +
@@ -1411,7 +1412,7 @@ var H = (function() {
         //
         // removed the "var" tagname...
 
-  var growers =
+  let growers =
     'var ' +
     TAGS
       .map(function(t) { return t + '=H.makeGrower("' + t + '")' })
@@ -1420,7 +1421,7 @@ var H = (function() {
 
   this.grow = function(fun) {
 
-    var f = fun.toString().trim();
+    let f = fun.toString().trim();
     f = f.substring(f.indexOf('{') + 1, f.lastIndexOf('}'));
 
     return eval(growers + f);
@@ -1433,10 +1434,10 @@ var H = (function() {
 
   this.delay = function(ms, fun) {
 
-    var t = null;
+    let t = null;
 
     return function() {
-      var as = arguments;
+      let as = arguments;
       window.clearTimeout(t);
       t = window.setTimeout(function() { fun.apply(this, as) }, ms);
     };
@@ -1444,21 +1445,21 @@ var H = (function() {
 
   this.makeWorker = function(workerFunction/*, wrap=true*/) {
 
-    var s = workerFunction.toString();
-    var w = arguments[1]; w = (w === undefined) || ( !! w);
-    if (w) s = "self.addEventListener('message', " + s + ", false);";
+    let s = workerFunction.toString();
+    let x = arguments[1]; w = (w === undefined) || ( !! w);
+    if (x) s = "self.addEventListener('message', " + s + ", false);";
     else s = s.substring(s.indexOf('{') + 1, s.lastIndexOf('}'));
 
-    var r = document && document.location && document.location.href;
+    let r = document && document.location && document.location.href;
     if (r) {
-      var j = r.lastIndexOf('/'); if (j < 0) j = r.length - 1;
+      let j = r.lastIndexOf('/'); if (j < 0) j = r.length - 1;
       r = r.substring(0, j) + '/';
       s = "var rootUrl = \"" + r + "\";" + s;
     }
 
-    var b = new Blob([ s ]);
+    let b = new Blob([ s ]);
 
-    var w = new Worker(window.URL.createObjectURL(b));
+    let w = new Worker(window.URL.createObjectURL(b));
     w.on = function(t, cb) { w.addEventListener(t, cb, false); };
 
     return w;
@@ -1469,12 +1470,12 @@ var H = (function() {
     if (s.indexOf("@") < 0) return null;
     if (s.indexOf("\n") > -1 || s.indexOf("\r") > -1) return null;
 
-    var m = s.match(/^[^<]+<([^>]+)>\s*$/);
+    let m = s.match(/^[^<]+<([^>]+)>\s*$/);
     if (m) s = m[1];
 
-    var id =
+    let id =
       '__h_js_email_validation_input_elt';
-    var ie =
+    let ie =
       document.getElementById(id) ||
       H.c(
         document.body,
@@ -1501,7 +1502,7 @@ var H = (function() {
   this.len = this.length;
   this.size = this.length;
 
-  var _iterate = function(iterator, array_or_hash, fun) {
+  let _iterate = function(iterator, array_or_hash, fun) {
 
     if (Array.isArray(array_or_hash)) {
       return array_or_hash[iterator](
@@ -1525,7 +1526,7 @@ var H = (function() {
   this.collect = function(array_or_hash, fun) {
     return _iterate('map', array_or_hash, fun); };
 
-  var _elect = function(positive, array_or_hash, fun) {
+  let _elect = function(positive, array_or_hash, fun) {
 
     if (Array.isArray(array_or_hash)) {
       return array_or_hash.filter(function(e, i) {
@@ -1533,9 +1534,9 @@ var H = (function() {
       });
     }
     if (self.isHash(array_or_hash)) {
-      var h = {};
+      let h = {};
       Object.entries(array_or_hash).forEach(function(kv, i) {
-        var k = kv[0], v = kv[1];
+        let k = kv[0], v = kv[1];
         if (( !! fun(k, v, i)) === positive) h[k] = v;
       });
       return h;

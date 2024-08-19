@@ -182,6 +182,7 @@ H.setClass(sta, sel, cla);
 H.setClass(sta, cla, bof);
 H.setClass(sta, sel, cla, bof);
 H.setc // alias
+H.flipc // alias
 
 // Iterates a set of Element, when it finds class cla0, it removes it and
 // replaces it with cla1

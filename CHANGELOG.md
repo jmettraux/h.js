@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* alias H.setClass to H.flipc
 * Letify
 * Introduce H.eltv(sta, sel) and H.ev(sta, sel)
 * Refine isFalsy() vs NaN

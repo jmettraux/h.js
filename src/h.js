@@ -842,6 +842,7 @@ var H = (function() {
     toggle(as.sta, as.sel, as.nam, as.las, 'ar');
   };
   this.setc = this.setClass;
+  this.flipc = this.setClass;
 
   this.renameClass = function(start, sel, cla0, cla1) {
 

@@ -1109,6 +1109,17 @@ describe 'H' do
 
   describe '.classFrom' do
 
+    it 'fails if the first argument is nil or undefined' do
+
+      [ "H.classFrom([ 'mazda', 'ford' ])",
+        "H.classFrom(null, [ 'mazda', 'ford' ])",
+        "H.classFrom(undefined, [ 'mazda', 'ford' ])"
+      ].each do |code|
+        expect { evaluate(code)
+          }.to raise_error('H.classFrom() start/sel point to nothing')
+      end
+    end
+
     it 'returns undefined when no match' do
 
       expect(evaluate(%{
@@ -1147,6 +1158,17 @@ describe 'H' do
   end
 
   describe '.classNot' do
+
+    it 'fails if the first argument is nil or undefined' do
+
+      [ "H.classNot([ 'mazda', 'ford' ])",
+        "H.classNot(null, [ 'mazda', 'ford' ])",
+        "H.classNot(undefined, [ 'mazda', 'ford' ])"
+      ].each do |code|
+        expect { evaluate(code)
+          }.to raise_error('H.classNot() start/sel point to nothing')
+      end
+    end
 
     it 'returns undefined when no match' do
 
@@ -3810,6 +3832,28 @@ describe 'H' do
       it "returns #{v} for #{k}" do
 
         expect(evaluate(%{ return H.len(#{k}); })).to eq(v)
+      end
+    end
+  end
+
+  describe '.isVacuous' do
+
+    { '[]' => true,
+      '[ null ]' => true,
+      '[ undefined ]' => true,
+
+      '[ null, 1 ]' => false,
+      '[ undefined, 1 ]' => false,
+      '123' => false,
+      'null' => false,
+      'undefined' => false,
+      '"pravda"' => false,
+
+    }.each do |k, v|
+
+      it "returns #{v} for #{k}" do
+
+        expect(evaluate(%{ return H.isVacuous(#{k}); })).to eq(v)
       end
     end
   end

@@ -871,6 +871,8 @@ var H = (function() {
     let ns = as.pop().map(function(c) {
       return (c.substr(0, 1) === '.') ? c.slice(1) : c; });
 
+    if (H.isVacuous(as)) throw "H.classFrom() start/sel point to nothing";
+
     let e = self.elt.apply(null, as);
     let cs = e.classList || e.className.split(' ');
 
@@ -888,6 +890,8 @@ var H = (function() {
 
     let ns = as.pop().map(function(c) {
       return (c.substr(0, 1) === '.') ? c.slice(1) : c; });
+
+    if (H.isVacuous(as)) throw "H.classNot() start/sel point to nothing";
 
     let e = self.elt.apply(null, as);
     let cs = e.classList || e.className.split(' ');
@@ -1502,6 +1506,18 @@ var H = (function() {
   };
   this.len = this.length;
   this.size = this.length;
+
+  this.isVacuous = function(x) {
+
+    if (x === null || x === undefined)
+      return false;
+    if (Array.isArray(x))
+      return ! x.find(function(e) { return e !== null && e !== undefined; });
+    if (typeof x === 'object')
+      return Object.keys(x).length < 1;
+
+    return false;
+  };
 
   let _iterate = function(iterator, array_or_hash, fun) {
 

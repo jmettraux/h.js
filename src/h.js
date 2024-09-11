@@ -290,7 +290,7 @@ var H = (function() {
     let e = self.elt(sta, sel);
 
     let s = '<' + e.tagName;
-    for (var i = 0, l = e.attributes.length; i < l; i++) {
+    for (let i = 0, l = e.attributes.length; i < l; i++) {
       let a = e.attributes[i];
       s = s + ' ' + a.name + '=' + JSON.stringify(a.value);
     }
@@ -361,7 +361,7 @@ var H = (function() {
 
     let es = toElts(start, sel);
 
-    for (var i = 0; ; i++) {
+    for (let i = 0; ; i++) {
 
       let e = es[i]; if ( ! e) break;
 
@@ -427,7 +427,7 @@ var H = (function() {
   let isHeaders = function(o) {
 
     if ((typeof o) !== 'object') return false;
-    for (var k in o) {
+    for (let k in o) {
       if ((typeof o[k]) !== 'string') return false;
       if ( ! k.match(/^[A-Z][A-Za-z0-9-]+$/)) return false;
     }
@@ -477,7 +477,7 @@ var H = (function() {
     let r = new XMLHttpRequest();
     r.open(as.met, as.uri, true);
 
-    for (var k in as.hds) r.setRequestHeader(k, as.hds[k]);
+    for (let k in as.hds) r.setRequestHeader(k, as.hds[k]);
 
     if (as.dat) {
 
@@ -533,7 +533,7 @@ var H = (function() {
 
     let fd = new FormData();
 
-    for (var k in data) fd.append(k, data[k]);
+    for (let k in data) fd.append(k, data[k]);
 
     let isMulti = Array.isArray(inputFileElt_s);
     let elts = isMulti ? inputFileElt_s : [ inputFileElt_s ];
@@ -544,14 +544,14 @@ var H = (function() {
 
       let files = elt.files;
 
-      for (var i = 0, l = files.length; i < l; i++) {
+      for (let i = 0, l = files.length; i < l; i++) {
 
         fcount = fcount + 1;
 
         let f = files[i];
 
         let l = null;
-        for (var j = 0, al = elt.attributes.length; j < al; j++) {
+        for (let j = 0, al = elt.attributes.length; j < al; j++) {
           let a = elt.attributes.item(j);
           if (a.name.match(/^data-(.*-)?lang$/)) { l = a.value; break; }
         }
@@ -653,7 +653,7 @@ var H = (function() {
 
       style = window.getComputedStyle(elt, null);
 
-      for (var i = 0, l = style.length; i < l; i++) {
+      for (let i = 0, l = style.length; i < l; i++) {
         let p = style[i];
         let n = p.replace(
           /-([a-za])/g, function(a, b) { return b.toUpperCase(); })
@@ -665,13 +665,13 @@ var H = (function() {
 
     if (style = elt.currentStyle) {
 
-      for (var p in style) r[p] = style[p];
+      for (let p in style) r[p] = style[p];
       return f(r);
     }
 
     if (style = elt.style) {
 
-      for (var p in style) {
+      for (let p in style) {
         let s = style[p];
         if ((typeof s) !== 'function') r[p] = s;
       }
@@ -859,7 +859,7 @@ var H = (function() {
     let e = self.elt(start, sel);
     let cs = e.classList || e.className.split(' ');
 
-    let a = []; for (var i = 0, l = cs.length; i < l; i++) a.push(cs[i]);
+    let a = []; for (let i = 0, l = cs.length; i < l; i++) a.push(cs[i]);
 
     return a;
   };
@@ -874,7 +874,7 @@ var H = (function() {
     let e = self.elt.apply(null, as);
     let cs = e.classList || e.className.split(' ');
 
-    for (var i = 0, l = cs.length; i < l; i++) {
+    for (let i = 0, l = cs.length; i < l; i++) {
       let c = cs[i];
       if (ns.includes(c)) return c;
     }
@@ -892,7 +892,7 @@ var H = (function() {
     let e = self.elt.apply(null, as);
     let cs = e.classList || e.className.split(' ');
 
-    for (var i = 0, l = cs.length; i < l; i++) {
+    for (let i = 0, l = cs.length; i < l; i++) {
       let c = cs[i];
       if ( ! ns.includes(c)) return c;
     }
@@ -1353,7 +1353,7 @@ var H = (function() {
     };
     return function() {
       let e = document.createElement(name);
-      for (var i = 0, l = arguments.length; i < l; i++) {
+      for (let i = 0, l = arguments.length; i < l; i++) {
         let a = arguments[i];
         if (a === false) return null; // skip this subtree
         if (a === null || a === undefined) continue; // ignore skipped children
@@ -1367,7 +1367,7 @@ var H = (function() {
         } else if (a.nodeType !== undefined && a.innerHTML !== undefined) {
           e.appendChild(a);
         } else if (typeof a === 'object') {
-          for (var k in a) {
+          for (let k in a) {
             e.setAttribute(k.slice(0, 1) === '-' ? 'data' + k : k, a[k]); };
         } else {
           e.appendChild(document.createTextNode('' + a));

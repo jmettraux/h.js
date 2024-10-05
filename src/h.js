@@ -398,6 +398,21 @@ var H = (function() {
   };
   this.onh = this.onChange;
 
+  this.onKeyup = function(start, sel, eventHandler) {
+    let as = Array.from(arguments);
+    as.splice(as.length - 1, 0, 'keyup'); as.unshift('on');
+    onOrOff.apply(null, as);
+  };
+  this.onk = this.onKeyup;
+
+  this.onKeyOrChange = function(start, sel, eventHandler) {
+    let as = Array.from(arguments);
+    as.splice(as.length - 1, 0, [ 'keyup', 'change' ]); as.unshift('on');
+    onOrOff.apply(null, as);
+  };
+  this.onkc = this.onKeyOrChange;
+
+
   let indexNext = function(sel) {
 
     let d = sel.indexOf('.'); let s = sel.indexOf('#');

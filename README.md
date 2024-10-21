@@ -196,6 +196,7 @@ H.classArray(sta, sel);
 
 // Returns the first class name of the element that is also in classNameArray
 // Returns undefined else
+// The array may contain regular expression to check the class name against.
 H.classFrom(sta, classNameArray);
 H.classFrom(sta, sel, classNameArray);
 

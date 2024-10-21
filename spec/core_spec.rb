@@ -1132,9 +1132,10 @@ describe 'H' do
           H.classFrom(c, [ '.mazda', '.ford' ]),
           H.classFrom('.car.bentley', [ '.mazda', '.ford' ]),
           H.classFrom(cs, '.bentley', [ '.mazda', '.ford' ]),
+          H.classFrom(cs, '.bentley', [ '.mazda', '.ford', /^ba/ ]),
         ];
       })).to eq([
-        nil, nil, nil, nil, nil, nil
+        nil, nil, nil, nil, nil, nil, nil
       ])
     end
 
@@ -1150,9 +1151,11 @@ describe 'H' do
           H.classFrom(c, [ '.mazda', '.ford', '.bentley' ]),
           H.classFrom('.car.bentley', [ '.mazda', '.ford', '.bentley' ]),
           H.classFrom(cs, '.bentley', [ '.mazda', '.ford', '.bentley' ]),
+          H.classFrom(cs, '.bentley', [ '.mazda', '.ford', /^be/ ]),
         ];
       })).to eq([
-        'bentley', 'bentley', 'bentley', 'bentley', 'bentley', 'bentley'
+        'bentley', 'bentley', 'bentley', 'bentley', 'bentley', 'bentley',
+        'bentley'
       ])
     end
   end

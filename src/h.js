@@ -120,6 +120,10 @@ var H = (function() {
   };
   this.isElt = this.isElement;
 
+  this.isString = function(x) { return (typeof x === 'string'); };
+  this.isStr = this.isString;
+  this.isS = this.isString;
+
   this.isHash = function(o) {
 
     if (typeof o !== 'object') return false;
@@ -883,17 +887,23 @@ var H = (function() {
 
     let as = Array.from(arguments);
 
-    let ns = as.pop().map(function(c) {
-      return (c.substr(0, 1) === '.') ? c.slice(1) : c; });
+    let ns = as.pop()
+      .filter(function(e) {
+        return H.isS(e) || (e instanceof RegExp); })
+      .map(function(e) {
+        return (H.isS(e) && e.substr(0, 1) === '.') ? e.slice(1) : e; });
 
     if (H.isVacuous(as)) throw "H.classFrom() start/sel point to nothing";
 
     let e = self.elt.apply(null, as);
     let cs = e.classList || e.className.split(' ');
 
-    for (let i = 0, l = cs.length; i < l; i++) {
-      let c = cs[i];
-      if (ns.includes(c)) return c;
+    for (let i = 0, l = cs.length; i < l; i++) { let c = cs[i];
+      //if (ns.includes(c)) return c;
+      for (let j = 0, jl = ns.length; j < jl; j++) { let n = ns[j];
+        if (c === n) return c;
+        if (n instanceof RegExp && c.match(n)) return c;
+      }
     }
 
     return undefined;

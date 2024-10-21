@@ -202,6 +202,7 @@ H.classFrom(sta, sel, classNameArray);
 
 // Returns the first class name of the element that is not in classNameArray
 // Returns undefined else
+// The array may contain regular expression to check the class name against.
 H.classNot(sta, classNameArray);
 H.classNot(sta, sel, classNameArray);
 

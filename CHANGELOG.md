@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Let H.classNot accept regular expressions
 * Let H.classFrom accept regular expressions
 * Introduce H.onKeyup() and H.onk()
 * Let H.classFrom and .classNot fail if start/sel point to nothing

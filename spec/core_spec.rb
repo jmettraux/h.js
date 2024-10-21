@@ -1183,9 +1183,10 @@ describe 'H' do
           H.classNot(c, [ '.car', '.volkswagen' ]),
           H.classNot(cs, '.volkswagen', [ 'car', 'volkswagen' ]),
           H.classNot(cs, '.volkswagen', [ '.car', '.volkswagen' ]),
+          H.classNot(cs, '.volkswagen', [ '.car', '.volkswagen', /^vol/ ]),
         ];
       })).to eq([
-        nil, nil, nil, nil
+        nil, nil, nil, nil, nil
       ]);
     end
 
@@ -1199,9 +1200,10 @@ describe 'H' do
           H.classNot(c, [ '.car' ]),
           H.classNot(cs, '.volkswagen', [ 'car' ]),
           H.classNot(cs, '.volkswagen', [ '.car' ]),
+          H.classNot(cs, '.volkswagen', [ /^vol/ ]),
         ];
       })).to eq([
-        'volkswagen', 'volkswagen', 'volkswagen', 'volkswagen'
+        'volkswagen', 'volkswagen', 'volkswagen', 'volkswagen', 'car'
       ]);
     end
   end

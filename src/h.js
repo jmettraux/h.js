@@ -899,7 +899,6 @@ var H = (function() {
     let cs = e.classList || e.className.split(' ');
 
     for (let i = 0, l = cs.length; i < l; i++) { let c = cs[i];
-      //if (ns.includes(c)) return c;
       for (let j = 0, jl = ns.length; j < jl; j++) { let n = ns[j];
         if (c === n) return c;
         if (n instanceof RegExp && c.match(n)) return c;
@@ -913,17 +912,27 @@ var H = (function() {
 
     let as = Array.from(arguments);
 
-    let ns = as.pop().map(function(c) {
-      return (c.substr(0, 1) === '.') ? c.slice(1) : c; });
+    let ns = as.pop()
+      .filter(function(e) {
+        return H.isS(e) || (e instanceof RegExp); })
+      .map(function(e) {
+        return (H.isS(e) && e.substr(0, 1) === '.') ? e.slice(1) : e; });
 
     if (H.isVacuous(as)) throw "H.classNot() start/sel point to nothing";
 
     let e = self.elt.apply(null, as);
     let cs = e.classList || e.className.split(' ');
 
-    for (let i = 0, l = cs.length; i < l; i++) {
-      let c = cs[i];
-      if ( ! ns.includes(c)) return c;
+    for (let i = 0, l = cs.length; i < l; i++) { let c = cs[i];
+
+      let match = false;
+
+      for (let j = 0, jl = ns.length; j < jl; j++) { let n = ns[j];
+        if (match) continue;
+        if ((c === n) || (n instanceof RegExp && c.match(n))) match = true;
+      }
+
+      if ( ! match) return c;
     }
 
     return undefined;

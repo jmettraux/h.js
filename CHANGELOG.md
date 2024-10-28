@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Introduce H.schedule(tArray, fun, finallyFun)
 * Let H.classNot accept regular expressions
 * Let H.classFrom accept regular expressions
 * Introduce H.onKeyup() and H.onk()

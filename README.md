@@ -859,6 +859,17 @@ H.on('input[name="amount"]', 'keyup', H.delay(1400, reformat));
 ```
 
 ```js
+H.schedule(
+  [ 50, 200, 400, 1000 ],
+  function(i, t) { console.log('trying...', i, t); return t === 400; },
+  function() { console.log('finally.'); }); // not reached ;-)
+    //
+    // waits 50ms then calls the first fun, it returns false, then
+    // waits 200ms then calls the first fun, it returns false, then
+    // waits 400ms then calls the first fun, it returns true, over.
+```
+
+```js
 H.isVoid(x)
   // returns true if x === null or x === undefined
 

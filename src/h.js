@@ -1482,6 +1482,24 @@ var H = (function() {
     };
   };
 
+  this.schedule = function(/* scheduleArray, fun, failFun */) {
+
+    let as = Array.from(arguments);
+
+    let a = as.find(function(e) { return Array.isArray(e); });
+    let i = as.find(function(e) { return typeof e === 'number'; }) || 0;
+    let fs = as.filter(function(e) { return typeof e === 'function'; });
+
+    let t = a.shift();
+    if (t === undefined) { (fs[1] || function() {})(false); return; }
+
+    window.setTimeout(
+      function() {
+        let r = (fs[0] || function() {})(i || 0, t);
+        if ( ! r) self.schedule(a, fs[0], fs[1], i + 1); },
+      t);
+  };
+
   this.makeWorker = function(workerFunction/*, wrap=true*/) {
 
     let s = workerFunction.toString();

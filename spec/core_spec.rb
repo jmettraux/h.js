@@ -1206,6 +1206,32 @@ describe 'H' do
         'volkswagen', 'volkswagen', 'volkswagen', 'volkswagen', 'car'
       ]);
     end
+
+    it 'returns the appropriate classname' do
+
+      expect(evaluate(%{
+        let e = H.elt('#for-class-not');
+        let es = H.elts('#for-class-not i');
+        return [
+          H.classNot(es[0], [ 'fa' ]),
+          H.classNot(es[0], [ '.fa' ]),
+          H.classNot(es[0], [ 'fa-manilla' ]),
+          H.classNot(es[0], [ '.fa-manilla' ]),
+          H.classNot(es[0], [ 'fa', 'fa-manilla' ]) || '-',
+          H.classNot(es[0], [ '.fa', '.fa-manilla' ]) || '-',
+          H.classNot(es[1], [ 'fa', 'fa-nada' ]) || '-',
+          H.classNot(es[1], [ '.fa', 'fa-nada' ]) || '-',
+          H.classNot(es[1], [ 'fa', 'bar' ]) || '-',
+          H.classNot(es[1], [ '.fa', 'bar' ]) || '-',
+          H.classNot(e, 'i', [ '.fa', 'bar' ]) || '-',
+          H.classNot(e, 'i', [ '.fa', 'bar' ]) || '-',
+        ];
+      })).to eq(%w[
+        fa-manilla fa-manilla fa fa - - bar bar
+        fa-nada fa-nada
+        fa-manilla fa-manilla
+      ]);
+    end
   end
 
   describe '.create' do

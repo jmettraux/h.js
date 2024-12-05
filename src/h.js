@@ -415,6 +415,7 @@ var H = (function() {
     onOrOff.apply(null, as);
   };
   this.onkc = this.onKeyOrChange;
+  this.onkh = this.onKeyOrChange;
 
 
   let indexNext = function(sel) {

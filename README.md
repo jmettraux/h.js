@@ -524,6 +524,9 @@ H.valj(sta);
 H.text(sta);
 H.text(sta, sel);
 H.text(sta, sel, default);
+H.t(sta);
+H.t(sta, sel);
+H.t(sta, sel, default);
 
 // Parsing the textContent in an element
 H.texti(sta);

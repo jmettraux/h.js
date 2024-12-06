@@ -1151,6 +1151,7 @@ var H = (function() {
     let t = as.elt.textContent.trim();
     return (t === '' && as.las) ? as.las : t;
   };
+  this.t = this.text;
 
   this.getText = function(start, sel/*, default*/) {
     let as = resol_sta_sel_las(arguments);

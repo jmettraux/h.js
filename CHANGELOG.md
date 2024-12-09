@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Go for H.setValue(sta, sel, val) and H.setv + H.set
 * Alias H.t() to H.text()
 * Add H.onkh(ev) for H.onKeyOrChange(ev)
 * Introduce H.schedule(tArray, fun, finallyFun)

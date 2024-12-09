@@ -482,6 +482,10 @@ H.ratt(sta, name);
 H.ratt(sta, sel, name);
 
 // Sets the value of an input, select or textarea
+H.setValue(sta, val);
+H.setValue(sta, sel, val);
+H.setv(sta, val);
+H.setv(sta, sel, val);
 H.set(sta, val);
 H.set(sta, sel, val);
 

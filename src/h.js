@@ -1243,7 +1243,7 @@ var H = (function() {
   this.vali = this.geti;
   this.valj = this.getj;
 
-  this.set = function(start, sel, value) {
+  this.setValue = function(start, sel, value) {
 
     let a = self.toArray(arguments);
     let v = a.pop(); v = (v === null || v === undefined) ? '' : '' + v;
@@ -1253,6 +1253,8 @@ var H = (function() {
 
     return v;
   };
+  this.setv = this.setValue;
+  this.set = this.setValue;
 
   this.setText = function(start, sel, text) {
 

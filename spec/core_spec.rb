@@ -275,10 +275,10 @@ describe 'H' do
         var es = H.elts([ '#cars > div ', '#list-of-trains > div' ]);
         return es.map(function(e) { return H.path(e); });
       })).to eq([
-        '#cars > div.asia',
-        '#cars > div.europe',
-        '#list-of-trains > div.asia',
-        '#list-of-trains > div.europe',
+        "#cars > :nth-child(1)",
+        "#cars > :nth-child(2)",
+        "#list-of-trains > :nth-child(1)",
+        "#list-of-trains > :nth-child(2)"
       ])
     end
 
@@ -288,8 +288,8 @@ describe 'H' do
         var f = function() { return H.elts(arguments); };
         return f('#cars > div').map(function(e) { return H.path(e); });
       })).to eq([
-        '#cars > div.asia',
-        '#cars > div.europe',
+        "#cars > :nth-child(1)",
+        "#cars > :nth-child(2)"
       ])
     end
   end
@@ -2542,36 +2542,34 @@ describe 'H' do
       })).to eq('#test')
     end
 
-    it 'returns a pa.t.h for an element' do
-
-      expect(evaluate(%{
-        return H.path('#cars .bentley .blue');
-      })).to eq(
-        '#cars > div.europe > div.car.bentley > div.blue'
-      )
-
-      expect(evaluate(%{
-        return (
-          H.elt('#cars .bentley .blue').innerHTML ===
-          H.elt('#cars > div.europe > div.car.bentley > div.blue').innerHTML)
-      })).to eq(true)
-    end
-
-    it 'returns a pa[name="th"] for an element' do
-
-      expect(evaluate(%{
-        return H.path('input[type="number"]');
-      })).to eq(%{
-        #input > form[name="our-form"] > input[name="age"]
-      }.strip)
-    end
+    #it 'returns a pa.t.h for an element' do
+    #  expect(evaluate(%{
+    #    return H.path('#cars .bentley .blue');
+    #  })).to eq(
+    #    '#cars > div.europe > div.car.bentley > div.blue'
+    #  )
+    #  expect(evaluate(%{
+    #    return (
+    #      H.elt('#cars .bentley .blue').innerHTML ===
+    #      H.elt('#cars > div.europe > div.car.bentley > div.blue').innerHTML)
+    #  })).to eq(true)
+    #end
+    #it 'returns a pa[name="th"] for an element' do
+    #  expect(evaluate(%{
+    #    return H.path('input[type="number"]');
+    #  })).to eq(%{
+    #    #input > form[name="our-form"] > input[name="age"]
+    #  }.strip)
+    #end
+      #
+      # No, such paths are too ambiguous...
 
     it 'returns a :nth-child(x) path for an element' do
 
       expect(evaluate(%{
         return H.path('.container > span');
       })).to eq(%{
-        #for-path > :nth-child(1) > div.container > :nth-child(1)
+        #for-path > :nth-child(1) > :nth-child(3) > :nth-child(1)
       }.strip)
 
       expect(evaluate(%{
@@ -2590,7 +2588,7 @@ describe 'H' do
         var e = H.elts('.container')[1];
         return H.path(e, 'span');
       })).to eq(%{
-        #for-path > :nth-child(2) > :nth-child(2) > div.container > :nth-child(1)
+        #for-path > :nth-child(2) > :nth-child(2) > :nth-child(2) > :nth-child(1)
       }.strip)
     end
   end

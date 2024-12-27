@@ -271,21 +271,25 @@ var H = (function() {
     if (e.id) return '#' + e.id;
 
     let pp = self.path(e.parentElement);
-      // >
-    let nn = e.nodeName.toLowerCase();
-    let cs = self.classArray(e); cs = cs.length > 0 ? '.' + cs.join('.') : '';
-    let an = e.getAttribute('name'); an = an ? '[name="' + an + '"]' : '';
 
-    if (cs !== '' || an !== '') return pp + ' > ' + nn + cs + an;
+    //let nn = e.nodeName.toLowerCase();
+    //let cs = self.classArray(e); cs = cs.length > 0 ? '.' + cs.join('.') : '';
+    //let an = e.getAttribute('name'); an = an ? '[name="' + an + '"]' : '';
+    //  //
+    //if (cs !== '' || an !== '') return pp + ' > ' + nn + cs + an;
+      //
+      // No, it may be ambiguous, remember table.data ( .section-star )
 
     //var sb = e; let n = 0;
-    //while (sb.nodeType === Node.ELEMENT_NODE && (sb = sb.previousSibling)) n++;
+    //while (
+    //  sb.nodeType === Node.ELEMENT_NODE && (sb = sb.previousSibling)) n++;
+
     let sb = e; let n = 0;
     while (sb) {
       if (sb.nodeType === 1) n++;
       sb = sb.previousSibling;
     }
-      //
+
     return pp + ' > ' + ':nth-child(' + n + ')';
   };
 

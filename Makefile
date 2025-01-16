@@ -15,7 +15,8 @@ spec:
 
 pkg_plain:
 	mkdir -p pkg
-	cp src/$(N).js pkg/$(N)-$(VERSION).js
+	awk 'NF{print "// " $$0; next} {print "//"}' LICENSE.txt > pkg/$(N)-$(VERSION).js
+	cat src/$(N).js >> pkg/$(N)-$(VERSION).js
 	echo "/* from commit $(SHA) on $(NOW) */" >> pkg/$(N)-$(VERSION).js
 	cp pkg/$(N)-$(VERSION).js pkg/$(N)-$(VERSION)-$(SHA).js
 

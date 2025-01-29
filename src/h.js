@@ -534,7 +534,15 @@ var H = (function() {
 
     let fd = new FormData();
 
-    for (let k in data) fd.append(k, data[k]);
+    for (let k in data) {
+
+      let v = data[k]; v =
+        ((typeof v === 'string') || (v instanceof Blob)) ? v :
+        (v === undefined) ? 'null' :
+        JSON.stringify(v);
+
+      fd.append(k, v);
+    }
 
     let isMulti = Array.isArray(inputFileElt_s);
     let elts = isMulti ? inputFileElt_s : [ inputFileElt_s ];

@@ -22,6 +22,8 @@ chrome.core
 
 .chat.md
 .openai.*.py
+.deep.md
+.deepseek.*
 
 .codespell-*
 

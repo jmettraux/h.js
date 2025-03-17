@@ -114,9 +114,12 @@ H.children(sta, sel0, sel);
 
 // Calls fun on each Element
 H.forEach(sta, fun);
+H.forEach(sta, fun, thisArg);
 H.forEach(sta, sel, fun);
+H.forEach(sta, sel, fun, thisArg);
   // Shorter form of
   H.elts(sta, sel).forEach(fun);
+  H.elts(sta, sel).forEach(fun, thisArg);
 
 H.map(sta, fun);
 H.map(sta, sel, fun);

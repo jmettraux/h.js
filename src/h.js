@@ -146,12 +146,13 @@ var H = (function() {
 
   // Warning: there is a H.each(array_or_hash, fun) below...
   //
-  this.forEach = function(start, sel, fun) {
+  this.forEach = function(start, sel, fun, thisArg) {
 
-    if ((typeof sel) === 'function') { fun = sel; sel = null; }
+    if ((typeof sel) === 'function') { thisArg = fun; fun = sel; sel = null; }
 
     let r = toElts(start, sel);
-    r.forEach(fun);
+
+    if (thisArg !== undefined) r.forEach(fun, thisArg); else r.forEach(fun);
 
     return r;
   };

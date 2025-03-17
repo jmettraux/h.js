@@ -122,9 +122,12 @@ H.forEach(sta, sel, fun, thisArg);
   H.elts(sta, sel).forEach(fun, thisArg);
 
 H.map(sta, fun);
+H.map(sta, fun, thisArg);
 H.map(sta, sel, fun);
+H.map(sta, sel, fun, thisArg);
   // Shorter form of
   H.elts(sta, sel).map(fun);
+  H.elts(sta, sel).map(fun, thisArg);
 
 H.find(sta, fun);
 H.find(sta, sel, fun);

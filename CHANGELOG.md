@@ -4,7 +4,8 @@
 
 ## h.js 1.2.0  not yet released
 
-* H.forEach() accept final thisArg
+* Accept H.map() optional thisArg
+* Accept H.forEach() optional thisArg
 * Go for H.setValue(sta, sel, val) and H.setv + H.set
 * Alias H.t() to H.text()
 * Add H.onkh(ev) for H.onKeyOrChange(ev)

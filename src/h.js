@@ -151,17 +151,16 @@ var H = (function() {
     if ((typeof sel) === 'function') { thisArg = fun; fun = sel; sel = null; }
 
     let r = toElts(start, sel);
-
-    if (thisArg !== undefined) r.forEach(fun, thisArg); else r.forEach(fun);
+    r.forEach(fun, thisArg);
 
     return r;
   };
 
-  this.map = function(start, sel, fun) {
+  this.map = function(start, sel, fun, thisArg) {
 
-    if ((typeof sel) === 'function') { fun = sel; sel = null; }
+    if ((typeof sel) === 'function') { thisArg = fun; fun = sel; sel = null; }
 
-    return toElts(start, sel).map(fun);
+    return toElts(start, sel).map(fun, thisArg);
   };
 
   this.filter = function(start, sel, fun) {

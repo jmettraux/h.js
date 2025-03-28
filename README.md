@@ -47,11 +47,15 @@ The caret can only be placed at the beginning of a selector though.
 // sta may be a Javascript arguments instance (2022-03-15)
 
 
-// Returns a single Element
+// Returns a single element
 H.elt(sta);
 H.elt(sta, sel);
 H.e(sta);
 H.e(sta, sel);
+
+// Returns the last matching element
+H.last(sta);
+H.last(sta, sel);
 
   // note the equivalences:
   //   H.elt(japan, '^.asia') <--> H.closest(japan, '.asia')

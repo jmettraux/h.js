@@ -310,6 +310,27 @@ describe 'H' do
     end
   end
 
+  describe '.last' do
+
+    it 'returns undefined if there are not matching elements' do
+
+      expect(evaluate(%{
+        return H.path(H.last('#cars > div'));
+      })).to eq(
+        '#cars > :nth-child(2)'
+      )
+    end
+
+    it 'returns the last matching element' do
+
+      expect(evaluate(%{
+        return H.last('#cars > span');
+      })).to eq(
+        nil
+      )
+    end
+  end
+
   describe '.count' do
 
     it 'returns 0 if there are no such elements' do

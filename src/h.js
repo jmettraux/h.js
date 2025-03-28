@@ -139,6 +139,13 @@ var H = (function() {
   this.es = toElts;
   this.ev = toEltv;
 
+  this.last = function(start, sel) {
+
+    let es = toElts(start, sel);
+
+    return es[es.length - 1];
+  };
+
   this.count = function(start, sel) { return toElts(start, sel).length; };
 
   this.click = function(start, sel) { toElt(start, sel).click(); };

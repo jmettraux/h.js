@@ -1573,15 +1573,15 @@ var H = (function() {
 
   let _iterate = function(iterator, array_or_hash, fun, thisArg) {
 
+    fun = fun.bind(thisArg);
+
     if (Array.isArray(array_or_hash)) {
       return array_or_hash[iterator](
-        fun,
-        thisArg);
+        fun);
     }
     if (self.isHash(array_or_hash)) {
       return Object.entries(array_or_hash)[iterator](
-        function(kv, i) { return fun(kv[0], kv[1], i); },
-        thisArg);
+        function(kv, i) { return fun(kv[0], kv[1], i); });
     }
 
     throw new Error('Cannot iterate over >' + JSON.dump(array_or_hash) + '<');

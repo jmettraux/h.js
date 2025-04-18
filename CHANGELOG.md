@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Accept H.each() .collect() .select() .reject() .inject() optional thisArg
 * Accept H.map() optional thisArg
 * Accept H.forEach() optional thisArg
 * Go for H.setValue(sta, sel, val) and H.setv + H.set

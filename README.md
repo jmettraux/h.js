@@ -596,21 +596,31 @@ H.size(x);
 
 H.each([ 'ab', 'cd', 'ef' ], function(e, i) { /* ... */ });
 H.each({ abc: 'def', ghi: 'jkl' }, function(k, v, i) { /* ... */ });
+H.each([ 'ab', 'cd', 'ef' ], function(e, i) { /* ... */ }, thisArg);
+H.each({ abc: 'def', ghi: 'jkl' }, function(k, v, i) { /* ... */ }, thisArg);
 
 H.collect([ 'ab', 'cd', 'ef' ], function(e, i) { /* ... */ });
 H.collect({ abc: 'def', ghi: 'jkl' }, function(k, v, i) { /* ... */ });
+H.collect([ 'ab', 'cd', 'ef' ], function(e, i) { /* ... */ }, thisArg);
+H.collect({ abc: 'def', ghi: 'jkl' }, function(k, v, i) { /* ... */ }, thisArg);
   // returns a new array...
 
 H.select([ 'ab', 'cd', 'ef' ], function(e, i) { /* ... */ });
 H.select({ abc: 'def', ghi: 'jkl' }, function(k, v, i) { /* ... */ });
+H.select([ 'ab', 'cd', 'ef' ], function(e, i) { /* ... */ }, thisArg);
+H.select({ abc: 'def', ghi: 'jkl' }, function(k, v, i) { /* ... */ }, thisArg);
   // returns a new array or a new hash...
 
 H.reject([ 'ab', 'cd', 'ef' ], function(e, i) { /* ... */ });
 H.reject({ abc: 'def', ghi: 'jkl' }, function(k, v, i) { /* ... */ });
+H.reject([ 'ab', 'cd', 'ef' ], function(e, i) { /* ... */ }, thisArg);
+H.reject({ abc: 'def', ghi: 'jkl' }, function(k, v, i) { /* ... */ }, thisArg);
   // returns a new array or a new hash...
 
 H.inject([ 'ab', 'cd', 'ef' ], function(e, i) { /* ... */ }, acc);
 H.inject({ abc: 'def', ghi: 'jkl' }, function(k, v, i) { /* ... */ }, acc);
+H.inject([ 'ab', 'cd', 'ef' ], function(e, i) { /* ... */ }, acc, thisArg);
+H.inject({ abc: 'def', ghi: 'jkl' }, function(k, v, i) { /* ... */ }, acc, thisArg);
 
 // Nota bene: H.each(array_or_hash, fun) is not the same as
 //            H.forEach(sta, sel, fun)

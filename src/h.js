@@ -1571,7 +1571,7 @@ var H = (function() {
     return false;
   };
 
-  let _iterate = function(iterator, array_or_hash, fun) {
+  let _iterate = function(iterator, array_or_hash, fun, thisArg) {
 
     if (Array.isArray(array_or_hash)) {
       return array_or_hash[iterator](
@@ -1587,47 +1587,49 @@ var H = (function() {
 
   // Warning: this is not equivalent to H.forEach(sta, sel, fun)
   //
-  this.each = function(array_or_hash, fun) {
-    return _iterate('forEach', array_or_hash, fun); };
+  this.each = function(array_or_hash, fun, thisArg) {
+    return _iterate('forEach', array_or_hash, fun, thisArg); };
 
   // Steal Ruby's "collect" and friends to differentiate from map/filter/...
 
-  this.collect = function(array_or_hash, fun) {
-    return _iterate('map', array_or_hash, fun); };
+  this.collect = function(array_or_hash, fun, thisArg) {
+    return _iterate('map', array_or_hash, fun, thisArg); };
 
-  let _elect = function(positive, array_or_hash, fun) {
+  let _elect = function(positive, array_or_hash, fun, thisArg) {
 
     if (Array.isArray(array_or_hash)) {
-      return array_or_hash.filter(function(e, i) {
-        return ( !! fun(e, i)) === positive;
-      });
+      return array_or_hash.filter(
+        function(e, i) { return ( !! fun(e, i)) === positive; },
+        thisArg);
     }
     if (self.isHash(array_or_hash)) {
       let h = {};
-      Object.entries(array_or_hash).forEach(function(kv, i) {
-        let k = kv[0], v = kv[1];
-        if (( !! fun(k, v, i)) === positive) h[k] = v;
-      });
+      Object.entries(array_or_hash).forEach(
+        function(kv, i) {
+          let k = kv[0], v = kv[1];
+          if (( !! fun(k, v, i)) === positive) h[k] = v;
+        },
+        thisArg);
       return h;
     }
 
     throw new Error('Cannot iterate over >' + JSON.dump(array_or_hash) + '<');
   };
 
-  this.select = function(array_or_hash, fun) {
-    return _elect(true, array_or_hash, fun); };
+  this.select = function(array_or_hash, fun, thisArg) {
+    return _elect(true, array_or_hash, fun, thisArg); };
 
-  this.reject = function(array_or_hash, fun) {
-    return _elect(false, array_or_hash, fun); };
+  this.reject = function(array_or_hash, fun, thisArg) {
+    return _elect(false, array_or_hash, fun, thisArg); };
 
-  this.inject = function(array_or_hash, fun, acc) {
+  this.inject = function(array_or_hash, fun, acc, thisArg) {
 
     if (Array.isArray(array_or_hash)) {
-      return array_or_hash.reduce(fun, acc);
+      return array_or_hash.reduce(fun.bind(thisArg), acc);
     }
     if (self.isHash(array_or_hash)) {
       Object.entries(array_or_hash)
-        .forEach(function(kv, i) { acc = fun(acc, kv[0], kv[1], i); });
+        .forEach(function(kv, i) { acc = fun(acc, kv[0], kv[1], i); }, thisArg);
       return acc;
     }
 

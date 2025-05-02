@@ -2181,9 +2181,27 @@ describe 'H' do
           H.isDisabled(f, 'input[name="age"]'),
           H.isDisabled(f, 'input[name="last-name"]'),
           H.isDisabled(f, 'input[name="bravo"]'),
-        ]
+        ];
       })).to eq([
         false, true, false, true
+      ])
+    end
+  end
+
+  describe '.isClassDisabled' do
+
+    it 'works .isDisabled(start, sel)' do
+
+      expect(evaluate(%{
+        var f = H.elt('#input');
+        return [
+          H.isClassDisabled(f, 'input[name="name"]'),
+          H.isClassDisabled(f, 'input[name="age"]'),
+          H.isClassDisabled(f, 'input[name="last-name"]'),
+          H.isClassDisabled(f, 'input[name="bravo"]'),
+        ];
+      })).to eq([
+        false, false, false, true
       ])
     end
   end

@@ -321,6 +321,12 @@ H.disabled(sta, sel);
 H.dised(sta);
 H.dised(sta, sel);
 
+// Returns true if the elt has the class ".disabled"
+H.isClassDisabled(sta);
+H.isClassDisabled(sta, sel);
+H.cDisabled(sta);
+H.cDisabled(sta, sel);
+
 // Like H.cenable() but toggles the 'shown' class
 H.show(sta);
 H.show(sta, sel);

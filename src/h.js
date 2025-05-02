@@ -1031,6 +1031,7 @@ var H = (function() {
     return self.hasClass(H.e(start, sel), '.disabled');
   };
   this.cDisabled = this.isClassDisabled;
+  this.cdisabled = this.isClassDisabled;
 
   this.setAtt = function(start, sel, aname, value) {
 

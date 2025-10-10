@@ -1143,6 +1143,12 @@ var H = (function() {
   this.attb = this.getAttb;
   this.atta = this.getAtta;
 
+  this.dataset = function(start, sel) {
+    let as = resol_sta_sel_las(arguments);
+    return as.elt ? as.elt.dataset : null;
+  };
+  this.ds = this.dataset;
+
   let FALSIES = [ false, null, undefined, '' ];
   let isFalsy = function(v) { return isNaN(v) || FALSIES.indexOf(v) > -1; }
   let TRUES = 'true yes on'.split(' ');

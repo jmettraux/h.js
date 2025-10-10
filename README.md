@@ -499,6 +499,12 @@ H.remAtt(sta, sel, name);
 H.ratt(sta, name);
 H.ratt(sta, sel, name);
 
+// Short for H.elt(sta, sel).dataset
+H.dataset(sta);
+H.dataset(sta, sel);
+H.ds(sta);
+H.ds(sta, sel);
+
 // Sets the value of an input, select or textarea
 H.setValue(sta, val);
 H.setValue(sta, sel, val);

@@ -3925,5 +3925,68 @@ describe 'H' do
       end
     end
   end
+
+  describe '.filterByType' do
+
+    it 'filters an argument list by type' do
+
+      expect(
+        evaluate(%{
+          return H.filterByType(
+            'a', 1, 1.1, true, false, [ 1, 2 ], { a: 1 }, function() {},
+          ); })
+      ).to eq({
+        "a" => ["a", 1, 1.1, true, false, [1, 2], {"a"=>1}, nil],
+        "arrays" => [[1, 2]],
+        "booleans" => [true, false],
+        "functions" => [nil],
+        "hashes" => [{"a"=>1}],
+        "integers" => [1],
+        "nonIntegers" => [1.1],
+        "numbers" => [1, 1.1],
+        "strings" => ["a"],
+      })
+    end
+
+    it 'filters an array by type' do
+
+      expect(
+        evaluate(%{
+          return H.filterByType(
+            [ 'b', 1, 1.2, false, [ 1, 2, 4 ], { a: 9 }, function() {} ]
+          ); })
+      ).to eq({
+        "a" => ["b", 1, 1.2, false, [1, 2, 4], {"a"=>9}, nil],
+        "arrays" => [[1, 2, 4]],
+        "booleans" => [false],
+        "functions" => [nil],
+        "hashes" => [{"a"=>9}],
+        "integers" => [1],
+        "nonIntegers" => [1.2],
+        "numbers" => [1, 1.2],
+        "strings" => ["b"],
+      })
+    end
+
+    it 'filters an argument list by type (indirect)' do
+
+      expect(
+        evaluate(%{
+          return(function() {
+            return H.filterByType(arguments);
+          })('c', 1, 1.3, 0.9, false, [ 1, 2, 4 ], { a: 9 }, function() {}); })
+      ).to eq({
+        "a" => ["c", 1, 1.3, 0.9, false, [1, 2, 4], {"a"=>9}, nil],
+        "arrays" => [[1, 2, 4]],
+        "booleans" => [false],
+        "functions" => [nil],
+        "hashes" => [{"a"=>9}],
+        "integers" => [1],
+        "nonIntegers" => [1.3, 0.9],
+        "numbers" => [1, 1.3, 0.9],
+        "strings" => ["c"],
+      })
+    end
+  end
 end
 

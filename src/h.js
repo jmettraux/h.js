@@ -1651,6 +1651,27 @@ var H = (function() {
     throw new Error('Cannot iterate over >' + JSON.dump(array_or_hash) + '<');
   };
 
+  this.filterByType = function() {
+
+    let a = Array.from(arguments.length === 1 ? arguments[0] : arguments);
+
+    let f = function(type) {
+      return a.filter(function(e) { return (typeof e) === type; }); };
+
+    let h = {
+      strings: f('string'), functions: f('function'), numbers: f('number'),
+      booleans: a.filter(function(e) { return e === false || e === true; }),
+      arrays: a.filter(function(e) { return Array.isArray(e); }),
+      hashes: a.filter(function(e) { return H.isH(e); }),
+      a: a };
+    h.integers =
+      h.numbers.filter(function(e) { return Number.isInteger(e); });
+    h.nonIntegers =
+      h.numbers.filter(function(e) { return ! Number.isInteger(e); });
+
+    return h;
+  };
+
   //
   // done.
 

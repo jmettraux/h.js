@@ -100,6 +100,21 @@ H.isH(o);
 H.isArguments(o);
 H.isArgs(o);
 
+// Given an array or arguments
+return H.filterByType(
+  [ 'b', 1, 1.2, false, [ 1, 2, 4 ], { a: 9 }, function() {} ]
+); })
+  // =>
+  { a: [ 'b', 1, 1.1, true, false, [ 1, 2 ], { a: 9 }, function() {} ],
+    arrays: [ [1, 2, 4 ] ],
+    booleans: [ false ],
+    functions: [ function() {} ],
+    hashes: [ { a: 9 } ],
+    numbers: [ 1, 1.1 ],
+    integers: [ 1 ],
+    nonIntegers: [ 1.2 ],
+    strings: [ 'b' ] }
+
 // Returns true if the elt matches the final sel
 H.matches(sta, sel);
 H.matches(sta, sel, sel);

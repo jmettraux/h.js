@@ -394,7 +394,7 @@ var H = (function() {
     as = Array.from(as); as.splice(as.length - 1, 0, dir); as.unshift('on');
     onOrOff.apply(null, as); };
       //
-  this.onKeydowm = function(start, sel, eventHandler) {
+  this.onKeydown = function(start, sel, eventHandler) {
     onKey('keydown', arguments); };
   this.onKeyup = function(start, sel, eventHandler) {
     onKey('keyup', arguments); };

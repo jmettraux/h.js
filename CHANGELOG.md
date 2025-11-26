@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Introduce H.onKeydown/H.onkd (sta, sel, f)
 * Introduce H.filterByType(x)
 * Introduce H.dataset(sta, sel)
 * Introduce H.isClassDisabled(), .cDisabled() and .cdisabled()

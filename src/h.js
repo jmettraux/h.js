@@ -390,11 +390,16 @@ var H = (function() {
   };
   this.onh = this.onChange;
 
+  let onKey = function(dir, as) {
+    as = Array.from(as); as.splice(as.length - 1, 0, dir); as.unshift('on');
+    onOrOff.apply(null, as); };
+      //
+  this.onKeydowm = function(start, sel, eventHandler) {
+    onKey('keydown', arguments); };
   this.onKeyup = function(start, sel, eventHandler) {
-    let as = Array.from(arguments);
-    as.splice(as.length - 1, 0, 'keyup'); as.unshift('on');
-    onOrOff.apply(null, as);
-  };
+    onKey('keyup', arguments); };
+      //
+  this.onkd = this.onKeydown;
   this.onk = this.onKeyup;
 
   this.onKeyOrChange = function(start, sel, eventHandler) {

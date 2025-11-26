@@ -296,6 +296,14 @@ H.onk(sta, sel, fun);
 H.on(sta, 'keyup', fun);
 H.on(sta, sel, 'keyup', fun);
 
+H.onKeydown(sta, fun);
+H.onKeydown(sta, sel, fun);
+H.onkd(sta, fun);
+H.onkd(sta, sel, fun);
+  // are shortcuts for
+H.on(sta, 'keydown', fun);
+H.on(sta, sel, 'keydown', fun);
+
 // Clicks on an element
 H.click(sta);
 H.click(sta, sel);

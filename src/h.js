@@ -1141,12 +1141,20 @@ var H = (function() {
         []));
   };
 
+  this.getAttai = function(start, sel, aname/*, default*/) {
+    let a = self.getAtta.apply(null, arguments);
+    return Array.isArray(a) ?
+      a.map(function(e) { return parseInt('' + e, 10); }) :
+      a;
+  };
+
   this.att = this.getAtt;
   this.atti = this.getAtti;
   this.attf = this.getAttf;
   this.attj = this.getAttj;
   this.attb = this.getAttb;
   this.atta = this.getAtta;
+  this.attai = this.getAttai;
 
   this.dataset = function(start, sel) {
     let as = resol_sta_sel_las(arguments);

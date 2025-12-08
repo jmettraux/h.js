@@ -3200,6 +3200,35 @@ describe 'H' do
     end
   end
 
+    # <div id="for-getAttai">
+    #   <div class="a" data-a=","></div>
+    #   <div class="b" data-a="123"></div>
+    #   <div class="c" data-a="123,456"></div>
+    #   <div class="d" data-a="123,456, toto"></div>
+    # </div>
+  describe '.getAttai' do
+
+    it 'returns an array of int values' do
+
+      expect(evaluate(%{
+        var e = H.elt('#for-getAttai');
+        return {
+
+          10: H.getAttai(e, '.a', '-a'),
+          11: H.attai(e, '.b', '-a'),
+          12: H.attai(e, '.c', '-a'),
+          13: H.attai(e, '.d', 'data-a'),
+        };
+      })).to eq({
+
+        '10' => [],
+        '11' => [ 123 ],
+        '12' => [ 123, 456 ],
+        '13' => [ 123, 456, nil ],
+      })
+    end
+  end
+
   describe '.text' do
 
     it 'returns the textContent of the target' do

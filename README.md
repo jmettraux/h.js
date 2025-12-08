@@ -500,6 +500,12 @@ H.getAtta(sta, sel, name/*, default*/);
 H.atta(sta, name/*, default*/);
 H.atta(sta, sel, name/*, default*/);
 
+// same as H.getAttai, but ensure every elt of the array is turned into an int
+H.getAttai(sta, name/*, default*/);
+H.getAttai(sta, sel, name/*, default*/);
+H.attai(sta, name/*, default*/);
+H.attai(sta, sel, name/*, default*/);
+
 // Short for H.forEach(sta, sel, function(e) { e.setAttribute(name, value); });
 H.setAtt(sta, name, value);
 H.setAtt(sta, sel, name, value);

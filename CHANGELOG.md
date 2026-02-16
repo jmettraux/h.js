@@ -4,6 +4,7 @@
 
 ## h.js 1.2.0  not yet released
 
+* Revise H.clean(sta, sel, fun)
 * Introduce H.attai(sta, sel, att, default)
 * Introduce H.onKeydown/H.onkd (sta, sel, f)
 * Introduce H.filterByType(x)

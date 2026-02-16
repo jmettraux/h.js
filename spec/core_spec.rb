@@ -2330,20 +2330,10 @@ describe 'H' do
       })
     end
 
-    it 'works  .clean(start, sel, "cla")' do
+    it 'works  .clean(start, sel, fun)' do
 
       expect(evaluate(%{
-        H.clean('#cars', '.europe', 'car');
-        return H.elt('#cars .europe').outerHTML;
-      })).to eqh(%{
-        <div class="europe"></div>
-      })
-    end
-
-    it 'works  .clean(start, sel, ".cla")' do
-
-      expect(evaluate(%{
-        H.clean('#cars', '.europe', '.car');
+        H.clean('#cars', '.europe', function(e) { return H.hasc(e, '.car'); });
         return H.elt('#cars .europe').outerHTML;
       })).to eqh(%{
         <div class="europe"></div>

@@ -455,10 +455,12 @@ H.rep(sta, sel, elt);
 // Given an element (the first to match (sta, sel)) removes all its children.
 // If a classname is given, removes only those children that sport the
 // classname.
+// if a function is provided will remove any child for which `fun(e, parent)`
+// returns `true`.
 H.clean(sta);
 H.clean(sta, sel);
-H.clean(sta, cla);
-H.clean(sta, sel, cla);
+H.clean(sta, fun);
+H.clean(sta, sel, fun);
 
 // Short for H.elt(sta, sel).getAttribute(name);
 H.getAtt(sta, name/*, default*/);

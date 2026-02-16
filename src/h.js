@@ -1388,15 +1388,24 @@ var H = (function() {
   this.appendFirst = this.appendAsFirstChild;
   this.appc = this.appendFirst;
 
-  this.clean = function(start, sel, cla) {
+  this.clean = function(start, sel/*, fun */) {
+
+    let as = Array.from(arguments);
+    let a9 = as[as.length - 1];
 
     let elt = toElt(start, sel);
-    if (cla && cla[0] !== '.') cla = '.' + cla;
+    let fun = (typeof(a9) === 'function') ? a9 : null;
 
-    if (cla)
-      self.forEach(elt, cla, function(e) { e.parentElement.removeChild(e); });
+    if ( ! elt) throw new Error("Couldn't find H.clean() start elt");
+
+    if (fun)
+      for (let e of Array.from(elt.children)) {
+        if (fun(e, elt)) elt.removeChild(e);
+      }
     else
-      while (elt.firstChild) elt.removeChild(elt.firstChild);
+      while (elt.firstChild) {
+        elt.removeChild(elt.firstChild);
+      }
 
     return elt;
   };

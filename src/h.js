@@ -1199,10 +1199,12 @@ var H = (function() {
   this.get = function(start, sel/*, false */) {
 
     let a = self.toArray(arguments);
-    let l = true; if (typeof a[a.length - 1] === 'boolean') l = a.pop();
+    let l = (typeof a[a.length - 1] === 'boolean') ? a.pop() : true;
     let e = self.elt.apply(null, a);
-    let v = e ? e.value : null; v = v ? v.trim() : '';
-    return l === false && v.length === 0 ? null : v;
+
+    let v = e ? e.value : null; v = (typeof v === 'string') ? v.trim() : '';
+
+    return ( ! l ) && v.length === 0 ? null : v;
   };
 
   let isTrue = function(o) {
@@ -1219,7 +1221,9 @@ var H = (function() {
 
     let a = self.toArray(arguments);
     let d = null; if (typeof a[a.length - 1] === 'boolean') d = a.pop();
+
     let v = self.get.apply(null, a).toLowerCase();
+
     if (d !== null && v === '') return d;
     return isTrue(v);
   };
@@ -1231,7 +1235,9 @@ var H = (function() {
     let d = null;
     if (typeof l === 'number') d = a.pop();
     if (d !== null) a.push(false);
+
     let v = self.get.apply(null, a);
+
     if (v === null) { if (l === false) return v; if (d) return d; v = '0.0' }
     return parseFloat(v);
   };
@@ -1243,7 +1249,9 @@ var H = (function() {
     let d = null;
     if (typeof l === 'number') d = a.pop();
     if (d !== null) a.push(false);
+
     let v = self.get.apply(null, a);
+
     if (v === null) { if (l === false) return v; v = d ? '' + d : '0' }
     return parseInt(v, 10);
   };
@@ -1255,7 +1263,9 @@ var H = (function() {
     let l = a[a.length - 1];
     if (a.length > 2) { d = a[2]; }
     else if (a.length > 1 && (typeof l) !== 'string') { d = a.pop(); }
+
     let v = self.get.apply(null, a);
+
     try { return JSON.parse(v); } catch(e) { return d; }
   };
 

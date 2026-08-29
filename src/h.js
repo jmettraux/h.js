@@ -624,7 +624,7 @@ var H = (function() {
 
     sel1 = dashData(sel1);
 
-    if (self.matches(elt, sel1)) return elt;
+    if (H.matches(elt, sel1)) return elt;
 
     return elt.parentElement ? self.closest(elt.parentElement, sel1) : null;
   };
@@ -771,12 +771,12 @@ var H = (function() {
 
   this.isInvalid = function(start, sel) {
 
-    return self.matches(toElt(start, sel), ':invalid');
+    return H.matches(toElt(start, sel), ':invalid');
   };
 
   this.isValid = function(start, sel) {
 
-    return ! self.matches(toElt(start, sel), ':invalid');
+    return ! H.matches(toElt(start, sel), ':invalid');
   };
 
   let visit = function(start, sel, bof, onTrue, onFalse) {

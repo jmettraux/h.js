@@ -601,12 +601,12 @@ var H = (function() {
     return fcount;
   };
 
-  this.matches = function(start, sel, pat) {
+  this.matchSelector = function(start, sel, pat) {
 
     if ( ! pat) { pat = sel; sel = start; start = null; }
 
     let elt = toElt(start, sel);
-    if ( ! elt) throw "H.matches() couldn't locate elt pre-matching";
+    if ( ! elt) throw "H.matchSelector() couldn't locate elt pre-matching";
 
     let pat1 = dashData(pat);
 
@@ -616,6 +616,7 @@ var H = (function() {
 
     throw "H.js elt doesn't respond to .matches() or .matchesSelector()";
   };
+  this.matches = this.matchSelector;
 
   this.closest = function(start, sel, sel1) {
 
@@ -624,7 +625,7 @@ var H = (function() {
 
     sel1 = dashData(sel1);
 
-    if (H.matches(elt, sel1)) return elt;
+    if (H.matchSelector(elt, sel1)) return elt;
 
     return elt.parentElement ? self.closest(elt.parentElement, sel1) : null;
   };
@@ -771,12 +772,12 @@ var H = (function() {
 
   this.isInvalid = function(start, sel) {
 
-    return H.matches(toElt(start, sel), ':invalid');
+    return H.matchSelector(toElt(start, sel), ':invalid');
   };
 
   this.isValid = function(start, sel) {
 
-    return ! H.matches(toElt(start, sel), ':invalid');
+    return ! H.matchSelector(toElt(start, sel), ':invalid');
   };
 
   let visit = function(start, sel, bof, onTrue, onFalse) {

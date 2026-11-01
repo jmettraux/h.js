@@ -1524,7 +1524,7 @@ var H = (function() {
     return function() {
       let as = arguments;
       window.clearTimeout(t);
-      t = window.setTimeout(function() { fun.apply(this, as) }, ms);
+      t = window.setTimeout(function() { fun.apply(this, as); }, ms);
     };
   };
 

@@ -1414,9 +1414,8 @@ var H = (function() {
         if (fun(e, elt)) elt.removeChild(e);
       }
     else
-      while (elt.firstChild) {
-        elt.removeChild(elt.firstChild);
-      }
+      //while (elt.firstChild) { elt.removeChild(elt.firstChild); }
+      elt.replaceChildren();
 
     return elt;
   };

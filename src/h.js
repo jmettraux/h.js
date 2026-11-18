@@ -1357,9 +1357,12 @@ var H = (function() {
   this.postpend = function(start, sel, elt) {
 
     if ( ! elt) { elt = sel; sel = start; start = null; }
-    let e = toElt(start, sel);
 
-    e.parentNode.insertBefore(elt, e.nextSibling);
+    let e = toElt(start, sel);
+    if ( ! e) throw new Error('H.postpend() could not find target element')
+
+    //e.parentNode.insertBefore(elt, e.nextSibling);
+    e.after(elt);
 
     return elt;
   };

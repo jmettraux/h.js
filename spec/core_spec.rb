@@ -2262,6 +2262,16 @@ describe 'H' do
         /<div class="america"><\/div>\s*<div class="europe">/
       )
     end
+
+    it 'fails if parent not found  .postpend(sel, elt)' do
+
+      expect { evaluate(%{
+        H.postpend('#cars .antartica', e);
+        return H.elt('#cars').innerHTML;
+      }) }.to raise_error(
+        /H\.postpend.. could not find target element/
+      )
+    end
   end
 
   describe '.appendAsFirstChild' do

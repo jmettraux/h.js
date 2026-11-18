@@ -8,6 +8,6 @@ group :test do
 
   gem 'rspec'
 
-  gem 'ferrum', '0.11'
+  gem 'ferrum'
 end
 

@@ -1137,7 +1137,7 @@ describe 'H' do
         "H.classFrom(undefined, [ 'mazda', 'ford' ])"
       ].each do |code|
         expect { evaluate(code)
-          }.to raise_error('H.classFrom() start/sel point to nothing')
+          }.to raise_error(/H\.classFrom\(\) start\/sel point to nothing/)
       end
     end
 
@@ -1190,7 +1190,7 @@ describe 'H' do
         "H.classNot(undefined, [ 'mazda', 'ford' ])"
       ].each do |code|
         expect { evaluate(code)
-          }.to raise_error('H.classNot() start/sel point to nothing')
+          }.to raise_error(/H\.classNot\(\) start\/sel point to nothing/)
       end
     end
 
@@ -3255,7 +3255,7 @@ describe 'H' do
       expect { evaluate(%{
         return H.text('#empty', '.nada');
       }) }.to raise_error(
-        'elt not found, no text'
+        /elt not found, no text/
       )
     end
   end
@@ -3294,7 +3294,7 @@ describe 'H' do
       expect { evaluate(%{
         return H.texti('#empty', '.nada');
       }) }.to raise_error(
-        'elt not found, no text'
+        /elt not found, no text/
       )
     end
 
@@ -3330,7 +3330,7 @@ describe 'H' do
       expect { evaluate(%{
         return H.textf('#empty', '.nada');
       }) }.to raise_error(
-        'elt not found, no text'
+        /elt not found, no text/
       )
     end
 
@@ -3615,7 +3615,7 @@ describe 'H' do
       expect { evaluate(%{
         return H.textOrValue('#outthere');
       }) }.to raise_error(
-        'elt not found, no text or value'
+        /elt not found, no text or value/
       )
     end
 
@@ -3639,7 +3639,7 @@ describe 'H' do
       expect { evaluate(%{
         return H.tov('#outthere');
       }) }.to raise_error(
-        'elt not found, no text or value'
+        /elt not found, no text or value/
       )
     end
 
@@ -3675,7 +3675,7 @@ describe 'H' do
       expect { evaluate(%{
         return H.tovb('#outthere');
       }) }.to raise_error(
-        'elt not found, no text or value'
+        /elt not found, no text or value/
       )
     end
 
@@ -3715,7 +3715,7 @@ describe 'H' do
       expect { evaluate(%{
         return H.tovi('#outthere');
       }) }.to raise_error(
-        'elt not found, no text or value'
+        /elt not found, no text or value/
       )
     end
 
@@ -3751,7 +3751,7 @@ describe 'H' do
       expect { evaluate(%{
         return H.tovf('#outthere');
       }) }.to raise_error(
-        'elt not found, no text or value'
+        /elt not found, no text or value/
       )
     end
 

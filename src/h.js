@@ -345,7 +345,7 @@ var H = (function() {
       eventHandler = eventName; eventName = sel; sel = start; start = document;
     }
 
-    if (typeof eventHandler !== 'function') throw "eventHandler is missing";
+    if (typeof eventHandler !== 'function') throw 'eventHandler is missing';
 
     let ens =
       (Array.isArray(eventName) ? eventName : eventName.split(/[,\/ ]+/))
@@ -479,7 +479,7 @@ var H = (function() {
       as.cbs = headers;
     }
     else {
-      throw "not enough arguments for H.request";
+      throw 'H.request() not enough arguments';
     }
 
     if ((typeof as.cbs) === 'function') as.cbs = { onok: as.cbs };
@@ -606,7 +606,7 @@ var H = (function() {
     if ( ! pat) { pat = sel; sel = start; start = null; }
 
     let elt = toElt(start, sel);
-    if ( ! elt) throw "H.matchSelector() couldn't locate elt pre-matching";
+    if ( ! elt) throw 'H.matchSelector() could not locate elt pre-matching';
 
     let pat1 = dashData(pat);
 
@@ -614,7 +614,7 @@ var H = (function() {
     if (elt.matchesSelector) return elt.matchesSelector(pat1);
     if (elt.msMatchesSelector) return elt.msMatchesSelector(pat1);
 
-    throw "H.js elt doesn't respond to .matches() or .matchesSelector()";
+    throw 'H.matchSelector() elt does not respond to .matches() or .matchesSelector()';
   };
   this.matches = this.matchSelector;
 
@@ -896,7 +896,7 @@ var H = (function() {
       .map(function(e) {
         return (H.isS(e) && e.substr(0, 1) === '.') ? e.slice(1) : e; });
 
-    if (H.isVacuous(as)) throw "H.classFrom() start/sel point to nothing";
+    if (H.isVacuous(as)) throw 'H.classFrom() start/sel point to nothing';
 
     let e = self.elt.apply(null, as);
     let cs = e.classList || e.className.split(' ');
@@ -921,7 +921,7 @@ var H = (function() {
       .map(function(e) {
         return (H.isS(e) && e.substr(0, 1) === '.') ? e.slice(1) : e; });
 
-    if (H.isVacuous(as)) throw "H.classNot() start/sel point to nothing";
+    if (H.isVacuous(as)) throw 'H.classNot() start/sel point to nothing';
 
     let e = self.elt.apply(null, as);
     let cs = e.classList || e.className.split(' ');
@@ -959,7 +959,7 @@ var H = (function() {
       return { sta: a, sel: null, las: b };
     }
 
-    throw "called without arguments";
+    throw 'called without arguments';
   };
 
   let resol_sta_sel_las = function(args, las) {
@@ -1170,7 +1170,7 @@ var H = (function() {
 
   this.text = function(start, sel/*, default*/) {
     let as = resol_sta_sel_las(arguments);
-    if ( ! as.elt) throw "elt not found, no text";
+    if ( ! as.elt) throw 'H.text() elt not found, no text';
     let t = as.elt.textContent.trim();
     return (t === '' && as.las) ? as.las : t;
   };
@@ -1185,14 +1185,14 @@ var H = (function() {
 
   this.texti = function(start, sel/*, default*/) {
     let as = resol_sta_sel_las(arguments);
-    if ( ! as.elt) throw "elt not found, no text";
+    if ( ! as.elt) throw 'H.texti() elt not found, no text';
     let t = as.elt.textContent.trim(); if (t === '') t = '' + as.las;
     return parseInt(t, 10);
   };
 
   this.textf = function(start, sel/*, default*/) {
     let as = resol_sta_sel_las(arguments);
-    if ( ! as.elt) throw "elt not found, no text";
+    if ( ! as.elt) throw 'H.textf() elt not found, no text';
     let t = as.elt.textContent.trim(); if (t === '') t = '' + as.las;
     return parseFloat(t);
   };
@@ -1302,7 +1302,7 @@ var H = (function() {
 
   this.textOrValue = function(start, sel/*, default */) {
     let as = resol_sta_sel_las(arguments);
-    if ( ! as.elt) throw "elt not found, no text or value";
+    if ( ! as.elt) throw 'H.textOrValue() elt not found, no text or value';
     return (as.tov === '' && (typeof as.las === 'string')) ? as.las : as.tov;
   };
   this.tov = this.textOrValue;
@@ -1310,17 +1310,17 @@ var H = (function() {
   this.tovb = function(start, sel/*, default */) {
     let as = resol_sta_sel_las(arguments);
     if (as.elt) return isTrue(as.tov || '' + as.las);
-    throw "elt not found, no text or value";
+    throw 'H.tovb() elt not found, no text or value';
   };
   this.tovi = function(start, sel/*, default */) {
     let as = resol_sta_sel_las(arguments);
     if (as.elt) return parseInt(as.tov || '' + as.las, 10);
-    throw "elt not found, no text or value";
+    throw 'H.tovi() elt not found, no text or value';
   };
   this.tovf = function(start, sel/*, default */) {
     let as = resol_sta_sel_las(arguments);
     if (as.elt) return parseFloat(as.tov || '' + as.las);
-    throw "elt not found, no text or value";
+    throw 'H.tovf() elt not found, no text or value';
   };
 
   this.capitalize = function(s) {
@@ -1359,7 +1359,7 @@ var H = (function() {
     if ( ! elt) { elt = sel; sel = start; start = null; }
 
     let e = toElt(start, sel);
-    if ( ! e) throw new Error('H.postpend() could not find target element')
+    if ( ! e) throw 'H.postpend() could not find target element';
 
     //e.parentNode.insertBefore(elt, e.nextSibling);
     e.after(elt);
@@ -1410,7 +1410,7 @@ var H = (function() {
     let elt = toElt(start, sel);
     let fun = (typeof(a9) === 'function') ? a9 : null;
 
-    if ( ! elt) throw new Error("Couldn't find H.clean() start elt");
+    if ( ! elt) throw 'H.clean() could not target elt';
 
     if (fun)
       for (let e of Array.from(elt.children)) {
@@ -1632,7 +1632,7 @@ var H = (function() {
         function(kv, i) { return fun(kv[0], kv[1], i); });
     }
 
-    throw new Error('Cannot iterate over >' + JSON.dump(array_or_hash) + '<');
+    throw 'Cannot iterate over >' + JSON.dump(array_or_hash) + '<';
   };
 
   // Warning: this is not equivalent to H.forEach(sta, sel, fun)
@@ -1663,7 +1663,7 @@ var H = (function() {
       return h;
     }
 
-    throw new Error('Cannot iterate over >' + JSON.dump(array_or_hash) + '<');
+    throw 'Cannot iterate over >' + JSON.dump(array_or_hash) + '<';
   };
 
   this.select = function(array_or_hash, fun, thisArg) {
@@ -1683,7 +1683,7 @@ var H = (function() {
       return acc;
     }
 
-    throw new Error('Cannot iterate over >' + JSON.dump(array_or_hash) + '<');
+    throw 'Cannot iterate over >' + JSON.dump(array_or_hash) + '<';
   };
 
   this.filterByType = function() {

@@ -516,10 +516,9 @@ var H = (function() {
 
     r.onload = function() {
       let o = {
-        method: method,
-        uri: uri,
-        status: r.status,
+        req: { method: method, uri: uri, data: data },
         request: r,
+        status: r.status,
         duration: (performance.now() - t0) / 1000, // seconds
         headers: splitResponseHeaders(r) };
       o.data = null; try {

@@ -516,6 +516,8 @@ var H = (function() {
 
     r.onload = function() {
       let o = {
+        method: method,
+        uri: uri,
         status: r.status,
         request: r,
         duration: (performance.now() - t0) / 1000, // seconds
